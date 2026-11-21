@@ -781,7 +781,7 @@ function renderMockSpeak(el){
       <div class="stem">${q.q}</div>
       <div class="mock-ref"><b>参考回答：</b>${q.ref}<br><b>关键词（评分依据）：</b>${q.keywords.join('、')}</div>
       <textarea id="mockAns" class="uq-fill" rows="3" placeholder="输入你的回答，系统将按关键词匹配评分"></textarea>
-      <div class="turn-bar"><button class="rec-btn" id="recBtn"><span class="dot"></span><span id="recTxt">录音</span></button>${mock.recUrl?'<audio controls style="height:32px"></audio>':''}</div>
+      <div class="turn-bar"><button class="rec-btn" id="recBtn"><span class="dot"></span><span id="recTxt">录音</span></button>${mock.recUrl?'<audio controls style="height:32px" src="'+mock.recUrl+'"></audio>':''}</div>
       <div class="feedback" id="fb"></div>
     </div>
     <div class="pod-actions"><button class="btn" id="btnScore" disabled>评分</button>
@@ -1100,7 +1100,7 @@ function renderPod(){
         <span class="turn-count">第 ${pod.lineIdx+1} / ${turns.length} 句</span>
         <div style="display:flex;gap:10px">
           <button class="rec-btn" id="recBtn"><span class="dot"></span><span id="recTxt">录音跟读</span></button>
-          ${pod.audioEl?'<audio controls style="height:32px"></audio>':''}
+          ${pod.recUrl?'<audio controls style="height:32px" src="'+pod.recUrl+'"></audio>':''}
         </div>
       </div>
       <div class="pod-actions">
