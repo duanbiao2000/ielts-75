@@ -33,6 +33,43 @@ function logLearning(action,id,detail){
     if(arr.length>500) arr.splice(0,arr.length-500);
     localStorage.setItem(LR_KEY, JSON.stringify(arr));
   }catch(e){}
+  updateStreak();
+}
+/* ============ 等级与经验（T-4.2） ============ */
+const LEVEL_TITLES=['备考新兵','勤奋学徒','进阶学者','语感猎手','表达工匠','考场强者','七分猎人','全能型选手','准七半','七分半大师'];
+// 每级所需累计 XP（对应 Lv2..Lv10）
+const LEVEL_XP=[100,250,450,700,1000,1400,1900,2500,3200];
+function levelInfo(xp){
+  let lv=1;
+  for(let i=0;i<LEVEL_XP.length;i++){ if(xp>=LEVEL_XP[i]) lv=i+2; }
+  const cur=lv<=1?0:LEVEL_XP[lv-2];
+  const next=lv>=10?LEVEL_XP[LEVEL_XP.length-1]:LEVEL_XP[lv-1];
+  return {lv, cur, next, pct: lv>=10 ? 100 : Math.round((xp-cur)/(next-cur)*100)};
+}
+function awardXP(n, reason){
+  if(!n||n<=0) return;
+  const before=levelInfo(done.experience||0).lv;
+  done.experience=(done.experience||0)+n;
+  const info=levelInfo(done.experience);
+  if(info.lv>before){
+    done.level=info.lv;
+    logLearning('level-up','lv'+info.lv,'Lv.'+info.lv+' · '+LEVEL_TITLES[info.lv-1]);
+    toast('🎉 升级！Lv.'+info.lv+' · '+LEVEL_TITLES[info.lv-1]);
+  } else if(reason){
+    toast('＋'+n+' XP（'+reason+'）');
+  }
+  save();
+  renderHeader();
+}
+function updateStreak(){ /* T-4.3 实现：连续训练天数 */ }
+function renderHeader(){
+  const info=levelInfo(done.experience||0);
+  if((done.level||1)!==info.lv){ done.level=info.lv; }
+  const t=$('#lvChip'); if(t) t.textContent='Lv.'+info.lv+' '+LEVEL_TITLES[info.lv-1];
+  const f=$('#xpFill'); if(f) f.style.width=info.pct+'%';
+  const x=$('#xpText'); if(x) x.textContent=(done.experience||0)+' / '+info.next+' XP';
+  const s=$('#streakChip'); if(s) s.textContent='🔥 '+(done.streak||0)+' 天连续';
+  document.body.dataset.level=info.lv;
 }
 function mark(type,id){ if(!done[type]){ done[type]=[]; } if(!done[type].includes(id)){ done[type].push(id); save(); toast('✅ 已解锁：'+id); } renderAll(); }
 
@@ -57,6 +94,7 @@ function checkLessonDone(id){
     if(!done.lesson) done.lesson=[];
     done.lesson.push(id); save();
     logLearning('lesson-complete', id);
+    awardXP(50,'课程完成');
     toast('🎉 第 '+(lessonIndex(id)+1)+' 课完成，下一课已解锁！');
   }
   renderAll();
@@ -158,7 +196,7 @@ function renderProgress(){
   $('#ringFg').setAttribute('stroke-dashoffset', C*(1-pct/100));
   $('#ringPct').textContent = pct+'%';
 }
-function renderAll(){ renderLessons(); renderScen($('#scenTabs').dataset.cur||'职场'); renderMods(); renderBadges(); renderProgress(); renderReview(); }
+function renderAll(){ renderLessons(); renderScen($('#scenTabs').dataset.cur||'职场'); renderMods(); renderBadges(); renderProgress(); renderReview(); renderHeader(); }
 
 /* ============ 弹窗 ============ */
 function openModal(html){ $('#modalBox').innerHTML = html; $('#modal-mask').classList.add('show'); }
@@ -237,6 +275,7 @@ function syncModuleDone(modId){
   if(all && !done.mod.includes(modId)){
     done.mod.push(modId); save();
     logLearning('module-complete', modId);
+    awardXP(40,'模块完成');
     toast('🎉 模块完成：'+MODULES.find(x=>x.id===modId).title);
   } else if(!all && done.mod.includes(modId)){
     done.mod=done.mod.filter(x=>x!==modId); save();
@@ -247,7 +286,7 @@ function toggleModTask(modId, taskId, forceOn){
   const i=done.modTasks.indexOf(taskId);
   if(forceOn===true){ if(i===-1){ done.modTasks.push(taskId); save(); logLearning('module-task', taskId, '场景演练完成'); } }
   else if(i>-1){ done.modTasks.splice(i,1); save(); }
-  else { done.modTasks.push(taskId); save(); logLearning('module-task', taskId); }
+  else { done.modTasks.push(taskId); save(); logLearning('module-task', taskId); awardXP(5,'模块任务'); }
   syncModuleDone(modId);
   openModRefresh();
   renderAll();
@@ -259,6 +298,7 @@ function checkinMod(modId){
   if(!done.modCheckins) done.modCheckins=[];
   done.modCheckins.push(key); save();
   logLearning('module-checkin', modId);
+  awardXP(10,'每日打卡');
   toast('✅ 打卡成功！继续保持。');
   openModRefresh();
 }
@@ -368,7 +408,7 @@ function uqNext(){
     const key=uq.kind+':'+uq.id;
     if(!done.quiz.includes(key)){ done.quiz.push(key); save(); }
     const pass=uq.score>=Math.ceil(list.length*0.6);
-    if(pass){ if(!done.quizPass) done.quizPass=[]; if(!done.quizPass.includes(key)){ done.quizPass.push(key); save(); } logLearning('quiz-pass',key); }
+    if(pass){ if(!done.quizPass) done.quizPass=[]; const fresh=!done.quizPass.includes(key); if(fresh){ done.quizPass.push(key); save(); } logLearning('quiz-pass',key); if(fresh) awardXP(20,'单元测验通过'); }
     else { addError({type:'quiz', id:key, detail:'单元测验未通过（'+uq.score+'/'+list.length+'）'}); }
     if(uq.kind==='lesson') checkLessonDone(uq.id);
     openModal(renderUqHtml()); return;
@@ -449,6 +489,7 @@ function lpxNext(){
   if(lpx.idx>=list.length){
     if(!done.lessonEx.includes(lpx.id)){ done.lessonEx.push(lpx.id); save(); }
     logLearning('lesson-practice', lpx.id, lpx.score+'/'+list.length);
+    awardXP(15,'课内练习');
     checkLessonDone(lpx.id);
     openModal(renderLpxHtml()); return;
   }
@@ -588,6 +629,7 @@ function renderMockDone(el){
   if(!done.mock){ done.mock=true; }
   if((done.mockBest||0) < total) done.mockBest = total;
   save();
+  awardXP(80,'模考完成');
   renderAll();
 }
 async function mockToggleRec(){
@@ -936,6 +978,7 @@ function fbDone(){
   if(!done.practice) done.practice=[];
   if(!done.practice.includes(pod.name)){ done.practice.push(pod.name); save(); }
   recordPractice(pod.name, pod.ratings);
+  awardXP(30,'场景演练');
   logLearning('scenario-practice', pod.name, pod.fromLesson?('lesson:'+pod.fromLesson):(pod.fromModuleTask?('moduleTask:'+pod.fromModuleTask):'free'));
   // 模块任务双向同步：演练完成自动勾选对应模块任务
   if(pod.fromModuleTask) toggleModTask(taskModuleOf(pod.fromModuleTask), pod.fromModuleTask, true);
@@ -1024,6 +1067,7 @@ function renderReview(){
   }
 }
 function doReview(name){
+  awardXP(10,'间隔复习');
   const r=(done.review||[]).find(x=>x.name===name);
   if(r){ r.stage=(r.stage||0)+1; r.practicedAt=Date.now(); save(); }
   else { recordPractice(name); }
