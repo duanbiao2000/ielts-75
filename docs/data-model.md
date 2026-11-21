@@ -59,20 +59,25 @@
 - `p`：优先级，取值 `P0` / `P1` / `P2`。
 - `files`：模块包含文件，用 ` / ` 分隔。
 
-## 5. 徽章 BADGES
+## 5. 徽章 BADGES（批次4 重构）
 
 ```json
 {
-  "id": "b1",
+  "id": "b14",
   "em": "🎯",
   "name": "迈出第一步",
-  "desc": "解锁条件说明"
+  "cat": "测评",
+  "desc": "完成四科入学诊断",
+  "cond": { "t": "arr", "f": "diag", "min": 1 }
 }
 ```
 
-- `id`：唯一，前缀 `b`。
-- `em`：徽章图标（emoji 或后续 SVG）。
-- 解锁条件在 `app.js` 的 `renderBadges()` 中以代码定义，后续可迁移到数据。
+- `id`：唯一，`b01`–`b25`，覆盖课程/场景/模块/测评/复习/坚持/进阶七个维度。
+- `cat`：徽章分类，用于成就殿堂展示。
+- `cond`：解锁条件 DSL，支持 `arr / scenDomain / modP / checkinDays / refresh / mock /
+  mockBest / streak / level / all`（各类型字段见 `validate-data.js` 与 `app.js` `badgeCond()`）。
+- 解锁由 `app.js` `checkBadges()` → `badgeCond()` 在每次渲染时自动判定，
+  达成即写入 `done.badges`、弹出提示、记入 `learning-records`。
 
 ## 6. 场景演练 PRACTICE
 
@@ -137,9 +142,15 @@
   "review": [{ "name": "场景名", "weak": true, "practicedAt": 0, "stage": 0 }],
   "errors": [{ "type": "quiz|mock", "id": "...", "detail": "...", "ts": 0 }],
   "mock": true,
-  "experience": 0,
-  "streak": 0,
-  "level": 1
+  "mockBest": 16,
+  "badges": ["b01"],
+  "experience": 120,
+  "streak": 3,
+  "bestStreak": 5,
+  "streakFreeze": 1,
+  "lastStreakDate": "2026-11-20",
+  "level": 2,
+  "journey": ["ch1"]
 }
 ```
 
@@ -152,8 +163,25 @@
 - `review`：间隔复习记录，`stage` 对应间隔天数索引（1/3/7 天），`weak` 标记薄弱场景。
 - `errors`：错题本，单元测验未通过、模考答错/低分自动记录（按 `type+id` 去重）。
 - `mock`：是否完成过模考冲刺。
-- `experience / streak / level` 为游戏化系统预留字段（批次 4 使用）。
+- `experience / streak / level` 为游戏化系统字段（批次 4 启用）。
+- `mockBest`（批次4）：模考最佳得分；`badges` 存已解锁徽章 id 列表（由 `checkBadges()` 计算）。
+- `bestStreak / lastStreakDate / streakFreeze`（批次4）：连续训练天数、上次打卡日期、断签补偿券数量。
+- `journey`（批次4）：已达成的旅程章节 id 列表（ch1–ch6）。
 - 读取时经 `migrateState()` 补齐缺失字段，保证向前兼容。
+
+### 游戏化系统（批次 4）
+
+- **徽章**（`data.js` `BADGES`）：每枚 `{id, em, name, cat, desc, cond}`，`cond` 为条件 DSL
+  （`arr/scenDomain/modP/checkinDays/refresh/mock/mockBest/streak/level/all`），
+  由 `app.js` `badgeCond()` 解释；`checkBadges()` 在每次 `renderAll()` 时自动解锁并提示。
+- **等级经验**（`app.js`）：`LEVEL_XP` 累计阈值、`LEVEL_TITLES` 10 级称号；
+  `awardXP(n, reason)` 累加经验、判定升级并触发反馈；`renderHeader()` 同步
+  header 的等级称号、经验条、连续天数与 `body[data-level]` 外观。
+- **连续打卡**（`app.js`）：`logLearning()` 任何学习行为触发 `updateStreak()`；
+  同日不重复计数，昨日连续则 +1；断签恰好 1 天且有补偿券 → 消耗 1 张补偿券连续保留；
+  每满 7 天连续奖励 1 张补偿券；`learning-records` 记录 streak-freeze / streak-reward。
+- **旅程**（`app.js` `JOURNEY`）：6 章「从 6.0 到 7.5 的旅程」，前置章节达成后依次解锁，
+  里程碑触发剧情弹窗与 XP 奖励（ch6 终章：P0/P1 全模块完成且模考最佳 ≥16/20）。
 
 ## 8. 训练闭环数据（`onboarding/js/training.js`，批次 3）
 
