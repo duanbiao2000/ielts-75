@@ -403,7 +403,7 @@ const QUIZ_MODS = {
     },
     {
       "type": "fill",
-      "stem": "发音自检应回到 ___，用录音回放对照目标音，而非凭感觉。",
+      "stem": "发音自检应回到 ___，用客观回放对照目标音，而非凭感觉。",
       "answer": "录音",
       "explain": "录音回放是发音自检最可靠的方式，用客观反馈纠正主观误判。"
     }
@@ -543,7 +543,7 @@ const QUIZ_MODS = {
     },
     {
       "type": "fill",
-      "stem": "应对抽象议题，先分类，再调用对应的 ___ 句，展开论证。",
+      "stem": "应对抽象议题，先分类，再调用对应的 ___ 句，把观点说透。",
       "answer": "论证",
       "explain": "先给抽象议题分类，再调用对应论证句展开，避免临场无话可说。"
     }
@@ -649,7 +649,7 @@ const MOCK_EXAM = {
     {
       "part": "Part 1",
       "q": "Do you work or are you a student?",
-      "ref": "I'm currently working. I work in marketing, which keeps me busy but also lets me talk to different people every day.",
+      "ref": "I'm currently working, though I was a full-time student until last summer. I work in marketing, which keeps me busy but also lets me talk to different people every day.",
       "keywords": [
         "work",
         "student",
@@ -702,7 +702,7 @@ const MOCK_EXAM = {
     {
       "part": "Part 3",
       "q": "What are the advantages and disadvantages of modern travel?",
-      "ref": "A main advantage is convenience — there are many ways to travel now. A drawback is that popular places can get crowded, and fast travel can sometimes make the experience feel less genuine or thoughtful.",
+      "ref": "A main advantage is convenience — there are many ways to travel now. A disadvantage is that popular places can get crowded, and fast travel can sometimes make the experience feel less genuine or thoughtful.",
       "keywords": [
         "advantage",
         "disadvantage",
