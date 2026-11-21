@@ -10,7 +10,7 @@ function loadState(){
 function migrateState(s){
   s = s || {};
   // 数组字段补齐
-  ['lesson','scen','mod','practice','diag','badges'].forEach(k=>{ if(!Array.isArray(s[k])) s[k]=[]; });
+  ['lesson','scen','mod','practice','diag','badges','quiz','review','errors'].forEach(k=>{ if(!Array.isArray(s[k])) s[k]=[]; });
   // 游戏化系统预留字段（批次 4 使用）
   if(typeof s.experience!=='number') s.experience=0;
   if(typeof s.streak!=='number') s.streak=0;
@@ -110,7 +110,10 @@ function openLesson(l){
     <p style="color:var(--cyan)">📖 完整课程内容（含练习与作业）在：</p>
     <div class="file">ielts-75/${l.path}</div>
     <p style="margin-top:14px">打开该文件即可学习。学完后回到本门户点击卡片，进度会自动点亮。</p>
-    <div style="margin-top:16px"><button class="btn done small" onclick="closeModal()">知道了，继续闯关</button></div>`);
+    <div style="margin-top:16px;display:flex;gap:10px;flex-wrap:wrap">
+      <button class="btn small" onclick="closeModal();openUnitQuiz('lesson','${l.id}')">✍️ 单元测验</button>
+      <button class="btn done small" onclick="closeModal()">知道了，继续闯关</button>
+    </div>`);
 }
 function openScen(s){
   openModal(`<button class="close" onclick="closeModal()">×</button>
@@ -132,8 +135,96 @@ function openMod(m){
     <p><b style="color:var(--txt)">包含文件：</b></p>
     <ul>${m.files.split(' / ').map(f=>`<li>${f}</li>`).join('')}</ul>
     <div class="file">ielts-75/${m.path}</div>
-    <div style="margin-top:16px"><button class="btn done small" onclick="closeModal()">进入模块</button></div>`);
+    <div style="margin-top:16px;display:flex;gap:10px;flex-wrap:wrap">
+      <button class="btn small" onclick="closeModal();openUnitQuiz('mod','${m.id}')">✍️ 单元测验</button>
+      <button class="btn done small" onclick="closeModal()">进入模块</button>
+    </div>`);
 }
+
+/* ============ 单元测验（批次3 T-3.2） ============ */
+let uq={kind:'lesson', id:null, qIdx:0, score:0, picked:false};
+function uqData(){ return uq.kind==='lesson'?QUIZ_LESSONS[uq.id]:QUIZ_MODS[uq.id]; }
+function uqTitle(){
+  if(uq.kind==='lesson'){ const l=LESSONS.find(x=>x.id===uq.id); return l?l.title:uq.id; }
+  const m=MODULES.find(x=>x.id===uq.id); return m?m.title:uq.id;
+}
+function openUnitQuiz(kind,id){ uq={kind,id,qIdx:0,score:0,picked:false}; openModal(renderUqHtml()); bindUq(); }
+function renderUqHtml(){
+  const list=uqData();
+  if(!list) return '<button class="close" onclick="closeModal()">×</button><p>测验数据缺失</p>';
+  if(uq.qIdx>=list.length) return uqResultHtml();
+  const q=list[uq.qIdx];
+  const optsHtml = q.type==='choice'
+    ? q.opts.map((o,i)=>`<button class="opt" data-i="${i}">${o}</button>`).join('')
+    : `<input id="uqFill" class="uq-fill" placeholder="请输入答案后点下一题" autocomplete="off">`;
+  return `<button class="close" onclick="closeModal()">×</button>
+    <h2>✍️ 单元测验 · ${uqTitle()}</h2>
+    <div class="quiz-q">
+      <div class="stem">第 ${uq.qIdx+1} 题 / 共 ${list.length} 题<br><br>${q.stem}</div>
+      ${optsHtml}
+      <div class="feedback" id="fb"></div>
+    </div>
+    <div style="margin-top:14px;display:flex;gap:12px">
+      <button class="btn ghost small" id="uqNext" ${q.type==='choice'?'disabled':''}>${uq.qIdx<list.length-1?'下一题 →':'查看成绩'}</button>
+      <button class="btn ghost small" onclick="closeModal()">关闭</button>
+    </div>`;
+}
+function bindUq(){
+  const list=uqData(); if(!list||uq.qIdx>=list.length) return;
+  const q=list[uq.qIdx];
+  if(q.type==='choice'){
+    $('#modalBox').querySelectorAll('.opt').forEach(b=>b.onclick=()=>uqPick(b.dataset.i,q));
+  }
+  const nb=$('#uqNext'); if(nb) nb.onclick=uqNext;
+}
+function uqPick(i,q){
+  if(uq.picked) return; uq.picked=true;
+  let correct=false;
+  if(q.type==='choice'){
+    if(i===q.right){ correct=true; uq.score++; }
+    $('#modalBox').querySelectorAll('.opt').forEach((o,k)=>o.classList.toggle('right',k===q.right));
+    if(i!==q.right){ const all=$('#modalBox').querySelectorAll('.opt'); if(all[i]) all[i].classList.add('wrong'); }
+  } else {
+    const val=($('#uqFill').value||'').trim();
+    if(val && val.includes(q.answer)){ correct=true; uq.score++; }
+  }
+  const fb=$('#fb');
+  fb.textContent=(correct?'✅ 回答正确。':(q.type==='choice'?'❌ 正确答案：'+q.opts[q.right]:'❌ 参考答案：'+q.answer))+' 💡 '+q.explain;
+  fb.classList.add('show');
+  const nb=$('#uqNext'); if(nb) nb.disabled=false;
+}
+function uqNext(){
+  const list=uqData();
+  if(!list) return;
+  const q=list[uq.qIdx];
+  if(q.type==='fill' && !uq.picked){ uqPick(null,q); }
+  uq.qIdx++;
+  if(uq.qIdx>=list.length){
+    if(!done.quiz) done.quiz=[];
+    const key=uq.kind+':'+uq.id;
+    if(!done.quiz.includes(key)){ done.quiz.push(key); save(); }
+    openModal(renderUqHtml()); return;
+  }
+  uq.picked=false;
+  openModal(renderUqHtml()); bindUq();
+}
+function uqResultHtml(){
+  const list=uqData();
+  const pct=Math.round(uq.score/list.length*100);
+  const pass=uq.score>=Math.ceil(list.length*0.6);
+  return `<button class="close" onclick="closeModal()">×</button>
+    <div class="profile-card">
+      <h3>📊 单元测验成绩</h3>
+      <div class="result-line">答对 ${uq.score} / ${list.length} 题（${pct}%）</div>
+      <div class="result-line" style="color:${pass?'var(--green)':'var(--amber)'}">${pass?'✅ 通过，掌握良好':'🔧 建议回看对应课程/模块后重测'}</div>
+    </div>
+    <div style="margin-top:14px;display:flex;gap:12px">
+      <button class="btn" onclick="closeModal()">完成</button>
+      <button class="btn ghost" onclick="uqRetry()">再测一次 🔁</button>
+    </div>`;
+}
+function uqRetry(){ uq.qIdx=0; uq.score=0; uq.picked=false; openModal(renderUqHtml()); bindUq(); }
+
 $('#btnGuide').onclick=()=>openModal(`<button class="close" onclick="closeModal()">×</button>
   <h2>📘 项目全景与使用顺序</h2>
   <p>整个项目是一条闭环，入口与顺序如下：</p>
