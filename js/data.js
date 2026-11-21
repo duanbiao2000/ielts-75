@@ -98,17 +98,50 @@ const MODULES = [
    blurb:'7 大题型陷阱、时间分配与预测技巧。', files:'01-题型特点与常见陷阱 / 02-时间分配与预测技巧'},
 ];
 
+/* ============ 徽章（条件 cond 由 app.js badgeCond 解释，多维度可配置） ============
+   cond.t 支持：
+   arr{ f, min }            —— done[f] 数组长度 ≥ min（lesson/scen/mod/practice/diag/quizPass/modTasks/review）
+   scenDomain{ d, min }     —— 打卡某领域场景数 ≥ min
+   modP{ p, min }           —— 完成某优先级模块数 ≥ min
+   checkinDays{ min }       —— 累计打卡去重天数 ≥ min
+   refresh{ min }           —— 完成间隔复习（stage≥1）次数 ≥ min
+   mock                     —— 完成过模考
+   mockBest{ min }          —— 模考最佳得分 ≥ min
+   streak{ min } / level{ min } —— 连续天数 / 等级 ≥ min
+   all{ of:[[f,min],…] }    —— 多数组同时达标 */
 const BADGES = [
-  {id:'b1', em:'🎯', name:'迈出第一步', desc:'完成新手诊断任务'},
-  {id:'b2', em:'🚶', name:'课程入门', desc:'浏览 3 个课程关卡'},
-  {id:'b3', em:'🧗', name:'课程通览', desc:'浏览全部 11 个课程关卡'},
-  {id:'b4', em:'🗺️', name:'场景探险家', desc:'打开 10 个场景卡片'},
-  {id:'b5', em:'🏙️', name:'场景收藏家', desc:'打开全部 30 个场景卡片'},
-  {id:'b6', em:'🏭', name:'职场达人', desc:'打开全部 10 个职场场景'},
-  {id:'b7', em:'🛠️', name:'模块先锋', desc:'浏览全部 12 个模块'},
-  {id:'b8', em:'🛡️', name:'P0 守卫者', desc:'浏览全部 P0 优先级模块'},
-  {id:'b9', em:'🏆', name:'全域解锁', desc:'课程、场景、模块全部浏览'},
-  {id:'b10', em:'🎮', name:'演练达人', desc:'完成 5 个场景的演练舱任务'},
+  // 课程
+  {id:'b01', em:'🚩', name:'课程启程', cat:'课程', desc:'完成第 1 个课程关卡', cond:{t:'arr', f:'lesson', min:1}},
+  {id:'b02', em:'🚶', name:'课程入门', cat:'课程', desc:'完成 3 个课程关卡', cond:{t:'arr', f:'lesson', min:3}},
+  {id:'b03', em:'⛰️', name:'半程勇士', cat:'课程', desc:'完成 6 个课程关卡', cond:{t:'arr', f:'lesson', min:6}},
+  {id:'b04', em:'🧗', name:'课程通览', cat:'课程', desc:'完成全部 11 个课程关卡', cond:{t:'arr', f:'lesson', min:11}},
+  // 场景
+  {id:'b05', em:'🎮', name:'演练起步', cat:'场景', desc:'完成 5 个场景演练', cond:{t:'arr', f:'practice', min:5}},
+  {id:'b06', em:'🏙️', name:'演练达人', cat:'场景', desc:'完成 10 个场景演练', cond:{t:'arr', f:'practice', min:10}},
+  {id:'b07', em:'👑', name:'全场景制霸', cat:'场景', desc:'完成全部 30 个场景演练', cond:{t:'arr', f:'practice', min:30}},
+  {id:'b08', em:'🗺️', name:'场景收藏家', cat:'场景', desc:'打开全部 30 个场景卡片', cond:{t:'arr', f:'scen', min:30}},
+  {id:'b09', em:'🏭', name:'职场达人', cat:'场景', desc:'打开全部 10 个职场场景', cond:{t:'scenDomain', d:'职场', min:10}},
+  // 模块
+  {id:'b10', em:'🛠️', name:'模块先锋', cat:'模块', desc:'完成全部 12 个模块', cond:{t:'arr', f:'mod', min:12}},
+  {id:'b11', em:'🛡️', name:'P0 守卫者', cat:'模块', desc:'完成全部 5 个 P0 模块', cond:{t:'modP', p:'P0', min:5}},
+  {id:'b12', em:'✅', name:'任务完成者', cat:'模块', desc:'累计勾选 20 个模块任务', cond:{t:'arr', f:'modTasks', min:20}},
+  {id:'b13', em:'📅', name:'打卡达人', cat:'坚持', desc:'累计打卡 7 天', cond:{t:'checkinDays', min:7}},
+  // 测评与模考
+  {id:'b14', em:'🎯', name:'迈出第一步', cat:'测评', desc:'完成四科入学诊断', cond:{t:'arr', f:'diag', min:1}},
+  {id:'b15', em:'✍️', name:'测验新星', cat:'测评', desc:'通过 5 次单元测验', cond:{t:'arr', f:'quizPass', min:5}},
+  {id:'b16', em:'🎓', name:'全科通关', cat:'测评', desc:'通过全部 23 次单元测验', cond:{t:'arr', f:'quizPass', min:23}},
+  {id:'b17', em:'⏱️', name:'模考挑战者', cat:'测评', desc:'完成一次模考', cond:{t:'mock'}},
+  {id:'b18', em:'🥇', name:'模考高分', cat:'测评', desc:'模考最佳得分 ≥ 16 / 20', cond:{t:'mockBest', min:16}},
+  // 复习
+  {id:'b19', em:'🔁', name:'温故知新', cat:'复习', desc:'完成 5 次间隔复习', cond:{t:'refresh', min:5}},
+  // 坚持
+  {id:'b20', em:'🔥', name:'三日之约', cat:'坚持', desc:'连续训练 3 天', cond:{t:'streak', min:3}},
+  {id:'b21', em:'⚡', name:'一周不间断', cat:'坚持', desc:'连续训练 7 天', cond:{t:'streak', min:7}},
+  {id:'b22', em:'🌟', name:'半月炉火', cat:'坚持', desc:'连续训练 14 天', cond:{t:'streak', min:14}},
+  // 进阶
+  {id:'b23', em:'🏆', name:'全域解锁', cat:'进阶', desc:'课程、场景、模块全部完成', cond:{t:'all', of:[['lesson',11],['scen',30],['mod',12]]}},
+  {id:'b24', em:'📈', name:'进阶学者', cat:'进阶', desc:'达到 Lv.3', cond:{t:'level', min:3}},
+  {id:'b25', em:'🎖️', name:'考场强者', cat:'进阶', desc:'达到 Lv.5', cond:{t:'level', min:5}},
 ];
 
 /* ============ 场景演练数据（30 场景 × 对话回合 + 自检项） ============ */

@@ -15,6 +15,12 @@ function migrateState(s){
   if(typeof s.experience!=='number') s.experience=0;
   if(typeof s.streak!=='number') s.streak=0;
   if(typeof s.level!=='number') s.level=1;
+  if(typeof s.mockBest!=='number') s.mockBest=0;
+  if(!Array.isArray(s.badges)) s.badges=[];
+  if(typeof s.bestStreak!=='number') s.bestStreak=0;
+  if(typeof s.streakFreeze!=='number') s.streakFreeze=1; // 新人赠送 1 张断签补偿券
+  if(typeof s.lastStreakDate!=='string') s.lastStreakDate='';
+  if(!Array.isArray(s.journey)) s.journey=[];
   return s;
 }
 function save(){ try{ localStorage.setItem(STORE_KEY, JSON.stringify(done)); }catch(e){} }
@@ -105,25 +111,44 @@ function renderMods(){
     el.onclick=()=>{ const m=MODULES.find(x=>x.id===el.dataset.m); openMod(m); };
   });
 }
+/* ============ 徽章条件解释器（T-4.1） ============ */
+function badgeCond(c){
+  try{
+    switch(c.t){
+      case 'arr': return (done[c.f]||[]).length>=c.min;
+      case 'scenDomain': return (done.scen||[]).filter(n=>{const s=SCENARIOS.find(x=>x.name===n);return s&&s.d===c.d;}).length>=c.min;
+      case 'modP': return (done.mod||[]).filter(id=>{const m=MODULES.find(x=>x.id===id);return m&&m.p===c.p;}).length>=c.min;
+      case 'checkinDays': return new Set((done.modCheckins||[]).map(x=>String(x).split(':')[1])).size>=c.min;
+      case 'refresh': return (done.review||[]).filter(r=>(r.stage||0)>=1).length>=c.min;
+      case 'mock': return !!done.mock;
+      case 'mockBest': return (done.mockBest||0)>=c.min;
+      case 'streak': return (done.streak||0)>=c.min;
+      case 'level': return (done.level||1)>=c.min;
+      case 'all': return (c.of||[]).every(([f,min])=>((done[f]||[]).length)>=min);
+    }
+  }catch(e){}
+  return false;
+}
+function checkBadges(){
+  if(!done.badges) done.badges=[];
+  BADGES.forEach(b=>{
+    if(done.badges.includes(b.id)) return;
+    if(badgeCond(b.cond)){
+      done.badges.push(b.id); save();
+      logLearning('badge-unlock', b.id, b.name);
+      toast('🏆 解锁徽章：'+b.name);
+    }
+  });
+}
 function renderBadges(){
-  const unlocked = {
-    b1: done.diag&&done.diag.length>0,
-    b2: (done.lesson||[]).length>=3,
-    b3: (done.lesson||[]).length>=11,
-    b4: (done.scen||[]).length>=10,
-    b5: (done.scen||[]).length>=30,
-    b6: (done.scen||[]).filter(n=>{const s=SCENARIOS.find(x=>x.name===n);return s&&s.d==='职场';}).length>=10,
-    b7: (done.mod||[]).length>=12,
-    b8: (done.mod||[]).filter(id=>{const m=MODULES.find(x=>x.id===id);return m&&m.p==='P0';}).length>=5,
-    b9: (done.lesson||[]).length>=11 && (done.scen||[]).length>=30 && (done.mod||[]).length>=12,
-    b10: (done.practice||[]).length>=5,
-  };
-  const count = Object.values(unlocked).filter(Boolean).length;
-  $('#badgeCount').textContent = count;
-  $('#badgeGrid').innerHTML = BADGES.map(b=>`
-    <div class="badge ${unlocked[b.id]?'on':''}">
-      <div class="em">${unlocked[b.id]?b.em:'🔒'}</div>
-      <h3>${b.name}</h3><p>${b.desc}</p></div>`).join('');
+  checkBadges();
+  $('#badgeCount').textContent = done.badges.length;
+  $('#badgeGrid').innerHTML = BADGES.map(b=>{
+    const on = done.badges.includes(b.id);
+    return `<div class="badge ${on?'on':''}">
+      <div class="em">${on?b.em:'🔒'}</div>
+      <h3>${b.name}</h3><p>${b.desc}</p><div class="bcat">${b.cat}</div></div>`;
+  }).join('');
 }
 function renderProgress(){
   const total = LESSONS.length + SCENARIOS.length + MODULES.length + 1;
@@ -560,7 +585,9 @@ function renderMockDone(el){
     </div>
     <div class="pod-actions"><button class="btn" onclick="closeMock()">返回</button>
       <button class="btn ghost" onclick="openMock()">再考一次 🔁</button></div>`;
-  if(!done.mock){ done.mock=true; save(); }
+  if(!done.mock){ done.mock=true; }
+  if((done.mockBest||0) < total) done.mockBest = total;
+  save();
   renderAll();
 }
 async function mockToggleRec(){

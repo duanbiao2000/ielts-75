@@ -249,3 +249,6 @@
 .chip-btn{background:#0f172a;border:1px solid var(--line);color:var(--cyan);border-radius:999px;
   padding:4px 12px;font-size:12px;cursor:pointer;transition:.15s}
 .chip-btn:hover{border-color:var(--cyan);background:rgba(34,211,238,.08)}
+/* ===== 批次4 T-4.1：徽章分类标签 ===== */
+.bcat{display:inline-block;margin-top:6px;font-size:10px;letter-spacing:.5px;color:var(--cyan);
+  border:1px solid rgba(34,211,238,.35);border-radius:999px;padding:2px 8px;opacity:.85}
