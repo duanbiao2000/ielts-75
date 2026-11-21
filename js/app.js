@@ -487,13 +487,13 @@ $('#btnStart').onclick=()=>{
 };
 
 /* ============ 场景演练舱 ============ */
-let pod = {name:null, step:0, exIdx:0, lineIdx:0, varSel:0, tab:'words', showRef:false, checks:{}, recOn:false, recUrl:null};
+let pod = {name:null, step:0, exIdx:0, lineIdx:0, varSel:0, tab:'words', showRef:false, checks:{}, ratings:{word:3,fluency:3,grammar:3,pron:3}, feedback:null, recOn:false, recUrl:null};
 let recStream=null, recMedia=null, recChunks=[];
 
 function openPractice(name){
   const p=PRACTICE[name];
   if(!p){ toast('该场景的演练数据缺失'); return; }
-  pod={name,step:0,exIdx:0,lineIdx:0,varSel:0,tab:'words',showRef:false,checks:{},recOn:false,recUrl:null};
+  pod={name,step:0,exIdx:0,lineIdx:0,varSel:0,tab:'words',showRef:false,checks:{},ratings:{word:3,fluency:3,grammar:3,pron:3},feedback:null,recOn:false,recUrl:null};
   $('#pod-mask').classList.add('show');
   renderPod();
   $('#pod-mask').scrollTop=0;
@@ -502,7 +502,7 @@ function closePod(){
   if(pod.recOn) stopRec();
   $('#pod-mask').classList.remove('show');
 }
-function podSteps(){ return ['任务简报','素材与对话','自检打勾','完成解锁']; }
+function podSteps(){ return ['任务简报','素材与对话','自检打勾','练习反馈','完成解锁']; }
 function podTurns(){
   const turns=[];
   (PRACTICE[pod.name].dialogs||[]).forEach(dl=>{
@@ -579,10 +579,12 @@ function renderPod(){
     </div>
     <div class="pod-actions"><button class="btn" id="btnFinishCheck">完成自检，解锁场景 🏆</button>
     <button class="btn ghost small" onclick="backDialog()">回到对话演练</button></div>`;
+  } else if(pod.step===3){
+    body=renderPodFeedback();
   } else {
     const s=SCENARIOS.find(x=>x.name===pod.name);
     body=`<div class="success"><div class="em">🏅</div><h3>场景演练完成！</h3>
-      <p><b>${pod.name}</b> 已解锁。<br>完整素材与对话变体已在演练舱内完成，可继续深挖其他场景。</p>
+      <p><b>${pod.name}</b> 已解锁。<br>完整素材与对话变体已在演练舱内完成，并已生成专属反馈。</p>
       <p style="margin-top:10px;font-size:13px">💡 练习建议：${s.task}</p></div>
       <div class="pod-actions"><button class="btn" onclick="closePod()">返回场景城</button>
       <button class="btn ghost" onclick="retry()">再练一次 🔁</button></div>`;
@@ -595,6 +597,9 @@ function renderPod(){
   }
   if(pod.step===2){
     $('#btnFinishCheck').onclick=finishCheck;
+  }
+  if(pod.step===3){
+    bindPodFeedback();
   }
   if(pod.step===0){
     $('#btnStartEx').onclick=()=>{ pod.step=1; renderPod(); };
@@ -612,13 +617,69 @@ function finishCheck(){
   const p=PRACTICE[pod.name];
   const missing=p.checks.filter((c,i)=>!pod.checks[i]);
   if(missing.length>0){ toast(`还有 ${missing.length} 项自检未勾选，再核对一下`); return; }
-  pod.step=3;
-  if(!done.practice){ done.practice=[]; }
+  pod.step=3; pod.feedback=null;
+  renderPod();
+  toast('📝 自检完成，来生成你的专属练习反馈');
+}
+function retry(){ pod.step=0; pod.exIdx=0; pod.lineIdx=0; pod.varSel=0; pod.tab='words'; pod.showRef=false; pod.checks={}; pod.ratings={word:3,fluency:3,grammar:3,pron:3}; pod.feedback=null; renderPod(); }
+
+/* ============ 练习反馈（批次3 T-3.4） ============ */
+const FB_DIMS=[['word','用词','🔤'],['fluency','流畅度','⚡'],['grammar','语法','🧱'],['pron','发音','🗣️']];
+function renderPodFeedback(){
+  if(!pod.feedback){
+    return `<div class="fb-title">📝 练习反馈</div>
+      <p style="color:var(--dim);font-size:13px">先为刚才的演练自评打分（1–5 分），系统将结合本场景的词句素材与自检结果，生成具体、可操作的反馈。</p>
+      <div class="fb-rate">
+        ${FB_DIMS.map(d=>`<div class="fb-dim"><span>${d[2]} ${d[1]}</span>
+          ${[1,2,3,4,5].map(n=>`<button class="rate-dot ${pod.ratings[d[0]]===n?'on':''}" data-dim="${d[0]}" data-n="${n}">${n}</button>`).join('')}
+        </div>`).join('')}
+      </div>
+      <div class="pod-actions"><button class="btn" id="btnGenFb">生成我的专属反馈 🎯</button>
+      <button class="btn ghost small" onclick="backCheck()">回到自检</button></div>`;
+  }
+  return `<div class="fb-title">📝 练习反馈</div>
+    <div class="fb-report">${pod.feedback}</div>
+    <div class="pod-actions"><button class="btn" id="btnFbDone">完成，解锁场景 🏆</button>
+    <button class="btn ghost small" onclick="reRate()">重新自评</button></div>`;
+}
+function bindPodFeedback(){
+  if(!pod.feedback){
+    document.querySelectorAll('#pod .rate-dot').forEach(b=>b.onclick=()=>setRating(b.dataset.dim,+b.dataset.n));
+    const g=$('#btnGenFb'); if(g) g.onclick=genFeedbackFb;
+  } else {
+    const d=$('#btnFbDone'); if(d) d.onclick=fbDone;
+  }
+}
+function setRating(dim,n){ pod.ratings[dim]=n; renderPod(); }
+function reRate(){ pod.feedback=null; renderPod(); }
+function backCheck(){ pod.step=2; renderPod(); }
+function genFeedbackFb(){
+  pod.feedback=genFeedback(pod.name, pod.ratings||{word:3,fluency:3,grammar:3,pron:3}, pod.checks);
+  renderPod();
+}
+function genFeedback(name, ratings, checks){
+  const p=PRACTICE[name];
+  const L=[];
+  const useWords=p.words.slice(0,3).join('、');
+  const adv=p.adv[0];
+  L.push(`<b>🔤 用词（${ratings.word} 分）：</b>本场景建议主动使用高频词 <b>${useWords}</b>。想升级表达，可把基础句型换成进阶说法，如「${adv[0]}」（${adv[1]}）。`);
+  const t0=p.tips[0];
+  L.push(`<b>⚡ 流畅度（${ratings.fluency} 分）：</b>记住本场景要点「${t0}」。${ratings.fluency<=2?'当前需重点减少卡顿与填充词，宁可完整说对一个简单句，也不中途打断重来。':'已较流畅，可用限时反应训练巩固，减少无意识的自我纠正。'}`);
+  const ph=p.phrases[0];
+  L.push(`<b>🧱 语法（${ratings.grammar} 分）：</b>参考句型「${ph[0]}」（${ph[1]}），注意结构完整。${ratings.grammar<=2?'建议先保证高频结构准确，再追求复杂与多样性，避免为复杂而出错。':'结构较稳，可适当增加从句与连接词，提升语法多样性。'}`);
+  const ph2=p.phrases[1]||p.phrases[0];
+  L.push(`<b>🗣️ 发音（${ratings.pron} 分）：</b>建议重点朗读「${ph2[0]}」，注意重音与语调。${ratings.pron<=2?'用录音回放逐句对照，重点纠正重音与可懂度。':'可懂度较好，继续用影子跟读巩固韵律与自然度。'}`);
+  const cnt=(checks||[]).filter(Boolean).length;
+  L.push(`<b>✅ 自检小结：</b>你已勾选 ${cnt}/${p.checks.length} 项自检，未勾选项即下次重点改进方向。`);
+  return `<div class="fb-block">${L.join('<br><br>')}</div>`;
+}
+function fbDone(){
+  pod.step=4;
+  if(!done.practice) done.practice=[];
   if(!done.practice.includes(pod.name)){ done.practice.push(pod.name); save(); }
   renderPod(); renderAll();
   toast('🏅 场景演练完成，已解锁！');
 }
-function retry(){ pod.step=0; pod.exIdx=0; pod.lineIdx=0; pod.varSel=0; pod.tab='words'; pod.showRef=false; pod.checks={}; renderPod(); }
 
 /* 录音：优先浏览器录音，环境不支持时提示外部录音 */
 async function toggleRec(){
