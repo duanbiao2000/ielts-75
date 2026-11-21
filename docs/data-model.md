@@ -126,14 +126,36 @@
   "scen": ["场景名"],
   "mod": ["m01"],
   "practice": ["场景名"],
-  "diag": ["quiz"],
+  "diag": ["diag4"],
   "badges": [],
+  "quiz": ["lesson:l1", "mod:m01"],
+  "review": [{ "name": "场景名", "weak": true, "practicedAt": 0, "stage": 0 }],
+  "errors": [{ "type": "quiz|mock", "id": "...", "detail": "...", "ts": 0 }],
+  "mock": true,
   "experience": 0,
   "streak": 0,
   "level": 1
 }
 ```
 
-- 数组字段记录已完成的课程/场景/模块/演练/诊断。
+- 数组字段记录已完成的课程/场景/模块/演练/诊断/测验。
+- `review`：间隔复习记录，`stage` 对应间隔天数索引（1/3/7 天），`weak` 标记薄弱场景。
+- `errors`：错题本，单元测验未通过、模考答错/低分自动记录（按 `type+id` 去重）。
+- `mock`：是否完成过模考冲刺。
 - `experience / streak / level` 为游戏化系统预留字段（批次 4 使用）。
 - 读取时经 `migrateState()` 补齐缺失字段，保证向前兼容。
+
+## 8. 训练闭环数据（`onboarding/js/training.js`，批次 3）
+
+由 `scripts/gen_training.py` 生成，`index.html` 加载顺序为
+`practice-full.js → data.js → training.js → app.js`。
+
+- **DIAG_SUBJECTS**（T-3.1）：四科诊断，每科 `{id,name,icon,color,questions[]}`，
+  每题 `{stem,opts,right,explain}`；共 4 科 × 3 题。
+- **QUIZ_LESSONS / QUIZ_MODS**（T-3.2）：课程/模块单元测验，按课/模块 id 索引，
+  每题 `{type:'choice'|'fill', stem, opts?, right?, answer?, explain}`；每单元 2 题。
+- **MOCK_EXAM**（T-3.3）：
+  - `speaking`：`{part,q,ref,keywords[]}`，`keywords` 为口语关键词匹配评分依据。
+  - `listening`：`{section,q,opts,right,explain}`，选项即时判分。
+
+训练闭环：诊断定路线 → 单元测验 → 场景演练（含反馈）→ 模考验证 → 复习巩固。
