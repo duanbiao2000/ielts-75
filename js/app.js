@@ -743,7 +743,7 @@ let mock={part:'intro', mode:'speak', speakIdx:0, listenIdx:0, speakScore:0, lis
 let mockRecStream=null, mockRecChunks=[], mockRecSrc=null;
 function mockSpeakQ(){ return MOCK_EXAM.speaking[mock.speakIdx]; }
 function mockListenQ(){ return MOCK_EXAM.listening[mock.listenIdx]; }
-function mockMax(){ return MOCK_EXAM.speaking.length+MOCK_EXAM.listening.length; }
+function mockMax(){ return MOCK_EXAM.speaking.length*2+MOCK_EXAM.listening.length; }
 function openMock(){
   mock={part:'intro',mode:'speak',speakIdx:0,listenIdx:0,speakScore:0,listenScore:0,speakResults:{},listenResults:{},recOn:false,recUrl:null};
   $('#mock-mask').classList.add('show'); $('#mock').scrollTop=0; renderMock();
@@ -766,7 +766,7 @@ function renderMock(){
         <button class="mock-part" onclick="mockGo('listen')">🎧 听力模考（${MOCK_EXAM.listening.length} 题）</button>
         <button class="mock-part ghost" onclick="mockGo('full')">🧪 完整模考（口语 + 听力）</button>
       </div>
-      <div class="mock-progress">口语 ${mock.speakScore}/${MOCK_EXAM.speaking.length} · 听力 ${mock.listenScore}/${MOCK_EXAM.listening.length}</div>`;
+      <div class="mock-progress">口语 ${mock.speakScore}/${MOCK_EXAM.speaking.length*2} · 听力 ${mock.listenScore}/${MOCK_EXAM.listening.length}</div>`;
     return;
   }
   if(mock.part==='speak'){ renderMockSpeak(el); return; }
@@ -844,7 +844,7 @@ function renderMockDone(el){
   el.innerHTML=`<div class="pod-head"><h2>🏁 模考成绩</h2><button class="btn ghost small" onclick="closeMock()">退出</button></div>
     <div class="profile-card"><h3>📊 模考完成 — 总分 ${total} / ${max}（${pct}%）</h3>
       <div class="diag-rows">
-        <div class="diag-row"><span class="dr-ic">🗣️ 口语</span><div class="dr-bar"><i style="width:${Math.round(mock.speakScore/MOCK_EXAM.speaking.length*100)}%"></i></div><span class="dr-sc">${mock.speakScore}/${MOCK_EXAM.speaking.length}</span></div>
+        <div class="diag-row"><span class="dr-ic">🗣️ 口语</span><div class="dr-bar"><i style="width:${Math.round(mock.speakScore/(MOCK_EXAM.speaking.length*2)*100)}%"></i></div><span class="dr-sc">${mock.speakScore}/${MOCK_EXAM.speaking.length*2}</span></div>
         <div class="diag-row"><span class="dr-ic">🎧 听力</span><div class="dr-bar"><i style="width:${Math.round(mock.listenScore/MOCK_EXAM.listening.length*100)}%"></i></div><span class="dr-sc">${mock.listenScore}/${MOCK_EXAM.listening.length}</span></div>
       </div>
       <div class="result-line">口语按关键词匹配评分，听力按选项判分。薄弱项可在诊断路线中针对性回练。</div>
@@ -967,7 +967,8 @@ function diagNext(){
   if(diag.qIdx>=diagSubject().questions.length){ diag.subjectIdx++; diag.qIdx=0; }
   if(diag.subjectIdx>=DIAG_SUBJECTS.length){
     diag.finished=true;
-    if(!done.diag){ done.diag=['diag4']; save(); }
+    if(!Array.isArray(done.diag)) done.diag=[];
+    if(!done.diag.includes('diag4')){ done.diag.push('diag4'); save(); }
     renderDiag(); renderAll();
     return;
   }
