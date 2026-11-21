@@ -1290,3 +1290,12 @@ function doReview(name){
 
 /* ============ 启动 ============ */
 renderAll();
+
+/* PWA：注册 Service Worker（离线可用；不支持的环境静默跳过） */
+try{
+  if('serviceWorker' in navigator){
+    window.addEventListener('load', function(){
+      navigator.serviceWorker.register('sw.js').catch(function(){ /* 非 http(s) 环境忽略 */ });
+    });
+  }
+}catch(e){}
