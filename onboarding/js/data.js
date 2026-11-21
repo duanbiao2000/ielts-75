@@ -144,5 +144,7 @@ const BADGES = [
   {id:'b25', em:'🎖️', name:'考场强者', cat:'进阶', desc:'达到 Lv.5', cond:{t:'level', min:5}},
 ];
 
-/* ============ 场景演练数据（30 场景 × 对话回合 + 自检项） ============ */
-const PRACTICE = PRACTICE_FULL;
+/* ============ 场景演练数据（30 场景 × 对话回合 + 自检项） ============
+   惰性引用：首屏不加载 practice-full.js（184KB），进入演练舱时由
+   app.js ensurePracticeData() 按需加载并回填 PRACTICE。 */
+let PRACTICE = (typeof PRACTICE_FULL !== 'undefined') ? PRACTICE_FULL : {};

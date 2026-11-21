@@ -1,3 +1,27 @@
+/* ============ 性能：数据懒加载（T-5.5） ============
+   practice-full.js（~184KB）不在首屏加载，首次进入演练舱时动态注入并缓存 */
+let practiceLoading = null;
+function practiceLoaded(){ return typeof PRACTICE_FULL !== 'undefined'; }
+function loadScript(src){
+  return new Promise((resolve, reject) => {
+    const s = document.createElement('script');
+    s.src = src;
+    s.onload = resolve;
+    s.onerror = () => reject(new Error('load fail: ' + src));
+    document.head.appendChild(s);
+  });
+}
+function ensurePracticeData(){
+  if (practiceLoaded()) return Promise.resolve();
+  if (!practiceLoading){
+    practiceLoading = loadScript('js/practice-full.js').then(() => {
+      PRACTICE = PRACTICE_FULL;
+      practiceLoading = null;
+    });
+  }
+  return practiceLoading;
+}
+
 /* ============ 状态管理 ============ */
 const STORE_KEY='ielts75_onboard';
 let done = loadState();
@@ -995,6 +1019,15 @@ let pod = {name:null, step:0, exIdx:0, lineIdx:0, varSel:0, tab:'words', showRef
 let recStream=null, recMedia=null, recChunks=[];
 
 function openPractice(name, opts){
+  // 快路径：数据已加载则同步打开（演练舱、课程/模块跳转、测试均走此路径）
+  if (practiceLoaded()){ openPracticeNow(name, opts); return; }
+  // 慢路径：首次进入时按需加载 practice-full.js（~184KB）
+  toast('📦 正在加载演练数据…');
+  ensurePracticeData()
+    .then(() => openPractice(name, opts))
+    .catch(() => toast('演练数据加载失败，请检查网络后重试'));
+}
+function openPracticeNow(name, opts){
   const p=PRACTICE[name];
   if(!p){ toast('该场景的演练数据缺失'); return; }
   opts=opts||{};
