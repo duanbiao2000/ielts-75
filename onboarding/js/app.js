@@ -92,12 +92,17 @@ function renderScen(domain){
 function renderMods(){
   $('#modGrid').innerHTML = MODULES.map(m=>{
     const d = done.mod&&done.mod.includes(m.id);
+    const p = MODULE_PACKS[m.id]||{tasks:[]};
+    const total=p.tasks.length, checked=p.tasks.filter(t=>(done.modTasks||[]).includes(t.id)).length;
+    const pct=total?Math.round(checked/total*100):0;
     return `<div class="card ${d?'done':''}" data-m="${m.id}">
       <h3>${m.icon} ${m.title} <span class="tag ${m.p.toLowerCase()}">${m.p}</span></h3>
-      <p>${m.blurb}</p></div>`;
+      <p>${m.blurb}</p>
+      <div class="card-bar"><div class="card-bar-fill" style="width:${pct}%"></div></div>
+      <div class="card-meta">${checked}/${total} 项任务${d?' · ✅ 已完成':''}</div></div>`;
   }).join('');
   $('#modGrid').querySelectorAll('.card').forEach(el=>{
-    el.onclick=()=>{ const m=MODULES.find(x=>x.id===el.dataset.m); mark('mod',m.id); openMod(m); };
+    el.onclick=()=>{ const m=MODULES.find(x=>x.id===el.dataset.m); openMod(m); };
   });
 }
 function renderBadges(){
@@ -132,7 +137,7 @@ function renderAll(){ renderLessons(); renderScen($('#scenTabs').dataset.cur||'�
 
 /* ============ 弹窗 ============ */
 function openModal(html){ $('#modalBox').innerHTML = html; $('#modal-mask').classList.add('show'); }
-function closeModal(){ $('#modal-mask').classList.remove('show'); }
+function closeModal(){ $('#modal-mask').classList.remove('show'); currentModId=null; }
 $('#modal-mask').onclick=e=>{ if(e.target===$('#modal-mask')) closeModal(); };
 document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeModal(); });
 
@@ -178,6 +183,10 @@ function taskModuleOf(taskId){
 }
 function backToModuleFromPod(){ const mid=taskModuleOf(pod.fromModuleTask); closePod(); const m=MODULES.find(x=>x.id===mid); if(m) openMod(m); }
 function openScen(s){
+  const related=MODULES.filter(m=>((MODULE_PACKS[m.id]||{linkScenes:[]}).linkScenes||[]).includes(s.name));
+  const relHtml = related.length
+    ? `<div class="scene-mods"><b style="color:var(--txt)">🛠️ 关联模块：</b>${related.map(m=>`<button class="chip-btn" onclick="closeModal();openMod(MODULES.find(x=>x.id==='${m.id}'))">${m.icon} ${m.title}${(done.mod||[]).includes(m.id)?' ✅':''}</button>`).join('')}</div>`
+    : '';
   openModal(`<button class="close" onclick="closeModal()">×</button>
     <h2>🏙️ ${s.name} <span class="tag">${s.d}域</span></h2>
     <p>${s.blurb}</p>
@@ -185,22 +194,90 @@ function openScen(s){
     <p><b style="color:var(--txt)">练习任务：</b>${s.task}</p>
     <p style="color:var(--cyan)">📂 完整素材（核心表达全量 + 情景对话 + 角色扮演任务）在：</p>
     <div class="file">ielts-75/materials/scenarios/（按域找到「${s.name}」文件夹）</div>
+    ${relHtml}
     <div style="margin-top:16px;display:flex;gap:10px;flex-wrap:wrap">
       <button class="btn small" onclick="closeModal();openPractice('${s.name}')">🎮 领取任务，去演练</button>
       <button class="btn ghost small" onclick="closeModal()">查看文档路径</button>
     </div>`);
 }
-function openMod(m){
-  openModal(`<button class="close" onclick="closeModal()">×</button>
+/* ============ 模块任务卡与打卡（批次2 T-2.4 / T-2.5） ============ */
+let currentModId=null;
+function today(){ const d=new Date(); return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); }
+function modCheckedInToday(m){ return (done.modCheckins||[]).includes(m.id+':'+today()); }
+function modCheckinCount(m){ return new Set((done.modCheckins||[]).filter(x=>x.startsWith(m.id+':')).map(x=>x.split(':')[1])).size; }
+function syncModuleDone(modId){
+  const p=MODULE_PACKS[modId]; if(!p) return;
+  if(!done.mod) done.mod=[];
+  const all = p.tasks.every(t=>(done.modTasks||[]).includes(t.id));
+  if(all && !done.mod.includes(modId)){
+    done.mod.push(modId); save();
+    logLearning('module-complete', modId);
+    toast('🎉 模块完成：'+MODULES.find(x=>x.id===modId).title);
+  } else if(!all && done.mod.includes(modId)){
+    done.mod=done.mod.filter(x=>x!==modId); save();
+  }
+}
+function toggleModTask(modId, taskId, forceOn){
+  if(!done.modTasks) done.modTasks=[];
+  const i=done.modTasks.indexOf(taskId);
+  if(forceOn===true){ if(i===-1){ done.modTasks.push(taskId); save(); logLearning('module-task', taskId, '场景演练完成'); } }
+  else if(i>-1){ done.modTasks.splice(i,1); save(); }
+  else { done.modTasks.push(taskId); save(); logLearning('module-task', taskId); }
+  syncModuleDone(modId);
+  openModRefresh();
+  renderAll();
+}
+function openModRefresh(){ if(currentModId){ const m=MODULES.find(x=>x.id===currentModId); if(m) openModal(renderModHtml(m)); } }
+function checkinMod(modId){
+  const key=modId+':'+today();
+  if((done.modCheckins||[]).includes(key)){ toast('今天已经打过卡了'); return; }
+  if(!done.modCheckins) done.modCheckins=[];
+  done.modCheckins.push(key); save();
+  logLearning('module-checkin', modId);
+  toast('✅ 打卡成功！继续保持。');
+  openModRefresh();
+}
+function goPodFromModule(modId, taskId, sceneName){
+  currentModId=null;
+  closeModal();
+  logLearning('module-to-pod', modId, sceneName);
+  openPractice(sceneName, {fromModuleTask:taskId});
+}
+function renderModHtml(m){
+  const p=MODULE_PACKS[m.id]||{target:m.blurb,linkScenes:[],tasks:[]};
+  const total=p.tasks.length, checked=p.tasks.filter(t=>(done.modTasks||[]).includes(t.id)).length;
+  const pct=total?Math.round(checked/total*100):0;
+  const inToday=modCheckedInToday(m), days=modCheckinCount(m);
+  return `<button class="close" onclick="closeModal()">×</button>
     <h2>${m.icon} ${m.title} <span class="tag ${m.p.toLowerCase()}">${m.p}</span></h2>
-    <p>${m.blurb}</p>
+    <p><b style="color:var(--txt)">🎯 模块目标：</b>${p.target}</p>
     <p><b style="color:var(--txt)">包含文件：</b></p>
     <ul>${m.files.split(' / ').map(f=>`<li>${f}</li>`).join('')}</ul>
     <div class="file">ielts-75/${m.path}</div>
-    <div style="margin-top:16px;display:flex;gap:10px;flex-wrap:wrap">
+    <div class="mod-progress"><div class="card-bar"><div class="card-bar-fill" style="width:${pct}%"></div></div><span>${checked}/${total} 项完成</span></div>
+    <div class="task-list">
+      ${p.tasks.map(t=>{
+        const on=(done.modTasks||[]).includes(t.id);
+        const sceneBtn=t.scene?`<button class="task-go" onclick="goPodFromModule('${m.id}','${t.id}','${t.scene}')">去演练 ▸</button>`:'';
+        return `<div class="task-item ${on?'on':''}">
+          <label class="task-check"><input type="checkbox" ${on?'checked':''} onchange="toggleModTask('${m.id}','${t.id}')"><span>${t.text}</span></label>
+          <span class="task-meta">~${t.est} 分钟 ${sceneBtn}</span>
+        </div>`;
+      }).join('')}
+    </div>
+    <div class="checkin-row">
+      <button class="btn small ${inToday?'done':''}" ${inToday?'disabled':''} onclick="checkinMod('${m.id}')">${inToday?'✅ 今日已打卡':'📅 今日打卡'}</button>
+      <span class="checkin-count">已累计打卡 ${days} 天</span>
+    </div>
+    <div style="margin-top:14px;display:flex;gap:10px;flex-wrap:wrap">
       <button class="btn small" onclick="closeModal();openUnitQuiz('mod','${m.id}')">✍️ 单元测验</button>
       <button class="btn done small" onclick="closeModal()">进入模块</button>
-    </div>`);
+    </div>`;
+}
+function openMod(m){
+  currentModId=m.id;
+  logLearning('module-open', m.id);
+  openModal(renderModHtml(m));
 }
 
 /* ============ 单元测验（批次3 T-3.2） ============ */
