@@ -272,3 +272,32 @@ body[data-level="10"] .lv-chip{background:linear-gradient(135deg,#c084fc,#f472b6
 .dt-body{font-size:14px;color:var(--txt);margin:8px 0 6px;line-height:1.5}
 .dt-foot{font-size:12px;color:var(--dim)}
 .dt-foot b{color:#fdba74}
+/* ===== 批次4 T-4.4：旅程地图 ===== */
+.jch-progress{color:var(--dim);font-size:13px;margin:6px 0 14px}
+.jch-progress b{color:var(--cyan)}
+.jch-list{display:flex;flex-direction:column;gap:0;position:relative;padding-left:4px}
+.jch{display:flex;gap:14px;position:relative;padding:10px 0 10px 0}
+.jch::before{content:"";position:absolute;left:15px;top:0;bottom:0;width:2px;background:var(--line)}
+.jch:first-child::before{top:50%}
+.jch:last-child::before{bottom:50%}
+.jch-dot{position:relative;z-index:1;width:32px;height:32px;border-radius:50%;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;
+  background:#1e293b;border:2px solid var(--line);color:var(--dim)}
+.jch.done .jch-dot{background:linear-gradient(135deg,#34d399,#10b981);border-color:var(--green);color:#052e1b}
+.jch.current .jch-dot{border-color:var(--cyan);color:var(--cyan);box-shadow:0 0 12px rgba(34,211,238,.35)}
+.jch.locked{opacity:.55}
+.jch-body{flex:1;background:var(--card2,#0f172a);border:1px solid var(--line);border-radius:var(--r-sm,10px);padding:10px 14px}
+.jch.done .jch-body{border-color:rgba(52,211,153,.4)}
+.jch.current .jch-body{border-color:rgba(34,211,238,.5)}
+.jch-stage{font-size:11px;color:var(--dim);letter-spacing:.5px}
+.jch-stage b{color:var(--amber)}
+.jch.done .jch-stage b{color:#34d399}
+.jch-body h3{font-size:15px;margin:4px 0 6px}
+.jch-story{font-size:12px;color:var(--dim);line-height:1.7}
+.jch-goal,.jch-reward{font-size:12px;margin-top:6px}
+.jch-goal{color:var(--txt)}
+.jch-reward{color:#fdba74}
+.journey-story{text-align:center;padding:8px 4px}
+.js-stage{font-size:12px;letter-spacing:2px;color:var(--amber)}
+.js-reward{margin:16px auto 0;display:inline-block;background:linear-gradient(135deg,#fbbf24,#f59e0b);color:#451a03;
+  font-weight:800;border-radius:999px;padding:8px 22px;font-size:15px}

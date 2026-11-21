@@ -64,6 +64,75 @@ function awardXP(n, reason){
   save();
   renderHeader();
 }
+/* ============ 成就与剧情：从 6.0 到 7.5 的旅程（T-4.4） ============ */
+const JOURNEY = [
+  {id:'ch1', stage:'序章', score:'6.0 → 6.5', title:'看清起点',
+   story:'你带着“大概 6 分吧”走进训练基地。四科诊断帮你照见真实水平——不靠感觉，靠数据。第一步不是练更多，而是看清自己在哪。',
+   goal:'完成四科诊断', check:()=> (done.diag||[]).length>=1, reward:60},
+  {id:'ch2', stage:'第一章', score:'6.5 → 6.8', title:'学会怎么练',
+   story:'方法不对，努力白费。这一章用方法论武装你：A-R-E 短答、Part 2 提纲法、Part 3 论证框架——先学会怎么练，再开始练。',
+   goal:'完成第 1 课 且 完成 1 次场景演练', check:()=> (done.lesson||[]).includes('l1') && (done.practice||[]).length>=1, reward:80},
+  {id:'ch3', stage:'第二章', score:'6.8 → 7.0', title:'听懂，说出',
+   story:'雅思的墙通常立在“听不懂、说不出”上。这一章你把听力输入补齐、把口语输出炼熟：同义替换、Part 3 论证、语流跟读——量的积累到质的飞跃。',
+   goal:'累计完成 15 次场景演练', check:()=> (done.practice||[]).length>=15, reward:150},
+  {id:'ch4', stage:'第三章', score:'7.0 → 7.2', title:'方法论闭环',
+   story:'零散的技巧汇成体系。11 课全部走完，你拥有完整的方法库和 30 个场景的底气——现在，轮到组合拳了。',
+   goal:'完成全部 11 个课程关卡', check:()=> (done.lesson||[]).length>=11, reward:150},
+  {id:'ch5', stage:'第四章', score:'7.2 → 7.4', title:'在压力下定型',
+   story:'平时练得好，考场上崩了——这是很多人的故事。模考是唯一的解药：全真流程、关键词评分、错题归因，把不确定变成确定。',
+   goal:'完成一次模考', check:()=> !!done.mock, reward:180},
+  {id:'ch6', stage:'终章', score:'7.4 → 7.5', title:'七分半',
+   story:'P0/P1 模块全部攻克，模考稳定在 16/20 以上——这不是运气，是复利。当你能把每一分失误讲清楚，7.5 就不再是目标，而是水到渠成。',
+   goal:'完成全部 P0/P1 模块 且 模考最佳 ≥ 16/20', reward:300,
+   check:()=>{ const p0p1=MODULES.filter(m=>m.p!=='P2').map(m=>m.id); return p0p1.every(id=>(done.mod||[]).includes(id)) && (done.mockBest||0)>=16; }},
+];
+function openJourney(){
+  if(!done.journey) done.journey=[];
+  const items=JOURNEY.map((ch,i)=>{
+    const got=done.journey.includes(ch.id);
+    const unlocked=i===0 || done.journey.includes(JOURNEY[i-1].id);
+    const state=got?'done':(unlocked?'current':'locked');
+    return `<div class="jch ${state}">
+      <div class="jch-dot">${got?'✓':(i+1)}</div>
+      <div class="jch-body">
+        <div class="jch-stage">${ch.stage} · <b>${ch.score}</b>${got?' · ✅ 已达成':(unlocked?' · 进行中':'')}</div>
+        <h3>${ch.title}</h3>
+        <p class="jch-story">${state==='locked'?'……（继续前行以解锁这一章）':ch.story}</p>
+        <div class="jch-goal">🎯 通关条件：${ch.goal}</div>
+        <div class="jch-reward">🏅 奖励：${ch.reward} XP</div>
+      </div></div>`;
+  }).join('');
+  openModal(`<button class="close" onclick="closeModal()">×</button>
+    <h2>🏯 从 6.0 到 7.5 的旅程</h2>
+    <p class="jch-progress">已达成 <b>${done.journey.length}</b> / ${JOURNEY.length} 章 · 终点：雅思 7.5</p>
+    <div class="jch-list">${items}</div>`);
+}
+function showJourneyStory(ch){
+  openModal(`<button class="close" onclick="closeModal()">×</button>
+    <div class="journey-story">
+      <div class="js-stage">${ch.stage} · ${ch.score}</div>
+      <h2 style="margin:8px 0 12px">🏯 ${ch.title}</h2>
+      <p style="line-height:1.8">${ch.story}</p>
+      <div class="js-reward">🎉 章节达成！+${ch.reward} XP</div>
+      <button class="btn" onclick="closeModal()" style="margin-top:14px">继续前行 →</button>
+    </div>`);
+}
+function checkJourney(){
+  if(!done.journey) done.journey=[];
+  for(let i=0;i<JOURNEY.length;i++){
+    const ch=JOURNEY[i];
+    if(done.journey.includes(ch.id)) continue;
+    const prevOk = i===0 || done.journey.includes(JOURNEY[i-1].id);
+    if(prevOk && ch.check()){
+      done.journey.push(ch.id); save();
+      lrPush('journey', ch.id, ch.title);
+      awardXP(ch.reward, '剧情章节 · '+ch.title);
+      showJourneyStory(ch);
+      return; // 每次渲染只弹一章，不打断训练
+    }
+  }
+}
+
 /* ============ 连续打卡与习惯（T-4.3） ============
    规则：当天有任一学习行为即打卡；昨日也有则连续+1；
    断签恰好 1 天且有补偿券 → 消耗 1 张补偿券，连续保留；
@@ -250,7 +319,7 @@ function renderProgress(){
   $('#ringFg').setAttribute('stroke-dashoffset', C*(1-pct/100));
   $('#ringPct').textContent = pct+'%';
 }
-function renderAll(){ renderLessons(); renderScen($('#scenTabs').dataset.cur||'职场'); renderMods(); renderBadges(); renderProgress(); renderReview(); renderHeader(); renderDaily(); }
+function renderAll(){ renderLessons(); renderScen($('#scenTabs').dataset.cur||'职场'); renderMods(); renderBadges(); renderProgress(); renderReview(); renderHeader(); renderDaily(); checkJourney(); }
 
 /* ============ 弹窗 ============ */
 function openModal(html){ $('#modalBox').innerHTML = html; $('#modal-mask').classList.add('show'); }
@@ -708,6 +777,7 @@ function mockStopRec(){
   mock.recOn=false;
 }
 $('#btnMock').onclick=openMock;
+$('#btnJourney').onclick=openJourney;
 
 $('#btnGuide').onclick=()=>openModal(`<button class="close" onclick="closeModal()">×</button>
   <h2>📘 项目全景与使用顺序</h2>
