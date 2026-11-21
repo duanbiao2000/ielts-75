@@ -85,17 +85,36 @@
   "ex": [
     { "b": { "q": "搭档英文", "zh": "搭档中文" }, "a": { "q": "参考回答英文", "zh": "参考回答中文" } }
   ],
-  "checks": ["自检项1", "自检项2", "自检项3"]
+  "checks": ["自检项1", "自检项2", "自检项3"],
+  "words": ["word1", "word2", "word3", "word4", "word5", "word6"],
+  "phrases": [["I'd like to...", "我想…"], ["...", "..."]],
+  "adv": [["进阶表达英文", "中文"], ["...", "..."]],
+  "tips": ["易错提醒1", "易错提醒2", "易错提醒3"],
+  "dialogs": [
+    {
+      "title": "对话一 · 标题",
+      "lines": [
+        { "who": "A", "q": "英文", "zh": "中文", "vars": ["变体1", "变体2"] }
+      ]
+    }
+  ]
 }
 ```
 
 - `roleA / roleB`：演练舱角色卡展示。
-- `ex`：回合制对话，搭档先开口（`b`），考生参考回答（`a`）；至少 3 回合。
+- `ex`：回合制对话（兼容精简结构），搭档先开口（`b`），考生参考回答（`a`）；至少 3 回合。
 - `checks`：自检清单，3–4 条；演练完成需全部勾选。
+- `words`：6 个高频词（词卡墙）。
+- `phrases`：6 组基础句型，`[英文, 中文]` 对（句型卡）。
+- `adv`：5 组进阶表达，`[英文, 中文]` 对（表达卡）。
+- `tips`：3 条易错提醒（易错提醒卡）。
+- `dialogs`：2 段完整对话，每段含 `title` 与 `lines`；每行 `{who, q, zh, vars}`，`vars` 为该句的其他说法变体（2–3 个），演练舱内以变体芯片切换。
 
-> **完整内容包扩展预留**（批次 1）：后续每场景将扩展为
-> `words / phrases / adv / tips / dialogs`，`dialogs` 每句含 `vars`（其他说法变体）。
-> 现有 `ex/checks` 结构保持兼容，扩展字段直接追加。
+> **批次 1 落地说明**：完整内容包数据从 `scripts/_full1/2/3.py` 经
+> `scripts/gen_practice_full.py` 合并原 `PRACTICE`（`roleA/roleB/ex/checks`）
+> 生成独立文件 `onboarding/js/practice-full.js`（`PRACTICE_FULL`），
+> `data.js` 中 `PRACTICE = PRACTICE_FULL`。加载顺序为
+> `practice-full.js → data.js → app.js`。校验工具会先加载 `practice-full.js` 再校验全部字段。
 
 ## 7. 状态状态（localStorage）
 

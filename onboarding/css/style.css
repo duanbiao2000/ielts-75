@@ -147,3 +147,28 @@
   #toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
   .dim{color:var(--dim)}
   .hidden{display:none}
+
+/* ============ 演练舱 · 素材库标签与内容包组件 ============ */
+.pod-tabs{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0 8px}
+.pod-tab{padding:7px 14px;border-radius:20px;border:1px solid #d8e0ec;background:#fff;color:#56657a;font-size:13px;font-weight:600;cursor:pointer;transition:.15s}
+.pod-tab:hover{background:#f0f5fb}
+.pod-tab.on{background:linear-gradient(135deg,#3b82f6,#60a5fa);color:#fff;border-color:transparent;box-shadow:0 2px 10px rgba(59,130,246,.3)}
+.pod-material{background:#f7fafd;border:1px solid #e4ecf5;border-radius:14px;padding:16px;margin-bottom:14px}
+.word-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:10px}
+.word-card{background:#fff;border:1px solid #e4ecf5;border-radius:12px;padding:12px 8px;text-align:center;cursor:pointer;transition:.15s}
+.word-card:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(56,92,146,.12)}
+.word-card b{display:block;font-size:15px;color:#2c4263;font-weight:700}
+.word-card span{font-size:11px;color:#98a6bb;margin-top:4px;display:block}
+.phrase-list{display:flex;flex-direction:column;gap:10px}
+.phrase-card{background:#fff;border:1px solid #e4ecf5;border-radius:12px;padding:12px 14px;cursor:pointer;transition:.15s}
+.phrase-card:hover{box-shadow:0 6px 16px rgba(56,92,146,.12);transform:translateY(-2px)}
+.phrase-card b{display:block;color:#2c4263;font-size:14px;font-weight:700}
+.phrase-card span{font-size:12px;color:#7c8aa0;margin-top:3px;display:block}
+.phrase-card.adv{border-left:4px solid #f59e0b}
+.tip-list{display:flex;flex-direction:column;gap:10px}
+.tip-card{background:#fff7ed;border:1px solid #fed7aa;border-radius:12px;padding:12px 14px;color:#9a3412;font-size:14px;font-weight:500}
+.dlg-title{font-size:13px;font-weight:700;color:#56657a;background:#eef4fb;border-radius:8px;padding:6px 12px;margin-bottom:12px;display:inline-block}
+.var-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px;align-items:center}
+.var-chip{padding:6px 12px;border-radius:16px;border:1px solid #d8e0ec;background:#fff;color:#56657a;font-size:12px;cursor:pointer;transition:.15s;font-family:inherit}
+.var-chip:hover{background:#f0f5fb}
+.var-chip.on{background:#10b981;color:#fff;border-color:transparent;font-weight:600}

@@ -11,11 +11,14 @@ const path = require('path');
 
 const ROOT = path.resolve(__dirname, '..');
 const dataFile = path.join(ROOT, 'onboarding', 'js', 'data.js');
-const src = fs.readFileSync(dataFile, 'utf8');
+const fullFile = path.join(ROOT, 'onboarding', 'js', 'practice-full.js');
+// 先加载完整内容包，再加载 data.js（data.js 中 PRACTICE 引用 PRACTICE_FULL）
+const fullSrc = fs.readFileSync(fullFile, 'utf8');
+const src = fullSrc + '\n' + fs.readFileSync(dataFile, 'utf8');
 
 let data;
 try {
-  // data.js 以 const 声明全局变量，用 Function 在沙箱中执行并捕获
+  // 以 const 声明全局变量，用 Function 在沙箱中执行并捕获
   const sandbox = {};
   const fn = new Function('window', 'self', 'globalThis', src + '\n;return {LESSONS,SCENARIOS,SCEN_DOMAINS,MODULES,BADGES,PRACTICE};');
   data = fn(sandbox, sandbox, sandbox);
@@ -89,6 +92,25 @@ if (extra.length) errors.push('PRACTICE 多余场景（SCENARIOS 无）：' + ex
   (d.ex || []).forEach((t, i) => {
     if (!t.b || !t.b.q || !t.b.zh) errors.push(`PRACTICE[${name}].ex[${i}] 缺少 b.q/b.zh`);
     if (!t.a || !t.a.q || !t.a.zh) errors.push(`PRACTICE[${name}].ex[${i}] 缺少 a.q/a.zh`);
+  });
+  // 完整内容包字段（批次1）
+  if (!Array.isArray(d.words) || d.words.length < 6) errors.push(`PRACTICE[${name}] words 少于 6 个`);
+  if (!Array.isArray(d.phrases) || d.phrases.length < 6) errors.push(`PRACTICE[${name}] phrases 少于 6 条`);
+  (d.phrases || []).forEach((p, i) => {
+    if (!Array.isArray(p) || p.length < 2 || !p[0] || !p[1]) errors.push(`PRACTICE[${name}].phrases[${i}] 需为 [en, zh]`);
+  });
+  if (!Array.isArray(d.adv) || d.adv.length < 5) errors.push(`PRACTICE[${name}] adv 少于 5 条`);
+  (d.adv || []).forEach((p, i) => {
+    if (!Array.isArray(p) || p.length < 2 || !p[0] || !p[1]) errors.push(`PRACTICE[${name}].adv[${i}] 需为 [en, zh]`);
+  });
+  if (!Array.isArray(d.tips) || d.tips.length < 3) errors.push(`PRACTICE[${name}] tips 少于 3 条`);
+  if (!Array.isArray(d.dialogs) || d.dialogs.length !== 2) errors.push(`PRACTICE[${name}] dialogs 需为 2 段`);
+  (d.dialogs || []).forEach((dl, i) => {
+    if (!dl.title || !Array.isArray(dl.lines)) errors.push(`PRACTICE[${name}].dialogs[${i}] 缺少 title/lines`);
+    (dl.lines || []).forEach((l, j) => {
+      if (!l.who || !l.q || !l.zh) errors.push(`PRACTICE[${name}].dialogs[${i}].lines[${j}] 缺少 who/q/zh`);
+      if (!Array.isArray(l.vars) || l.vars.length < 2) errors.push(`PRACTICE[${name}].dialogs[${i}].lines[${j}] vars 少于 2 个变体`);
+    });
   });
 });
 

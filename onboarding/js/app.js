@@ -226,13 +226,13 @@ $('#btnStart').onclick=()=>{
 };
 
 /* ============ 场景演练舱 ============ */
-let pod = {name:null, step:0, exIdx:0, showRef:false, checks:{}, recOn:false, recUrl:null};
+let pod = {name:null, step:0, exIdx:0, lineIdx:0, varSel:0, tab:'words', showRef:false, checks:{}, recOn:false, recUrl:null};
 let recStream=null, recMedia=null, recChunks=[];
 
 function openPractice(name){
   const p=PRACTICE[name];
   if(!p){ toast('该场景的演练数据缺失'); return; }
-  pod={name,step:0,exIdx:0,showRef:false,checks:{},recOn:false,recUrl:null};
+  pod={name,step:0,exIdx:0,lineIdx:0,varSel:0,tab:'words',showRef:false,checks:{},recOn:false,recUrl:null};
   $('#pod-mask').classList.add('show');
   renderPod();
   $('#pod-mask').scrollTop=0;
@@ -241,8 +241,14 @@ function closePod(){
   if(pod.recOn) stopRec();
   $('#pod-mask').classList.remove('show');
 }
-function podSteps(){ return ['任务简报','对话演练','自检打勾','完成解锁']; }
-
+function podSteps(){ return ['任务简报','素材与对话','自检打勾','完成解锁']; }
+function podTurns(){
+  const turns=[];
+  (PRACTICE[pod.name].dialogs||[]).forEach(dl=>{
+    dl.lines.forEach(l=>{ turns.push({who:l.who,q:l.q,zh:l.zh,vars:l.vars||[],title:dl.title}); });
+  });
+  return turns;
+}
 function renderPod(){
   const p=PRACTICE[pod.name];
   const steps=podSteps().map((s,i)=>`<div class="step ${i<pod.step?'done':i===pod.step?'on':''}"><b>${['①','②','③','④'][i]}</b>${s}</div>`).join('');
@@ -250,37 +256,59 @@ function renderPod(){
   if(pod.step===0){
     body=`<div class="scene-brief">
       <b>场景任务：</b>${SCENARIOS.find(s=>s.name===pod.name).blurb}<br>
-      <b>演练方式：</b>回合制对话演练。搭档先开口，你先自己尝试回应，再点开参考回答对照，最后朗读/录音。
+      <b>演练方式：</b>回合制对话演练。搭档先开口，你先自己尝试回应，再点开参考回答对照，可点击“其他说法”切换表达，最后朗读/录音。
     </div>
     <div class="roles">
       <div class="role"><h4>🎤 你的角色</h4><p>${p.roleA}</p></div>
       <div class="role"><h4>🤝 搭档角色</h4><p>${p.roleB}（可让朋友配音，或自问自答）</p></div>
     </div>
+    <div class="pod-tabs">
+      <button class="pod-tab ${pod.tab==='words'?'on':''}" onclick="podTab('words')">📘 高频词</button>
+      <button class="pod-tab ${pod.tab==='phrases'?'on':''}" onclick="podTab('phrases')">💬 基础句型</button>
+      <button class="pod-tab ${pod.tab==='adv'?'on':''}" onclick="podTab('adv')">🌟 进阶表达</button>
+      <button class="pod-tab ${pod.tab==='tips'?'on':''}" onclick="podTab('tips')">⚠️ 易错提醒</button>
+    </div>
+    <div class="pod-material">
+      ${pod.tab==='words' ? `<div class="word-grid">${p.words.map(w=>`<div class="word-card"><b>${w}</b><span>点击跟读</span></div>`).join('')}</div>` : ''}
+      ${pod.tab==='phrases' ? `<div class="phrase-list">${p.phrases.map(ph=>`<div class="phrase-card"><b>${ph[0]}</b><span>${ph[1]}</span></div>`).join('')}</div>` : ''}
+      ${pod.tab==='adv' ? `<div class="phrase-list">${p.adv.map(ph=>`<div class="phrase-card adv"><b>${ph[0]}</b><span>${ph[1]}</span></div>`).join('')}</div>` : ''}
+      ${pod.tab==='tips' ? `<div class="tip-list">${p.tips.map(t=>`<div class="tip-card">⚠️ ${t}</div>`).join('')}</div>` : ''}
+    </div>
     <div class="pod-actions"><button class="btn" id="btnStartEx">开始演练 🎮</button>
     <button class="btn ghost small" onclick="closePod()">返回场景城</button></div>`;
   } else if(pod.step===1){
-    const ex=p.ex;
-    if(pod.exIdx>=ex.length){
+    const turns=podTurns();
+    if(pod.lineIdx>=turns.length){
       body=`<div class="success"><div class="em">🎬</div><h3>对话演练完成！</h3>
-        <p>所有回合已过完。核对一下你的自检清单，然后解锁这个场景。</p></div>
+        <p>两段对话已过完。核对一下你的自检清单，然后解锁这个场景。</p></div>
       <div class="pod-actions"><button class="btn" onclick="goCheck()">进入自检 ③</button></div>`;
     } else {
-      const e=ex[pod.exIdx];
-      body=`<div class="turn-box">
-        <div class="bubble partner">🤝 搭档：${e.b.q}<span class="zh">${e.b.zh}</span></div>
-        <div class="bubble me ${pod.showRef?'':'hidden'}">🎤 你的参考回答：${e.a.q}<span class="zh">${e.a.zh}</span></div>
+      const cur=turns[pod.lineIdx];
+      const text=pod.varSel===0?cur.q:(cur.vars[pod.varSel-1]||cur.q);
+      const isB=cur.who==='B';
+      const chips=`<div class="var-row">
+        <button class="var-chip ${pod.varSel===0?'on':''}" onclick="pickVar(0)">${cur.q}</button>
+        ${cur.vars.map((v,i)=>`<button class="var-chip ${pod.varSel===i+1?'on':''}" onclick="pickVar(${i+1})">${v}</button>`).join('')}
+      </div>`;
+      body=`<div class="dlg-title">${cur.title}</div>
+      <div class="turn-box">
+        ${isB
+          ? `<div class="bubble partner">🤝 搭档：${text}<span class="zh">${cur.zh}</span>${chips}</div>`
+          : `<div class="bubble me ${pod.showRef?'':'hidden'}">🎤 你的参考回答：${text}<span class="zh">${cur.zh}</span>${pod.showRef?chips:''}</div>`}
       </div>
       <div class="turn-bar">
-        <span class="turn-count">第 ${pod.exIdx+1} / ${ex.length} 回合</span>
+        <span class="turn-count">第 ${pod.lineIdx+1} / ${turns.length} 句</span>
         <div style="display:flex;gap:10px">
           <button class="rec-btn" id="recBtn"><span class="dot"></span><span id="recTxt">录音跟读</span></button>
           ${pod.audioEl?'<audio controls style="height:32px"></audio>':''}
         </div>
       </div>
       <div class="pod-actions">
-        ${pod.showRef
-          ? `<button class="btn" onclick="nextTurn()">下一回合 →</button>`
-          : `<button class="btn ghost" onclick="showRef()">我练完了，看参考回答</button>`}
+        ${isB
+          ? `<button class="btn ghost" onclick="advance()">我练完了，看参考回答</button>`
+          : (pod.showRef
+            ? `<button class="btn" onclick="advance()">下一回合 →</button>`
+            : `<button class="btn ghost" onclick="showRef()">我练完了，看参考回答</button>`)}
         <button class="btn ghost small" onclick="closePod()">退出演练</button>
       </div>`;
     }
@@ -293,7 +321,7 @@ function renderPod(){
   } else {
     const s=SCENARIOS.find(x=>x.name===pod.name);
     body=`<div class="success"><div class="em">🏅</div><h3>场景演练完成！</h3>
-      <p><b>${pod.name}</b> 已解锁。<br>完整素材（更多表达与对话变体）在场景库中，可继续深挖。</p>
+      <p><b>${pod.name}</b> 已解锁。<br>完整素材与对话变体已在演练舱内完成，可继续深挖其他场景。</p>
       <p style="margin-top:10px;font-size:13px">💡 练习建议：${s.task}</p></div>
       <div class="pod-actions"><button class="btn" onclick="closePod()">返回场景城</button>
       <button class="btn ghost" onclick="retry()">再练一次 🔁</button></div>`;
@@ -301,7 +329,7 @@ function renderPod(){
   $('#pod').innerHTML=`<div class="pod-head"><h2>🎮 演练舱 · ${pod.name}</h2>
     <button class="btn ghost small" onclick="closePod()">退出</button></div>
     <div class="steps">${steps}</div>${body}`;
-  if(pod.step===1&&pod.exIdx<p.ex.length){
+  if(pod.step===1&&pod.lineIdx<podTurns().length){
     $('#recBtn').onclick=toggleRec;
   }
   if(pod.step===2){
@@ -311,8 +339,11 @@ function renderPod(){
     $('#btnStartEx').onclick=()=>{ pod.step=1; renderPod(); };
   }
 }
+function podTab(t){ pod.tab=t; renderPod(); }
+function pickVar(i){ pod.varSel=i; renderPod(); }
 function showRef(){ pod.showRef=true; renderPod(); }
-function nextTurn(){ pod.exIdx++; pod.showRef=false; renderPod(); }
+function advance(){ pod.lineIdx++; pod.showRef=false; pod.varSel=0; renderPod(); }
+function nextTurn(){ advance(); }
 function goCheck(){ pod.step=2; renderPod(); }
 function backDialog(){ pod.step=1; renderPod(); }
 function toggleCheck(i){ pod.checks[i]=!pod.checks[i]; renderPod(); }
@@ -326,7 +357,7 @@ function finishCheck(){
   renderPod(); renderAll();
   toast('🏅 场景演练完成，已解锁！');
 }
-function retry(){ pod.step=0; pod.exIdx=0; pod.showRef=false; pod.checks={}; renderPod(); }
+function retry(){ pod.step=0; pod.exIdx=0; pod.lineIdx=0; pod.varSel=0; pod.tab='words'; pod.showRef=false; pod.checks={}; renderPod(); }
 
 /* 录音：优先浏览器录音，环境不支持时提示外部录音 */
 async function toggleRec(){
