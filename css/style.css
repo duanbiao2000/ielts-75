@@ -360,3 +360,5 @@ img,audio,video,canvas,svg{max-width:100%}
 :focus-visible{outline:2px solid var(--cyan);outline-offset:2px;border-radius:4px}
 button:focus-visible,a:focus-visible,.tab:focus-visible,.card:focus-visible{outline:2px solid var(--cyan);outline-offset:2px}
 .modal[role="dialog"],.pod[role="dialog"]{outline:none}
+/* ===== 批次5 T-5.5：渲染性能（长列表跳过屏外渲染） ===== */
+.grid .card,.grid .badge,.task-item{content-visibility:auto;contain-intrinsic-size:auto 160px}
