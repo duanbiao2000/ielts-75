@@ -10,7 +10,7 @@ function loadState(){
 function migrateState(s){
   s = s || {};
   // 数组字段补齐
-  ['lesson','scen','mod','practice','diag','badges','quiz','review','errors'].forEach(k=>{ if(!Array.isArray(s[k])) s[k]=[]; });
+  ['lesson','scen','mod','practice','diag','badges','quiz','review','errors','lessonView','lessonEx','quizPass','modTasks','modCheckins'].forEach(k=>{ if(!Array.isArray(s[k])) s[k]=[]; });
   // 游戏化系统预留字段（批次 4 使用）
   if(typeof s.experience!=='number') s.experience=0;
   if(typeof s.streak!=='number') s.streak=0;
@@ -18,24 +18,58 @@ function migrateState(s){
   return s;
 }
 function save(){ try{ localStorage.setItem(STORE_KEY, JSON.stringify(done)); }catch(e){} }
+/* 学习记录写入 learning-records（localStorage 独立键，按时间倒序追加，上限 500） */
+const LR_KEY='learning-records';
+function logLearning(action,id,detail){
+  try{
+    const arr=JSON.parse(localStorage.getItem(LR_KEY)||'[]');
+    arr.push({ts:Date.now(),action:action,id:id,detail:detail||''});
+    if(arr.length>500) arr.splice(0,arr.length-500);
+    localStorage.setItem(LR_KEY, JSON.stringify(arr));
+  }catch(e){}
+}
 function mark(type,id){ if(!done[type]){ done[type]=[]; } if(!done[type].includes(id)){ done[type].push(id); save(); toast('✅ 已解锁：'+id); } renderAll(); }
 
 /* ============ 渲染 ============ */
 const $=s=>document.querySelector(s);
 function toast(msg){ const t=$('#toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),1800); }
 
+/* 课程章节解锁：第 1 课可常开，其余需前一课全部完成（知识点+课内练习+小测） */
+function lessonIndex(id){ return LESSONS.findIndex(x=>x.id===id); }
+function lessonStepsDone(id){
+  return {
+    view: (done.lessonView||[]).includes(id),
+    ex: (done.lessonEx||[]).includes(id),
+    quiz: (done.quizPass||[]).includes('lesson:'+id),
+  };
+}
+function isLessonComplete(id){ const s=lessonStepsDone(id); return s.view && s.ex && s.quiz; }
+function lessonUnlocked(idx){ return idx===0 || (done.lesson||[]).includes(LESSONS[idx-1].id); }
+function checkLessonDone(id){
+  if(!id) return;
+  if(isLessonComplete(id) && !(done.lesson||[]).includes(id)){
+    if(!done.lesson) done.lesson=[];
+    done.lesson.push(id); save();
+    logLearning('lesson-complete', id);
+    toast('🎉 第 '+(lessonIndex(id)+1)+' 课完成，下一课已解锁！');
+  }
+  renderAll();
+}
 function renderLessons(){
-  $('#pathLessons').innerHTML = LESSONS.map(l=>{
+  $('#pathLessons').innerHTML = LESSONS.map((l,i)=>{
     const d = done.lesson&&done.lesson.includes(l.id);
-    return `<div class="node ${d?'done':''}">
-      <div class="dot">${d?'✓':l.icon}</div>
+    const unl = lessonUnlocked(i);
+    const s = lessonStepsDone(l.id);
+    const steps = `<div class="ls-steps">${s.view?'<span class="ls on">知识点</span>':'<span class="ls">知识点</span>'}${s.ex?'<span class="ls on">练习</span>':'<span class="ls">练习</span>'}${s.quiz?'<span class="ls on">小测</span>':'<span class="ls">小测</span>'}</div>`;
+    return `<div class="node ${d?'done':''} ${unl?'':'locked'}">
+      <div class="dot">${d?'✓':(unl?l.icon:'🔒')}</div>
       <div class="card" data-lesson="${l.id}">
-        <h3>${l.title} <span class="tag">${d?'已完成':'点击查看'}</span></h3>
-        <p>${l.summary}</p>
+        <h3>${l.title} <span class="tag">${d?'已完成':(unl?'点击查看':'先完成上一课')}</span></h3>
+        <p>${l.summary}</p>${unl?steps:''}
       </div></div>`;
   }).join('');
   $('#pathLessons').querySelectorAll('.card').forEach(el=>{
-    el.onclick=()=>{ const l=LESSONS.find(x=>x.id===el.dataset.lesson); mark('lesson',l.id); openLesson(l); };
+    el.onclick=()=>{ const i=lessonIndex(el.dataset.lesson); if(!lessonUnlocked(i)){ toast('🔒 先完成上一课才能解锁'); return; } openLesson(LESSONS[i]); };
   });
 }
 function renderScen(domain){
@@ -103,18 +137,46 @@ $('#modal-mask').onclick=e=>{ if(e.target===$('#modal-mask')) closeModal(); };
 document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeModal(); });
 
 function openLesson(l){
+  // 知识点：打开即视为已查看（完成条件之一）
+  if(!done.lessonView.includes(l.id)){ done.lessonView.push(l.id); save(); }
+  logLearning('lesson-open', l.id);
+  const pack=(typeof LESSON_PACKS!=='undefined'&&LESSON_PACKS[l.id])||null;
+  const s=lessonStepsDone(l.id);
+  const sceneName=pack&&pack.scenes&&pack.scenes[0];
   openModal(`<button class="close" onclick="closeModal()">×</button>
     <h2>${l.icon} ${l.title}</h2>
     <p>${l.summary}</p>
     <ul>${l.points.map(p=>`<li>${p}</li>`).join('')}</ul>
+    ${pack?`<p><b style="color:var(--txt)">💡 本课要点：</b></p>
+    <ul>${pack.takeaways.map(p=>`<li>${p}</li>`).join('')}</ul>
+    <p class="lp-est">⏱️ 建议用时 ${pack.est} 分钟</p>`:''}
+    <div class="ls-row">
+      <span class="ls big ${s.view?'on':''}">${s.view?'✓':'○'} 知识点</span>
+      <span class="ls big ${s.ex?'on':''}">${s.ex?'✓':'○'} 课内练习</span>
+      <span class="ls big ${s.quiz?'on':''}">${s.quiz?'✓':'○'} 单元测验</span>
+    </div>
     <p style="color:var(--cyan)">📖 完整课程内容（含练习与作业）在：</p>
     <div class="file">ielts-75/${l.path}</div>
-    <p style="margin-top:14px">打开该文件即可学习。学完后回到本门户点击卡片，进度会自动点亮。</p>
     <div style="margin-top:16px;display:flex;gap:10px;flex-wrap:wrap">
-      <button class="btn small" onclick="closeModal();openUnitQuiz('lesson','${l.id}')">✍️ 单元测验</button>
-      <button class="btn done small" onclick="closeModal()">知道了，继续闯关</button>
+      ${pack?`<button class="btn small" onclick="openLessonPractice('${l.id}')">✍️ 课内练习</button>`:''}
+      <button class="btn small" onclick="closeModal();openUnitQuiz('lesson','${l.id}')">📝 单元测验</button>
+      ${sceneName?`<button class="btn small" onclick="closeModal();goPodFromLesson('${l.id}','${sceneName}')">🎮 去演练：${sceneName}</button>`:''}
+      <button class="btn ghost small" onclick="closeModal()">知道了，继续闯关</button>
     </div>`);
+  checkLessonDone(l.id);
 }
+/* 课程内跳转演练舱：记录来源课，演练完成后返回课程并更新进度 */
+function goPodFromLesson(lid, sceneName){
+  logLearning('lesson-to-pod', lid, sceneName);
+  openPractice(sceneName, {fromLesson:lid});
+}
+function backToLessonFromPod(){ const lid=pod.fromLesson; closePod(); const l=LESSONS.find(x=>x.id===lid); if(l) openLesson(l); }
+/* 模块任务 → 模块归属 */
+function taskModuleOf(taskId){
+  const m=MODULES.find(m=>(MODULE_PACKS[m.id]||{tasks:[]}).tasks.some(t=>t.id===taskId));
+  return m ? m.id : null;
+}
+function backToModuleFromPod(){ const mid=taskModuleOf(pod.fromModuleTask); closePod(); const m=MODULES.find(x=>x.id===mid); if(m) openMod(m); }
 function openScen(s){
   openModal(`<button class="close" onclick="closeModal()">×</button>
     <h2>🏙️ ${s.name} <span class="tag">${s.d}域</span></h2>
@@ -204,7 +266,9 @@ function uqNext(){
     const key=uq.kind+':'+uq.id;
     if(!done.quiz.includes(key)){ done.quiz.push(key); save(); }
     const pass=uq.score>=Math.ceil(list.length*0.6);
-    if(!pass){ addError({type:'quiz', id:key, detail:'单元测验未通过（'+uq.score+'/'+list.length+'）'}); }
+    if(pass){ if(!done.quizPass) done.quizPass=[]; if(!done.quizPass.includes(key)){ done.quizPass.push(key); save(); } logLearning('quiz-pass',key); }
+    else { addError({type:'quiz', id:key, detail:'单元测验未通过（'+uq.score+'/'+list.length+'）'}); }
+    if(uq.kind==='lesson') checkLessonDone(uq.id);
     openModal(renderUqHtml()); return;
   }
   uq.picked=false;
@@ -226,6 +290,85 @@ function uqResultHtml(){
     </div>`;
 }
 function uqRetry(){ uq.qIdx=0; uq.score=0; uq.picked=false; openModal(renderUqHtml()); bindUq(); }
+
+/* ============ 课内练习（批次2 T-2.2） ============ */
+let lpx={id:null, idx:0, score:0, picked:false};
+function lpxData(){ return (typeof LESSON_PACKS!=='undefined' && (LESSON_PACKS[lpx.id]||{}).practice) || []; }
+function openLessonPractice(id){ lpx={id, idx:0, score:0, picked:false}; openModal(renderLpxHtml()); bindLpx(); }
+function renderLpxHtml(){
+  const list=lpxData();
+  if(!list.length) return '<button class="close" onclick="closeModal()">×</button><p>本课暂无课内练习</p>';
+  if(lpx.idx>=list.length) return renderLpxResult(list);
+  const q=list[lpx.idx];
+  const optsHtml = q.type==='choice'
+    ? q.opts.map((o,i)=>`<button class="opt" data-i="${i}">${o}</button>`).join('')
+    : `<input id="lpxFill" class="uq-fill" placeholder="请输入答案后点下一题" autocomplete="off">`;
+  return `<button class="close" onclick="closeModal()">×</button>
+    <h2>✍️ 课内练习 · 第 ${lessonIndex(lpx.id)+1} 课</h2>
+    <div class="quiz-q">
+      <div class="stem">第 ${lpx.idx+1} 题 / 共 ${list.length} 题<br><br>${q.stem}</div>
+      ${optsHtml}
+      <div class="feedback" id="lpxFb"></div>
+    </div>
+    <div style="margin-top:14px;display:flex;gap:12px">
+      <button class="btn ghost small" id="lpxNext" ${q.type==='choice'?'disabled':''}>${lpx.idx<list.length-1?'下一题 →':'查看结果'}</button>
+      <button class="btn ghost small" onclick="closeModal()">关闭</button>
+    </div>`;
+}
+function bindLpx(){
+  const list=lpxData(); if(!list.length||lpx.idx>=list.length) return;
+  const q=list[lpx.idx];
+  if(q.type==='choice'){
+    $('#modalBox').querySelectorAll('.opt').forEach(b=>b.onclick=()=>lpxPick(+b.dataset.i,q));
+  }
+  const nb=$('#lpxNext'); if(nb) nb.onclick=lpxNext;
+}
+function lpxPick(i,q){
+  if(lpx.picked) return; lpx.picked=true;
+  let correct=false;
+  if(q.type==='choice'){
+    if(i===q.right){ correct=true; lpx.score++; }
+    $('#modalBox').querySelectorAll('.opt').forEach((o,k)=>o.classList.toggle('right',k===q.right));
+    if(i!==q.right){ const all=$('#modalBox').querySelectorAll('.opt'); if(all[i]) all[i].classList.add('wrong'); }
+  } else {
+    const val=($('#lpxFill').value||'').trim();
+    if(val && val.includes(q.answer)){ correct=true; lpx.score++; }
+  }
+  const fb=$('#lpxFb');
+  fb.textContent=(correct?'✅ 回答正确。':(q.type==='choice'?'❌ 正确答案：'+q.opts[q.right]:'❌ 参考答案：'+q.answer))+' 💡 '+q.explain;
+  fb.classList.add('show');
+  const nb=$('#lpxNext'); if(nb) nb.disabled=false;
+}
+function lpxNext(){
+  const list=lpxData(); if(!list.length) return;
+  const q=list[list.length?Math.min(lpx.idx,list.length-1):0];
+  if(q.type==='fill' && !lpx.picked){ lpxPick(null,q); }
+  lpx.idx++;
+  if(lpx.idx>=list.length){
+    if(!done.lessonEx.includes(lpx.id)){ done.lessonEx.push(lpx.id); save(); }
+    logLearning('lesson-practice', lpx.id, lpx.score+'/'+list.length);
+    checkLessonDone(lpx.id);
+    openModal(renderLpxHtml()); return;
+  }
+  lpx.picked=false;
+  openModal(renderLpxHtml()); bindLpx();
+}
+function renderLpxResult(list){
+  const pack=LESSON_PACKS[lpx.id];
+  const scene=pack&&pack.scenes&&pack.scenes[0];
+  const pct=Math.round(lpx.score/list.length*100);
+  return `<button class="close" onclick="closeModal()">×</button>
+    <div class="profile-card">
+      <h3>✍️ 课内练习完成</h3>
+      <div class="result-line">答对 ${lpx.score} / ${list.length} 题（${pct}%）</div>
+      <div class="result-line" style="color:var(--green)">✅ 已记入本课进度</div>
+    </div>
+    <div style="margin-top:14px;display:flex;gap:12px;flex-wrap:wrap">
+      <button class="btn" onclick="closeModal();openLesson(LESSONS[${lessonIndex(lpx.id)}])">返回本课</button>
+      <button class="btn ghost" onclick="closeModal();openUnitQuiz('lesson','${lpx.id}')">📝 去单元测验</button>
+      ${scene?`<button class="btn ghost" onclick="closeModal();goPodFromLesson('${lpx.id}','${scene}')">🎮 去演练：${scene}</button>`:''}
+    </div>`;
+}
 
 /* ============ 模考冲刺（批次3 T-3.3） ============ */
 let mock={part:'intro', mode:'speak', speakIdx:0, listenIdx:0, speakScore:0, listenScore:0, speakResults:{}, listenResults:{}, recOn:false, recUrl:null};
@@ -491,13 +634,14 @@ $('#btnStart').onclick=()=>{
 };
 
 /* ============ 场景演练舱 ============ */
-let pod = {name:null, step:0, exIdx:0, lineIdx:0, varSel:0, tab:'words', showRef:false, checks:{}, ratings:{word:3,fluency:3,grammar:3,pron:3}, feedback:null, recOn:false, recUrl:null};
+let pod = {name:null, step:0, exIdx:0, lineIdx:0, varSel:0, tab:'words', showRef:false, checks:{}, ratings:{word:3,fluency:3,grammar:3,pron:3}, feedback:null, recOn:false, recUrl:null, fromLesson:null, fromModuleTask:null};
 let recStream=null, recMedia=null, recChunks=[];
 
-function openPractice(name){
+function openPractice(name, opts){
   const p=PRACTICE[name];
   if(!p){ toast('该场景的演练数据缺失'); return; }
-  pod={name,step:0,exIdx:0,lineIdx:0,varSel:0,tab:'words',showRef:false,checks:{},ratings:{word:3,fluency:3,grammar:3,pron:3},feedback:null,recOn:false,recUrl:null};
+  opts=opts||{};
+  pod={name,step:0,exIdx:0,lineIdx:0,varSel:0,tab:'words',showRef:false,checks:{},ratings:{word:3,fluency:3,grammar:3,pron:3},feedback:null,recOn:false,recUrl:null,fromLesson:opts.fromLesson||null,fromModuleTask:opts.fromModuleTask||null};
   $('#pod-mask').classList.add('show');
   renderPod();
   $('#pod-mask').scrollTop=0;
@@ -516,7 +660,7 @@ function podTurns(){
 }
 function renderPod(){
   const p=PRACTICE[pod.name];
-  const steps=podSteps().map((s,i)=>`<div class="step ${i<pod.step?'done':i===pod.step?'on':''}"><b>${['①','②','③','④'][i]}</b>${s}</div>`).join('');
+  const steps=podSteps().map((s,i)=>`<div class="step ${i<pod.step?'done':i===pod.step?'on':''}"><b>${['①','②','③','④','⑤'][i]}</b>${s}</div>`).join('');
   let body='';
   if(pod.step===0){
     body=`<div class="scene-brief">
@@ -587,10 +731,16 @@ function renderPod(){
     body=renderPodFeedback();
   } else {
     const s=SCENARIOS.find(x=>x.name===pod.name);
+    const fromL=pod.fromLesson, fromM=pod.fromModuleTask;
+    const backBtn = fromL
+      ? `<button class="btn" onclick="backToLessonFromPod()">📚 返回第 ${lessonIndex(fromL)+1} 课</button>`
+      : fromM
+        ? `<button class="btn" onclick="backToModuleFromPod()">🛠️ 返回对应模块</button>`
+        : `<button class="btn" onclick="closePod()">返回场景城</button>`;
     body=`<div class="success"><div class="em">🏅</div><h3>场景演练完成！</h3>
       <p><b>${pod.name}</b> 已解锁。<br>完整素材与对话变体已在演练舱内完成，并已生成专属反馈。</p>
       <p style="margin-top:10px;font-size:13px">💡 练习建议：${s.task}</p></div>
-      <div class="pod-actions"><button class="btn" onclick="closePod()">返回场景城</button>
+      <div class="pod-actions">${backBtn}
       <button class="btn ghost" onclick="retry()">再练一次 🔁</button></div>`;
   }
   $('#pod').innerHTML=`<div class="pod-head"><h2>🎮 演练舱 · ${pod.name}</h2>
@@ -682,6 +832,9 @@ function fbDone(){
   if(!done.practice) done.practice=[];
   if(!done.practice.includes(pod.name)){ done.practice.push(pod.name); save(); }
   recordPractice(pod.name, pod.ratings);
+  logLearning('scenario-practice', pod.name, pod.fromLesson?('lesson:'+pod.fromLesson):(pod.fromModuleTask?('moduleTask:'+pod.fromModuleTask):'free'));
+  // 模块任务双向同步：演练完成自动勾选对应模块任务
+  if(pod.fromModuleTask) toggleModTask(taskModuleOf(pod.fromModuleTask), pod.fromModuleTask, true);
   renderPod(); renderAll();
   toast('🏅 场景演练完成，已解锁！');
 }
