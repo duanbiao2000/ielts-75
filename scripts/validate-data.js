@@ -74,8 +74,19 @@ MODULES.forEach((m, i) => {
 // ---- BADGES ----
 if (!Array.isArray(BADGES) || BADGES.length === 0) errors.push('BADGES 为空或非数组');
 uniq(BADGES, x => x.id, 'BADGES');
+const BADGE_CATS = ['课程', '场景', '模块', '测评', '复习', '坚持', '进阶'];
+const BADGE_COND = ['arr', 'scenDomain', 'modP', 'checkinDays', 'refresh', 'mock', 'mockBest', 'streak', 'level', 'all'];
 BADGES.forEach((b, i) => {
-  if (!b.id || !b.name || !b.desc) errors.push(`BADGES[${i}] 缺少 id/name/desc`);
+  if (!b.id || !b.name || !b.desc || !b.em) errors.push(`BADGES[${i}] 缺少 id/em/name/desc`);
+  if (!BADGE_CATS.includes(b.cat)) errors.push(`BADGES[${i}]（${b.name}）cat 非法：${b.cat}`);
+  const c = b.cond;
+  if (!c || !BADGE_COND.includes(c.t)) { errors.push(`BADGES[${i}]（${b.name}）cond.t 非法`); return; }
+  const need = (condArr, keys) => { keys.forEach(k => { if (condArr[k] === undefined) errors.push(`BADGES[${i}]（${b.name}）cond 缺少 ${k}`); }); };
+  if (c.t === 'arr') need(c, ['f', 'min']);
+  if (c.t === 'scenDomain') need(c, ['d', 'min']);
+  if (c.t === 'modP') { need(c, ['p', 'min']); if (c.p && !['P0', 'P1', 'P2'].includes(c.p)) errors.push(`BADGES[${i}] modP 优先级非法`); }
+  if (['checkinDays', 'refresh', 'mockBest', 'streak', 'level'].includes(c.t)) need(c, ['min']);
+  if (c.t === 'all') { if (!Array.isArray(c.of) || !c.of.every(p => Array.isArray(p) && p.length === 2)) errors.push(`BADGES[${i}] all.of 需为 [[field,min],…]`); }
 });
 
 // ---- PRACTICE 与 SCENARIOS 键名对齐 ----
