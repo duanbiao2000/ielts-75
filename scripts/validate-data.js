@@ -13,22 +13,23 @@ const ROOT = path.resolve(__dirname, '..');
 const dataFile = path.join(ROOT, 'onboarding', 'js', 'data.js');
 const fullFile = path.join(ROOT, 'onboarding', 'js', 'practice-full.js');
 const trainFile = path.join(ROOT, 'onboarding', 'js', 'training.js');
-// 加载顺序：practice-full → data → training（data.js 中 PRACTICE 引用 PRACTICE_FULL）
+const courseFile = path.join(ROOT, 'onboarding', 'js', 'course.js');
+// 加载顺序：practice-full → data → training → course（data.js 中 PRACTICE 引用 PRACTICE_FULL）
 const fullSrc = fs.readFileSync(fullFile, 'utf8');
-const src = fullSrc + '\n' + fs.readFileSync(dataFile, 'utf8') + '\n' + fs.readFileSync(trainFile, 'utf8');
+const src = fullSrc + '\n' + fs.readFileSync(dataFile, 'utf8') + '\n' + fs.readFileSync(trainFile, 'utf8') + '\n' + fs.readFileSync(courseFile, 'utf8');
 
 let data;
 try {
   // 以 const 声明全局变量，用 Function 在沙箱中执行并捕获
   const sandbox = {};
-  const fn = new Function('window', 'self', 'globalThis', src + '\n;return {LESSONS,SCENARIOS,SCEN_DOMAINS,MODULES,BADGES,PRACTICE,DIAG_SUBJECTS,QUIZ_LESSONS,QUIZ_MODS,MOCK_EXAM};');
+  const fn = new Function('window', 'self', 'globalThis', src + '\n;return {LESSONS,SCENARIOS,SCEN_DOMAINS,MODULES,BADGES,PRACTICE,DIAG_SUBJECTS,QUIZ_LESSONS,QUIZ_MODS,MOCK_EXAM,LESSON_PACKS,MODULE_PACKS};');
   data = fn(sandbox, sandbox, sandbox);
 } catch (e) {
   console.error('❌ 数据文件语法/解析错误：' + e.message);
   process.exit(1);
 }
 
-const { LESSONS, SCENARIOS, SCEN_DOMAINS, MODULES, BADGES, PRACTICE, DIAG_SUBJECTS, QUIZ_LESSONS, QUIZ_MODS, MOCK_EXAM } = data;
+const { LESSONS, SCENARIOS, SCEN_DOMAINS, MODULES, BADGES, PRACTICE, DIAG_SUBJECTS, QUIZ_LESSONS, QUIZ_MODS, MOCK_EXAM, LESSON_PACKS, MODULE_PACKS } = data;
 const errors = [];
 const warns = [];
 
@@ -159,13 +160,67 @@ if (MOCK_EXAM) {
   });
 } else errors.push('MOCK_EXAM 缺失');
 
+// ---- 课程与模块训练数据（批次2） ----
+const scenNameSet = new Set(scenNames);
+// T-2.1 LESSON_PACKS
+if (!LESSON_PACKS || typeof LESSON_PACKS !== 'object') {
+  errors.push('LESSON_PACKS 缺失');
+} else {
+  lessonIds.forEach(id => {
+    const p = LESSON_PACKS[id];
+    if (!p) { errors.push(`LESSON_PACKS[${id}] 缺失`); return; }
+    if (typeof p.est !== 'number' || p.est <= 0) errors.push(`LESSON_PACKS[${id}] est 需为正数`);
+    if (!Array.isArray(p.takeaways) || p.takeaways.length < 3) errors.push(`LESSON_PACKS[${id}] takeaways 少于 3 条`);
+    (p.scenes || []).forEach(sn => { if (!scenNameSet.has(sn)) errors.push(`LESSON_PACKS[${id}].scenes 引用不存在场景：${sn}`); });
+    if (!Array.isArray(p.scenes) || p.scenes.length === 0) errors.push(`LESSON_PACKS[${id}] scenes 需至少 1 个`);
+    if (!Array.isArray(p.practice) || p.practice.length < 2) errors.push(`LESSON_PACKS[${id}] practice 少于 2 题`);
+    (p.practice || []).forEach((q, i) => {
+      if (!q.stem) errors.push(`LESSON_PACKS[${id}].practice[${i}] 缺少 stem`);
+      if (q.type === 'choice') {
+        if (!Array.isArray(q.opts) || q.opts.length !== 4) errors.push(`LESSON_PACKS[${id}].practice[${i}] choice 需 4 个 opts`);
+        if (typeof q.right !== 'number' || q.right < 0 || q.right > 3) errors.push(`LESSON_PACKS[${id}].practice[${i}] right 越界`);
+      } else if (q.type === 'fill') {
+        if (!q.answer) errors.push(`LESSON_PACKS[${id}].practice[${i}] fill 需 answer`);
+      } else errors.push(`LESSON_PACKS[${id}].practice[${i}] type 非法`);
+      if (!q.explain) errors.push(`LESSON_PACKS[${id}].practice[${i}] 缺少 explain`);
+    });
+  });
+  Object.keys(LESSON_PACKS).forEach(k => { if (!lessonIds.includes(k)) errors.push(`LESSON_PACKS 多余键：${k}`); });
+}
+// T-2.4 MODULE_PACKS
+if (!MODULE_PACKS || typeof MODULE_PACKS !== 'object') {
+  errors.push('MODULE_PACKS 缺失');
+} else {
+  modIds.forEach(id => {
+    const p = MODULE_PACKS[id];
+    if (!p) { errors.push(`MODULE_PACKS[${id}] 缺失`); return; }
+    if (!p.target) errors.push(`MODULE_PACKS[${id}] 缺少 target`);
+    if (!Array.isArray(p.linkScenes) || p.linkScenes.length === 0) errors.push(`MODULE_PACKS[${id}] linkScenes 需至少 1 个`);
+    (p.linkScenes || []).forEach(sn => { if (!scenNameSet.has(sn)) errors.push(`MODULE_PACKS[${id}].linkScenes 引用不存在场景：${sn}`); });
+    if (!Array.isArray(p.tasks) || p.tasks.length < 3) errors.push(`MODULE_PACKS[${id}] tasks 少于 3 个`);
+    const tids = new Set();
+    (p.tasks || []).forEach((t, i) => {
+      if (!t.id || !t.id.startsWith(id)) errors.push(`MODULE_PACKS[${id}].tasks[${i}] id "${t.id}" 需以 ${id} 开头`);
+      if (tids.has(t.id)) errors.push(`MODULE_PACKS[${id}].tasks[${i}] id 重复`);
+      tids.add(t.id);
+      if (!t.text) errors.push(`MODULE_PACKS[${id}].tasks[${i}] 缺少 text`);
+      if (typeof t.est !== 'number' || t.est <= 0) errors.push(`MODULE_PACKS[${id}].tasks[${i}] est 需为正数`);
+      if (t.scene && !scenNameSet.has(t.scene)) errors.push(`MODULE_PACKS[${id}].tasks[${i}].scene 引用不存在场景：${t.scene}`);
+    });
+    // 至少一个可演练任务（双向同步锚点）
+    if (!(p.tasks || []).some(t => t.scene)) errors.push(`MODULE_PACKS[${id}] 需至少 1 个带 scene 的演练任务`);
+  });
+  Object.keys(MODULE_PACKS).forEach(k => { if (!modIds.includes(k)) errors.push(`MODULE_PACKS 多余键：${k}`); });
+}
+
 // ---- 输出 ----
 console.log('数据校验：LESSONS=' + LESSONS.length + '，SCENARIOS=' + SCENARIOS.length +
   '，MODULES=' + MODULES.length + '，BADGES=' + BADGES.length +
   '，PRACTICE=' + Object.keys(PRACTICE || {}).length +
   '，DIAG=' + (DIAG_SUBJECTS||[]).length + '科' +
   '，QUIZ=' + Object.keys(QUIZ_LESSONS||{}).length + '+' + Object.keys(QUIZ_MODS||{}).length +
-  '，MOCK=口语' + (MOCK_EXAM?MOCK_EXAM.speaking.length:0) + '/听力' + (MOCK_EXAM?MOCK_EXAM.listening.length:0));
+  '，MOCK=口语' + (MOCK_EXAM?MOCK_EXAM.speaking.length:0) + '/听力' + (MOCK_EXAM?MOCK_EXAM.listening.length:0) +
+  '，COURSE=课' + Object.keys(LESSON_PACKS||{}).length + '/模块' + Object.keys(MODULE_PACKS||{}).length);
 
 if (errors.length) {
   console.error('\n❌ 校验失败（' + errors.length + ' 项）：');
