@@ -1,0 +1,8 @@
+# 临时与缓存
+_*
+*.bak
+*.orig
+*.tmp
+node_modules/
+__pycache__/
+.DS_Store
