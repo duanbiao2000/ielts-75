@@ -26,13 +26,16 @@ function migrateState(s){
 function save(){ try{ localStorage.setItem(STORE_KEY, JSON.stringify(done)); }catch(e){} }
 /* 学习记录写入 learning-records（localStorage 独立键，按时间倒序追加，上限 500） */
 const LR_KEY='learning-records';
-function logLearning(action,id,detail){
+function lrPush(action,id,detail){
   try{
     const arr=JSON.parse(localStorage.getItem(LR_KEY)||'[]');
     arr.push({ts:Date.now(),action:action,id:id,detail:detail||''});
     if(arr.length>500) arr.splice(0,arr.length-500);
     localStorage.setItem(LR_KEY, JSON.stringify(arr));
   }catch(e){}
+}
+function logLearning(action,id,detail){
+  lrPush(action,id,detail);
   updateStreak();
 }
 /* ============ 等级与经验（T-4.2） ============ */
@@ -61,7 +64,58 @@ function awardXP(n, reason){
   save();
   renderHeader();
 }
-function updateStreak(){ /* T-4.3 实现：连续训练天数 */ }
+/* ============ 连续打卡与习惯（T-4.3） ============
+   规则：当天有任一学习行为即打卡；昨日也有则连续+1；
+   断签恰好 1 天且有补偿券 → 消耗 1 张补偿券，连续保留；
+   否则断签，连续重置为 1。每满 7 天连续奖励 1 张补偿券。 */
+function localDate(d){ const x=d||new Date(); return x.getFullYear()+'-'+String(x.getMonth()+1).padStart(2,'0')+'-'+String(x.getDate()).padStart(2,'0'); }
+function dayDiff(a,b){ return Math.round((new Date(a)-new Date(b))/86400000); }
+function updateStreak(){
+  const today=localDate();
+  if(done.lastStreakDate===today) return;
+  const y=new Date(); y.setDate(y.getDate()-1);
+  const yest=localDate(y);
+  let usedFreeze=false;
+  if(done.lastStreakDate===yest){
+    done.streak=(done.streak||0)+1;
+  } else if(done.lastStreakDate && dayDiff(today,done.lastStreakDate)===2 && (done.streakFreeze||0)>0){
+    done.streakFreeze--; done.streak=(done.streak||0)+1; usedFreeze=true;
+  } else {
+    done.streak=1;
+  }
+  done.lastStreakDate=today;
+  done.bestStreak=Math.max(done.bestStreak||0, done.streak);
+  if(done.streak%7===0){ done.streakFreeze=(done.streakFreeze||0)+1; lrPush('streak-reward','streak','连续'+done.streak+'天，+1 断签补偿券'); toast('🎫 连续 '+done.streak+' 天！奖励 1 张断签补偿券'); }
+  if(usedFreeze){ lrPush('streak-freeze','streak','断签补偿券消耗，连续保留至 '+done.streak+' 天'); toast('🎫 断签补偿券已消耗，连续 '+done.streak+' 天保留！'); }
+  save();
+}
+/* 今日任务：基于学习状态推荐的每日训练（T-4.3） */
+function recommendDaily(){
+  for(let i=0;i<LESSONS.length;i++){ if(lessonUnlocked(i) && !(done.lesson||[]).includes(LESSONS[i].id)) return '学习课程关卡：'+LESSONS[i].title; }
+  if((done.quizPass||[]).length<23){
+    const nextLesson=lessonIdsWithQuizPending();
+    if(nextLesson) return '通过单元测验：'+nextLesson;
+  }
+  const due=getDueReviews(); if(due.length) return '完成 '+due.length+' 项间隔复习（见下方复习中心）';
+  const undone=SCENARIOS.find(s=>!(done.practice||[]).includes(s.name));
+  if(undone) return '完成场景演练：'+undone.name;
+  if(!done.mock) return '完成一次模考冲刺';
+  return '自由训练：任选场景演练或模考，保持手感';
+}
+function lessonIdsWithQuizPending(){
+  const p=(done.quizPass||[]);
+  for(const l of LESSONS){ if(!p.includes('lesson:'+l.id)) return l.title; }
+  for(const m of MODULES){ if(!p.includes('mod:'+m.id)) return m.title; }
+  return null;
+}
+function renderDaily(){
+  const el=$('#dailyTask'); if(!el) return;
+  const today=localDate();
+  const checkedIn=done.lastStreakDate===today;
+  el.innerHTML=`<div class="dt-head">🗓️ 今日任务 ${checkedIn?'<span class="dt-ok">✅ 今日已打卡</span>':'<span class="dt-pending">未开始</span>'}</div>
+    <div class="dt-body">${recommendDaily()}</div>
+    <div class="dt-foot">连续训练 <b>${done.streak||0}</b> 天 · 最佳 ${done.bestStreak||0} 天 · 补偿券 <b>${done.streakFreeze||0}</b> 张</div>`;
+}
 function renderHeader(){
   const info=levelInfo(done.experience||0);
   if((done.level||1)!==info.lv){ done.level=info.lv; }
@@ -196,7 +250,7 @@ function renderProgress(){
   $('#ringFg').setAttribute('stroke-dashoffset', C*(1-pct/100));
   $('#ringPct').textContent = pct+'%';
 }
-function renderAll(){ renderLessons(); renderScen($('#scenTabs').dataset.cur||'职场'); renderMods(); renderBadges(); renderProgress(); renderReview(); renderHeader(); }
+function renderAll(){ renderLessons(); renderScen($('#scenTabs').dataset.cur||'职场'); renderMods(); renderBadges(); renderProgress(); renderReview(); renderHeader(); renderDaily(); }
 
 /* ============ 弹窗 ============ */
 function openModal(html){ $('#modalBox').innerHTML = html; $('#modal-mask').classList.add('show'); }
