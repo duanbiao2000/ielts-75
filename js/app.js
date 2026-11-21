@@ -225,6 +225,143 @@ function uqResultHtml(){
 }
 function uqRetry(){ uq.qIdx=0; uq.score=0; uq.picked=false; openModal(renderUqHtml()); bindUq(); }
 
+/* ============ 模考冲刺（批次3 T-3.3） ============ */
+let mock={part:'intro', mode:'speak', speakIdx:0, listenIdx:0, speakScore:0, listenScore:0, speakResults:{}, listenResults:{}, recOn:false, recUrl:null};
+let mockRecStream=null, mockRecChunks=[], mockRecSrc=null;
+function mockSpeakQ(){ return MOCK_EXAM.speaking[mock.speakIdx]; }
+function mockListenQ(){ return MOCK_EXAM.listening[mock.listenIdx]; }
+function mockMax(){ return MOCK_EXAM.speaking.length+MOCK_EXAM.listening.length; }
+function openMock(){
+  mock={part:'intro',mode:'speak',speakIdx:0,listenIdx:0,speakScore:0,listenScore:0,speakResults:{},listenResults:{},recOn:false,recUrl:null};
+  $('#mock-mask').classList.add('show'); $('#mock').scrollTop=0; renderMock();
+}
+function closeMock(){ if(mock.recOn) mockStopRec(); $('#mock-mask').classList.remove('show'); }
+function mockGo(mode){
+  mock.mode=mode;
+  if(mode==='speak'){ mock.part='speak'; mock.speakIdx=0; }
+  else if(mode==='listen'){ mock.part='listen'; mock.listenIdx=0; }
+  else { mock.part='speak'; mock.speakIdx=0; mock.listenIdx=0; }
+  renderMock();
+}
+function renderMock(){
+  const el=$('#mock');
+  if(mock.part==='intro'){
+    el.innerHTML=`<div class="pod-head"><h2>⏱️ 模考冲刺</h2><button class="btn ghost small" onclick="closeMock()">退出</button></div>
+      <div class="scene-brief"><b>模考说明：</b>完整模拟雅思口语（Part1–3）与听力（Section 1–4）。口语先录音（可回放），再输入你的回答，系统按<b>关键词/语料匹配</b>自动评分；听力选择答案即时判分。</div>
+      <div class="mock-parts">
+        <button class="mock-part" onclick="mockGo('speak')">🗣️ 口语模考（${MOCK_EXAM.speaking.length} 题）</button>
+        <button class="mock-part" onclick="mockGo('listen')">🎧 听力模考（${MOCK_EXAM.listening.length} 题）</button>
+        <button class="mock-part ghost" onclick="mockGo('full')">🧪 完整模考（口语 + 听力）</button>
+      </div>
+      <div class="mock-progress">口语 ${mock.speakScore}/${MOCK_EXAM.speaking.length} · 听力 ${mock.listenScore}/${MOCK_EXAM.listening.length}</div>`;
+    return;
+  }
+  if(mock.part==='speak'){ renderMockSpeak(el); return; }
+  if(mock.part==='listen'){ renderMockListen(el); return; }
+  renderMockDone(el);
+}
+function renderMockSpeak(el){
+  const q=mockSpeakQ();
+  el.innerHTML=`<div class="pod-head"><h2>🗣️ 口语模考 · ${q.part}</h2><button class="btn ghost small" onclick="closeMock()">退出</button></div>
+    <div class="mock-progress">口语 ${mock.speakIdx+1} / ${MOCK_EXAM.speaking.length} · 已得分 ${mock.speakScore}</div>
+    <div class="mock-q">
+      <div class="stem">${q.q}</div>
+      <div class="mock-ref"><b>参考回答：</b>${q.ref}<br><b>关键词（评分依据）：</b>${q.keywords.join('、')}</div>
+      <textarea id="mockAns" class="uq-fill" rows="3" placeholder="输入你的回答，系统将按关键词匹配评分"></textarea>
+      <div class="turn-bar"><button class="rec-btn" id="recBtn"><span class="dot"></span><span id="recTxt">录音</span></button>${mock.recUrl?'<audio controls style="height:32px"></audio>':''}</div>
+      <div class="feedback" id="fb"></div>
+    </div>
+    <div class="pod-actions"><button class="btn" id="btnScore" disabled>评分</button>
+      <button class="btn ghost small" onclick="closeMock()">退出</button></div>`;
+  $('#recBtn').onclick=mockToggleRec;
+  $('#btnScore').onclick=mockScoreSpeak;
+}
+function renderMockListen(el){
+  const q=mockListenQ();
+  el.innerHTML=`<div class="pod-head"><h2>🎧 听力模考 · ${q.section}</h2><button class="btn ghost small" onclick="closeMock()">退出</button></div>
+    <div class="mock-progress">听力 ${mock.listenIdx+1} / ${MOCK_EXAM.listening.length} · 已得分 ${mock.listenScore}</div>
+    <div class="mock-q">
+      <div class="stem">${q.q}</div>
+      ${q.opts.map((o,i)=>`<button class="opt" data-i="${i}">${o}</button>`).join('')}
+      <div class="feedback" id="fb"></div>
+    </div>
+    <div class="pod-actions"><button class="btn ghost small" id="btnLNext" disabled>${mock.listenIdx<MOCK_EXAM.listening.length-1?'下一题 →':'查看成绩'}</button>
+      <button class="btn ghost small" onclick="closeMock()">退出</button></div>`;
+  el.querySelectorAll('.opt').forEach(b=>b.onclick=()=>mockListenPick(b.dataset.i,q));
+  $('#btnLNext').onclick=mockListenNext;
+}
+function mockScoreSpeak(){
+  const q=mockSpeakQ();
+  const val=($('#mockAns').value||'').trim();
+  if(!val){ toast('请先输入你的回答再评分'); return; }
+  const matched=q.keywords.filter(k=>val.toLowerCase().includes(k.toLowerCase()));
+  const ratio=matched.length/q.keywords.length;
+  const pts=ratio>=0.8?2:ratio>=0.5?1:0;
+  mock.speakScore+=pts;
+  mock.speakResults[mock.speakIdx]={matched,ratio,pts};
+  $('#fb').innerHTML=`🎯 关键词命中 ${matched.length}/${q.keywords.length}（${Math.round(ratio*100)}%）· 得分 ${pts}/2<br><span style="color:var(--dim)">命中：${matched.join('、')||'无'}</span>`;
+  $('#fb').classList.add('show');
+  const btn=$('#btnScore'); btn.disabled=false; btn.textContent='下一题 →'; btn.onclick=mockSpeakNext;
+}
+function mockSpeakNext(){
+  mock.speakIdx++;
+  if(mock.speakIdx>=MOCK_EXAM.speaking.length){
+    mock.part = mock.mode==='full' ? 'listen' : 'done';
+  }
+  renderMock();
+}
+function mockListenPick(i,q){
+  if(mock.listenResults[mock.listenIdx]!==undefined) return;
+  mock.listenResults[mock.listenIdx]={pick:i,correct:i===q.right};
+  if(i===q.right) mock.listenScore++;
+  const all=$('#mock').querySelectorAll('.opt');
+  all.forEach((o,k)=>o.classList.toggle('right',k===q.right));
+  if(i!==q.right && all[i]) all[i].classList.add('wrong');
+  $('#fb').textContent=(i===q.right?'✅ 正确。':'❌ 正确答案：'+q.opts[q.right])+' 💡 '+q.explain;
+  $('#fb').classList.add('show');
+  $('#btnLNext').disabled=false;
+}
+function mockListenNext(){ mock.listenIdx++; if(mock.listenIdx>=MOCK_EXAM.listening.length) mock.part='done'; renderMock(); }
+function renderMockDone(el){
+  const total=mock.speakScore+mock.listenScore;
+  const max=mockMax();
+  const pct=Math.round(total/max*100);
+  el.innerHTML=`<div class="pod-head"><h2>🏁 模考成绩</h2><button class="btn ghost small" onclick="closeMock()">退出</button></div>
+    <div class="profile-card"><h3>📊 模考完成 — 总分 ${total} / ${max}（${pct}%）</h3>
+      <div class="diag-rows">
+        <div class="diag-row"><span class="dr-ic">🗣️ 口语</span><div class="dr-bar"><i style="width:${Math.round(mock.speakScore/MOCK_EXAM.speaking.length*100)}%"></i></div><span class="dr-sc">${mock.speakScore}/${MOCK_EXAM.speaking.length}</span></div>
+        <div class="diag-row"><span class="dr-ic">🎧 听力</span><div class="dr-bar"><i style="width:${Math.round(mock.listenScore/MOCK_EXAM.listening.length*100)}%"></i></div><span class="dr-sc">${mock.listenScore}/${MOCK_EXAM.listening.length}</span></div>
+      </div>
+      <div class="result-line">口语按关键词匹配评分，听力按选项判分。薄弱项可在诊断路线中针对性回练。</div>
+    </div>
+    <div class="pod-actions"><button class="btn" onclick="closeMock()">返回</button>
+      <button class="btn ghost" onclick="openMock()">再考一次 🔁</button></div>`;
+  if(!done.mock){ done.mock=true; save(); }
+  renderAll();
+}
+async function mockToggleRec(){
+  if(mock.recOn){ mockStopRec(); return; }
+  try{
+    const stream=await navigator.mediaDevices.getUserMedia({audio:true});
+    mockRecStream=new MediaRecorder(stream);
+    mockRecChunks=[];
+    mockRecStream.ondataavailable=e=>{ if(e.data.size) mockRecChunks.push(e.data); };
+    mockRecStream.onstop=()=>{
+      const blob=new Blob(mockRecChunks,{type:'audio/webm'});
+      mock.recUrl=URL.createObjectURL(blob);
+      mock.recOn=false; renderMock();
+    };
+    mockRecStream.start(); mock.recOn=true; mockRecSrc=stream;
+    $('#recTxt').textContent='停止录音';
+  }catch(e){ toast('当前环境不支持录音，可仅用文字输入评分'); }
+}
+function mockStopRec(){
+  if(mockRecStream && mockRecStream.state!=='inactive'){ mockRecStream.stop(); }
+  if(mockRecSrc){ mockRecSrc.getTracks().forEach(t=>t.stop()); mockRecSrc=null; }
+  mock.recOn=false;
+}
+$('#btnMock').onclick=openMock;
+
 $('#btnGuide').onclick=()=>openModal(`<button class="close" onclick="closeModal()">×</button>
   <h2>📘 项目全景与使用顺序</h2>
   <p>整个项目是一条闭环，入口与顺序如下：</p>
