@@ -64,6 +64,65 @@ function awardXP(n, reason){
   save();
   renderHeader();
 }
+/* ============ 学习记录导出（T-5.1） ============ */
+function exportBundle(){
+  let arr=[]; try{ arr=JSON.parse(localStorage.getItem(LR_KEY)||'[]'); }catch(e){}
+  const actionCounts={}; arr.forEach(r=>{ actionCounts[r.action]=(actionCounts[r.action]||0)+1; });
+  return {
+    app:'ielts-75', schema:1, exportedAt:new Date().toISOString(),
+    summary:{
+      lessonsDone:(done.lesson||[]).length, lessonsTotal:LESSONS.length,
+      scenariosPracticed:(done.practice||[]).length, scenariosTotal:SCENARIOS.length,
+      modulesDone:(done.mod||[]).length, modulesTotal:MODULES.length,
+      quizPassed:(done.quizPass||[]).length, quizTotal:(typeof QUIZ_LESSONS!=='undefined'?Object.keys(QUIZ_LESSONS).length+Object.keys(QUIZ_MODS).length:0),
+      badges:(done.badges||[]).length, badgesTotal:BADGES.length,
+      experience:done.experience||0, level:done.level||1,
+      streak:done.streak||0, bestStreak:done.bestStreak||0, streakFreeze:done.streakFreeze||0,
+      mockBest:done.mockBest||0, journey:(done.journey||[]).length, journeyTotal:JOURNEY.length,
+      errors:(done.errors||[]).length, reviewDue:getDueReviews().length,
+    },
+    state:done,
+    learningRecords:arr,
+    actionCounts,
+  };
+}
+function downloadFile(name, content, mime){
+  const blob=new Blob([content],{type:mime||'application/json'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url; a.download=name; a.style.display='none';
+  document.body.appendChild(a);
+  a.click();
+  setTimeout(()=>{ try{URL.revokeObjectURL(url);}catch(e){} a.remove(); }, 0);
+}
+function exportJSON(){
+  const b=exportBundle();
+  downloadFile('ielts75-learning-records-'+localDate().replace(/-/g,'')+'.json', JSON.stringify(b,null,2), 'application/json');
+  lrPush('export','json');
+  toast('📦 学习记录已导出（JSON）');
+}
+function csvEscape(v){ v=String(v==null?'':v); return /[",\r\n]/.test(v) ? '"'+v.replace(/"/g,'""')+'"' : v; }
+function exportCSV(){
+  const b=exportBundle();
+  const rows=[['时间(ISO)','动作','对象','详情']];
+  b.learningRecords.forEach(r=>rows.push([new Date(r.ts).toISOString(), r.action, r.id, r.detail||'']));
+  const csv='\ufeff'+rows.map(r=>r.map(csvEscape).join(',')).join('\r\n');
+  downloadFile('ielts75-learning-records-'+localDate().replace(/-/g,'')+'.csv', csv, 'text/csv;charset=utf-8');
+  lrPush('export','csv');
+  toast('📄 学习记录已导出（CSV）');
+}
+function openExport(){
+  let n=0; try{ n=JSON.parse(localStorage.getItem(LR_KEY)||'[]').length; }catch(e){}
+  openModal(`<button class="close" onclick="closeModal()">×</button>
+    <h2>📤 导出学习记录</h2>
+    <p>导出内容包含：训练进度汇总（课程 / 场景演练 / 模块 / 徽章 / 等级 / 连续天数 / 模考最佳 / 旅程）、完整状态快照，以及 <b>${n}</b> 条学习流水记录。</p>
+    <div class="export-opts">
+      <button class="btn" onclick="exportJSON()">📦 导出 JSON（完整备份）</button>
+      <button class="btn ghost" onclick="exportCSV()">📄 导出 CSV（流水 · Excel 可读）</button>
+    </div>
+    <p class="export-note">JSON 含全部状态，可用于迁移设备或对接推广材料；CSV 仅含流水，便于用表格复盘训练频率与薄弱环节。</p>`);
+}
+
 /* ============ 成就与剧情：从 6.0 到 7.5 的旅程（T-4.4） ============ */
 const JOURNEY = [
   {id:'ch1', stage:'序章', score:'6.0 → 6.5', title:'看清起点',
@@ -778,6 +837,7 @@ function mockStopRec(){
 }
 $('#btnMock').onclick=openMock;
 $('#btnJourney').onclick=openJourney;
+$('#btnExport').onclick=openExport;
 
 $('#btnGuide').onclick=()=>openModal(`<button class="close" onclick="closeModal()">×</button>
   <h2>📘 项目全景与使用顺序</h2>
