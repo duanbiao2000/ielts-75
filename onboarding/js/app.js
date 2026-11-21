@@ -94,7 +94,7 @@ function renderProgress(){
   $('#ringFg').setAttribute('stroke-dashoffset', C*(1-pct/100));
   $('#ringPct').textContent = pct+'%';
 }
-function renderAll(){ renderLessons(); renderScen($('#scenTabs').dataset.cur||'职场'); renderMods(); renderBadges(); renderProgress(); }
+function renderAll(){ renderLessons(); renderScen($('#scenTabs').dataset.cur||'职场'); renderMods(); renderBadges(); renderProgress(); renderReview(); }
 
 /* ============ 弹窗 ============ */
 function openModal(html){ $('#modalBox').innerHTML = html; $('#modal-mask').classList.add('show'); }
@@ -203,6 +203,8 @@ function uqNext(){
     if(!done.quiz) done.quiz=[];
     const key=uq.kind+':'+uq.id;
     if(!done.quiz.includes(key)){ done.quiz.push(key); save(); }
+    const pass=uq.score>=Math.ceil(list.length*0.6);
+    if(!pass){ addError({type:'quiz', id:key, detail:'单元测验未通过（'+uq.score+'/'+list.length+'）'}); }
     openModal(renderUqHtml()); return;
   }
   uq.picked=false;
@@ -299,6 +301,7 @@ function mockScoreSpeak(){
   const pts=ratio>=0.8?2:ratio>=0.5?1:0;
   mock.speakScore+=pts;
   mock.speakResults[mock.speakIdx]={matched,ratio,pts};
+  if(ratio<0.5){ addError({type:'mock', id:'speak:'+q.part, detail:q.q}); }
   $('#fb').innerHTML=`🎯 关键词命中 ${matched.length}/${q.keywords.length}（${Math.round(ratio*100)}%）· 得分 ${pts}/2<br><span style="color:var(--dim)">命中：${matched.join('、')||'无'}</span>`;
   $('#fb').classList.add('show');
   const btn=$('#btnScore'); btn.disabled=false; btn.textContent='下一题 →'; btn.onclick=mockSpeakNext;
@@ -314,6 +317,7 @@ function mockListenPick(i,q){
   if(mock.listenResults[mock.listenIdx]!==undefined) return;
   mock.listenResults[mock.listenIdx]={pick:i,correct:i===q.right};
   if(i===q.right) mock.listenScore++;
+  else addError({type:'mock', id:'listen:'+q.section, detail:q.q});
   const all=$('#mock').querySelectorAll('.opt');
   all.forEach((o,k)=>o.classList.toggle('right',k===q.right));
   if(i!==q.right && all[i]) all[i].classList.add('wrong');
@@ -677,6 +681,7 @@ function fbDone(){
   pod.step=4;
   if(!done.practice) done.practice=[];
   if(!done.practice.includes(pod.name)){ done.practice.push(pod.name); save(); }
+  recordPractice(pod.name, pod.ratings);
   renderPod(); renderAll();
   toast('🏅 场景演练完成，已解锁！');
 }
@@ -709,6 +714,66 @@ async function toggleRec(){
   }
 }
 function stopRec(){ if(recMedia&&recMedia.state!=='inactive'){ recMedia.stop(); } }
+
+/* ============ 复习系统（批次3 T-3.5） ============ */
+const REVIEW_INTERVALS=[1,3,7]; // 间隔复习天数
+const DAY=24*3600*1000;
+function addError(entry){
+  if(!done.errors) done.errors=[];
+  if(!done.errors.find(e=>e.type===entry.type&&e.id===entry.id)){
+    done.errors.push(Object.assign({},entry,{ts:Date.now()}));
+    save();
+  }
+}
+function recordPractice(name, ratings){
+  if(!done.review) done.review=[];
+  let r=done.review.find(x=>x.name===name);
+  const weak = ratings && (ratings.fluency<=2||ratings.word<=2||ratings.grammar<=2||ratings.pron<=2);
+  if(r){ r.weak=weak||r.weak; r.practicedAt=Date.now(); if(!r.stage) r.stage=0; }
+  else { done.review.push({name, weak, practicedAt:Date.now(), stage:0}); }
+  save();
+}
+function reviewNext(entry){
+  const idx=Math.min(entry.stage||0, REVIEW_INTERVALS.length-1);
+  return new Date(entry.practicedAt + REVIEW_INTERVALS[idx]*DAY);
+}
+function isDue(entry){ return Date.now() >= reviewNext(entry).getTime(); }
+function getDueReviews(){ return (done.review||[]).filter(isDue); }
+let reviewTab='errors';
+function renderReview(){
+  const tabs=['errors','weak','due'];
+  const labels={errors:'📕 错题本',weak:'🎯 薄弱场景',due:'⏰ 待复习'};
+  const due=getDueReviews();
+  $('#reviewTabs').innerHTML=tabs.map(t=>`<span class="tab ${t===reviewTab?'active':''}" data-t="${t}">${labels[t]}${t==='due'&&due.length?`<span class="n">${due.length}</span>`:''}</span>`).join('');
+  $('#reviewTabs').querySelectorAll('.tab').forEach(t=>t.onclick=()=>{ reviewTab=t.dataset.t; renderReview(); });
+  const body=$('#reviewBody');
+  if(reviewTab==='errors'){
+    const errs=done.errors||[];
+    if(!errs.length){ body.innerHTML=`<div class="card"><p style="color:var(--dim)">暂无错题。单元测验未通过、模考答错/低分的项会自动记录到这里。</p></div>`; }
+    else { body.innerHTML=`<div class="grid">${errs.map(e=>`<div class="card"><h3>${e.type==='quiz'?'✍️ 单元测验':e.type==='mock'?'⏱️ 模考':'📌'}</h3><p><b>${e.id}</b></p><p style="color:var(--dim);font-size:13px">${e.detail||''}</p></div>`).join('')}</div>`; }
+    return;
+  }
+  if(reviewTab==='weak'){
+    const weak=(done.review||[]).filter(r=>r.weak);
+    if(!weak.length){ body.innerHTML=`<div class="card"><p style="color:var(--dim)">暂无薄弱场景。演练反馈中任一维度自评 ≤2 分，该场景会进入薄弱清单，可一键重练。</p></div>`; }
+    else { body.innerHTML=`<div class="grid">${weak.map(r=>`<div class="card"><h3>${r.name}</h3><p style="color:var(--dim);font-size:13px">建议重练巩固</p><button class="btn small" onclick="openPractice('${r.name}')">🎮 立即重练</button></div>`).join('')}</div>`; }
+    return;
+  }
+  if(!due.length){
+    body.innerHTML=`<div class="card"><p style="color:var(--dim)">当前没有到点的复习。按间隔（1 / 3 / 7 天）巩固，到点后会在这里提醒你。</p>
+      <div style="margin-top:10px;color:var(--dim);font-size:13px">已练习 ${(done.review||[]).length} 个场景，继续积累复习队列。</div></div>`;
+  } else {
+    body.innerHTML=`<div class="grid">${due.map(r=>`<div class="card"><h3>⏰ ${r.name}</h3><p style="color:var(--dim);font-size:13px">到复习点了，重练巩固记忆</p><button class="btn small" onclick="doReview('${r.name}')">🔁 复习</button></div>`).join('')}</div>`;
+  }
+}
+function doReview(name){
+  const r=(done.review||[]).find(x=>x.name===name);
+  if(r){ r.stage=(r.stage||0)+1; r.practicedAt=Date.now(); save(); }
+  else { recordPractice(name); }
+  toast('🔁 已复习「'+name+'」，进入下一间隔');
+  openPractice(name);
+  renderReview();
+}
 
 /* ============ 启动 ============ */
 renderAll();
