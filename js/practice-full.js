@@ -3017,7 +3017,7 @@ const PRACTICE_FULL = {
             "zh": "当然，请讲。",
             "vars": [
               "Of course, please.",
-              "Sure, go ahead."
+              "Yes, of course — I'm listening."
             ]
           },
           {
@@ -4005,7 +4005,7 @@ const PRACTICE_FULL = {
             "zh": "为什么对这个职位感兴趣？",
             "vars": [
               "What draws you to this role?",
-              "Why are you interested in this position?"
+              "What attracts you to this opportunity?"
             ]
           },
           {
@@ -4534,7 +4534,7 @@ const PRACTICE_FULL = {
       "exchange",
       "warranty",
       "defective",
-      "receipt"
+      "complaint"
     ],
     "phrases": [
       [
@@ -5144,7 +5144,7 @@ const PRACTICE_FULL = {
       "theory",
       "argument",
       "evidence",
-      "evidence",
+      "citation",
       "seminar",
       "assumption"
     ],
