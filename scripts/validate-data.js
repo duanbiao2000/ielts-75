@@ -12,22 +12,23 @@ const path = require('path');
 const ROOT = path.resolve(__dirname, '..');
 const dataFile = path.join(ROOT, 'onboarding', 'js', 'data.js');
 const fullFile = path.join(ROOT, 'onboarding', 'js', 'practice-full.js');
-// 先加载完整内容包，再加载 data.js（data.js 中 PRACTICE 引用 PRACTICE_FULL）
+const trainFile = path.join(ROOT, 'onboarding', 'js', 'training.js');
+// 加载顺序：practice-full → data → training（data.js 中 PRACTICE 引用 PRACTICE_FULL）
 const fullSrc = fs.readFileSync(fullFile, 'utf8');
-const src = fullSrc + '\n' + fs.readFileSync(dataFile, 'utf8');
+const src = fullSrc + '\n' + fs.readFileSync(dataFile, 'utf8') + '\n' + fs.readFileSync(trainFile, 'utf8');
 
 let data;
 try {
   // 以 const 声明全局变量，用 Function 在沙箱中执行并捕获
   const sandbox = {};
-  const fn = new Function('window', 'self', 'globalThis', src + '\n;return {LESSONS,SCENARIOS,SCEN_DOMAINS,MODULES,BADGES,PRACTICE};');
+  const fn = new Function('window', 'self', 'globalThis', src + '\n;return {LESSONS,SCENARIOS,SCEN_DOMAINS,MODULES,BADGES,PRACTICE,DIAG_SUBJECTS,QUIZ_LESSONS,QUIZ_MODS,MOCK_EXAM};');
   data = fn(sandbox, sandbox, sandbox);
 } catch (e) {
   console.error('❌ 数据文件语法/解析错误：' + e.message);
   process.exit(1);
 }
 
-const { LESSONS, SCENARIOS, SCEN_DOMAINS, MODULES, BADGES, PRACTICE } = data;
+const { LESSONS, SCENARIOS, SCEN_DOMAINS, MODULES, BADGES, PRACTICE, DIAG_SUBJECTS, QUIZ_LESSONS, QUIZ_MODS, MOCK_EXAM } = data;
 const errors = [];
 const warns = [];
 
@@ -114,10 +115,57 @@ if (extra.length) errors.push('PRACTICE 多余场景（SCENARIOS 无）：' + ex
   });
 });
 
+// ---- 训练闭环数据（批次3） ----
+// T-3.1 四科诊断
+(DIAG_SUBJECTS || []).forEach(s => {
+  if (!s.id || !s.name || !Array.isArray(s.questions) || s.questions.length < 3)
+    errors.push(`DIAG_SUBJECTS[${s.id}] 需含 id/name 且 questions≥3`);
+  (s.questions || []).forEach((q, i) => {
+    if (!q.stem || !Array.isArray(q.opts) || typeof q.right!=='number')
+      errors.push(`DIAG_SUBJECTS[${s.id}].questions[${i}] 缺少 stem/opts/right`);
+    if (!q.explain) errors.push(`DIAG_SUBJECTS[${s.id}].questions[${i}] 缺少 explain`);
+  });
+});
+// T-3.2 单元测验
+function validateQuiz(map, label, keys) {
+  if (!map || typeof map!=='object') { errors.push(`${label} 缺失`); return; }
+  keys.forEach(k => {
+    if (!map[k]) { errors.push(`${label}[${k}] 缺失`); return; }
+    if (!Array.isArray(map[k]) || map[k].length < 2) errors.push(`${label}[${k}] 测验题少于 2 题`);
+    (map[k]||[]).forEach((q, i) => {
+      if (!q.stem) errors.push(`${label}[${k}].q[${i}] 缺少 stem`);
+      if (q.type==='choice') {
+        if (!Array.isArray(q.opts) || typeof q.right!=='number') errors.push(`${label}[${k}].q[${i}] choice 需 opts/right`);
+      } else if (q.type==='fill') {
+        if (!q.answer) errors.push(`${label}[${k}].q[${i}] fill 需 answer`);
+      } else errors.push(`${label}[${k}].q[${i}] type 非法`);
+      if (!q.explain) errors.push(`${label}[${k}].q[${i}] 缺少 explain`);
+    });
+  });
+}
+const lessonIds = (LESSONS||[]).map(l=>l.id);
+const modIds = (MODULES||[]).map(m=>m.id);
+validateQuiz(QUIZ_LESSONS, 'QUIZ_LESSONS', lessonIds);
+validateQuiz(QUIZ_MODS, 'QUIZ_MODS', modIds);
+// T-3.3 模考
+if (MOCK_EXAM) {
+  (MOCK_EXAM.speaking||[]).forEach((q,i)=>{
+    if (!q.part || !q.q || !q.ref || !Array.isArray(q.keywords) || q.keywords.length<3)
+      errors.push(`MOCK_EXAM.speaking[${i}] 需 part/q/ref/keywords(≥3)`);
+  });
+  (MOCK_EXAM.listening||[]).forEach((q,i)=>{
+    if (!q.section || !q.q || !Array.isArray(q.opts) || typeof q.right!=='number')
+      errors.push(`MOCK_EXAM.listening[${i}] 需 section/q/opts/right`);
+  });
+} else errors.push('MOCK_EXAM 缺失');
+
 // ---- 输出 ----
 console.log('数据校验：LESSONS=' + LESSONS.length + '，SCENARIOS=' + SCENARIOS.length +
   '，MODULES=' + MODULES.length + '，BADGES=' + BADGES.length +
-  '，PRACTICE=' + Object.keys(PRACTICE || {}).length);
+  '，PRACTICE=' + Object.keys(PRACTICE || {}).length +
+  '，DIAG=' + (DIAG_SUBJECTS||[]).length + '科' +
+  '，QUIZ=' + Object.keys(QUIZ_LESSONS||{}).length + '+' + Object.keys(QUIZ_MODS||{}).length +
+  '，MOCK=口语' + (MOCK_EXAM?MOCK_EXAM.speaking.length:0) + '/听力' + (MOCK_EXAM?MOCK_EXAM.listening.length:0));
 
 if (errors.length) {
   console.error('\n❌ 校验失败（' + errors.length + ' 项）：');

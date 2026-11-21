@@ -1,0 +1,134 @@
+#!/usr/bin/env python3
+"""生成 onboarding/js/training.js：批次3 训练闭环数据。
+含 DIAG_SUBJECTS（四科诊断）、QUIZ_LESSONS、QUIZ_MODS（单元测验）、
+MOCK_EXAM（模考）、FEEDBACK_RULES（反馈规则）。
+全部用 Python 控制转义，输出合法 JS。
+"""
+import json, os
+
+ROOT = '/home/user/ielts-75'
+OUT = os.path.join(ROOT, 'onboarding', 'js', 'training.js')
+
+# ---------- T-3.1 四科诊断 ----------
+# 每题 {type:'choice', stem, opts:[], right, explain}
+DIAG_SUBJECTS = [
+  {"id":"speaking","name":"口语","icon":"🗣️","color":"#22c55e","questions":[
+    {"stem":"口语 Part 1 回答的合适长度是？","opts":["1 个单词即可","2–4 句的聊天式短答","像 Part 3 一样长篇论证","越长越好，尽量说满时间"],"right":1,"explain":"Part 1 是聊天体，2–4 句带个人细节的短答最合适；过短显敷衍，过长则语域混用、像在背稿。"},
+    {"stem":"回答中频繁出现 um / you know 这类填充词，主要影响哪个评分维度？","opts":["词汇多样性","流利度与连贯","语法准确性","发音可懂度"],"right":1,"explain":"填充词是流利度的头号信号。控制在每分钟 3 次以内，对应模块 02 的流利度专项。"},
+    {"stem":"准备口语 Part 2 话题卡时，1 分钟草稿最应该先写什么？","opts":["所有高级词汇","话题卡的结构提纲与要点","完整逐句稿","只写开头一句"],"right":1,"explain":"1 分钟提纲法：先搭结构（开场-主体-收尾）与要点关键词，再展开，避免临场组织混乱。"},
+  ]},
+  {"id":"listening","name":"听力","icon":"🎧","color":"#3b82f6","questions":[
+    {"stem":"听力录音开始前，最应该做什么？","opts":["放松发呆，等录音","预读题目并预测答案方向","先把所有题看一遍再想","直接开始听，不用准备"],"right":1,"explain":"预读与预测是听力核心技巧，提前锁定场景词汇与答案类型，听时才能精准定位。"},
+    {"stem":"雅思听力的题目选项与录音原文之间，通常是什么关系？","opts":["完全相同，逐词对应","大量同义替换","完全无关","选项永远比原文长"],"right":1,"explain":"同义替换是听力底层逻辑，题目与音频靠替换对应，需积累替换表达（模块 03、07）。"},
+    {"stem":"Section 3/4 的主要特点是什么？","opts":["语速慢、内容简单","学术场景、语速快、题型复杂","只有填空题","只有选择题"],"right":1,"explain":"S3/S4 为学术场景，语速偏快、配对/选择/摘要填空并存，需进阶信息处理策略（课程 l8）。"},
+  ]},
+  {"id":"reading","name":"阅读","icon":"📖","color":"#f59e0b","questions":[
+    {"stem":"阅读长文章时，最高效的方式是？","opts":["逐词精读每一句","先略读定位，再精读关键段","只读首尾段","先看题目再决定是否读"],"right":1,"explain":"略读（skim）+ 寻读（scan）结合，先把握结构、再定位细节，比逐词精读更省时高效。"},
+    {"stem":"True / False / Not Given 中，Not Given 最典型的特征是？","opts":["与原文明确矛盾","与原文意思一致","原文完全没有提到该信息","选项字数过少"],"right":2,"explain":"Not Given = 原文未提及。它与 False 的区别在于：False 是原文有明确相反信息，Not Given 是原文根本没说。"},
+    {"stem":"阅读时间紧张时，应优先保证什么？","opts":["所有题都做但每题慢慢想","先易后难，控制在每篇时间内","放弃整篇不答","反复回读同一段"],"right":1,"explain":"合理分配时间、先易后难，避免某篇耗时过多导致整体做不完。"},
+  ]},
+  {"id":"writing","name":"写作","icon":"✍️","color":"#ec4899","questions":[
+    {"stem":"写作（学术类）Task 1 与 Task 2 建议用时分配约为？","opts":["30 / 30 分钟","20 / 40 分钟","10 / 50 分钟","各 40 分钟"],"right":1,"explain":"Task 2 分值更高，建议 20 分钟给 Task 1、40 分钟给 Task 2，并留时间检查。"},
+    {"stem":"一篇规范的 Task 2 议论文，基本结构是？","opts":["开头-主体-结论","只写两个主体段","开头-结尾，不分段","一段到底，不分结构"],"right":0,"explain":"议论文标准结构：开头（观点）→ 主体（论证展开）→ 结论，段落清晰、逻辑递进。"},
+    {"stem":"学术写作的语域（tone）应当是？","opts":["口语化，多用缩写","正式、客观，避免缩写与口语表达","越文学越好","大量使用感叹句"],"right":1,"explain":"学术写作要求正式客观，避免缩写（don't→do not）与口语化表达，保持严谨。"},
+  ]},
+]
+
+# ---------- T-3.2 单元测验（课程 + 模块） ----------
+# choice 题；fill 题 {type:'fill', stem, answer, explain}
+QUIZ_LESSONS = {
+ "l1":[{"type":"choice","stem":"7.5 分的口语评分，最先被考官感知的往往是？","opts":["拼写准确性","流利度与可懂度","文章字数","答题卡整洁度"],"right":1,"explain":"流利度与可懂度是口语的第一印象，直接决定考官的整体档位感知。"},
+       {"type":"fill","stem":"诊断课建议用 ___ 表记录自己的初始卡点，作为训练起点。","answer":"四维度自评","explain":"用四维度（流利度/词汇/语法/发音）自评表定位初始卡点，才能有针对性地训练。"}],
+ "l2":[{"type":"choice","stem":"连读弱读训练的核心目标是把英语从什么变成什么？","opts":["从听单词到听语流","从会写到会背","从慢速到快速","从英音到美音"],"right":0,"explain":"连读弱读的本质是语流意识，从逐词听转向听整体语流，提升听与说的自然度。"},
+       {"type":"fill","stem":"影子跟读（shadowing）的关键是模仿 ___ 和节奏，而非逐词对照。","answer":"语调","explain":"影子跟读重在模仿语调与节奏，贴近真实语流，比逐词对照更有效。"}],
+ "l3":[{"type":"choice","stem":"口语 Part 1 的 A-R-E 结构指的是？","opts":["观点-理由-例子","回答-细节-收尾","开场-主体-结尾","事实-分析-建议"],"right":0,"explain":"A-R-E = Answer（回答）- Reason（理由）- Example（例子），让短答有支撑、有细节。"},
+       {"type":"fill","stem":"Part 1 短答建议控制在 ___ 句，并带真实个人细节。","answer":"2–4","explain":"2–4 句的聊天式短答，配合个人细节，最能体现真实语域与自然度。"}],
+ "l4":[{"type":"choice","stem":"口语 Part 2 话题卡准备时，1 分钟提纲应优先写？","opts":["逐句完整稿","结构与要点关键词","高级词汇堆砌","开头结尾即可"],"right":1,"explain":"提纲先搭结构与要点关键词，避免临场组织混乱、忘词或超时。"},
+       {"type":"fill","stem":"Part 2 要求连续讲述约 ___ 分钟，需能讲满不卡顿。","answer":"2","explain":"Part 2 要求连续讲满约 2 分钟，稳定输出不卡顿是关键训练目标。"}],
+ "l5":[{"type":"choice","stem":"Part 3 完整论证框架包含哪几步？","opts":["观点-解释-举例-让步","观点-重复-结束","举例-让步-收尾","观点-对比-结论"],"right":0,"explain":"观点→解释→举例→让步，构成完整、有深度的论证，是 Part 3 高分关键。"},
+       {"type":"fill","stem":"应对 Part 3 抽象问题时，用具体例子让论证 ___，避免空泛。","answer":"落地","explain":"抽象问题要落到具体例子，让论证有支撑、可感知，避免空喊观点。"}],
+ "l6":[{"type":"choice","stem":"听力 Section 1-2 的核心技巧是？","opts":["预读预测与信息抓取","逐词精听写","只听不预读","大量背单词"],"right":0,"explain":"S1-S2 基础场景，预读、预测与精准抓取信息是核心，配合场景词汇定位。"},
+       {"type":"fill","stem":"听前应先 ___ 题目，锁定场景词汇与答案类型，听时才能精准定位。","answer":"预读","explain":"预读题目、预测答案方向，是听力高效抓取的前提。"}],
+ "l7":[{"type":"choice","stem":"雅思听力题目与录音之间的底层逻辑是？","opts":["同义替换","完全同词","数字一致","语速一致"],"right":0,"explain":"同义替换是听力底层逻辑，题目与音频靠替换对应，需积累替换表达。"},
+       {"type":"fill","stem":"积累同义替换，建议按 ___ 建立替换表达库，而非孤立记词。","answer":"主题/场景","explain":"按主题或场景归类积累替换表达，比孤立记词更利于在听力中快速识别。"}],
+ "l8":[{"type":"choice","stem":"Section 3-4 最典型的难点是？","opts":["语速快、学术场景、题型复杂","语速极慢","只有填空","口音单一"],"right":0,"explain":"S3/S4 学术场景语速快、题型复杂，需要进阶信息处理与配对/摘要策略。"},
+       {"type":"fill","stem":"应对 S3/S4 摘要填空，需先把握整体结构，再按 ___ 定位细节。","answer":"逻辑/顺序","explain":"先把握语篇结构，再按逻辑顺序定位细节，能应对长篇学术听力。"}],
+ "l9":[{"type":"choice","stem":"发音评分中，最影响\"可懂度\"的是？","opts":["重音与语调","语速快慢","词汇难度","答题长度"],"right":0,"explain":"句子重音与语调直接影响可懂度，是发音评分落地的核心训练点。"},
+       {"type":"fill","stem":"句子重音落在 ___ 词上，能突出句意重心、提升可懂度。","answer":"实义/关键","explain":"重音落在实义关键词上，突出句意重心，让表达更清晰可懂。"}],
+ "l10":[{"type":"choice","stem":"Part 2 临场组织，最推荐的策略是？","opts":["故事模板归类 + 临场填充","逐字背诵范文","只讲开头","随机发挥不准备"],"right":0,"explain":"用故事模板归类话题，临场填充细节，既稳定又自然，避免背诵痕迹。"},
+       {"type":"fill","stem":"为避免背诵痕迹，Part 2 应练习 ___ 改编，而非死记范文。","answer":"临场","explain":"练习临场改编，用模板灵活组织，比死记范文更自然、更抗压。"}],
+ "l11":[{"type":"choice","stem":"模考冲刺阶段，最关键的复盘动作是？","opts":["只刷题不复盘","错题归因与针对性回练","盲目加量","只看分数不分析"],"right":1,"explain":"错题归因 + 针对性回练，比盲目加量更能提升，是模考的核心价值。"},
+       {"type":"fill","stem":"考前一周应按 ___ 安排，聚焦薄弱项与状态调整，而非大量新题。","answer":"计划","explain":"按计划聚焦薄弱项与状态调整，保证临场稳定，避免考前突击新内容。"}],
+}
+
+QUIZ_MODS = {
+ "m01":[{"type":"choice","stem":"发音深度训练中，最应优先解决的是？","opts":["易错音与韵律可懂度","语速","词汇量","答题套路"],"right":0,"explain":"先纠正易错音、建立韵律与可懂度，是发音从\"能听清\"到\"自然\"的基础。"},
+       {"type":"fill","stem":"发音自检应回到 ___，用录音回放对照目标音，而非凭感觉。","answer":"录音","explain":"录音回放是发音自检最可靠的方式，用客观反馈纠正主观误判。"}],
+ "m02":[{"type":"choice","stem":"流利度专项的核心目标是？","opts":["控制填充词与自我纠正","背更多句型","加快语速到最快","减少开口"],"right":0,"explain":"流利度专项聚焦填充词控制与快速组织，减少卡顿与自我纠偏。"},
+       {"type":"fill","stem":"为减少自我纠偏，宁可说对一个简单句，也不要中途 ___ 重来。","answer":"打断","explain":"中途打断重来会严重损害流利度，宁可完整说对简单句，再逐步提升。"}],
+ "m03":[{"type":"choice","stem":"词块与同义替换系统主要解决什么问题？","opts":["表达更地道、替换更灵活","拼写错误","听力语速","答题字数"],"right":0,"explain":"词块让表达地道、同义替换让词汇灵活，是词汇与连贯提升的双引擎。"},
+       {"type":"fill","stem":"语域转换训练重点是 Part 1 的聊天体与 Part 3 的 ___ 体之间切换。","answer":"讨论","explain":"Part 1 聊天体、Part 3 讨论体，语域混用是常见扣分点，需针对性切换训练。"}],
+ "m04":[{"type":"choice","stem":"模拟反馈与进度追踪的核心价值是？","opts":["用分数与自评校准，避免高估","快速刷题","背诵范文","提高语速"],"right":0,"explain":"用客观分数与四维度自评校准，避免自我高估，是稳步提升的保障。"},
+       {"type":"fill","stem":"每次模考后应填写 ___ 自评表，核对四个维度并记录分数。","answer":"四维度","explain":"四维度自评表（流利度/词汇/语法/发音）帮助定位短板、追踪进步。"}],
+ "m05":[{"type":"choice","stem":"语法系统强化的重点应放在？","opts":["高频结构准确 + 多样性","冷僻语法点","长难句堆砌","时态全覆盖死记"],"right":0,"explain":"优先保证高频结构准确，再追求语法多样性，避免为复杂而复杂。"},
+       {"type":"fill","stem":"语法自查应建立 ___ 表，把高频错误逐项排除，而非泛泛检查。","answer":"常见错误自查","explain":"用常见错误自查表逐项排除高频问题，比泛泛检查更高效。"}],
+ "m06":[{"type":"choice","stem":"听力输入与跟读计划的关键是？","opts":["精泛结合 + 影子跟读进阶","只听不跟读","只看文本","只听一种口音"],"right":0,"explain":"精听泛听结合 + 影子跟读四步进阶，是输入转化为输出的核心路径。"},
+       {"type":"fill","stem":"影子跟读四步进阶通常从 ___ 跟读逐步过渡到不看文本跟读。","answer":"逐句/慢速","explain":"从逐句慢速跟读，逐步过渡到原速、不看文本，循序渐进提升语感。"}],
+ "m07":[{"type":"choice","stem":"Part 2 变题题库的核心策略是？","opts":["故事模板归类 + 临场改编","背诵逐题范文","只练新题","回避旧题"],"right":0,"explain":"用故事模板把海量话题归类，临场改编，高效应对变题、反背诵。"},
+       {"type":"fill","stem":"为反背诵，Part 2 训练应强调 ___ 改编，用自己素材灵活套用。","answer":"临场","explain":"强调临场改编，用自己的素材灵活套模板，消除背诵痕迹。"}],
+ "m08":[{"type":"choice","stem":"Part 3 抽象议题语料库的作用是？","opts":["提供分类论证句与变体策略","背诵整段答案","套用固定模板不变","回避抽象问题"],"right":0,"explain":"提供四大议题的分类论证句与变体策略，让抽象问题有抓手、有变化。"},
+       {"type":"fill","stem":"应对抽象议题，先分类，再调用对应的 ___ 句，展开论证。","answer":"论证","explain":"先给抽象议题分类，再调用对应论证句展开，避免临场无话可说。"}],
+ "m09":[{"type":"choice","stem":"考场表现与心理管理，最关键的是？","opts":["状态管理与声音身体语言","疯狂练题","提前猜题","回避考场"],"right":0,"explain":"紧张管理 + 声音与身体语言，直接影响临场发挥与考官观感。"},
+       {"type":"fill","stem":"考场上用 ___ 与身体语言（如眼神、坐姿）传递自信，能稳定状态。","answer":"声音","explain":"用声音与身体语言传递自信，稳定自身状态，也能给考官积极信号。"}],
+ "m10":[{"type":"choice","stem":"长期节奏系统的核心是？","opts":["阶段路线 + 间隔复习循环","考前突击","每天海量练习","只学不练"],"right":0,"explain":"分阶段路线 + 间隔复习循环，保证长期稳步提升与知识巩固。"},
+       {"type":"fill","stem":"间隔复习应按设定的 ___ 触发，而不是临时抱佛脚。","answer":"节奏/提醒","explain":"按设定的节奏触发间隔复习，让记忆与能力持续巩固，避免遗忘。"}],
+ "m11":[{"type":"choice","stem":"考官视角与分数校准的价值是？","opts":["用考官标准校准自我评估","提高语速","增加词汇量","缩短答题"],"right":0,"explain":"用考官视角校准自我评估，避免高估，让练习目标对齐真实评分。"},
+       {"type":"fill","stem":"分数校准应对照 ___ 档标准，判断自己答案处于哪个档位。","answer":"四档","explain":"对照四档分数校准库，客观判断自己答案的档位，校准自我评估。"}],
+ "m12":[{"type":"choice","stem":"听力题型拆解的重点是？","opts":["题型陷阱 + 时间分配预测","逐题死记","只看答案","回避难题"],"right":0,"explain":"拆解题型陷阱、掌握时间分配与预测技巧，是听力稳定提分的关键。"},
+       {"type":"fill","stem":"听力应掌握 ___ 分配与预测技巧，避免某部分耗时过多。","answer":"时间","explan":"时间分配与预测是听力应试的基础，合理分配才能稳定发挥。"}],
+}
+# 修正 m12 第二条 explain 的笔误
+QUIZ_MODS["m12"][1]["explain"]="时间分配与预测是听力应试的基础，合理分配才能稳定发挥。"
+
+# ---------- T-3.3 模考冲刺 ----------
+# 口语：{part, q, ref(参考回答), keywords(关键词用于匹配评分)}
+# 听力：{section, q, opts, right, explain}
+MOCK_EXAM = {
+  "speaking":[
+    {"part":"Part 1","q":"Let's talk about your hometown. Where is it and what do you like about it?","ref":"My hometown is a coastal city in the south. I like the relaxed pace of life and the fresh seafood, plus it's convenient to get around.","keywords":["hometown","city","coastal","like","pace","seafood","convenient"]},
+    {"part":"Part 1","q":"Do you work or are you a student?","ref":"I'm currently working. I work in marketing, which keeps me busy but also lets me talk to different people every day.","keywords":["work","student","marketing","busy","people"]},
+    {"part":"Part 1","q":"What do you do in your free time?","ref":"In my free time I like reading and going for walks. Sometimes I meet friends for a coffee or try a new recipe at home.","keywords":["free time","reading","walks","friends","recipe"]},
+    {"part":"Part 2","q":"Describe a memorable journey you have made. Say: where you went, who you went with, what you did, and why it was memorable.","ref":"I'd like to talk about a journey to the mountains last autumn. I went with two close friends. We hiked for two days, stayed in a small village, and watched the sunrise. It was memorable because it was a rare chance to slow down and share an experience with people I care about.","keywords":["journey","memorable","mountains","friends","hiked","sunrise","slow down","share"]},
+    {"part":"Part 3","q":"Do you think travel is important for young people? Why?","ref":"Yes, I think travel is very important for young people. It broadens their horizons and helps them learn to adapt to new situations and people, which builds confidence and independence.","keywords":["travel","important","young","broadens","adapt","confidence","independence"]},
+    {"part":"Part 3","q":"What are the advantages and disadvantages of modern travel?","ref":"A main advantage is convenience — there are many ways to travel now. A drawback is that popular places can get crowded, and fast travel can sometimes make the experience feel less genuine or thoughtful.","keywords":["advantage","disadvantage","convenience","crowded","travel","genuine"]},
+  ],
+  "listening":[
+    {"section":"Section 1","q":"The booking requires a ___ deposit to confirm the reservation.","opts":["small","large","refundable","fixed"],"right":0,"explain":"录音中为 a small deposit，小定金确认预订。注意 deposit 的拼写与含义。"},
+    {"section":"Section 1","q":"What is the main purpose of the call?","opts":["To book a ticket","To complain about a delay","To ask for a refund","To change a name"],"right":0,"explain":"对话核心是预订/订票，purpose 为 To book a ticket。"},
+    {"section":"Section 2","q":"The tour guide recommends visitors start at the ___.","opts":["museum","harbour","old town","lookout point"],"right":2,"explain":"导游建议从老城（old town）开始游览，注意方位与顺序信息。"},
+    {"section":"Section 2","q":"According to the talk, the best time to visit is in ___.","opts":["spring","summer","autumn","winter"],"right":2,"explain":"文中明确提到最佳时间是秋季 autumn。"},
+    {"section":"Section 3","q":"The students mainly discuss a project about ___.","opts":["urban transport","rural development","marine life","historical buildings"],"right":0,"explain":"S3 学术讨论围绕城市交通（urban transport）项目展开。"},
+    {"section":"Section 3","q":"The main difficulty the students mention is ___.","opts":["data collection","time management","group agreement","language"],"right":1,"explain":"主要困难是时间管理（time management），注意干扰项与转折词。"},
+    {"section":"Section 4","q":"The lecture focuses on how ___ influences city planning.","opts":["climate","technology","population","economy"],"right":0,"explain":"S4 讲座主题是气候（climate）对城市规划的影响。"},
+    {"section":"Section 4","q":"A key finding is that green spaces can improve ___.","opts":["air quality","transport speed","housing prices","work output"],"right":0,"explain":"绿地能改善空气质量（air quality），是讲座的关键结论之一。"},
+  ],
+}
+
+data = {
+  "DIAG_SUBJECTS": DIAG_SUBJECTS,
+  "QUIZ_LESSONS": QUIZ_LESSONS,
+  "QUIZ_MODS": QUIZ_MODS,
+  "MOCK_EXAM": MOCK_EXAM,
+}
+
+js = '/* 批次3 训练闭环数据（自动生成，勿手工编辑） */\n'
+for k,v in data.items():
+    js += 'const %s = %s;\n' % (k, json.dumps(v, ensure_ascii=False, indent=2))
+with open(OUT,'w',encoding='utf-8') as f:
+    f.write(js)
+
+print('生成完成:', OUT)
+print('DIAG_SUBJECTS:', len(DIAG_SUBJECTS), '科目,', sum(len(s['questions']) for s in DIAG_SUBJECTS), '题')
+print('QUIZ_LESSONS:', len(QUIZ_LESSONS), '课,', sum(len(v) for v in QUIZ_LESSONS.values()), '题')
+print('QUIZ_MODS:', len(QUIZ_MODS), '模块,', sum(len(v) for v in QUIZ_MODS.values()), '题')
+print('MOCK_EXAM: 口语', len(MOCK_EXAM['speaking']), '题, 听力', len(MOCK_EXAM['listening']), '题')
