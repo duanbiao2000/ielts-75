@@ -183,6 +183,25 @@
 - **旅程**（`app.js` `JOURNEY`）：6 章「从 6.0 到 7.5 的旅程」，前置章节达成后依次解锁，
   里程碑触发剧情弹窗与 XP 奖励（ch6 终章：P0/P1 全模块完成且模考最佳 ≥16/20）。
 
+## 10. 工程化功能（批次 5）
+
+- **学习记录导出**（`app.js`）：`exportBundle()` 汇总训练进度、状态快照与
+  `learning-records` 流水；JSON（完整备份）与 CSV（BOM + RFC4180 转义）两种格式，
+  经 Blob 下载；hero「📤 导出学习记录」入口。导出动作记入 `learning-records`（export）。
+- **移动端**：`style.css` 900/560px 断点；`html,body` 禁横向滚动；演练舱/弹窗收缩；
+  录音 `pickAudioMime()` 探测 `audio/webm|mp4|aac|ogg` 兼容 iOS/Android。
+- **无障碍**：卡片/tab 可聚焦（`tabindex=0` + Enter/Space 激活）；弹窗打开聚焦关闭按钮、
+  关闭恢复原焦点；Escape 分级关闭（mock → pod → modal）；语义地标与 aria（dialog /
+  navigation / toast aria-live）；skip-link；`:focus-visible`；主文本对比度实测 ≥ 4.5。
+- **PWA**（`sw.js` + `manifest.json` + `icon.svg`）：版本化缓存 `ielts75-v<n>`，
+  预缓存全部静态资源（含 `practice-full.js` 供离线演练）；cache-first；
+  activate 清理旧缓存；GET 之外不拦截；离线回落 `index.html` 外壳。
+  **发布新版本时需 bump `CACHE` 版本号**，否则客户端沿用旧缓存。
+  SW 仅在 http(s) 环境注册；预览 iframe 与 file:// 下静默跳过，下载后经静态服务器访问即可离线。
+- **性能**：`practice-full.js`（184KB）不在首屏加载，`data.js` 惰性引用 `PRACTICE`，
+  首次进入演练舱时 `ensurePracticeData()` 动态注入（快路径数据已加载则同步打开）；
+  其余本地脚本 `defer`；长列表 `content-visibility:auto`；首屏 JS ≈ 130KB。
+
 ## 8. 训练闭环数据（`onboarding/js/training.js`，批次 3）
 
 由 `scripts/gen_training.py` 生成，`index.html` 加载顺序为
