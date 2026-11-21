@@ -814,15 +814,23 @@ function renderMockDone(el){
   awardXP(80,'模考完成');
   renderAll();
 }
+/* 录音：兼容 iOS/Android——探测可用 mimeType（iOS Safari 偏好 audio/mp4） */
+function pickAudioMime(){
+  if(typeof MediaRecorder==='undefined' || !MediaRecorder.isTypeSupported) return '';
+  const types=['audio/webm','audio/mp4','audio/aac','audio/ogg'];
+  for(const t of types){ try{ if(MediaRecorder.isTypeSupported(t)) return t; }catch(e){} }
+  return '';
+}
 async function mockToggleRec(){
   if(mock.recOn){ mockStopRec(); return; }
   try{
     const stream=await navigator.mediaDevices.getUserMedia({audio:true});
-    mockRecStream=new MediaRecorder(stream);
+    const mime=pickAudioMime();
+    mockRecStream=mime ? new MediaRecorder(stream,{mimeType:mime}) : new MediaRecorder(stream);
     mockRecChunks=[];
     mockRecStream.ondataavailable=e=>{ if(e.data.size) mockRecChunks.push(e.data); };
     mockRecStream.onstop=()=>{
-      const blob=new Blob(mockRecChunks,{type:'audio/webm'});
+      const blob=new Blob(mockRecChunks,{type:mockRecStream.mimeType||mime||'audio/mp4'});
       mock.recUrl=URL.createObjectURL(blob);
       mock.recOn=false; renderMock();
     };
@@ -1176,11 +1184,12 @@ async function toggleRec(){
   try{
     if(!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia) throw new Error('no api');
     recStream=await navigator.mediaDevices.getUserMedia({audio:true});
-    recMedia=new MediaRecorder(recStream);
+    const mime=pickAudioMime();
+    recMedia=mime ? new MediaRecorder(recStream,{mimeType:mime}) : new MediaRecorder(recStream);
     recChunks=[];
     recMedia.ondataavailable=ev=>{ if(ev.data.size>0) recChunks.push(ev.data); };
     recMedia.onstop=()=>{
-      const blob=new Blob(recChunks,{type:'audio/webm'});
+      const blob=new Blob(recChunks,{type:recMedia.mimeType||mime||'audio/mp4'});
       pod.recUrl=URL.createObjectURL(blob);
       pod.recOn=false;
       renderPod();
