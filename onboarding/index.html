@@ -7,7 +7,8 @@
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-<header>
+<a class="skip-link" href="#secLessons">跳到课程路径</a>
+<header role="navigation" aria-label="主导航">
   <div class="wrap nav">
     <div class="brand"><span class="logo">🚀</span> IELTS 7.5 训练基地</div>
     <div class="nav-stats">
@@ -27,7 +28,7 @@
   </div>
 </header>
 
-<div class="wrap">
+<main class="wrap">
   <!-- 新手广场 -->
   <div class="hero">
     <h1>欢迎来到训练基地</h1>
@@ -109,13 +110,13 @@
       <p>从 11 课方法论到 30 场景、12 模块、参考卡的完整地图，以及不同人群的推荐起步路径。</p>
     </div>
   </section>
-</div>
+</main>
 
 <!-- 弹窗 -->
-<div id="modal-mask"><div class="modal" id="modalBox"></div></div>
-<div id="pod-mask"><div class="pod" id="pod"></div></div>
-<div id="mock-mask"><div class="pod mock" id="mock"></div></div>
-<div id="toast"></div>
+<div id="modal-mask"><div class="modal" id="modalBox" role="dialog" aria-modal="true" aria-label="详情与操作"></div></div>
+<div id="pod-mask"><div class="pod" id="pod" role="dialog" aria-modal="true" aria-label="场景演练舱"></div></div>
+<div id="mock-mask"><div class="pod mock" id="mock" role="dialog" aria-modal="true" aria-label="模考冲刺"></div></div>
+<div id="toast" role="status" aria-live="polite"></div>
 
 <script src="js/practice-full.js"></script>
 <script src="js/data.js"></script>

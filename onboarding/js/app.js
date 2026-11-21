@@ -113,7 +113,7 @@ function exportCSV(){
 }
 function openExport(){
   let n=0; try{ n=JSON.parse(localStorage.getItem(LR_KEY)||'[]').length; }catch(e){}
-  openModal(`<button class="close" onclick="closeModal()">×</button>
+  openModal(`<button class="close" aria-label="关闭" onclick="closeModal()">×</button>
     <h2>📤 导出学习记录</h2>
     <p>导出内容包含：训练进度汇总（课程 / 场景演练 / 模块 / 徽章 / 等级 / 连续天数 / 模考最佳 / 旅程）、完整状态快照，以及 <b>${n}</b> 条学习流水记录。</p>
     <div class="export-opts">
@@ -161,13 +161,13 @@ function openJourney(){
         <div class="jch-reward">🏅 奖励：${ch.reward} XP</div>
       </div></div>`;
   }).join('');
-  openModal(`<button class="close" onclick="closeModal()">×</button>
+  openModal(`<button class="close" aria-label="关闭" onclick="closeModal()">×</button>
     <h2>🏯 从 6.0 到 7.5 的旅程</h2>
     <p class="jch-progress">已达成 <b>${done.journey.length}</b> / ${JOURNEY.length} 章 · 终点：雅思 7.5</p>
     <div class="jch-list">${items}</div>`);
 }
 function showJourneyStory(ch){
-  openModal(`<button class="close" onclick="closeModal()">×</button>
+  openModal(`<button class="close" aria-label="关闭" onclick="closeModal()">×</button>
     <div class="journey-story">
       <div class="js-stage">${ch.stage} · ${ch.score}</div>
       <h2 style="margin:8px 0 12px">🏯 ${ch.title}</h2>
@@ -289,30 +289,32 @@ function renderLessons(){
     const steps = `<div class="ls-steps">${s.view?'<span class="ls on">知识点</span>':'<span class="ls">知识点</span>'}${s.ex?'<span class="ls on">练习</span>':'<span class="ls">练习</span>'}${s.quiz?'<span class="ls on">小测</span>':'<span class="ls">小测</span>'}</div>`;
     return `<div class="node ${d?'done':''} ${unl?'':'locked'}">
       <div class="dot">${d?'✓':(unl?l.icon:'🔒')}</div>
-      <div class="card" data-lesson="${l.id}">
+      <div class="card" data-lesson="${l.id}" tabindex="0" role="button">
         <h3>${l.title} <span class="tag">${d?'已完成':(unl?'点击查看':'先完成上一课')}</span></h3>
         <p>${l.summary}</p>${unl?steps:''}
       </div></div>`;
   }).join('');
   $('#pathLessons').querySelectorAll('.card').forEach(el=>{
-    el.onclick=()=>{ const i=lessonIndex(el.dataset.lesson); if(!lessonUnlocked(i)){ toast('🔒 先完成上一课才能解锁'); return; } openLesson(LESSONS[i]); };
+    const fn=()=>{ const i=lessonIndex(el.dataset.lesson); if(!lessonUnlocked(i)){ toast('🔒 先完成上一课才能解锁'); return; } openLesson(LESSONS[i]); };
+    el.onclick=fn; keyActivate(el, fn);
   });
 }
 function renderScen(domain){
   $('#scenTabs').innerHTML = SCEN_DOMAINS.map(d=>{
     const n=SCENARIOS.filter(s=>s.d===d).length;
-    return `<span class="tab ${d===domain?'active':''}" data-d="${d}">${d}<span class="n">${n}</span></span>`;
+    return `<span class="tab ${d===domain?'active':''}" data-d="${d}" tabindex="0" role="button">${d}<span class="n">${n}</span></span>`;
   }).join('');
-  $('#scenTabs').querySelectorAll('.tab').forEach(t=>t.onclick=()=>renderScen(t.dataset.d));
+  $('#scenTabs').querySelectorAll('.tab').forEach(t=>{ const fn=()=>renderScen(t.dataset.d); t.onclick=fn; keyActivate(t, fn); });
   const list = SCENARIOS.filter(s=>s.d===domain);
   $('#scenGrid').innerHTML = list.map(s=>{
     const d = (done.scen&&done.scen.includes(s.name)) || (done.practice&&done.practice.includes(s.name));
-    return `<div class="card ${d?'done':''}" data-s="${s.name}">
+    return `<div class="card ${d?'done':''}" data-s="${s.name}" tabindex="0" role="button">
       <h3>${s.name}</h3><p>${s.blurb}</p>
       <div class="mini">${s.expr}</div></div>`;
   }).join('');
   $('#scenGrid').querySelectorAll('.card').forEach(el=>{
-    el.onclick=()=>{ const s=SCENARIOS.find(x=>x.name===el.dataset.s); mark('scen',s.name); openScen(s); };
+    const fn=()=>{ const s=SCENARIOS.find(x=>x.name===el.dataset.s); mark('scen',s.name); openScen(s); };
+    el.onclick=fn; keyActivate(el, fn);
   });
 }
 function renderMods(){
@@ -321,14 +323,15 @@ function renderMods(){
     const p = MODULE_PACKS[m.id]||{tasks:[]};
     const total=p.tasks.length, checked=p.tasks.filter(t=>(done.modTasks||[]).includes(t.id)).length;
     const pct=total?Math.round(checked/total*100):0;
-    return `<div class="card ${d?'done':''}" data-m="${m.id}">
+    return `<div class="card ${d?'done':''}" data-m="${m.id}" tabindex="0" role="button">
       <h3>${m.icon} ${m.title} <span class="tag ${m.p.toLowerCase()}">${m.p}</span></h3>
       <p>${m.blurb}</p>
       <div class="card-bar"><div class="card-bar-fill" style="width:${pct}%"></div></div>
       <div class="card-meta">${checked}/${total} 项任务${d?' · ✅ 已完成':''}</div></div>`;
   }).join('');
   $('#modGrid').querySelectorAll('.card').forEach(el=>{
-    el.onclick=()=>{ const m=MODULES.find(x=>x.id===el.dataset.m); openMod(m); };
+    const fn=()=>{ const m=MODULES.find(x=>x.id===el.dataset.m); openMod(m); };
+    el.onclick=fn; keyActivate(el, fn);
   });
 }
 /* ============ 徽章条件解释器（T-4.1） ============ */
@@ -381,10 +384,26 @@ function renderProgress(){
 function renderAll(){ renderLessons(); renderScen($('#scenTabs').dataset.cur||'职场'); renderMods(); renderBadges(); renderProgress(); renderReview(); renderHeader(); renderDaily(); checkJourney(); }
 
 /* ============ 弹窗 ============ */
-function openModal(html){ $('#modalBox').innerHTML = html; $('#modal-mask').classList.add('show'); }
-function closeModal(){ $('#modal-mask').classList.remove('show'); currentModId=null; }
+let lastFocus=null;
+function openModal(html){
+  lastFocus=(typeof document!=='undefined')?document.activeElement:null;
+  $('#modalBox').innerHTML = html; $('#modal-mask').classList.add('show');
+  const c=$('#modalBox').querySelector ? $('#modalBox').querySelector('.close') : null;
+  if(c && c.focus) c.focus();
+}
+function closeModal(){
+  $('#modal-mask').classList.remove('show'); currentModId=null;
+  if(lastFocus && lastFocus.focus){ try{ lastFocus.focus(); }catch(e){} lastFocus=null; }
+}
+/* 键盘激活：为 div/span 卡片提供 Enter/Space 操作（键盘可达） */
+function keyActivate(el, fn){
+  if(!el) return;
+  el.setAttribute('tabindex','0');
+  el.setAttribute('role','button');
+  el.onkeydown=e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); fn(); } };
+}
 $('#modal-mask').onclick=e=>{ if(e.target===$('#modal-mask')) closeModal(); };
-document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeModal(); });
+document.addEventListener('keydown',e=>{ if(e.key==='Escape'){ const mock=$('#mock-mask'); if(mock&&mock.classList.contains('show')){ closeMock(); return; } const pod=$('#pod-mask'); if(pod&&pod.classList.contains('show')){ closePod(); return; } closeModal(); } });
 
 function openLesson(l){
   // 知识点：打开即视为已查看（完成条件之一）
@@ -393,7 +412,7 @@ function openLesson(l){
   const pack=(typeof LESSON_PACKS!=='undefined'&&LESSON_PACKS[l.id])||null;
   const s=lessonStepsDone(l.id);
   const sceneName=pack&&pack.scenes&&pack.scenes[0];
-  openModal(`<button class="close" onclick="closeModal()">×</button>
+  openModal(`<button class="close" aria-label="关闭" onclick="closeModal()">×</button>
     <h2>${l.icon} ${l.title}</h2>
     <p>${l.summary}</p>
     <ul>${l.points.map(p=>`<li>${p}</li>`).join('')}</ul>
@@ -432,7 +451,7 @@ function openScen(s){
   const relHtml = related.length
     ? `<div class="scene-mods"><b style="color:var(--txt)">🛠️ 关联模块：</b>${related.map(m=>`<button class="chip-btn" onclick="closeModal();openMod(MODULES.find(x=>x.id==='${m.id}'))">${m.icon} ${m.title}${(done.mod||[]).includes(m.id)?' ✅':''}</button>`).join('')}</div>`
     : '';
-  openModal(`<button class="close" onclick="closeModal()">×</button>
+  openModal(`<button class="close" aria-label="关闭" onclick="closeModal()">×</button>
     <h2>🏙️ ${s.name} <span class="tag">${s.d}域</span></h2>
     <p>${s.blurb}</p>
     <div class="expr">💬 核心表达：${s.expr}</div>
@@ -495,7 +514,7 @@ function renderModHtml(m){
   const total=p.tasks.length, checked=p.tasks.filter(t=>(done.modTasks||[]).includes(t.id)).length;
   const pct=total?Math.round(checked/total*100):0;
   const inToday=modCheckedInToday(m), days=modCheckinCount(m);
-  return `<button class="close" onclick="closeModal()">×</button>
+  return `<button class="close" aria-label="关闭" onclick="closeModal()">×</button>
     <h2>${m.icon} ${m.title} <span class="tag ${m.p.toLowerCase()}">${m.p}</span></h2>
     <p><b style="color:var(--txt)">🎯 模块目标：</b>${p.target}</p>
     <p><b style="color:var(--txt)">包含文件：</b></p>
@@ -537,13 +556,13 @@ function uqTitle(){
 function openUnitQuiz(kind,id){ uq={kind,id,qIdx:0,score:0,picked:false}; openModal(renderUqHtml()); bindUq(); }
 function renderUqHtml(){
   const list=uqData();
-  if(!list) return '<button class="close" onclick="closeModal()">×</button><p>测验数据缺失</p>';
+  if(!list) return '<button class="close" aria-label="关闭" onclick="closeModal()">×</button><p>测验数据缺失</p>';
   if(uq.qIdx>=list.length) return uqResultHtml();
   const q=list[uq.qIdx];
   const optsHtml = q.type==='choice'
     ? q.opts.map((o,i)=>`<button class="opt" data-i="${i}">${o}</button>`).join('')
     : `<input id="uqFill" class="uq-fill" placeholder="请输入答案后点下一题" autocomplete="off">`;
-  return `<button class="close" onclick="closeModal()">×</button>
+  return `<button class="close" aria-label="关闭" onclick="closeModal()">×</button>
     <h2>✍️ 单元测验 · ${uqTitle()}</h2>
     <div class="quiz-q">
       <div class="stem">第 ${uq.qIdx+1} 题 / 共 ${list.length} 题<br><br>${q.stem}</div>
@@ -602,7 +621,7 @@ function uqResultHtml(){
   const list=uqData();
   const pct=Math.round(uq.score/list.length*100);
   const pass=uq.score>=Math.ceil(list.length*0.6);
-  return `<button class="close" onclick="closeModal()">×</button>
+  return `<button class="close" aria-label="关闭" onclick="closeModal()">×</button>
     <div class="profile-card">
       <h3>📊 单元测验成绩</h3>
       <div class="result-line">答对 ${uq.score} / ${list.length} 题（${pct}%）</div>
@@ -621,13 +640,13 @@ function lpxData(){ return (typeof LESSON_PACKS!=='undefined' && (LESSON_PACKS[l
 function openLessonPractice(id){ lpx={id, idx:0, score:0, picked:false}; openModal(renderLpxHtml()); bindLpx(); }
 function renderLpxHtml(){
   const list=lpxData();
-  if(!list.length) return '<button class="close" onclick="closeModal()">×</button><p>本课暂无课内练习</p>';
+  if(!list.length) return '<button class="close" aria-label="关闭" onclick="closeModal()">×</button><p>本课暂无课内练习</p>';
   if(lpx.idx>=list.length) return renderLpxResult(list);
   const q=list[lpx.idx];
   const optsHtml = q.type==='choice'
     ? q.opts.map((o,i)=>`<button class="opt" data-i="${i}">${o}</button>`).join('')
     : `<input id="lpxFill" class="uq-fill" placeholder="请输入答案后点下一题" autocomplete="off">`;
-  return `<button class="close" onclick="closeModal()">×</button>
+  return `<button class="close" aria-label="关闭" onclick="closeModal()">×</button>
     <h2>✍️ 课内练习 · 第 ${lessonIndex(lpx.id)+1} 课</h2>
     <div class="quiz-q">
       <div class="stem">第 ${lpx.idx+1} 题 / 共 ${list.length} 题<br><br>${q.stem}</div>
@@ -682,7 +701,7 @@ function renderLpxResult(list){
   const pack=LESSON_PACKS[lpx.id];
   const scene=pack&&pack.scenes&&pack.scenes[0];
   const pct=Math.round(lpx.score/list.length*100);
-  return `<button class="close" onclick="closeModal()">×</button>
+  return `<button class="close" aria-label="关闭" onclick="closeModal()">×</button>
     <div class="profile-card">
       <h3>✍️ 课内练习完成</h3>
       <div class="result-line">答对 ${lpx.score} / ${list.length} 题（${pct}%）</div>
@@ -847,7 +866,7 @@ $('#btnMock').onclick=openMock;
 $('#btnJourney').onclick=openJourney;
 $('#btnExport').onclick=openExport;
 
-$('#btnGuide').onclick=()=>openModal(`<button class="close" onclick="closeModal()">×</button>
+$('#btnGuide').onclick=()=>openModal(`<button class="close" aria-label="关闭" onclick="closeModal()">×</button>
   <h2>📘 项目全景与使用顺序</h2>
   <p>整个项目是一条闭环，入口与顺序如下：</p>
   <ul>
@@ -1237,8 +1256,8 @@ function renderReview(){
   const tabs=['errors','weak','due'];
   const labels={errors:'📕 错题本',weak:'🎯 薄弱场景',due:'⏰ 待复习'};
   const due=getDueReviews();
-  $('#reviewTabs').innerHTML=tabs.map(t=>`<span class="tab ${t===reviewTab?'active':''}" data-t="${t}">${labels[t]}${t==='due'&&due.length?`<span class="n">${due.length}</span>`:''}</span>`).join('');
-  $('#reviewTabs').querySelectorAll('.tab').forEach(t=>t.onclick=()=>{ reviewTab=t.dataset.t; renderReview(); });
+  $('#reviewTabs').innerHTML=tabs.map(t=>`<span class="tab ${t===reviewTab?'active':''}" data-t="${t}" tabindex="0" role="button">${labels[t]}${t==='due'&&due.length?`<span class="n">${due.length}</span>`:''}</span>`).join('');
+  $('#reviewTabs').querySelectorAll('.tab').forEach(t=>{ const fn=()=>{ reviewTab=t.dataset.t; renderReview(); }; t.onclick=fn; keyActivate(t, fn); });
   const body=$('#reviewBody');
   if(reviewTab==='errors'){
     const errs=done.errors||[];

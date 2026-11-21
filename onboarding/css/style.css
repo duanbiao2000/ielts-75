@@ -353,3 +353,10 @@ img,audio,video,canvas,svg{max-width:100%}
   .btn{padding:12px 20px;font-size:15px}
   .sec-head .icon{width:34px;height:34px;font-size:17px}
 }
+/* ===== 批次5 T-5.3：无障碍 ===== */
+.skip-link{position:absolute;left:12px;top:-48px;z-index:200;background:var(--cyan);color:#06222b;
+  font-weight:800;padding:10px 16px;border-radius:8px;text-decoration:none;transition:top .2s}
+.skip-link:focus{top:10px}
+:focus-visible{outline:2px solid var(--cyan);outline-offset:2px;border-radius:4px}
+button:focus-visible,a:focus-visible,.tab:focus-visible,.card:focus-visible{outline:2px solid var(--cyan);outline-offset:2px}
+.modal[role="dialog"],.pod[role="dialog"]{outline:none}
