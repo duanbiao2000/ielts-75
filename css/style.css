@@ -214,3 +214,14 @@
 .fb-report{background:#f7fafd;border:1px solid #e4ecf5;border-radius:14px;padding:16px}
 .fb-block{line-height:1.9;font-size:14px;color:var(--txt)}
 .fb-block b{color:var(--cyan);font-weight:700}
+/* ===== 批次2：课程解锁卡 / 课内进度 ===== */
+.node.locked .dot{opacity:.55}
+.node.locked .card{opacity:.6;cursor:not-allowed}
+.node.locked .card:hover{border-color:var(--line);transform:none}
+.ls-steps{display:flex;gap:6px;margin-top:8px}
+.ls{display:inline-flex;align-items:center;gap:4px;font-size:11px;padding:2px 9px;border-radius:999px;
+  border:1px solid var(--line);color:var(--dim);background:transparent}
+.ls.on{color:#052e1b;background:var(--green);border-color:var(--green);font-weight:700}
+.ls-row{display:flex;gap:8px;margin:12px 0;flex-wrap:wrap}
+.ls.big{font-size:12px;padding:5px 12px}
+.lp-est{color:var(--dim);font-size:12px;margin-top:8px}
