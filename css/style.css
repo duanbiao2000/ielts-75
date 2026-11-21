@@ -172,3 +172,18 @@
 .var-chip{padding:6px 12px;border-radius:16px;border:1px solid #d8e0ec;background:#fff;color:#56657a;font-size:12px;cursor:pointer;transition:.15s;font-family:inherit}
 .var-chip:hover{background:#f0f5fb}
 .var-chip.on{background:#10b981;color:#fff;border-color:transparent;font-weight:600}
+
+/* ============ 批次3 · 四科诊断 ============ */
+.diag-sub-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.ds-tab{display:flex;align-items:center;gap:6px;padding:6px 14px;border-radius:20px;border:1px solid #d8e0ec;background:#fff;color:#56657a;font-size:13px;font-weight:600}
+.ds-tab b{font-size:12px;color:#94a3b8}
+.ds-tab.on{background:linear-gradient(135deg,#3b82f6,#60a5fa);color:#fff;border-color:transparent;box-shadow:0 2px 10px rgba(59,130,246,.3)}
+.ds-tab.on b{color:#e0ecff}
+.ds-tab.done{border-color:#86efac;background:#f0fdf4}
+.ds-tab.done b{color:#16a34a}
+.diag-rows{display:flex;flex-direction:column;gap:12px;margin:12px 0}
+.diag-row{display:flex;align-items:center;gap:12px}
+.dr-ic{width:64px;font-weight:700;color:#2c4263;font-size:14px;flex-shrink:0}
+.dr-bar{flex:1;height:12px;background:#eef2f7;border-radius:8px;overflow:hidden}
+.dr-bar i{display:block;height:100%;border-radius:8px;background:linear-gradient(90deg,#60a5fa,#22c55e);transition:width .4s}
+.dr-sc{width:44px;text-align:center;font-weight:700;color:#56657a;font-size:14px}

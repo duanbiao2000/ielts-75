@@ -153,76 +153,109 @@ $('#btnGuide').onclick=()=>openModal(`<button class="close" onclick="closeModal(
   <p style="color:var(--dim);font-size:13px">关键文档位置：plan.md（8 周规划与退出标准）、employee-rollout-plan.md（推广方案）、rollout-materials/（配套练习材料）。</p>
   <div style="margin-top:16px"><button class="btn done small" onclick="closeModal()">路径已清楚</button></div>`);
 
-/* ============ 诊断小游戏 ============ */
-const QUIZ = [
-  {stem:'听一段回答："Um, I, um, think, um, this is, um, a good idea." 这段话里大约出现了几次填充词（um）？',
-   opts:['1 次','3 次','5 次以上'], right:1,
-   explain:'答案：3 次。填充词是流利度的"头号信号"——考官对填充词频率的感知是秒级的。你的判断准不准，直接对应模块 02 的训练目标：把填充词控制到每分钟 3 次以内。'},
-  {stem:'一个 Part 3 回答是："我认为远程办公很好。因为它更灵活。" 论证还缺哪一步？',
-   opts:['举例说明（如什么情况下更灵活）','再重复一遍观点','直接结束回答'], right:0,
-   explain:'答案：举例。完整的论证是"观点 → 解释 → 举例 → 让步"，目前只有观点和解释，举例让论证落地、让步让思考完整。这正是模块 08 的训练框架。'},
-  {stem:'考官问："Do you like your job?"（你喜欢你的工作吗？）哪种回答风格最合适？',
-   opts:['长篇论证式，像 Part 3 那样展开','2–4 句的聊天式短答，带个人细节','只回答一个单词',' Both A and B 都可以'], right:1,
-   explain:'答案：2–4 句聊天式短答。Part 1 是聊天体，Part 3 是讨论体，语域混用是常见扣分点。语域切换能力见模块 03 的语域转换训练。'},
-];
-let qStep=0, qScore=0, qPicked=false;
-function renderQuiz(){
+/* ============ 诊断小游戏（四科诊断，批次3 T-3.1） ============ */
+const DIAG_PLAN = {
+  speaking:{label:'口语', lesson:'l3', weak:['m02','m01']},
+  listening:{label:'听力', lesson:'l6', weak:['m06','m12']},
+  reading:{label:'阅读', lesson:'l7', weak:['m03']},
+  writing:{label:'写作', lesson:'l1', weak:['m05','m04']},
+};
+let diag={subjectIdx:0, qIdx:0, scores:{}, picked:{}, finished:false};
+function diagSubject(){ return DIAG_SUBJECTS[diag.subjectIdx]; }
+function diagNextLabel(){
+  const sub=diagSubject();
+  if(diag.qIdx<sub.questions.length-1) return '下一题 →';
+  if(diag.subjectIdx<DIAG_SUBJECTS.length-1) return '下一科 →';
+  return '查看诊断结果 →';
+}
+function renderDiag(){
   const area=$('#quizArea');
   area.classList.remove('hidden');
-  if(qStep>=QUIZ.length){ finishQuiz(); return; }
-  const q=QUIZ[qStep];
+  if(diag.finished){ renderDiagResult(area); return; }
+  const sub=diagSubject();
+  const q=sub.questions[diag.qIdx];
   area.innerHTML=`
+    <div class="diag-sub-tabs">${DIAG_SUBJECTS.map((s,i)=>{
+      const sc=diag.scores[s.id]||0;
+      const doneFlag = (diag.scores[s.id]!==undefined) && i<diag.subjectIdx;
+      return `<span class="ds-tab ${i===diag.subjectIdx?'on':''} ${doneFlag?'done':''}">${s.icon} ${s.name}<b>${sc}/3</b></span>`;
+    }).join('')}</div>
     <div class="quiz-q">
-      <div class="stem">第 ${qStep+1} 题 / 共 ${QUIZ.length} 题<br><br>${q.stem}</div>
+      <div class="stem">${sub.icon} ${sub.name} · 第 ${diag.qIdx+1} 题 / 共 ${sub.questions.length} 题<br><br>${q.stem}</div>
       ${q.opts.map((o,i)=>`<button class="opt" data-i="${i}">${o}</button>`).join('')}
       <div class="feedback" id="fb"></div>
     </div>
     <div style="margin-top:14px;display:flex;gap:12px">
-      <button class="btn ghost small" id="btnNext" disabled>下一题 →</button>
+      <button class="btn ghost small" id="btnNext" disabled>${diagNextLabel()}</button>
       <button class="btn ghost small" id="btnRestart">重新开始</button>
     </div>`;
-  area.querySelectorAll('.opt').forEach(b=>b.onclick=()=>pick(b.dataset.i,q));
-  $('#btnNext').onclick=()=>{ qStep++; qPicked=false; renderQuiz(); };
-  $('#btnRestart').onclick=()=>{ qStep=0; qScore=0; renderQuiz(); };
+  area.querySelectorAll('.opt').forEach(b=>b.onclick=()=>diagPick(b.dataset.i,q));
+  $('#btnNext').onclick=diagNext;
+  $('#btnRestart').onclick=diagRestart;
 }
-function pick(i,q){
-  if(qPicked) return; qPicked=true;
+function diagPick(i,q){
+  const key=diag.subjectIdx+'-'+diag.qIdx;
+  if(diag.picked[key]) return;
+  diag.picked[key]=true;
+  const sid=diagSubject().id;
+  if(i===q.right) diag.scores[sid]=(diag.scores[sid]||0)+1;
   const opts=document.querySelectorAll('.opt');
   opts.forEach((o,k)=>o.classList.toggle('right',k===q.right));
-  if(i===q.right){ qScore++; }
-  else{ opts[q.right].classList.add('right'); opts[i].classList.add('wrong'); }
+  if(i!==q.right) opts[i].classList.add('wrong');
   $('#btnNext').disabled=false;
   $('#fb').textContent='💡 '+q.explain;
   $('#fb').classList.add('show');
 }
-function finishQuiz(){
-  $('#quizArea').innerHTML=`<div class="profile-card">
-    <h3>🎯 诊断完成 — 你的起步建议</h3>
-    <div class="result-line">答对 ${qScore} / ${QUIZ.length} 题</div>
-    ${profilePlan(qScore)}
+function diagNext(){
+  diag.qIdx++;
+  if(diag.qIdx>=diagSubject().questions.length){ diag.subjectIdx++; diag.qIdx=0; }
+  if(diag.subjectIdx>=DIAG_SUBJECTS.length){
+    diag.finished=true;
+    if(!done.diag){ done.diag=['diag4']; save(); }
+    renderDiag(); renderAll();
+    return;
+  }
+  diag.picked={};
+  renderDiag();
+}
+function diagRestart(){ diag={subjectIdx:0,qIdx:0,scores:{},picked:{},finished:false}; renderDiag(); }
+function renderDiagResult(area){
+  const rows=DIAG_SUBJECTS.map(s=>{
+    const sc=diag.scores[s.id]||0;
+    const pct=Math.round(sc/3*100);
+    return `<div class="diag-row"><span class="dr-ic">${s.icon} ${s.name}</span>
+      <div class="dr-bar"><i style="width:${pct}%"></i></div><span class="dr-sc">${sc}/3</span></div>`;
+  }).join('');
+  const ranked=DIAG_SUBJECTS.map(s=>({s,sc:diag.scores[s.id]||0})).sort((a,b)=>a.sc-b.sc);
+  const route=ranked.map(({s,sc})=>{
+    const plan=DIAG_PLAN[s.id];
+    const items=[];
+    if(sc<=1){ plan.weak.forEach(id=>{ const m=MODULES.find(x=>x.id===id); if(m) items.push('模块 '+m.title); }); }
+    const lg=LESSONS.find(x=>x.id===plan.lesson);
+    if(lg) items.push('课程 '+lg.title);
+    return `<li><b>${s.icon} ${s.name}</b>（${sc}/3）：${items.join(' → ')}</li>`;
+  }).join('');
+  area.innerHTML=`<div class="profile-card">
+    <h3>🎯 四科诊断完成 — 你的个性化路线（弱项优先）</h3>
+    <div class="diag-rows">${rows}</div>
+    <div class="result-line">已按掌握度从弱到强排序，建议按顺序推进</div>
+    <ul style="color:var(--txt);margin-top:10px">${route}</ul>
   </div>
-  <div style="margin-top:14px"><button class="btn" id="btnGoPath">沿着推荐路径出发 🚀</button></div>`;
+  <div style="margin-top:14px;display:flex;gap:12px">
+    <button class="btn" id="btnGoPath">沿着推荐路径出发 🚀</button>
+    <button class="btn ghost small" id="btnReDiag">重新诊断</button>
+  </div>`;
   $('#btnGoPath').onclick=()=>{
     document.querySelector('#secLessons').scrollIntoView({behavior:'smooth'});
-    toast('课程路径已展开，从第 1 关开始');
+    toast('课程路径已展开，从推荐起点开始');
   };
-  if(!done.diag){ done.diag=['quiz']; save(); }
-  renderAll();
-}
-function profilePlan(score){
-  const tips=[];
-  if(score>=3) tips.push('<li>✅ 基础概念扎实：直接从 <b>课程路径第 1 关</b>开始，按顺序推进，重点放在"输出与模考"。</li>');
-  if(score<=1) tips.push('<li>🔧 建议先补 <b>模块 01（发音）+ 模块 02（流利度）</b>这两个 P0 基础，再进入课程路径，事半功倍。</li>');
-  if(score===2) tips.push('<li>🎯 基础不错：按课程路径推进，同时用 <b>模块 08</b> 补论证、<b>模块 03</b> 补语域意识。</li>');
-  tips.push('<li>📊 无论起点如何，每学完一节都用 <b>模块 04 自评表</b>打分，用 <b>模块 11 校准库</b>核对，避免高估。</li>');
-  tips.push('<li>🏙️ 练表达优先去 <b>场景城</b>，挑与自己岗位相关的场景开练。</li>');
-  return `<ul style="color:var(--txt)">${tips.join('')}</ul>`;
+  $('#btnReDiag').onclick=diagRestart;
 }
 $('#btnStart').onclick=()=>{
   document.querySelector('#secDiag').scrollIntoView({behavior:'smooth'});
-  qStep=0; qScore=0; qPicked=false;
-  renderQuiz();
-  toast('新手任务开始！三道题，边玩边定位起点');
+  diag={subjectIdx:0,qIdx:0,scores:{},picked:{},finished:false};
+  renderDiag();
+  toast('四科诊断开始！口语/听力/阅读/写作，定位你的起步路线');
 };
 
 /* ============ 场景演练舱 ============ */
