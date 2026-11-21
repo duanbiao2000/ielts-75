@@ -129,6 +129,11 @@
   "diag": ["diag4"],
   "badges": [],
   "quiz": ["lesson:l1", "mod:m01"],
+  "quizPass": ["lesson:l1"],
+  "lessonView": ["l1"],
+  "lessonEx": ["l1"],
+  "modTasks": ["m01t1"],
+  "modCheckins": ["m01:2026-11-20"],
   "review": [{ "name": "场景名", "weak": true, "practicedAt": 0, "stage": 0 }],
   "errors": [{ "type": "quiz|mock", "id": "...", "detail": "...", "ts": 0 }],
   "mock": true,
@@ -139,6 +144,11 @@
 ```
 
 - 数组字段记录已完成的课程/场景/模块/演练/诊断/测验。
+- `lessonView / lessonEx / quizPass`（批次2）：课程三步骤完成判定（知识点+课内练习+小测通过）。
+- `modTasks`（批次2）：模块任务卡已勾选任务 id；`modCheckins` 模块打卡记录（`模块id:日期`）。
+- 另有独立 localStorage 键 **`learning-records`**：学习行为流水 `{ts,action,id,detail}`，
+  动作包括 lesson-open / lesson-practice / lesson-complete / lesson-to-pod / scenario-practice /
+  quiz-pass / module-open / module-task / module-complete / module-checkin / module-to-pod，上限 500 条。
 - `review`：间隔复习记录，`stage` 对应间隔天数索引（1/3/7 天），`weak` 标记薄弱场景。
 - `errors`：错题本，单元测验未通过、模考答错/低分自动记录（按 `type+id` 去重）。
 - `mock`：是否完成过模考冲刺。
@@ -159,3 +169,14 @@
   - `listening`：`{section,q,opts,right,explain}`，选项即时判分。
 
 训练闭环：诊断定路线 → 单元测验 → 场景演练（含反馈）→ 模考验证 → 复习巩固。
+
+## 9. 课程与模块训练数据（`onboarding/js/course.js`，批次 2）
+
+由手工整理 + 校验工具保证结构。`index.html` 加载顺序为
+`practice-full.js → data.js → training.js → course.js → app.js`。
+
+- **LESSON_PACKS**（T-2.1）：按课程 id 索引，`{est 建议用时, takeaways 本课要点×4+,
+  practice 课内练习（choice/fill，2 题）, scenes 关联场景（演练舱跳转锚点）}`。
+- **MODULE_PACKS**（T-2.4）：按模块 id 索引，`{target 模块目标, linkScenes 关联场景,
+  tasks 练习清单}`；`tasks[]` 每项 `{id, text, est 预估分钟, scene? 可自动演练的场景}`。
+  `task.scene` 为模块↔场景双向同步锚点：模块页「去演练」跳转演练舱，演练完成自动勾选该任务。
