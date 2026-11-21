@@ -252,3 +252,15 @@
 /* ===== 批次4 T-4.1：徽章分类标签 ===== */
 .bcat{display:inline-block;margin-top:6px;font-size:10px;letter-spacing:.5px;color:var(--cyan);
   border:1px solid rgba(34,211,238,.35);border-radius:999px;padding:2px 8px;opacity:.85}
+/* ===== 批次4 T-4.2：等级与经验 ===== */
+.lv-chip{font-size:12px;font-weight:700;color:#052e2b;background:linear-gradient(135deg,#22d3ee,#34d399);
+  border-radius:999px;padding:4px 12px;white-space:nowrap}
+.xp-wrap{display:flex;flex-direction:column;gap:3px;min-width:110px}
+.xp-bar{height:6px;border-radius:999px;background:#1e293b;overflow:hidden}
+.xp-bar i{display:block;height:100%;background:linear-gradient(90deg,#22d3ee,#34d399);border-radius:999px;transition:width .3s}
+.xp-wrap span{font-size:10px;color:var(--dim);letter-spacing:.3px}
+.streak-chip{font-size:12px;color:#fdba74;border:1px solid rgba(251,146,60,.4);border-radius:999px;padding:4px 10px;white-space:nowrap}
+/* 等级外观：Lv5+ 头部金色调，Lv10 满阶紫金 */
+body[data-level="5"] .lv-chip, body[data-level="6"] .lv-chip, body[data-level="7"] .lv-chip,
+body[data-level="8"] .lv-chip, body[data-level="9"] .lv-chip {background:linear-gradient(135deg,#fbbf24,#f59e0b);color:#451a03}
+body[data-level="10"] .lv-chip{background:linear-gradient(135deg,#c084fc,#f472b6,#fbbf24);color:#2e1065}
