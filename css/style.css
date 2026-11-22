@@ -103,6 +103,9 @@
   /* ===== 演练舱 ===== */
   #pod-mask{position:fixed;inset:0;background:rgba(8,12,25,.92);backdrop-filter:blur(4px);display:none;z-index:150;overflow:auto;padding:24px}
   #pod-mask.show{display:block}
+  /* 模考冲刺覆盖层：此前缺失 display:none，导致空容器以静态块一直占位渲染 */
+  #mock-mask{position:fixed;inset:0;background:rgba(8,12,25,.92);backdrop-filter:blur(4px);display:none;z-index:160;overflow:auto;padding:24px}
+  #mock-mask.show{display:block}
   .pod{max-width:720px;margin:0 auto;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:26px;box-shadow:0 20px 60px rgba(0,0,0,.5)}
   .pod-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
   .pod-head h2{font-size:20px;display:flex;align-items:center;gap:10px}
@@ -341,6 +344,7 @@ img,audio,video,canvas,svg{max-width:100%}
   .modal{padding:18px;max-height:88vh}
   .modal h2{font-size:17px}
   #pod-mask{padding:8px}
+  #mock-mask{padding:8px}
   .pod{padding:16px;border-radius:14px}
   .pod-head h2{font-size:16px;flex-wrap:wrap}
   .steps{gap:6px}
@@ -362,3 +366,12 @@ button:focus-visible,a:focus-visible,.tab:focus-visible,.card:focus-visible{outl
 .modal[role="dialog"],.pod[role="dialog"]{outline:none}
 /* ===== 批次5 T-5.5：渲染性能（长列表跳过屏外渲染） ===== */
 .grid .card,.grid .badge,.task-item{content-visibility:auto;contain-intrinsic-size:auto 160px}
+
+/* ===== 页脚（GitHub 仓库入口） ===== */
+.site-footer{text-align:center;padding:26px 16px 34px;border-top:1px solid var(--line);color:var(--dim);font-size:13px}
+.gh-link{display:inline-flex;align-items:center;gap:8px;color:var(--dim);text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:7px 16px;transition:color .2s,border-color .2s,transform .2s}
+.gh-link:hover{color:var(--cyan);border-color:var(--cyan);transform:translateY(-1px)}
+.gh-link:focus-visible{outline:2px solid var(--cyan);outline-offset:2px}
+.gh-link svg{width:18px;height:18px;fill:currentColor}
+.sf-note{margin-top:10px;font-size:12px;opacity:.75}
+@media (max-width:560px){.sf-note{display:none}}
