@@ -741,7 +741,7 @@ function renderLpxResult(list){
 }
 
 /* ============ 月度模考题库 · Mock Bank（150 分制 · 雅思 9 分制换算） ============ */
-let mock={setId:null, part:'shelf', mode:'speak', speakIdx:0, listenIdx:0, speakScore:0, listenScore:0, speakResults:{}, listenResults:{}, recOn:false, recUrl:null};
+let mock={setId:null, part:'shelf', mode:'speak', speakIdx:0, listenIdx:0, speakScore:0, listenScore:0, speakResults:{}, listenResults:{}, recOn:false, recUrl:null, ans:''};
 let mockRecStream=null, mockRecChunks=[], mockRecSrc=null;
 const MOCK_BANK_LIST=()=>(typeof MOCK_BANK!=='undefined'&&Array.isArray(MOCK_BANK)? MOCK_BANK.slice().sort((a,b)=>String(a.month).localeCompare(String(b.month))) : []);
 function mockBankCur(){ const list=MOCK_BANK_LIST(); return list.find(b=>b.id===mock.setId) || list[list.length-1] || null; }
@@ -766,18 +766,18 @@ function mockListenMax(){ return mockListenFlat().length; }
 function mockMax(){ return mockSpeakMax()+mockListenMax(); }
 function mockBand(total){ const max=mockMax()||150; return Math.round(((total||0)/max)*9*2)/2; }
 function openMock(){
-  mock={setId:null, part:'shelf', mode:'speak', speakIdx:0, listenIdx:0, speakScore:0, listenScore:0, speakResults:{}, listenResults:{}, recOn:false, recUrl:null};
+  mock={setId:null, part:'shelf', mode:'speak', speakIdx:0, listenIdx:0, speakScore:0, listenScore:0, speakResults:{}, listenResults:{}, recOn:false, recUrl:null, ans:''};
   $('#mock-mask').classList.add('show'); $('#mock').scrollTop=0; renderMock();
 }
 function openMockVolume(setId){
   const b=MOCK_BANK_LIST().find(x=>x.id===setId); if(!b){ toast('未找到该卷'); return; }
-  mock={setId:setId, part:'intro', mode:'speak', speakIdx:0, listenIdx:0, speakScore:0, listenScore:0, speakResults:{}, listenResults:{}, recOn:false, recUrl:null};
+  mock={setId:setId, part:'intro', mode:'speak', speakIdx:0, listenIdx:0, speakScore:0, listenScore:0, speakResults:{}, listenResults:{}, recOn:false, recUrl:null, ans:''};
   $('#mock').scrollTop=0; renderMock();
 }
 function closeMock(){ if(mock.recOn) mockStopRec(); $('#mock-mask').classList.remove('show'); }
 function mockGo(mode){
   mock.mode=mode;
-  if(mode==='speak'){ mock.part='speak'; mock.speakIdx=0; }
+  if(mode==='speak'){ mock.part='speak'; mock.speakIdx=0; if(mock.recUrl){ try{ URL.revokeObjectURL(mock.recUrl); }catch(e){} } mock.recUrl=null; mock.ans=''; mock.recOn=false; }
   else if(mode==='listen'){ mock.part='listen'; mock.listenIdx=0; }
   else { mock.part='speak'; mock.speakIdx=0; mock.listenIdx=0; }
   renderMock();
@@ -834,12 +834,12 @@ function renderMockSpeak(el){
       <div class="turn-bar"><button class="rec-btn" id="recBtn"><span class="dot"></span><span id="recTxt">录音</span></button>${mock.recUrl?'<audio controls style="height:32px" src="'+mock.recUrl+'"></audio>':''}</div>
       <div class="feedback" id="fb"></div>
     </div>
-    <div class="pod-actions"><button class="btn" id="btnScore" disabled>评分</button>
+    <div class="pod-actions"><button class="btn" id="btnScore">评分</button>
       <button class="btn ghost small" onclick="closeMock()">退出</button></div>`;
   $('#recBtn').onclick=mockToggleRec;
   $('#btnScore').onclick=mockScoreSpeak;
   const ta=$('#mockAns');
-  if(ta){ ta.oninput=()=>{ const b=$('#btnScore'); if(b) b.disabled=!ta.value.trim(); }; if(ta.focus) ta.focus(); }
+  if(ta){ ta.value=mock.ans||''; ta.oninput=()=>{ mock.ans=ta.value; }; if(ta.focus) ta.focus(); }
 }
 function renderMockListen(el){
   const list=mockListenFlat(); const q=list[mock.listenIdx];
@@ -872,6 +872,8 @@ function mockScoreSpeak(){
   const btn=$('#btnScore'); btn.disabled=false; btn.textContent='下一题 →'; btn.onclick=mockSpeakNext;
 }
 function mockSpeakNext(){
+  if(mock.recUrl){ try{ URL.revokeObjectURL(mock.recUrl); }catch(e){} }
+  mock.recUrl=null; mock.ans=''; mock.recOn=false;
   mock.speakIdx++;
   if(mock.speakIdx>=mockSpeakList().length){ mock.part = mock.mode==='full' ? 'listen' : 'done'; }
   renderMock();
