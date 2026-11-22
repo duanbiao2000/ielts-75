@@ -407,7 +407,7 @@ function renderProgress(){
   $('#ringFg').setAttribute('stroke-dashoffset', C*(1-pct/100));
   $('#ringPct').textContent = pct+'%';
 }
-function renderAll(){ renderLessons(); renderScen($('#scenTabs').dataset.cur||'职场'); renderMods(); renderBadges(); renderProgress(); renderReview(); renderHeader(); renderDaily(); checkJourney(); }
+function renderAll(){ renderLessons(); renderScen($('#scenTabs').dataset.cur||'职场'); renderMods(); renderBadges(); renderProgress(); renderReview(); renderHeader(); renderDaily(); checkJourney(); renderRecent(); }
 
 /* ============ 弹窗 ============ */
 let lastFocus=null;
@@ -489,17 +489,18 @@ function moduleReadProgress(id){
   const read=(done.contentRead||[]).filter(k=>String(k).startsWith(id+'#')).length;
   return {read:Math.min(read,total), total};
 }
-function clearReader(){ $('#reader-mask').classList.remove('show'); $('#reader').innerHTML=''; readerState=null; }
+function clearReader(){ accumulateReadTime(); stripReaderHash(); $('#reader-mask').classList.remove('show'); $('#reader').innerHTML=''; readerState=null; }
 function openReader(id){
   const l=LESSONS.find(x=>x.id===id); if(!l) return;
   const idx=lessonIndex(id);
   const est=(typeof LESSON_PACKS!=='undefined'&&LESSON_PACKS[id]&&LESSON_PACKS[id].est)||40;
   readerState={type:'lesson', id};
+  afterReaderOpened(readerState, l.icon+' '+l.title);
   $('#reader').innerHTML=`
     <div class="reader-top">
-      <button class="reader-back" onclick="closeReader()" aria-label="返回课程">← 返回</button>
+      <button class="reader-back" onclick="readerBack()" aria-label="返回课程">← 返回</button>
       <div class="reader-title">${l.icon} ${l.title}</div>
-      <div class="reader-count">${idx+1} / ${LESSONS.length} 讲</div>
+      <div class="reader-count">${idx+1} / ${LESSONS.length} 讲</div>${readerShareBtn()}
     </div>
     <div class="reader-frame"><iframe title="${l.title}" src="content/${l.path}" sandbox="allow-scripts"></iframe></div>
     <div class="reader-foot">
@@ -515,6 +516,7 @@ async function openScenReader(name){
   const s=SCENARIOS.find(x=>x.name===name); if(!s){ toast('未找到该场景'); return; }
   try{ await ensurePracticeData(); }catch(e){ toast('素材加载失败，请稍后再试'); return; }
   readerState={type:'scen', name, tab:'expr'};
+  afterReaderOpened(readerState, s.name);
   renderScenReader();
   $('#reader-mask').classList.add('show');
   logLearning('content-open', 'scen:'+name);
@@ -546,9 +548,9 @@ function renderScenReader(){
   const tabs=[['expr','💬 核心表达'],['dialog','👥 情景对话'],['role','🎭 角色任务']];
   $('#reader').innerHTML=`
     <div class="reader-top">
-      <button class="reader-back" onclick="closeReader()" aria-label="返回场景">← 返回</button>
+      <button class="reader-back" onclick="readerBack()" aria-label="返回场景">← 返回</button>
       <div class="reader-title">🏙️ ${escHtml(s.name)} <span class="tag">${escHtml(s.d)}域</span></div>
-      <div class="reader-count">场景素材</div>
+      <div class="reader-count">场景素材</div>${readerShareBtn()}
     </div>
     <div class="reader-docs">${tabs.map(([k,l])=>`<button class="doc-chip ${k===tab?'on':''}" onclick="scenTab('${k}')">${l}</button>`).join('')}</div>
     ${body}
@@ -570,11 +572,12 @@ async function openModuleReader(id, docIdx){
   const m=MODULES.find(x=>x.id===id); if(!m){ toast('未找到该模块'); return; }
   try{ await ensureModuleContent(id); }catch(e){ toast('模块内容加载失败，请稍后再试'); return; }
   readerState={type:'module', id, docIdx:docIdx||0};
+  afterReaderOpened(readerState, m.icon+' '+m.title);
   renderModuleReader();
   $('#reader-mask').classList.add('show');
   logLearning('content-open', 'module:'+id);
 }
-function moduleReaderGoDoc(i){ if(!readerState||readerState.type!=='module')return; readerState.docIdx=i; renderModuleReader(); }
+function moduleReaderGoDoc(i){ if(!readerState||readerState.type!=='module')return; readerState.docIdx=i; renderModuleReader(); try{ if(typeof history!=='undefined'&&history.replaceState) history.replaceState({ielts75Reader:1},'',readerHash(readerState)); }catch(e){} }
 function shortDocTitle(t){ t=String(t); return t.length>16?t.slice(0,16)+'…':t; }
 function renderModuleReader(){
   const m=MODULES.find(x=>x.id===(readerState&&readerState.id)); if(!m) return;
@@ -586,9 +589,9 @@ function renderModuleReader(){
   const mins=Math.max(2,Math.round(String(d.html).replace(/<[^>]+>/g,'').length/350));
   $('#reader').innerHTML=`
     <div class="reader-top">
-      <button class="reader-back" onclick="closeReader()" aria-label="返回模块">← 返回</button>
+      <button class="reader-back" onclick="readerBack()" aria-label="返回模块">← 返回</button>
       <div class="reader-title">${m.icon} ${m.title}</div>
-      <div class="reader-count">${idx+1} / ${docs.length} 份 · 已读 ${readCount}</div>
+      <div class="reader-count">${idx+1} / ${docs.length} 份 · 已读 ${readCount}</div>${readerShareBtn()}
     </div>
     <div class="reader-docs">${docs.map((x,i)=>`<button class="doc-chip ${i===idx?'on':''} ${isModuleDocRead(m.id,x.file)?'read':''}" onclick="moduleReaderGoDoc(${i})">${isModuleDocRead(m.id,x.file)?'✓':''}${escHtml(shortDocTitle(x.title))}</button>`).join('')}</div>
     <div class="reader-doc" id="moduleDocScroll" onscroll="onModuleDocScroll(this,'${m.id}','${d.file}')">${d.html}</div>
@@ -624,6 +627,90 @@ function readerComplete(){
   if(!done.contentRead.includes(id)){ done.contentRead.push(id); save(); }
   logLearning('content-read', id);
   openUnitQuiz('lesson', id);
+}
+/* ============ 深链接 / 最近阅读 / 阅读计时（批次 C · 核心三项） ============ */
+const READ_HASH_RE=/^#\/read\/(lesson|scen|module)\/([^/?#]+)(?:\/(\d+))?$/;
+const readerTimer={startedAt:0};
+function winLocation(){ return (typeof window!=='undefined'&&window.location)||{hash:'',pathname:'/',search:'',href:''}; }
+function baseUrl(){ const l=winLocation(); return (l.pathname||'/')+(l.search||''); }
+function stripReaderHash(){ try{ const l=winLocation(); if(String(l.hash||'').indexOf('#/read/')===0 && typeof history!=='undefined'&&history.replaceState) history.replaceState(null,'',baseUrl()); }catch(e){} }
+function readerHash(st){
+  if(!st) return '';
+  if(st.type==='lesson') return '#/read/lesson/'+encodeURIComponent(st.id);
+  if(st.type==='scen') return '#/read/scen/'+encodeURIComponent(st.name);
+  if(st.type==='module') return '#/read/module/'+encodeURIComponent(st.id)+(st.docIdx?'/'+st.docIdx:'');
+  return '';
+}
+function isoWeekKey(d){
+  const dt=new Date(d.getFullYear(),d.getMonth(),d.getDate());
+  const day=(dt.getDay()+6)%7; dt.setDate(dt.getDate()-day+3); // 本周四定位 ISO 周
+  const first=new Date(dt.getFullYear(),0,4); const fd=(first.getDay()+6)%7; first.setDate(first.getDate()-fd+3);
+  return dt.getFullYear()+'-W'+String(1+Math.round((dt-first)/(7*86400000))).padStart(2,'0');
+}
+function addReadTime(ms){
+  if(!(ms>0)) return; ms=Math.min(ms,3600000); // 单次上限 1h，防挂机虚增
+  if(!done.readStats) done.readStats={total:0,weeks:{}};
+  done.readStats.total=(done.readStats.total||0)+ms;
+  const wk=isoWeekKey(new Date()); const weeks=done.readStats.weeks||(done.readStats.weeks={});
+  weeks[wk]=(weeks[wk]||0)+ms;
+  const keys=Object.keys(weeks).sort();
+  while(keys.length>12) delete weeks[keys.shift()]; // 只保留最近 12 周
+  save();
+}
+function accumulateReadTime(){ if(readerTimer.startedAt){ addReadTime(Date.now()-readerTimer.startedAt); readerTimer.startedAt=0; } }
+function pushRecentRead(type,id,title){
+  if(!Array.isArray(done.recentReads)) done.recentReads=[];
+  const k=type+':'+id;
+  done.recentReads=done.recentReads.filter(r=>r&&r.k!==k);
+  done.recentReads.unshift({k,type,id,title:String(title||id).slice(0,48),ts:Date.now()});
+  if(done.recentReads.length>8) done.recentReads.length=8;
+  save();
+}
+function readerShareBtn(){ return '<button class="reader-share" onclick="readerShare()" aria-label="复制阅读链接" title="复制阅读链接">🔗</button>'; }
+function readerShare(){
+  const url=winLocation().href||'';
+  const toastOk=()=>toast('🔗 链接已复制，打开即直达');
+  const nav=(typeof window!=='undefined'&&window.navigator)||{};
+  const fallback=()=>{ try{ const inp=document.createElement('textarea'); inp.value=url; inp.setAttribute('readonly',''); inp.style.cssText='position:fixed;opacity:0'; document.body.appendChild(inp); inp.select(); document.execCommand('copy'); document.body.removeChild(inp); toastOk(); }catch(e){ toast('链接复制失败'); } };
+  if(nav.clipboard&&nav.clipboard.writeText) nav.clipboard.writeText(url).then(toastOk).catch(fallback); else fallback();
+}
+function readerBack(){ if(readerState&&readerState.pushed&&typeof history!=='undefined'&&history.back){ try{ history.back(); return; }catch(e){} } closeReader(); }
+function afterReaderOpened(st,title){
+  readerTimer.startedAt=Date.now();
+  st.pushed=false;
+  pushRecentRead(st.type, st.type==='scen'?st.name:st.id, title);
+  try{ if(typeof history!=='undefined'&&history.pushState){ history.pushState({ielts75Reader:1},'',readerHash(st)); st.pushed=true; } }catch(e){}
+  renderRecent();
+}
+function renderRecent(){
+  if(typeof document==='undefined'||!document.getElementById) return;
+  const box=document.getElementById('recentReads'); if(!box) return;
+  const items=(done.recentReads||[]).slice(0,4);
+  if(!items.length){ box.style.display='none'; return; }
+  box.style.display='';
+  const icon={lesson:'📗',scen:'🏙️',module:'🧩'};
+  const wk=isoWeekKey(new Date());
+  const fmtMin=ms=>{ const m=Math.floor(ms/60000); return m>0?m+' 分钟':(ms>0?'<1 分钟':'0 分钟'); };
+  const wkMin=fmtMin(((done.readStats&&done.readStats.weeks)||{})[wk]||0);
+  const totalMin=fmtMin((done.readStats&&done.readStats.total)||0);
+  box.innerHTML=`<div class="card recent-reads"><div class="rr-head"><span class="rr-title">📚 最近阅读</span><span class="rr-stats">本周 ${wkMin} · 累计 ${totalMin}</span></div>
+    <div class="rr-row">${items.map(r=>`<button class="rr-item" data-type="${escAttr(r.type)}" data-id="${escAttr(r.id)}"><span class="rr-ico">${icon[r.type]||'📖'}</span><span class="rr-name">${escHtml(r.title)}</span></button>`).join('')}</div></div>`;
+}
+function openReaderFromLocation(viaReplace){
+  const l=winLocation();
+  const m=String(l.hash||'').match(READ_HASH_RE);
+  if(!m) return false;
+  const type=m[1], id=decodeURIComponent(m[2]), docIdx=m[3]?parseInt(m[3],10):0;
+  let target=null;
+  if(type==='lesson') target=LESSONS.find(x=>x.id===id);
+  else if(type==='scen') target=SCENARIOS.find(x=>x.name===id);
+  else if(type==='module') target=MODULES.find(x=>x.id===id);
+  if(!target){ toast('链接中的内容不存在或已下线'); stripReaderHash(); return false; }
+  if(viaReplace){ try{ if(typeof history!=='undefined'&&history.replaceState) history.replaceState(null,'',baseUrl()); }catch(e){} }
+  if(type==='lesson') openReader(id);
+  else if(type==='scen') openScenReader(id);
+  else openModuleReader(id, isNaN(docIdx)?0:docIdx);
+  return true;
 }
 /* 课程内跳转演练舱：记录来源课，演练完成后返回课程并更新进度 */
 function goPodFromLesson(lid, sceneName){
@@ -1557,6 +1644,16 @@ function doReview(name){
 
 /* ============ 启动 ============ */
 renderAll();
+/* 批次 C：深链接（#/read/<type>/<id>）启动直开；后退/哈希变化语义 */
+try{
+  if(typeof window!=='undefined'&&window.addEventListener){
+    window.addEventListener('popstate',()=>{ if(typeof readerState!=='undefined'&&readerState) closeReader(); });
+    window.addEventListener('hashchange',()=>{ if(!(typeof readerState!=='undefined'&&readerState)) openReaderFromLocation(false); });
+    const rrBox=document.getElementById&&document.getElementById('recentReads');
+    if(rrBox&&rrBox.addEventListener) rrBox.addEventListener('click',e=>{ const b=e.target&&e.target.closest?e.target.closest('.rr-item'):null; if(!b)return; const t=b.dataset.type,id=b.dataset.id; if(t==='lesson')openReader(id); else if(t==='scen')openScenReader(id); else if(t==='module')openModuleReader(id); });
+  }
+  openReaderFromLocation(true);
+}catch(e){}
 
 /* PWA：注册 Service Worker（离线可用；不支持的环境静默跳过） */
 try{
