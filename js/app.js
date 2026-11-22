@@ -461,13 +461,40 @@ function openLesson(l){
     </div>`);
   checkLessonDone(l.id);
 }
-/* ============ 内容阅读器（课程：同源 iframe 内嵌 lessons/*.html） ============ */
+/* ============ 内容阅读器（课程 iframe / 场景素材 / 模块文档 共用 #reader-mask） ============ */
+function escHtml(v){ return String(v).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function escAttr(v){ return escHtml(v).replace(/"/g,'&quot;'); }
+function ttsBtn(en){ return `<button class="tts-btn" onclick="speakEn(${escAttr(JSON.stringify(String(en)))})" aria-label="朗读英文">🔊</button>`; }
+/* TTS：Web Speech API（系统内置音色，不依赖网络）；不可用时静默降级提示 */
+function speakEn(text){
+  try{
+    if(typeof speechSynthesis==='undefined'||!speechSynthesis.speak){ toast('当前环境不支持语音播放'); return; }
+    speechSynthesis.cancel();
+    const u=new SpeechSynthesisUtterance(String(text));
+    u.lang='en-US'; u.rate=0.95;
+    speechSynthesis.speak(u);
+  }catch(e){ toast('当前环境不支持语音播放'); }
+}
 function isContentRead(id){ return (done.contentRead||[]).includes(id); }
+function moduleDocReadKey(id,file){ return id+'#'+file; }
+function isModuleDocRead(id,file){ return (done.contentRead||[]).includes(moduleDocReadKey(id,file)); }
+function markModuleDocRead(id,file,silent){
+  if(!Array.isArray(done.contentRead)) done.contentRead=[];
+  const k=moduleDocReadKey(id,file);
+  if(!done.contentRead.includes(k)){ done.contentRead.push(k); save(); if(!silent) logLearning('content-read',k); }
+}
+function moduleReadProgress(id){
+  const m=MODULES.find(x=>x.id===id); if(!m) return {read:0,total:0};
+  const total=m.files.split(' / ').length+1; // +1 = 模块导览（README）
+  const read=(done.contentRead||[]).filter(k=>String(k).startsWith(id+'#')).length;
+  return {read:Math.min(read,total), total};
+}
+function clearReader(){ $('#reader-mask').classList.remove('show'); $('#reader').innerHTML=''; readerState=null; }
 function openReader(id){
   const l=LESSONS.find(x=>x.id===id); if(!l) return;
   const idx=lessonIndex(id);
   const est=(typeof LESSON_PACKS!=='undefined'&&LESSON_PACKS[id]&&LESSON_PACKS[id].est)||40;
-  readerState={id};
+  readerState={type:'lesson', id};
   $('#reader').innerHTML=`
     <div class="reader-top">
       <button class="reader-back" onclick="closeReader()" aria-label="返回课程">← 返回</button>
@@ -483,17 +510,116 @@ function openReader(id){
   $('#reader').scrollTop=0;
   logLearning('content-open', id);
 }
-/* 返回：回到唤起它的课程关卡弹窗（与 goPodFromLesson 同款上下文返回） */
-function closeReader(){
-  const id=readerState&&readerState.id;
-  $('#reader-mask').classList.remove('show'); $('#reader').innerHTML=''; readerState=null;
-  if(id){ const l=LESSONS.find(x=>x.id===id); if(l) openLesson(l); }
+/* ---- 场景素材阅读器（复用 PRACTICE_FULL 全量语料：核心表达 / 情景对话 / 角色任务） ---- */
+async function openScenReader(name){
+  const s=SCENARIOS.find(x=>x.name===name); if(!s){ toast('未找到该场景'); return; }
+  try{ await ensurePracticeData(); }catch(e){ toast('素材加载失败，请稍后再试'); return; }
+  readerState={type:'scen', name, tab:'expr'};
+  renderScenReader();
+  $('#reader-mask').classList.add('show');
+  logLearning('content-open', 'scen:'+name);
 }
-/* 完成并测验：标记已读 → 关闭阅读器 → 直开本讲单元测验 */
+function scenTab(t){ if(readerState&&readerState.type==='scen'){ readerState.tab=t; renderScenReader(); } }
+function renderScenReader(){
+  const s=SCENARIOS.find(x=>x.name===(readerState&&readerState.name)); if(!s) return;
+  const p=(typeof PRACTICE!=='undefined'&&PRACTICE[s.name])||null;
+  const tab=readerState.tab||'expr';
+  const A=(p&&p.roleA)||'A', B=(p&&p.roleB)||'B';
+  let body='';
+  if(tab==='expr'){
+    const ph=(p&&p.phrases)||[], adv=(p&&p.adv)||[], words=(p&&p.words)||[], tips=(p&&p.tips)||[];
+    body=`<div class="reader-doc">
+      <h2>🗂️ 高频词（${words.length}）</h2>
+      <div class="chiprow">${words.map(w=>`<span class="word-chip">${escHtml(w)}</span>${ttsBtn(w)}`).join('')}</div>
+      <h2>💬 核心表达（${ph.length}）</h2>
+      ${ph.map(([en,zh])=>`<div class="expr-line"><div class="expr-en">${escHtml(en)}${ttsBtn(en)}</div><div class="expr-zh">${escHtml(zh)}</div></div>`).join('')}
+      ${adv.length?`<h2>🚀 进阶表达（${adv.length}）</h2>${adv.map(([en,zh])=>`<div class="expr-line"><div class="expr-en">${escHtml(en)}${ttsBtn(en)}</div><div class="expr-zh">${escHtml(zh)}</div></div>`).join('')}`:''}
+      ${tips.length?`<h2>💡 考官视角</h2><ul>${tips.map(t=>`<li>${escHtml(t)}</li>`).join('')}</ul>`:''}
+    </div>`;
+  }else if(tab==='dialog'){
+    const ds=(p&&p.dialogs)||[];
+    body=`<div class="reader-doc">${ds.map(d=>`<h2>${escHtml(d.title)}</h2>${(d.lines||[]).map(l=>`<div class="dlg-line"><span class="dlg-who" title="${escAttr(l.who==='A'?A:B)}">${l.who==='A'?'A':'B'}</span><div class="dlg-body"><div class="dlg-q">${escHtml(l.q)}${ttsBtn(l.q)}</div>${l.zh?`<div class="dlg-zh">${escHtml(l.zh)}</div>`:''}${(l.vars&&l.vars.length)?`<div class="dlg-vars">可替换：${l.vars.map(v=>escHtml(v)).join(' ｜ ')}</div>`:''}</div></div>`).join('')}`).join('')||'<p>暂无对话素材</p>'}</div>`;
+  }else{
+    const checks=(p&&p.checks)||[];
+    body=`<div class="reader-doc"><h2>🎭 角色扮演任务</h2><p>${escHtml(s.task)}</p><h2>✅ 自检清单</h2>${checks.map(c=>`<label class="selfcheck"><input type="checkbox"><span>${escHtml(c)}</span></label>`).join('')||'<p>暂无自检项</p>'}<p class="reader-note">先开口，再完美——勾上 3 项即可进入演练舱实战。</p></div>`;
+  }
+  const tabs=[['expr','💬 核心表达'],['dialog','👥 情景对话'],['role','🎭 角色任务']];
+  $('#reader').innerHTML=`
+    <div class="reader-top">
+      <button class="reader-back" onclick="closeReader()" aria-label="返回场景">← 返回</button>
+      <div class="reader-title">🏙️ ${escHtml(s.name)} <span class="tag">${escHtml(s.d)}域</span></div>
+      <div class="reader-count">场景素材</div>
+    </div>
+    <div class="reader-docs">${tabs.map(([k,l])=>`<button class="doc-chip ${k===tab?'on':''}" onclick="scenTab('${k}')">${l}</button>`).join('')}</div>
+    ${body}
+    <div class="reader-foot"><span class="reader-hint">🔊 听一听，再开口练</span><button class="btn-primary-big" onclick="scenReaderGoPractice()">去演练 →</button></div>`;
+}
+function scenReaderGoPractice(){ const n=readerState&&readerState.name; clearReader(); if(n) openPractice(n); }
+/* ---- 模块文档阅读器（modules/*.md 构建期预渲染为 content/modules/<id>.js，懒加载） ---- */
+function ensureModuleContent(id){
+  if(typeof window!=='undefined'&&window.MODULE_CONTENT&&window.MODULE_CONTENT[id]) return Promise.resolve();
+  if(!ensureModuleContent._l) ensureModuleContent._l={};
+  if(!ensureModuleContent._l[id]){
+    ensureModuleContent._l[id]=loadScript('content/modules/'+id+'.js').then(()=>{
+      if(!window.MODULE_CONTENT||!window.MODULE_CONTENT[id]) throw new Error('模块内容缺失：'+id);
+    }).catch(e=>{ delete ensureModuleContent._l[id]; throw e; });
+  }
+  return ensureModuleContent._l[id];
+}
+async function openModuleReader(id, docIdx){
+  const m=MODULES.find(x=>x.id===id); if(!m){ toast('未找到该模块'); return; }
+  try{ await ensureModuleContent(id); }catch(e){ toast('模块内容加载失败，请稍后再试'); return; }
+  readerState={type:'module', id, docIdx:docIdx||0};
+  renderModuleReader();
+  $('#reader-mask').classList.add('show');
+  logLearning('content-open', 'module:'+id);
+}
+function moduleReaderGoDoc(i){ if(!readerState||readerState.type!=='module')return; readerState.docIdx=i; renderModuleReader(); }
+function shortDocTitle(t){ t=String(t); return t.length>16?t.slice(0,16)+'…':t; }
+function renderModuleReader(){
+  const m=MODULES.find(x=>x.id===(readerState&&readerState.id)); if(!m) return;
+  const c=(typeof window!=='undefined'&&window.MODULE_CONTENT)||{}; const docs=(c[m.id]&&c[m.id].docs)||[];
+  if(!docs.length){ $('#reader').innerHTML='<div class="reader-doc"><p>模块内容未生成，请先运行 scripts/gen_module_content.py</p></div>'; return; }
+  const idx=Math.max(0,Math.min(readerState.docIdx||0,docs.length-1)); readerState.docIdx=idx;
+  const d=docs[idx];
+  const readCount=docs.filter(x=>isModuleDocRead(m.id,x.file)).length;
+  const mins=Math.max(2,Math.round(String(d.html).replace(/<[^>]+>/g,'').length/350));
+  $('#reader').innerHTML=`
+    <div class="reader-top">
+      <button class="reader-back" onclick="closeReader()" aria-label="返回模块">← 返回</button>
+      <div class="reader-title">${m.icon} ${m.title}</div>
+      <div class="reader-count">${idx+1} / ${docs.length} 份 · 已读 ${readCount}</div>
+    </div>
+    <div class="reader-docs">${docs.map((x,i)=>`<button class="doc-chip ${i===idx?'on':''} ${isModuleDocRead(m.id,x.file)?'read':''}" onclick="moduleReaderGoDoc(${i})">${isModuleDocRead(m.id,x.file)?'✓':''}${escHtml(shortDocTitle(x.title))}</button>`).join('')}</div>
+    <div class="reader-doc" id="moduleDocScroll" onscroll="onModuleDocScroll(this,'${m.id}','${d.file}')">${d.html}</div>
+    <div class="reader-foot"><span class="reader-hint" id="moduleDocHint">已读 ${readCount}/${docs.length} · 约 ${mins} 分钟</span>
+      <span style="display:flex;gap:8px;align-items:center">
+        <button class="btn ghost small" onclick="markModuleDocRead('${m.id}','${d.file}');renderModuleReader()">✓ 标记已读</button>
+        <button class="btn-primary-big" onclick="readerComplete()">完成并测验 →</button>
+      </span></div>`;
+}
+function onModuleDocScroll(el,id,file){
+  if(el.scrollTop+el.clientHeight>=el.scrollHeight-48){
+    markModuleDocRead(id,file,true);
+    const h=document.getElementById('moduleDocHint'); if(h) h.textContent='已读 ✓ 本页 · 继续完成剩余文档';
+  }
+}
+/* 返回：回到唤起它的弹窗（课程/场景/模块 —— 与 goPodFromLesson 同款上下文返回） */
+function closeReader(){
+  const st=readerState;
+  clearReader();
+  if(!st) return;
+  if(st.type==='scen'){ const s=SCENARIOS.find(x=>x.name===st.name); if(s) openScen(s); }
+  else if(st.type==='module'){ const m=MODULES.find(x=>x.id===st.id); if(m) openMod(m); }
+  else { const l=LESSONS.find(x=>x.id===st.id); if(l) openLesson(l); }
+}
+/* 完成并测验：标记已读 → 关闭阅读器 → 直开对应单元测验 */
 function readerComplete(){
-  const id=readerState&&readerState.id;
-  $('#reader-mask').classList.remove('show'); $('#reader').innerHTML=''; readerState=null;
-  if(!id) return;
+  const st=readerState;
+  clearReader();
+  if(!st) return;
+  if(st.type==='module'){ logLearning('content-read','module:'+st.id); openUnitQuiz('mod', st.id); return; }
+  const id=st.id; if(!id) return;
   if(!Array.isArray(done.contentRead)) done.contentRead=[];
   if(!done.contentRead.includes(id)){ done.contentRead.push(id); save(); }
   logLearning('content-read', id);
@@ -521,12 +647,11 @@ function openScen(s){
     <p>${s.blurb}</p>
     <div class="expr">💬 核心表达：${s.expr}</div>
     <p><b style="color:var(--txt)">练习任务：</b>${s.task}</p>
-    <p style="color:var(--cyan)">📂 完整素材（核心表达全量 + 情景对话 + 角色扮演任务）在：</p>
-    <div class="file">ielts-75/materials/scenarios/（按域找到「${s.name}」文件夹）</div>
     ${relHtml}
-    <div style="margin-top:16px;display:flex;gap:10px;flex-wrap:wrap">
+    <div style="margin-top:14px"><button class="btn-primary-big" style="width:100%" onclick="closeModal();openScenReader('${s.name}')">📚 查看素材 <span style="font-weight:600;font-size:12px;opacity:.85">核心表达 · 情景对话 · 角色任务 · 🔊 朗读</span></button></div>
+    <div style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap">
       <button class="btn small" onclick="closeModal();openPractice('${s.name}')">🎮 领取任务，去演练</button>
-      <button class="btn ghost small" onclick="closeModal()">查看文档路径</button>
+      <button class="btn ghost small" onclick="closeModal()">知道了</button>
     </div>`);
 }
 /* ============ 模块任务卡与打卡（批次2 T-2.4 / T-2.5） ============ */
@@ -582,9 +707,7 @@ function renderModHtml(m){
   return `<button class="close" aria-label="关闭" onclick="closeModal()">×</button>
     <h2>${m.icon} ${m.title} <span class="tag ${m.p.toLowerCase()}">${m.p}</span></h2>
     <p><b style="color:var(--txt)">🎯 模块目标：</b>${p.target}</p>
-    <p><b style="color:var(--txt)">包含文件：</b></p>
-    <ul>${m.files.split(' / ').map(f=>`<li>${f}</li>`).join('')}</ul>
-    <div class="file">ielts-75/${m.path}</div>
+    <div style="margin:12px 0"><button class="btn-primary-big" style="width:100%" onclick="closeModal();openModuleReader('${m.id}')">📖 阅读模块 <span style="font-weight:600;font-size:12px;opacity:.85">${m.files.split(' / ').length+1} 份文档 · 已读 ${moduleReadProgress(m.id).read} / ${moduleReadProgress(m.id).total}</span></button></div>
     <div class="mod-progress"><div class="card-bar"><div class="card-bar-fill" style="width:${pct}%"></div></div><span>${checked}/${total} 项完成</span></div>
     <div class="task-list">
       ${p.tasks.map(t=>{
@@ -602,7 +725,7 @@ function renderModHtml(m){
     </div>
     <div style="margin-top:14px;display:flex;gap:10px;flex-wrap:wrap">
       <button class="btn small" onclick="closeModal();openUnitQuiz('mod','${m.id}')">✍️ 单元测验</button>
-      <button class="btn done small" onclick="closeModal()">进入模块</button>
+      <button class="btn ghost small" onclick="closeModal()">知道了</button>
     </div>`;
 }
 function openMod(m){
