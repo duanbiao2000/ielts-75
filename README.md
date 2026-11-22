@@ -25,6 +25,7 @@ A mobile-first PWA ("IELTS 7.5 训练基地") that wraps the whole course into o
 - **Gamification** — XP & 10 levels, 25 badges (condition DSL), daily streaks with grace-tickets, a 6-chapter story map “从 6.0 到 7.5 的旅程”, and per-set progress.
 - **Monthly Mock Bank （月刊模考）** — one full mock per month from 2026-11 to 2027-08 (10 volumes). Each volume: **125 questions, 150 raw points** (Listening 40 + Part 1 40×1 + Part 2 5 cue cards×6 + Part 3 40×1), Listening passages included, band conversion `round(raw/150 × 9 × 2)/2`. Three volumes (2026-11, 2026-12, 2027-01) are committed; see `docs/mock-bank-design.md`.
 - **Offline & accessible** — versioned Service Worker (cache-first, precached shell), keyboard reachable, focus management, Escape layering, contrast ≥ 4.5, screen-reader landmarks; iOS/Android recording via `MediaRecorder` with MIME-type probing.
+- **Deep links** — `#/read/lesson|scen|module/<id>[/<doc>]` opens the in-app reader directly (shareable), Back button returns to the calling popup; recent reads + weekly reading-time stats on the home screen.
 - **Local-first data** — all progress lives in `localStorage`; one-click **export** to JSON (full backup) or CSV (learning-record log with BOM, RFC-4180 escaping). No account, no server, no tracking.
 
 ### 2. The teaching workspace (the repo root)

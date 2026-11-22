@@ -28,6 +28,12 @@
 - 与 `done.lessonView`（打开即记）并存：view=看过，contentRead=读完。
 - `logLearning('content-open'|'content-read', key)`：阅读器打开/读完埋点；场景素材键为 `scen:<场景名>`、模块文档学习埋点读完键为 `module:<moduleId>`（读完标记按文档粒度另存 `<moduleId>#<docFile>`）。
 
+### 1.3 状态字段补充：最近阅读 / 阅读时长（批次 C · 2026-11-22）
+
+- `done.recentReads: Array<{k,type,id,title,ts}>` — 最近打开过的阅读项（k = `<type>:<id>`，type ∈ `lesson|scen|module`），按时间倒序，去重，最多 8 条、首页展示前 4 条；点击直达对应阅读器（复用深链接）。
+- `done.readStats: { total: number, weeks: { 'YYYY-Www': number } }` — 阅读器停留毫秒数累计（单次上限 1 小时防挂机虚增；跨清空/完成/返回路径都计入；weeks 仅保留最近 12 个 ISO 周）。首页「最近阅读」卡展示本周/累计分钟数。
+- 深链接：`#/read/<type>/<id>[/<docIdx>]`（module 可选第 3 段 = 文档下标，分享逐文档）。启动时若 URL 命中且内容存在，自动打开阅读器（此时 history 中保留一个基础入口，后退键回落主页并弹出唤起来源弹窗）；阅读器打开 = `history.pushState`，切换模块文档 = `replaceState`（不制造历史噪音），关闭/完成时归一为基础 URL。
+
 ### 1.2 内容卷（构建期预渲染，随 onboarding 部署）
 
 - `onboarding/content/lessons/*.html`：`scripts/gen_content_viewer.py` 从根目录 `lessons/` 同步课程 HTML。

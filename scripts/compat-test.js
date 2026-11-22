@@ -84,6 +84,28 @@ async function auditPage(name, browser, opts = {}) {
   ok('完成并测验直达模块单元测验', (await page.locator('#modalBox').innerText()).includes('单元测验'));
   await page.keyboard.press('Escape');
 
+  // 深链接（批次 C）：冷启动直开课程/模块阅读器 + 后退键回落主页 + 分享按钮
+  {
+    const ctx2 = await browser.newContext({ viewport: { width: 1280, height: 900 } });
+    const page2 = await ctx2.newPage();
+    await page2.goto(BASE + '#/read/lesson/l1', { waitUntil: 'networkidle', timeout: 20000 });
+    ok('深链接直达课程阅读器', await page2.locator('#reader-mask.show').count() === 1 && (await page2.locator('#reader-mask').innerText()).includes('诊断'));
+    ok('阅读器顶栏含分享按钮', (await page2.locator('#reader-mask .reader-share').count()) === 1);
+    // 注：Playwright 的 goBack() 在 Firefox 下无法遍历 pushState 同文档历史（返回 null）；
+    // 真实浏览器「后退」= history.back()，此处与用户行为一致
+    await page2.evaluate(() => history.back());
+    await page2.waitForFunction(() => !document.getElementById('reader-mask').classList.contains('show'), undefined, { timeout: 5000 });
+    ok('后退键关闭阅读器（回落主页+关卡弹窗）', await page2.locator('#reader-mask.show').count() === 0 && await page2.locator('#modal-mask.show').count() === 1);
+    const page3 = await ctx2.newPage();
+    await page3.goto(BASE + '#/read/module/m01/1', { waitUntil: 'networkidle', timeout: 20000 });
+    ok('深链接直达模块第 2 份文档', (await page3.locator('#reader-mask').innerText()).includes('音标'));
+    await page3.keyboard.press('Escape');
+    ok('深链接阅读器 Escape 后 hash 清空', (await page3.evaluate(() => location.hash)) === '');
+    await ctx2.close();
+  }
+  const rrCount = await page.locator('#recentReads .rr-item').count();
+  ok('最近阅读卡含至少 1 条入口', rrCount >= 1);
+
   // 单元测验（课程 l1 已解锁，直接从模块测验入口验证弹窗）
   await page.evaluate(() => { const b = document.querySelector('#pathLessons .card button'); if (b) b.click(); });
   await page.waitForTimeout(300);
