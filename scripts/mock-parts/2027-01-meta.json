@@ -1,0 +1,30 @@
+{
+  "id": "mock-2027-01",
+  "month": "2027-01",
+  "title": "2027年1月刊 · 新年自测",
+  "difficulty": "进阶",
+  "theme": "新年自测",
+  "blurb": "一月一测，年初立的 flag 能扛到几月？新年决心专题——健身房咨询、社区 Reset Week、习惯心理学讲座，做完整卷，看清自己是哪种人。",
+  "coverage": [
+    "p1-promises",
+    "p1-new-activities",
+    "p1-early-bird",
+    "p1-sport",
+    "p1-sleeping",
+    "p1-money",
+    "p1-punctuality",
+    "p1-patience",
+    "p2-abstract-habit",
+    "p2-abstract-change",
+    "p2-abstract-healthy",
+    "p2-skill-learn",
+    "p2-thing-money",
+    "p3-culture",
+    "p3-education",
+    "p3-environment",
+    "p3-media",
+    "p3-society",
+    "p3-technology",
+    "p3-work"
+  ]
+}

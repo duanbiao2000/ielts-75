@@ -1,0 +1,522 @@
+[
+ {
+  "topic": "p3-education",
+  "q": "Should schools teach children how to set goals?",
+  "ref": "I think they already teach goal-setting badly — as a one-off September assembly with a worksheet. What children actually need is deliberate practice: choosing one boring, measurable goal each term, tracking it, and debriefing both success and failure. That is metacognition, not cheerleading, and it transfers to every subject afterwards.",
+  "keywords": [
+   "goal-setting",
+   "one-off",
+   "measurable goal",
+   "tracking",
+   "metacognition"
+  ],
+  "part": "Part 3"
+ },
+ {
+  "topic": "p3-education",
+  "q": "Is it better for children to learn habits from parents or from school?",
+  "ref": "Parents model, schools reinforce — neither works alone. A child whose home runs on screens at dinner but whose school preaches attention will simply learn that adults disagree about reality. Habits stick when home and school point at the same basic things: sleep, honesty, asking before scrolling.",
+  "keywords": [
+   "Parents model",
+   "neither works alone",
+   "disagree about reality",
+   "sleep",
+   "scrolling"
+  ],
+  "part": "Part 3"
+ },
+ {
+  "topic": "p3-education",
+  "q": "Do you think exams encourage good study habits?",
+  "ref": "Only the shallow kind — cramming, then amnesia. Exams measure performance under pressure, which teaches people to perform under pressure, not to learn. Better systems test spaced recall and long projects, which reward the slow, boring habits that actually survive contact with adult life.",
+  "keywords": [
+   "cramming",
+   "amnesia",
+   "performance under pressure",
+   "spaced recall",
+   "adult life"
+  ],
+  "part": "Part 3"
+ },
+ {
+  "topic": "p3-education",
+  "q": "Should universities have courses on time management and self-discipline?",
+  "ref": "Yes, briefly and honestly — one semester, run by people who actually practise it, not motivational speakers. Students don't need inspiration; they need a lab where they track their own procrastination for eight weeks and design counter-measures that survive February's cold and dark.",
+  "keywords": [
+   "briefly",
+   "motivational speakers",
+   "inspiration",
+   "procrastination",
+   "February"
+  ],
+  "part": "Part 3"
+ },
+ {
+  "topic": "p3-education",
+  "q": "How can teachers motivate weaker students to make a New Year plan?",
+  "ref": "By making the plan tiny and public — one paragraph, read aloud, signed by the class. Weaker students rarely lack desire; they lack a witness and a small enough first step. A public promise plus a weekly check-in beats private ambition every time I've seen it tried.",
+  "keywords": [
+   "tiny and public",
+   "weaker students",
+   "witness",
+   "public promise",
+   "weekly check-in"
+  ],
+  "part": "Part 3"
+ },
+ {
+  "topic": "p3-education",
+  "q": "What role should reading play in a New Year routine for students?",
+  "ref": "Reading is the cheapest mind-gym ever invented, and it compounds quietly. Ten pages a night sounds pathetic until you realise it's eighteen books a year. For students, reading before bed also replaces the one habit — midnight scrolling — that quietly eats both sleep and attention span.",
+  "keywords": [
+   "mind-gym",
+   "compounds",
+   "ten pages",
+   "midnight scrolling",
+   "attention span"
+  ],
+  "part": "Part 3"
+ },
+ {
+  "topic": "p3-technology",
+  "q": "Do habit-tracking apps really help people change behaviour?",
+  "ref": "They help about as much as a bathroom scale helps you lose weight — they provide feedback, not discipline. Streaks and badges work for some personalities and breed guilt or quiet abandonment in others. The app is a mirror, not a motor.",
+  "keywords": [
+   "bathroom scale",
+   "feedback",
+   "Streaks",
+   "mirror",
+   "discipline"
+  ],
+  "part": "Part 3"
+ },
+ {
+  "topic": "p3-technology",
+  "q": "Will artificial intelligence make personal coaching available to everyone?",
+  "ref": "Partly. AI can deliver the structure of coaching — weekly prompts, pattern spotting, non-judgmental nudges — at near-zero cost, which matters for people who could never afford a human coach. What it cannot replicate is human witness; people stay honest because someone they respect is watching.",
+  "keywords": [
+   "structure of coaching",
+   "pattern spotting",
+   "nudges",
+   "witness",
+   "watching"
+  ],
+  "part": "Part 3"
+ },
+ {
+  "topic": "p3-technology",
+  "q": "Do fitness trackers improve health or just add anxiety?",
+  "ref": "Both, depending on temperament. For the motivated, a ten-thousand-step count is a friendly rival; for perfectionists, one missed day becomes a moral collapse and they quietly quit the wristband. Numbers help when they inform choices, and hurt when they replace judgment.",
+  "keywords": [
+   "ten-thousand-step",
+   "perfectionists",
+   "moral collapse",
+   "inform choices",
+   "judgment"
+  ],
+  "part": "Part 3"
+ },
+ {
+  "topic": "p3-technology",
+  "q": "Is social media more helpful or harmful for people trying to improve themselves?",
+  "ref": "Mostly harmful dressed as helpful. The “day in my life” genre turns self-improvement into theatre — six a.m. grind reels and perfect Sunday meal-prep — which quietly shames ordinary people into either performing or quitting. Genuine groups exist, but they're quieter and far less addictive.",
+  "keywords": [
+   "day in my life",
+   "theatre",
+   "self-improvement",
+   "performing",
+   "groups"
+  ],
+  "part": "Part 3"
+ },
+ {
+  "topic": "p3-technology",
+  "q": "How has working from home changed people's daily routines?",
+  "ref": "It dissolved the commuter's built-in scaffolding — the walk, the train, the fixed start — and replaced it with an infinite flexible morning in which nothing quite begins. People filled the gap with sleep, delivery food and endless small tasks, and the disciplined ones invented their own commute on purpose.",
+  "keywords": [
+   "commuter",
+   "scaffolding",
+   "infinite flexible morning",
+   "sleep",
+   "invented"
+  ],
+  "part": "Part 3"
+ },
+ {
+  "topic": "p3-technology",
+  "q": "Should companies use software to monitor employee wellbeing goals?",
+  "ref": "Monitoring wellbeing casts the company as caring while actually auditing people — a paradox. If the dashboard exists mainly to reduce sick leave, trust erodes instantly. Used transparently with opt-in consent and no penalties, aggregate data can flag overwork; used secretly, it's surveillance with a yoga logo.",
+  "keywords": [
+   "wellbeing",
+   "paradox",
+   "opt-in",
+   "aggregate data",
+   "surveillance"
+  ],
+  "part": "Part 3"
+ },
+ {
+  "topic": "p3-society",
+  "q": "Why do so many people make resolutions in January and abandon them by February?",
+  "ref": "Because January is a cultural permission slip, not a personal plan. People borrow the energy of the season — the empty gyms, the self-help shelf — without building the private systems that carry them past week three. The calendar changes; the environment doesn't.",
+  "keywords": [
+   "permission slip",
+   "cultural",
+   "private systems",
+   "week three",
+   "environment"
+  ],
+  "part": "Part 3"
+ },
+ {
+  "topic": "p3-society",
+  "q": "Is self-discipline valued more in modern society than before?",
+  "ref": "Rhetorically yes, practically no. Every culture praises discipline, but ours also monetises temptation — infinite snacks, feeds and sales aimed precisely at our weakest moment. Valuing discipline while selling its destruction is the central business model of the attention economy.",
+  "keywords": [
+   "Rhetorically",
+   "temptation",
+   "attention economy",
+   "praises",
+   "weakest moment"
+  ],
+  "part": "Part 3"
+ },
+ {
+  "topic": "p3-society",
+  "q": "Do you think communities should support each other's resolutions?",
+  "ref": "Absolutely — change is far easier witnessed than endured alone. Walking groups, shared gardens, book swaps, running clubs: they all convert a lonely intention into a social identity. When the group expects you on Saturday, you go even when motivation fails, because attendance is now about belonging.",
+  "keywords": [
+   "witnessed",
+   "Walking groups",
+   "social identity",
+   "Saturday",
+   "belonging"
+  ],
+  "part": "Part 3"
+ },
+ {
+  "topic": "p3-society",
+  "q": "What makes a resolution realistic for an ordinary working person?",
+  "ref": "Small, specific and attached to an existing anchor — after breakfast, before the commute, at lunch. Big dramatic transformations fail because ordinary days are ordinary: meetings, traffic, tiredness. The realistic goal survives the worst Tuesday of the year, not just the shiny first Monday of January.",
+  "keywords": [
+   "Small",
+   "existing anchor",
+   "worst Tuesday",
+   "meetings",
+   "tiredness"
+  ],
+  "part": "Part 3"
+ },
+ {
+  "topic": "p3-society",
+  "q": "Are New Year resolutions a universal human behaviour?",
+  "ref": "The label is Western, the impulse is universal — every culture has a season of renewal: Spring Festival, Diwali, Ramadan, Nowruz. What changes is the ritual packaging, not the wish to press restart. Humans are pattern-starved animals; we need ceremonial boundaries to negotiate change.",
+  "keywords": [
+   "Spring Festival",
+   "Ramadan",
+   "ritual packaging",
+   "restart",
+   "ceremonial boundaries"
+  ],
+  "part": "Part 3"
+ },
+ {
+  "topic": "p3-society",
+  "q": "Should society judge people who never set resolutions?",
+  "ref": "No — someone with no resolutions may simply be already satisfied, or between seasons of ambition. The healthier stance is curiosity, not judgment. Resolution culture quietly shames people into chronic “not enough-ness”, and not every honest life requires an annual draft of itself.",
+  "keywords": [
+   "curiosity",
+   "judgment",
+   "chronic",
+   "not enough-ness",
+   "annual draft"
+  ],
+  "part": "Part 3"
+ },
+ {
+  "topic": "p3-work",
+  "q": "Should companies ask employees about their New Year goals?",
+  "ref": "Asked with genuine curiosity, yes — a manager who knows you want to run a marathon or go to bed earlier can plan workload accordingly. Asked as a performance trap — “state your ambition so we can weaponise it” — it becomes theatre. The difference is confidentiality and consequence.",
+  "keywords": [
+   "genuine curiosity",
+   "workload",
+   "performance trap",
+   "theatre",
+   "confidentiality"
+  ],
+  "part": "Part 3"
+ },
+ {
+  "topic": "p3-work",
+  "q": "How does the January office atmosphere differ from other months?",
+  "ref": "Noticeably brighter for two weeks — new notebooks, optimistic stand-ups, a faint smell of resolve. By mid-February the entropy returns: inboxes refill, gym bags stay home, and everyone silently agrees not to mention the abandoned meal-prep containers in the fridge.",
+  "keywords": [
+   "notebooks",
+   "stand-ups",
+   "entropy",
+   "inboxes",
+   "meal-prep"
+  ],
+  "part": "Part 3"
+ },
+ {
+  "topic": "p3-work",
+  "q": "What kind of workplace habits help people sustain change?",
+  "ref": "Visible, tiny, shared defaults — walking meetings, a fruit bowl instead of a biscuit tin, a no-message rule after nine. Change survives at work when it is baked into the environment rather than left to personal heroism at 6 p.m. on a rainy Friday.",
+  "keywords": [
+   "walking meetings",
+   "fruit bowl",
+   "no-message rule",
+   "environment",
+   "heroism"
+  ],
+  "part": "Part 3"
+ },
+ {
+  "topic": "p3-work",
+  "q": "Do you think work pressure makes resolutions harder to keep?",
+  "ref": "Enormously — pressure consumes the exact cognitive budget self-control needs. By Sunday night, after a week of decisions made for other people, willpower is overdrawn and the salad loses to the delivery app. Companies that reduce decision fatigue will find their employees' goals quieter but real.",
+  "keywords": [
+   "cognitive budget",
+   "willpower",
+   "overdrawn",
+   "decision fatigue",
+   "goals"
+  ],
+  "part": "Part 3"
+ },
+ {
+  "topic": "p3-work",
+  "q": "Should interns and young employees set professional resolutions?",
+  "ref": "Yes, but process-based, not outcome-based — “ask one question in every meeting”, not “get promoted by June”. Early-career goals fail when they target identity rather than behaviour. Promotion is an outcome you influence; asking, drafting, reviewing — those are actions you control.",
+  "keywords": [
+   "process-based",
+   "outcome-based",
+   "identity",
+   "asking",
+   "control"
+  ],
+  "part": "Part 3"
+ },
+ {
+  "topic": "p3-work",
+  "q": "Is overtime culture compatible with healthy resolutions?",
+  "ref": "Fundamentally not. An organisation that quietly rewards exhaustion will eat every private promise its employees make — sleep, family, exercise, learning. Cultures that cap hours and normalise switching off produce not just happier staff but better retention, which is the only KPI that ultimately matters.",
+  "keywords": [
+   "Fundamentally not",
+   "exhaustion",
+   "cap hours",
+   "switching off",
+   "retention"
+  ],
+  "part": "Part 3"
+ },
+ {
+  "topic": "p3-culture",
+  "q": "How is making resolutions different in Chinese and Western cultures?",
+  "ref": "Western resolutions lean individual — diet, gym, reading. Chinese New Year talk leans collective — health for parents, grades for children, peace for the family. Both are promises, but one is made in front of a mirror and the other in front of a dinner table, and each quietly shames in its own accent.",
+  "keywords": [
+   "individual",
+   "collective",
+   "mirror",
+   "dinner table",
+   "shames"
+  ],
+  "part": "Part 3"
+ },
+ {
+  "topic": "p3-culture",
+  "q": "Why do traditions like Spring Festival include reflection and renewal?",
+  "ref": "Because agrarian societies organised life around sowing and harvest, and the calendar still carries their memory. Renewal rituals — cleaning, debts settled, red packets, reunion dinners — are a psychological year-end audit that says: last year happened, and this one is unwritten.",
+  "keywords": [
+   "agrarian",
+   "sowing",
+   "red packets",
+   "year-end audit",
+   "unwritten"
+  ],
+  "part": "Part 3"
+ },
+ {
+  "topic": "p3-culture",
+  "q": "Do you think the meaning of New Year is changing for young people?",
+  "ref": "Yes — for many young Chinese, the festival is becoming travel and consumption rather than ancestor ritual or family duty. That's neither good nor bad; traditions migrate into what new generations can actually use — a day off, a reunion flight, a reason to spend time with grandparents one more day a year.",
+  "keywords": [
+   "travel and consumption",
+   "duty",
+   "migrate",
+   "day off",
+   "grandparents"
+  ],
+  "part": "Part 3"
+ },
+ {
+  "topic": "p3-culture",
+  "q": "How do food traditions relate to New Year in your culture?",
+  "ref": "Food is the archive. Dumplings shaped like silver ingots, fish left uncut for abundance, glutinous rice cake for a taller year — the menu is a wish delivered on plates. Breaking from the table to a delivery app is not just convenience; it is quietly skipping the grammar of celebration.",
+  "keywords": [
+   "Dumplings",
+   "fish left uncut",
+   "menu is a wish",
+   "delivery app",
+   "celebration"
+  ],
+  "part": "Part 3"
+ },
+ {
+  "topic": "p3-culture",
+  "q": "Should young people be taught the history behind these traditions?",
+  "ref": "Definitely — context converts obligation into choice. A child who knows why the fish stays whole will keep it whole unprompted, and will also feel free to change it knowingly. History doesn't trap us in the past; it hands us the keys to the present.",
+  "keywords": [
+   "context",
+   "obligation",
+   "knowingly",
+   "History",
+   "keys"
+  ],
+  "part": "Part 3"
+ },
+ {
+  "topic": "p3-culture",
+  "q": "Do imported customs like western New Year parties enrich or erode local culture?",
+  "ref": "Both, depending on appetite. A midnight toast enriches a double celebration; abandoning the reunion dinner for a countdown erodes something irreplaceable. Cultures survive by absorbing, not by photocopying — the firework is welcome if the dumpling survives.",
+  "keywords": [
+   "midnight toast",
+   "countdown",
+   "absorbing",
+   "firework",
+   "dumpling"
+  ],
+  "part": "Part 3"
+ },
+ {
+  "topic": "p3-environment",
+  "q": "Do you think people keep environmental New Year pledges?",
+  "ref": "Rarely past the second week — “buy less plastic” dies at the supermarket checkout like every other good intention. The pledges that survive are structural: one less car day, a fixed recycling routine, or a default plant-based Monday that the whole household simply adopts.",
+  "keywords": [
+   "plastic",
+   "checkout",
+   "car day",
+   "recycling routine",
+   "household"
+  ],
+  "part": "Part 3"
+ },
+ {
+  "topic": "p3-environment",
+  "q": "Should cities run campaigns around New Year to promote sustainable habits?",
+  "ref": "Yes — seasonal timing is psychological leverage. A January campaign rides the wave of self-renewal that individual willpower alone cannot sustain; tying recycling bins, repair markets and energy audits to the season turns private guilt into public choreography, which lasts longer.",
+  "keywords": [
+   "seasonal timing",
+   "leverage",
+   "choreography",
+   "energy audits",
+   "willpower"
+  ],
+  "part": "Part 3"
+ },
+ {
+  "topic": "p3-environment",
+  "q": "Are small individual habits meaningful against climate change?",
+  "ref": "Individually small, collectively audible. One person's meat-free Monday won't cool the planet, but habit-changing spreads through households and offices faster than legislation. Individual habits are how large numbers quietly consent to change — and change without consent is fragile.",
+  "keywords": [
+   "collectively",
+   "meat-free Monday",
+   "households",
+   "consent",
+   "fragile"
+  ],
+  "part": "Part 3"
+ },
+ {
+  "topic": "p3-environment",
+  "q": "Why do festive seasons produce so much waste?",
+  "ref": "Because celebration is coded as abundance, and abundance is coded as disposal — extra food cooked “just in case”, gifts wrapped in layers, decorations worn once. The season treats the month after January as if it won't exist, which is exactly why the bill arrives in February.",
+  "keywords": [
+   "abundance",
+   "wrapped in layers",
+   "just in case",
+   "bill arrives",
+   "decorations"
+  ],
+  "part": "Part 3"
+ },
+ {
+  "topic": "p3-environment",
+  "q": "What environmental resolution would you recommend to a family?",
+  "ref": "One switch, not ten: swap the weekly big shop for a planned list, which cuts both food waste and impulse packaging. Families fail resolutions that require daily heroism and succeed at defaults — one fridge audit per week beats noble declarations every single time.",
+  "keywords": [
+   "weekly big shop",
+   "planned list",
+   "impulse packaging",
+   "heroism",
+   "fridge audit"
+  ],
+  "part": "Part 3"
+ },
+ {
+  "topic": "p3-media",
+  "q": "Why does advertising peak around New Year with 'new you' messages?",
+  "ref": "Because January is the one month when consumers' self-image voluntarily leaves the station and goes shopping. Brands sell gym memberships, skincare, notebooks, language courses — all of them proxies for the resolution “become someone new”. It works precisely because the resolution is real; the products are just merchandise for hope.",
+  "keywords": [
+   "January",
+   "self-image",
+   "notebooks",
+   "become someone new",
+   "hope"
+  ],
+  "part": "Part 3"
+ },
+ {
+  "topic": "p3-media",
+  "q": "Do motivational influencers help or harm resolution-makers?",
+  "ref": "Mostly harm, occasionally help. The 5 a.m. cold-shower genre turns self-discipline into theatre and confuses performance with change; the rare good ones show process — the tired Mondays, the missed days — not just the transformation montage.",
+  "keywords": [
+   "5 a.m.",
+   "theatre",
+   "performance",
+   "process",
+   "missed days"
+  ],
+  "part": "Part 3"
+ },
+ {
+  "topic": "p3-media",
+  "q": "How should news media cover the psychology of resolutions?",
+  "ref": "With humility — fewer “10 tricks to transform your life” lists and more reporting on why change is hard: environment design, decision fatigue, the four-day attrition cliff. Journalism that respects difficulty creates durable change; journalism that sells miracles produces the same February crash it diagnoses.",
+  "keywords": [
+   "humility",
+   "environment design",
+   "decision fatigue",
+   "miracles",
+   "February crash"
+  ],
+  "part": "Part 3"
+ },
+ {
+  "topic": "p3-media",
+  "q": "Is the New Year gala still relevant to Chinese audiences?",
+  "ref": "For the older generation deeply — it is the shared hearth of New Year's Eve. For younger viewers it survives as memes and viral clips, enjoyed half-watching while the family eats. It has shifted from must-watch television to cultural background music, and that may be the only way a national broadcast survives fragmentation.",
+  "keywords": [
+   "shared hearth",
+   "memes",
+   "cultural background music",
+   "fragmentation",
+   "must-watch"
+  ],
+  "part": "Part 3"
+ },
+ {
+  "topic": "p3-media",
+  "q": "Do reality shows about habit change inspire real change?",
+  "ref": "Occasionally, briefly. Watching a hundred strangers transform on screen gives viewers a vicarious sense of agency, but the effect fades when the credits roll because viewers never build their own system. The honest lesson would be episode one: small, boring, supported — not dramatic, cinematic, televised.",
+  "keywords": [
+   "vicarious sense of agency",
+   "credits roll",
+   "own system",
+   "boring",
+   "televised"
+  ],
+  "part": "Part 3"
+ }
+]

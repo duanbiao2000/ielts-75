@@ -3078,5 +3078,1564 @@
         }
       ]
     }
+  },
+  {
+    "id": "mock-2027-01",
+    "month": "2027-01",
+    "title": "2027年1月刊 · 新年自测",
+    "difficulty": "进阶",
+    "theme": "新年自测",
+    "blurb": "一月一测，年初立的 flag 能扛到几月？新年决心专题——健身房咨询、社区 Reset Week、习惯心理学讲座，做完整卷，看清自己是哪种人。",
+    "coverage": [
+      "p1-early-bird",
+      "p1-money",
+      "p1-new-activities",
+      "p1-patience",
+      "p1-promises",
+      "p1-punctuality",
+      "p1-sleeping",
+      "p1-sport",
+      "p2-abstract-change",
+      "p2-abstract-habit",
+      "p2-abstract-healthy",
+      "p2-skill-learn",
+      "p2-thing-money",
+      "p3-culture",
+      "p3-education",
+      "p3-environment",
+      "p3-media",
+      "p3-society",
+      "p3-technology",
+      "p3-work"
+    ],
+    "listening": [
+      {
+        "section": "Section 1",
+        "passage": "Woman: Riverside Community Leisure Centre, good morning, how can I help you?\nMan: Hi, I saw your poster about the New Year Reset programme and I'd like some details.\nWoman: Of course. What would you like to know?\nMan: First of all, what exactly does it involve?\nWoman: It's a six-week health course starting on Monday the 5th of January — gym access three times a week, one 45-minute fitness assessment, and a nutrition consultation with our dietitian.\nMan: That sounds good. How much does it cost?\nWoman: Six hundred and eighty yuan for the whole six weeks, which works out much cheaper than individual visits.\nMan: And can I try it before signing up?\nWoman: Yes, we offer one free trial session in either of the first two weekends of January.\nMan: Great. Is the swimming pool included?\nWoman: The pool is optional — eighty yuan extra if you want regular lane swimming. Three lane sessions per week, mornings only.\nMan: I'll take the pool as well then. What are your opening hours in January?\nWoman: Weekdays six thirty in the morning until ten at night, and weekends eight until nine. Last entry is half an hour before closing.\nMan: Good to know. My cousin asked about it too — is there a family discount?\nWoman: There is. If two or more people from the same household sign up together, each gets fifty yuan off.\nMan: Perfect. Oh — and I heard the first fifty people to register this month get something free?\nWoman: You heard right — a free stainless-steel water bottle, while stocks last.\nMan: How do I book my sessions once I'm in?\nWoman: Everything goes through our app — book, cancel or reschedule classes up to four hours in advance. You just scan your member card at the gate.\nMan: And if I change my mind after joining?\nWoman: If you cancel within seven days of signing up and you haven't started the course yet, you get a full refund. After that it's non-refundable, I'm afraid.\nMan: Fair enough. One last thing — do I need a doctor's note?\nWoman: Only if you have a heart condition or recent surgery. Otherwise, the assessment covers everything.\nMan: Then please count me in. I'll come by this weekend to register.\nWoman: Wonderful. See you then, and happy New Year!",
+        "questions": [
+          {
+            "q": "What is the man asking about?",
+            "opts": [
+              "A swimming pool membership",
+              "The New Year Reset programme",
+              "A yoga class schedule",
+              "A nutrition consultation"
+            ],
+            "right": 1,
+            "explain": "男士说：I saw your poster about the New Year Reset programme。"
+          },
+          {
+            "q": "When does the programme start?",
+            "opts": [
+              "1 January",
+              "Monday the 5th of January",
+              "15 January",
+              "The last weekend of January"
+            ],
+            "right": 1,
+            "explain": "原文：starting on Monday the 5th of January。"
+          },
+          {
+            "q": "What is included in the six-week course?",
+            "opts": [
+              "Free swimming and meals",
+              "Gym access, a fitness assessment and a nutrition consultation",
+              "Personal training twice a week",
+              "Gym access and free parking"
+            ],
+            "right": 1,
+            "explain": "原文：gym access three times a week, one 45-minute fitness assessment, and a nutrition consultation。"
+          },
+          {
+            "q": "How much does the six-week course cost?",
+            "opts": [
+              "680 yuan",
+              "860 yuan",
+              "550 yuan",
+              "750 yuan"
+            ],
+            "right": 0,
+            "explain": "原文：Six hundred and eighty yuan for the whole six weeks。"
+          },
+          {
+            "q": "What does the centre offer before signing up?",
+            "opts": [
+              "A free fitness assessment",
+              "One free trial session",
+              "50% off the first week",
+              "A free nutrition consultation"
+            ],
+            "right": 1,
+            "explain": "原文：we offer one free trial session。"
+          },
+          {
+            "q": "How much extra is the swimming pool?",
+            "opts": [
+              "50 yuan",
+              "60 yuan",
+              "80 yuan",
+              "100 yuan"
+            ],
+            "right": 2,
+            "explain": "原文：The pool is optional — eighty yuan extra。"
+          },
+          {
+            "q": "What are the weekend opening hours in January?",
+            "opts": [
+              "6:30–22:00",
+              "8:00–21:00",
+              "7:00–20:00",
+              "9:00–22:00"
+            ],
+            "right": 1,
+            "explain": "原文：weekends eight until nine。"
+          },
+          {
+            "q": "What do the first fifty sign-ups receive?",
+            "opts": [
+              "A free fitness assessment",
+              "A free stainless-steel water bottle",
+              "Fifty yuan off",
+              "A free month of pool access"
+            ],
+            "right": 1,
+            "explain": "原文：a free stainless-steel water bottle, while stocks last。"
+          },
+          {
+            "q": "How do members book and cancel classes?",
+            "opts": [
+              "By phone with reception",
+              "By email",
+              "Through the centre's app",
+              "At the front desk in person"
+            ],
+            "right": 2,
+            "explain": "原文：Everything goes through our app — book, cancel or reschedule classes。"
+          },
+          {
+            "q": "Under what condition can the man get a full refund?",
+            "opts": [
+              "Within 30 days of signing up",
+              "Within seven days of signing up and before the course starts",
+              "Only at the first session",
+              "If he has a doctor's note"
+            ],
+            "right": 1,
+            "explain": "原文：If you cancel within seven days of signing up and you haven't started the course yet, you get a full refund。"
+          }
+        ]
+      },
+      {
+        "section": "Section 2",
+        "passage": "Good morning, everyone, and welcome to our community centre. Before the main announcement, note that the reading room opens at nine every day this week. Our programme of events for the New Year Reset Week runs from the 2nd to the 9th of January, and this year it is completely free. On Friday the 2nd we kick off at seven in the evening with our Lanterns and Letters evening in the main hall — please bring one sentence that sums up last year and one word for this year. On Saturday morning at ten, local GP Dr. Huang gives a talk in Room 2 on why most New Year resolutions fail and what your body actually needs from one: sleep, movement, and protein first — cardio second. Admission is free but space is limited to forty seats, so please register at the front desk. Also on Saturday afternoon at two, there is a Repair Café in the courtyard — bring broken lamps, kettles or zips, and our volunteers will fix them for free. On Sunday at three, we run a Clothes Swap in the small hall: every guest brings up to five items in good condition and takes home up to five different ones. On Wednesday the 7th at seven, there is a Money Habits clinic — a short session with a certified financial planner on budgeting apps, automatic saving and why eighteen percent of people abandon resolutions before February. Remember, you don't need to sign up for most events; just arrive ten minutes early. The week closes on Friday the 9th at eight with a “Goodbye to Last Year” wall: pin your old habit on the wall, take a new one from the jar, and share one thing you're letting go of. Tea and biscuits provided. One practical note — the courtyard events move indoors on rainy days, so check our notice board at the entrance. For enquiries contact Ms. Zhou on extension 12, or visit the front desk. See you all there!",
+        "questions": [
+          {
+            "q": "What event starts the New Year Reset Week on January 2nd?",
+            "opts": [
+              "A financial planning seminar",
+              "Lanterns and Letters evening",
+              "A clothes swap",
+              "A fitness challenge"
+            ],
+            "right": 1,
+            "explain": "原文：On Friday the 2nd we kick off … with our Lanterns and Letters evening。"
+          },
+          {
+            "q": "What should guests bring to the Friday evening event?",
+            "opts": [
+              "A lantern and a candle",
+              "One sentence about last year and one word for this year",
+              "A photograph of last year",
+              "A handwritten resolution"
+            ],
+            "right": 1,
+            "explain": "原文：please bring one sentence that sums up last year and one word for this year。"
+          },
+          {
+            "q": "What will Dr. Huang's talk focus on?",
+            "opts": [
+              "How to run a marathon",
+              "Why most New Year resolutions fail and what the body needs",
+              "How to cook healthy meals",
+              "How to organise a community event"
+            ],
+            "right": 1,
+            "explain": "原文：why most New Year resolutions fail and what your body actually needs。"
+          },
+          {
+            "q": "How many seats are available for Dr. Huang's talk?",
+            "opts": [
+              "Twenty",
+              "Thirty",
+              "Forty",
+              "Sixty"
+            ],
+            "right": 2,
+            "explain": "原文：space is limited to forty seats。"
+          },
+          {
+            "q": "What happens at the Repair Café on Saturday afternoon?",
+            "opts": [
+              "Volunteers repair broken items for free",
+              "People learn to sew and knit",
+              "A jumble sale is held",
+              "Electronics are sold cheaply"
+            ],
+            "right": 0,
+            "explain": "原文：bring broken lamps, kettles or zips, and our volunteers will fix them for free。"
+          },
+          {
+            "q": "How many items can each guest bring to the Clothes Swap?",
+            "opts": [
+              "Two",
+              "Three",
+              "Five",
+              "As many as they like"
+            ],
+            "right": 2,
+            "explain": "原文：every guest brings up to five items in good condition。"
+          },
+          {
+            "q": "What is the Money Habits clinic about?",
+            "opts": [
+              "Getting out of debt",
+              "Budgeting apps, automatic saving and resolution dropout rates",
+              "Investing in the stock market",
+              "Buying a house"
+            ],
+            "right": 1,
+            "explain": "原文：a short session … on budgeting apps, automatic saving and why eighteen percent of people abandon resolutions。"
+          },
+          {
+            "q": "When is the closing event?",
+            "opts": [
+              "Friday 2nd at seven",
+              "Thursday 8th at eight",
+              "Friday 9th at eight",
+              "Saturday 10th at two"
+            ],
+            "right": 2,
+            "explain": "原文：The week closes on Friday the 9th at eight。"
+          },
+          {
+            "q": "What do participants do at the closing event?",
+            "opts": [
+              "They sign a community pledge",
+              "They pin an old habit on the wall and take a new one",
+              "They plant a tree in the courtyard",
+              "They donate to charity"
+            ],
+            "right": 1,
+            "explain": "原文：pin your old habit on the wall, take a new one from the jar。"
+          },
+          {
+            "q": "What should people do if it rains?",
+            "opts": [
+              "Bring an umbrella",
+              "Check the notice board at the entrance",
+              "Call extension 12",
+              "Stay home"
+            ],
+            "right": 1,
+            "explain": "原文：the courtyard events move indoors on rainy days, so check our notice board at the entrance。"
+          }
+        ]
+      },
+      {
+        "section": "Section 3",
+        "passage": "Dr. Reed: Right, come in. So for your research project you want to study New Year resolutions — talk me through it.\nAnna: We're comparing two groups: people who wrote resolutions down versus people who only said them out loud. We'll follow both for six weeks into February.\nDr. Reed: A classic design — self-report versus written commitment. How many participants do you need?\nMo: We were thinking twenty per group, but with dropouts we'd better recruit fifty in total — twenty-five per group.\nDr. Reed: Sensible. Recruiting them?\nAnna: A notice on the campus board and two WeChat groups for postgraduates. We've already got nine sign-ups from the campus group alone.\nDr. Reed: You'll need informed consent forms — remember ethics approval before you collect a single name. And make sure the survey is anonymous; don't record names next to the answers.\nMo: Got it. We'll store the data in an encrypted file on the university drive, and destroy it after the submission deadline.\nDr. Reed: Good. What are you actually measuring? How do you define “success”?\nAnna: We're not asking “did you succeed” directly — instead, weekly check-ins: “How many days this week did you act on your resolution?” Zero to seven. Then we compare the two groups.\nDr. Reed: And the analysis?\nMo: Descriptive stats for the progress charts, and a simple t-test to compare the two groups' mean scores at week six.\nDr. Reed: Fine for an undergraduate project. One caution — self-report bias. People will say they did better than they did. Consider asking a friend or family member to verify one behaviour, like going to the gym.\nAnna: That's a good point. We could add a “behaviour check” question at week three and week six: “Did someone else witness this habit?”\nDr. Reed: Exactly. And the timeline — when is the write-up due?\nMo: The 20th of March. Interviews done by mid-February, analysis March 1st to 10th, draft by the 15th, final version the 20th.\nDr. Reed: Tight but doable. One last thing — if someone's resolution involves mental health, don't try to advise them. Refer them to the university counselling service.\nAnna & Mo: Of course.\nDr. Reed: Then good luck — and don't make resolution number one be “don't change the research question halfway through”!",
+        "questions": [
+          {
+            "q": "What are Anna and Mo comparing in their study?",
+            "opts": [
+              "People who recycle versus people who do not",
+              "People who write resolutions down versus people who say them aloud",
+              "Gym members versus non-members",
+              "Students versus working adults"
+            ],
+            "right": 1,
+            "explain": "原文：people who wrote resolutions down versus people who only said them out loud。"
+          },
+          {
+            "q": "How long will the study follow participants?",
+            "opts": [
+              "Three weeks",
+              "Six weeks",
+              "Eight weeks",
+              "One semester"
+            ],
+            "right": 1,
+            "explain": "原文：We'll follow both for six weeks into February。"
+          },
+          {
+            "q": "How many participants do they plan to recruit in total?",
+            "opts": [
+              "Twenty",
+              "Twenty-five",
+              "Forty",
+              "Fifty"
+            ],
+            "right": 3,
+            "explain": "原文：we'd better recruit fifty in total。"
+          },
+          {
+            "q": "Where have they already collected nine sign-ups from?",
+            "opts": [
+              "A WeChat group for postgraduates",
+              "The campus notice board",
+              "A psychology lecture",
+              "A fitness class"
+            ],
+            "right": 0,
+            "explain": "原文：We've already got nine sign-ups from the campus group alone（指前面提到的 postgraduates WeChat groups）。"
+          },
+          {
+            "q": "What must they do before collecting any names?",
+            "opts": [
+              "Buy a voice recorder",
+              "Get ethics approval and use informed consent forms",
+              "Pay participants",
+              "Print the weekly questionnaire"
+            ],
+            "right": 1,
+            "explain": "原文：You'll need informed consent forms — remember ethics approval before you collect a single name。"
+          },
+          {
+            "q": "How will they measure progress each week?",
+            "opts": [
+              "By asking participants if they succeeded",
+              "By asking how many days they acted on the resolution",
+              "By checking bank statements",
+              "By weighing participants"
+            ],
+            "right": 1,
+            "explain": "原文：weekly check-ins: “How many days this week did you act on your resolution?”。"
+          },
+          {
+            "q": "Which analysis method will they use?",
+            "opts": [
+              "A regression model",
+              "Descriptive stats and a simple t-test",
+              "A meta-analysis",
+              "Only interviews"
+            ],
+            "right": 1,
+            "explain": "原文：Descriptive stats for the progress charts, and a simple t-test。"
+          },
+          {
+            "q": "What risk does Dr. Reed flag about self-reported data?",
+            "opts": [
+              "Poor spelling",
+              "Self-report bias",
+              "Ethics violations",
+              "Small sample size"
+            ],
+            "right": 1,
+            "explain": "原文：One caution — self-report bias。"
+          },
+          {
+            "q": "What additional check do they agree to add?",
+            "opts": [
+              "A medical exam at week six",
+              "A behaviour verification by a friend or family member",
+              "A final exam on psychology theory",
+              "A group interview"
+            ],
+            "right": 1,
+            "explain": "原文：Consider asking a friend or family member to verify one behaviour… we could add a “behaviour check” question。"
+          },
+          {
+            "q": "When is the final write-up due?",
+            "opts": [
+              "The 20th of February",
+              "The 1st of March",
+              "The 10th of March",
+              "The 20th of March"
+            ],
+            "right": 3,
+            "explain": "原文：The 20th of March。"
+          }
+        ]
+      },
+      {
+        "section": "Section 4",
+        "passage": "Good morning. Today I want to talk about one of the most familiar rituals of modern life: the New Year's resolution. Every January, millions of people set goals — exercise more, spend less, read more, call home more often. Yet the research is humbling. Roughly a quarter of people keep their resolution past the first month, and only about one in ten reaches December with the habit intact. Psychologists call this the false hope syndrome — the expectation that a single calendar date can rewire deeply ingrained behaviour. So why do resolutions fail? Three reasons come up again and again. First, the goals are vague. “Get fit” is a wish; “walk for twenty minutes before breakfast, Monday to Saturday” is a plan. Second, goals are set as events rather than identities. Research by Professor James Clear popularised this distinction: you don't rise to the level of your goals, you fall to the level of your systems — and identity change comes before behaviour change. Third, most people rely on willpower. Willpower, like a muscle, fatigues by the evening — which is why gyms are packed on January the 2nd and empty by February. What actually works? Psychologist Peter Gollwitzer found that “implementation intentions” — “when X happens, I will do Y” — roughly double to triple follow-through. BJ Fogg's tiny habits research shows that anchoring a new behaviour to an existing one, and making the first step laughably small — two push-ups, not two hundred — builds the neural pathway before motivation is needed. Environment design matters too: keeping trainers by the door, deleting the delivery app, or putting the fruit bowl where the biscuit tin used to live. Finally, social accountability helps — telling one person your plan increases your odds of completing it substantially. Now, none of this means resolutions are pointless. The act of reflecting on the past year and choosing one change is genuinely valuable — goals give you a direction, and direction is the first requirement of change. The trick is to treat January the 1st not as a finish line but as a starting gun for a very slow race. Thank you.",
+        "questions": [
+          {
+            "q": "Approximately how many people keep their resolution past the first month?",
+            "opts": [
+              "About one in ten",
+              "Roughly a quarter",
+              "Half",
+              "Almost everyone"
+            ],
+            "right": 1,
+            "explain": "原文：Roughly a quarter of people keep their resolution past the first month。"
+          },
+          {
+            "q": "What term do psychologists use for the expectation that a date alone can change behaviour?",
+            "opts": [
+              "The willpower gap",
+              "False hope syndrome",
+              "The January effect",
+              "Habit reversal"
+            ],
+            "right": 1,
+            "explain": "原文：Psychologists call this the false hope syndrome。"
+          },
+          {
+            "q": "According to the lecture, which is a plan rather than a wish?",
+            "opts": [
+              "Get fit",
+              "Be more organised",
+              "Walk for twenty minutes before breakfast, Monday to Saturday",
+              "Save more money"
+            ],
+            "right": 2,
+            "explain": "原文：“Get fit” is a wish; “walk for twenty minutes before breakfast, Monday to Saturday” is a plan。"
+          },
+          {
+            "q": "What popular distinction did James Clear's research highlight?",
+            "opts": [
+              "Goals versus systems and identity change before behaviour change",
+              "Speed versus accuracy in habit change",
+              "Internal versus external motivation",
+              "Short-term versus long-term goals"
+            ],
+            "right": 0,
+            "explain": "原文：you don't rise to the level of your goals… identity change comes before behaviour change。"
+          },
+          {
+            "q": "Why are gyms full on January 2nd and empty by February?",
+            "opts": [
+              "Membership prices rise in February",
+              "People rely on willpower, which fatigues",
+              "Gyms close in February",
+              "Equipment breaks down"
+            ],
+            "right": 1,
+            "explain": "原文：Willpower, like a muscle, fatigues by the evening — which is why gyms are packed on January the 2nd and empty by February。"
+          },
+          {
+            "q": "What are Peter Gollwitzer's 'implementation intentions'?",
+            "opts": [
+              "Plans written on January 1st",
+              "Statements like 'when X happens, I will do Y'",
+              "Weekly reviews of progress",
+              "Public commitments announced to friends"
+            ],
+            "right": 1,
+            "explain": "原文：“when X happens, I will do Y” — roughly double to triple follow-through。"
+          },
+          {
+            "q": "According to BJ Fogg, how should a new habit begin?",
+            "opts": [
+              "With two hundred push-ups a day",
+              "With a very small first step anchored to an existing habit",
+              "With a written contract",
+              "With a monthly reward"
+            ],
+            "right": 1,
+            "explain": "原文：making the first step laughably small… anchoring a new behaviour to an existing one。"
+          },
+          {
+            "q": "Which of these is an example of environment design mentioned in the lecture?",
+            "opts": [
+              "Setting an alarm for 5am",
+              "Deleting the delivery app or keeping trainers by the door",
+              "Hiring a personal trainer",
+              "Downloading five habit apps"
+            ],
+            "right": 1,
+            "explain": "原文：keeping trainers by the door, deleting the delivery app, or putting the fruit bowl where the biscuit tin used to live。"
+          },
+          {
+            "q": "What does the lecture say about telling one person your plan?",
+            "opts": [
+              "It makes little difference",
+              "It increases your odds of completing the plan substantially",
+              "It only works for fitness goals",
+              "It makes you feel guilty"
+            ],
+            "right": 1,
+            "explain": "原文：telling one person your plan increases your odds of completing it substantially。"
+          },
+          {
+            "q": "How should January the 1st be treated, according to the lecture?",
+            "opts": [
+              "As a finish line",
+              "As a starting gun for a very slow race",
+              "As a day to rest completely",
+              "As a deadline for change"
+            ],
+            "right": 1,
+            "explain": "原文：treat January the 1st not as a finish line but as a starting gun for a very slow race。"
+          }
+        ]
+      }
+    ],
+    "speaking": {
+      "part1": [
+        {
+          "topic": "p1-promises",
+          "q": "Do you often make promises to other people?",
+          "ref": "Yes, fairly often, but I try to make few and keep them. To me a promise is a small contract — when I tell a friend I'll be there at eight, I'll be there at eight, or I don't say it at all.",
+          "keywords": [
+            "often",
+            "contract",
+            "there at eight",
+            "few",
+            "tell a friend"
+          ]
+        },
+        {
+          "topic": "p1-promises",
+          "q": "Do you find it easy to keep your promises?",
+          "ref": "Mostly yes, because I only promise what I know I can do. The rare failures happen when I misjudge the time a task needs, like promising a colleague a document by noon and only finishing it at two.",
+          "keywords": [
+            "Mostly yes",
+            "what I know",
+            "rare failures",
+            "misjudge",
+            "document"
+          ]
+        },
+        {
+          "topic": "p1-promises",
+          "q": "Why do people sometimes break their promises?",
+          "ref": "Usually because they over-promise in the moment — saying yes feels good, and the social cost of refusing seems high. Later, reality arrives, the thing is harder than expected, and the quiet temptation to let it slide wins.",
+          "keywords": [
+            "over-promise",
+            "saying yes",
+            "refusing",
+            "harder",
+            "slide"
+          ]
+        },
+        {
+          "topic": "p1-promises",
+          "q": "Did you make any resolutions for this New Year?",
+          "ref": "Yes — I wrote three: walk before breakfast four times a week, call my parents every Sunday, and stop ordering dinner so late. I did the same last year and kept one, so this time I've taped them next to the bathroom mirror.",
+          "keywords": [
+            "three",
+            "walk before breakfast",
+            "call my parents",
+            "tape",
+            "mirror"
+          ]
+        },
+        {
+          "topic": "p1-promises",
+          "q": "Do you prefer making promises verbally or in writing?",
+          "ref": "In writing, strangely enough. A written promise sits on the page and won't let me off the hook, while a verbal one can conveniently evaporate — 'I said I might, not that I would'. A shared note in our family chat works best.",
+          "keywords": [
+            "writing",
+            "won't let me off",
+            "evaporate",
+            "family chat",
+            "might"
+          ]
+        },
+        {
+          "topic": "p1-new-activities",
+          "q": "Have you tried any new activities recently?",
+          "ref": "Yes — in January I started swimming again after ten years away, and in October I finally signed up for a beginner's calligraphy class. Both were terrifying in week one and oddly meditative by week three.",
+          "keywords": [
+            "swimming",
+            "ten years",
+            "calligraphy",
+            "terrifying",
+            "meditative"
+          ]
+        },
+        {
+          "topic": "p1-new-activities",
+          "q": "Why do people like trying new activities?",
+          "ref": "Novelty is a kind of fuel. A new activity forces your brain to pay full attention, which is exhausting but deeply refreshing — it breaks the hypnosis of routine and reminds you that you're not entirely finished becoming a person.",
+          "keywords": [
+            "Novelty",
+            "fuel",
+            "full attention",
+            "hypnosis",
+            "becoming"
+          ]
+        },
+        {
+          "topic": "p1-new-activities",
+          "q": "Are you good at picking up new skills?",
+          "ref": "Reasonably. I'm not gifted, but I'm stubborn in a useful way — I show up, copy the basics badly for the first month, and then one day notice I've cleared an invisible plateau.",
+          "keywords": [
+            "Reasonably",
+            "stubborn",
+            "show up",
+            "copy",
+            "plateau"
+          ]
+        },
+        {
+          "topic": "p1-new-activities",
+          "q": "Do children or adults find new activities easier?",
+          "ref": "Children, without doubt. They have no internal critic to negotiate with — they just fall off the bike and get back on. Adults calculate embarrassment first, which is why most adult beginners are really asking for permission to be a beginner.",
+          "keywords": [
+            "Children",
+            "critic",
+            "fall off",
+            "embarrassment",
+            "beginner"
+          ]
+        },
+        {
+          "topic": "p1-new-activities",
+          "q": "What activity would you like to try next?",
+          "ref": "Rock climbing. I've watched friends do it for years and always admired how it makes thinking and moving the same thing. Some friends already promised to take me to an indoor wall after the New Year rush dies down.",
+          "keywords": [
+            "Rock climbing",
+            "thinking",
+            "moving",
+            "indoor wall",
+            "New Year"
+          ]
+        },
+        {
+          "topic": "p1-early-bird",
+          "q": "Are you an early bird or a night owl?",
+          "ref": "Mostly an early bird on weekdays and a night owl who survives weekends. I like being awake before the city properly starts — the streets are emptier, the air is cooler, and my own mind is strangely orderly before eight.",
+          "keywords": [
+            "early bird",
+            "night owl",
+            "before eight",
+            "emptier",
+            "orderly"
+          ]
+        },
+        {
+          "topic": "p1-early-bird",
+          "q": "What is your morning routine like?",
+          "ref": "Alarm at six fifty, one glass of water, ten minutes of stretching, then either a short walk or my English app. Coffee happens at eight-fifteen, after the walk — I learned the hard way that caffeine before movement just makes an anxious, stiff version of me.",
+          "keywords": [
+            "six fifty",
+            "water",
+            "stretching",
+            "coffee",
+            "movement"
+          ]
+        },
+        {
+          "topic": "p1-early-bird",
+          "q": "Do you get up early on weekends?",
+          "ref": "Rarely, and proudly not. Weekends are for sleeping until eight-thirty, slow breakfast, and doing the grocery run before the whole neighbourhood wakes up. My mother calls me a natural sleep-in champion — feast late, repeat.",
+          "keywords": [
+            "Rarely",
+            "eight-thirty",
+            "slow breakfast",
+            "grocery",
+            "feast"
+          ]
+        },
+        {
+          "topic": "p1-early-bird",
+          "q": "Why do you think some people naturally wake early?",
+          "ref": "Some of it is genes and some of it is training — night workers flipped years ago and never flipped back, while young parents never had a choice. Mostly I think early risers simply like owning the quiet first hour before the world starts asking things of them.",
+          "keywords": [
+            "genes",
+            "training",
+            "young parents",
+            "quiet first hour",
+            "asking"
+          ]
+        },
+        {
+          "topic": "p1-early-bird",
+          "q": "Did you wake up early when you were at school?",
+          "ref": "Yes, brutally so — the school gates opened at seven and the morning assembly was at seven thirty, so bedtime was ten sharp. I resented it then, but that schedule quietly trained the early-bird instinct I still have now.",
+          "keywords": [
+            "brutally",
+            "seven thirty",
+            "resented",
+            "trained",
+            "early-bird"
+          ]
+        },
+        {
+          "topic": "p1-sport",
+          "q": "Do you do any sport regularly?",
+          "ref": "Yes — since January I've swum twice a week and played amateur badminton every Saturday morning. My knee can't run anymore, but the pool is forgiving, and badminton keeps my reflexes honest.",
+          "keywords": [
+            "twice a week",
+            "badminton",
+            "Saturday",
+            "knee",
+            "reflexes"
+          ]
+        },
+        {
+          "topic": "p1-sport",
+          "q": "Which sport do you enjoy watching?",
+          "ref": "Basketball, mostly. I watch CBA games with my father on weekends and keep an eye on the NBA finals. There's something about a five-person team surviving one another in real time that a scripted drama cannot copy.",
+          "keywords": [
+            "Basketball",
+            "CBA",
+            "NBA finals",
+            "five-person",
+            "scripted"
+          ]
+        },
+        {
+          "topic": "p1-sport",
+          "q": "Do you prefer team sports or individual sports?",
+          "ref": "Team sports, even though I'm mediocre at them. There's a particular satisfaction in covering a teammate's gap without being asked, and in the shared grumbling after an unfair loss. Individual sports feel like an exam; team sports feel like a dinner table.",
+          "keywords": [
+            "Team sports",
+            "covering",
+            "grumbling",
+            "exam",
+            "dinner table"
+          ]
+        },
+        {
+          "topic": "p1-sport",
+          "q": "How important is sport for health in your opinion?",
+          "ref": "Essential, but not magical. Sport won't cancel a bad diet or no sleep, but it keeps the machines running — joints, heart, mood. I think of it as maintenance, the same way you service a car before it breaks rather than after.",
+          "keywords": [
+            "Essential",
+            "bad diet",
+            "joints",
+            "mood",
+            "maintenance"
+          ]
+        },
+        {
+          "topic": "p1-sport",
+          "q": "Did you play sport as a child?",
+          "ref": "Relentlessly. Football in the schoolyard, table tennis in the hallway, skipping rope until the soles of my shoes wore thin. The court orders were rough and the joy was total — nobody kept score of fun.",
+          "keywords": [
+            "Relentlessly",
+            "Football",
+            "table tennis",
+            "shoes",
+            "joy"
+          ]
+        },
+        {
+          "topic": "p1-sleeping",
+          "q": "How many hours do you usually sleep?",
+          "ref": "Around seven, ideally seven and a half. Below six-thirty I'm a diplomat who smiles and misreads everything; above eight I feel strangely guilty, as if rest itself needed justification.",
+          "keywords": [
+            "seven",
+            "six-thirty",
+            "diplomat",
+            "guilty",
+            "justification"
+          ]
+        },
+        {
+          "topic": "p1-sleeping",
+          "q": "Do you ever take naps during the day?",
+          "ref": "Almost every day at two o'clock — a twenty-minute nap on the office couch or my bed at home. My mother would call it corruption of duty; I call it a factory reset that keeps the afternoon civilised.",
+          "keywords": [
+            "twenty-minute",
+            "office couch",
+            "factory reset",
+            "afternoon",
+            "two o'clock"
+          ]
+        },
+        {
+          "topic": "p1-sleeping",
+          "q": "What helps you fall asleep quickly?",
+          "ref": "Dim light after ten, no screens in the last half hour, and a page of a physical book — nothing thrilling. If I still can't sleep, I make a decaf tea and do a breathing count of four in, six out.",
+          "keywords": [
+            "Dim light",
+            "no screens",
+            "physical book",
+            "decaf",
+            "breathing"
+          ]
+        },
+        {
+          "topic": "p1-sleeping",
+          "q": "How does sleep affect your mood and work?",
+          "ref": "Dramatically. After a short night I am slower, shorter-tempered and worse at small decisions, but oddly productive at three in the morning — my best spreadsheets were born at an hour when sensible people are asleep.",
+          "keywords": [
+            "Dramatically",
+            "slower",
+            "shorter-tempered",
+            "spreadsheets",
+            "three in the morning"
+          ]
+        },
+        {
+          "topic": "p1-sleeping",
+          "q": "Do you sleep better on weekdays or weekends?",
+          "ref": "Weekends, obviously — no commute, no alarm tyranny, and the luxury of falling back asleep after the first wake-up. The trouble is by Monday I've completely wrecked the rhythm my week so carefully built.",
+          "keywords": [
+            "Weekends",
+            "no commute",
+            "alarm tyranny",
+            "rhythm",
+            "Monday"
+          ]
+        },
+        {
+          "topic": "p1-money",
+          "q": "Do you save money regularly?",
+          "ref": "Yes — since January the bank deducts a fixed amount the day my salary lands, before I ever see it. What I never miss, I never feel; what I feel is what I can't spend without noticing the hole.",
+          "keywords": [
+            "January",
+            "salary",
+            "fixed amount",
+            "never miss",
+            "hole"
+          ]
+        },
+        {
+          "topic": "p1-money",
+          "q": "What are you saving for these days?",
+          "ref": "Mostly an apartment deposit and the odd big trip — this year, we're saving for a family trip to Yunnan in the autumn. My wife manages the travel fund; I manage the boring emergency fund.",
+          "keywords": [
+            "apartment deposit",
+            "Yunnan",
+            "autumn",
+            "travel fund",
+            "emergency fund"
+          ]
+        },
+        {
+          "topic": "p1-money",
+          "q": "Do you use any money management apps?",
+          "ref": "Yes, a simple spreadsheet first, then a budgeting app that shouts at me when takeaway spending crosses its weekly line. The shouting works — not because it's wise, but because it's mildly embarrassing.",
+          "keywords": [
+            "spreadsheet",
+            "budgeting app",
+            "takeaway",
+            "weekly line",
+            "embarrassing"
+          ]
+        },
+        {
+          "topic": "p1-money",
+          "q": "Do you think people spend too much money nowadays?",
+          "ref": "I think people spend too easily rather than too much — one-click checkout and endless streaming of 'you deserve this' blur the line between wanting and needing. Saving now requires actual resistance, like not adding to the cart.",
+          "keywords": [
+            "one-click",
+            "streaming",
+            "wanting",
+            "needing",
+            "cart"
+          ]
+        },
+        {
+          "topic": "p1-money",
+          "q": "Do you often lend money to friends?",
+          "ref": "Rarely, and only after I've silently decided it's really a gift if it doesn't come back. Money lent with reassuring smiles often returns late or never — better to be generous clearly than generous anxiously.",
+          "keywords": [
+            "Rarely",
+            "gift",
+            "reassuring smiles",
+            "generous clearly",
+            "anxiously"
+          ]
+        },
+        {
+          "topic": "p1-punctuality",
+          "q": "Are you usually on time or late?",
+          "ref": "Usually early — five to ten minutes. My father treated punctuality as a form of respect, and the habit stuck. I'd rather sip one awkward coffee in the lobby than be the reason a meeting restarts itself.",
+          "keywords": [
+            "early",
+            "five to ten minutes",
+            "respect",
+            "habit",
+            "meeting"
+          ]
+        },
+        {
+          "topic": "p1-punctuality",
+          "q": "What happens when you are late for something?",
+          "ref": "I apologise once, briefly, and immediately produce the useful fact — what I brought, what I know, what I can do now — instead of a theatrical monologue of guilt. Drama doesn't repair lost minutes; action does.",
+          "keywords": [
+            "apologise once",
+            "useful fact",
+            "theatrical",
+            "guilt",
+            "action"
+          ]
+        },
+        {
+          "topic": "p1-punctuality",
+          "q": "Why do you think punctuality is important?",
+          "ref": "Because time is the only currency everyone pays equally. Being late silently says “my time matters more than yours” — and repeated punctuality says the opposite, which is why it buys so much quiet trust in business.",
+          "keywords": [
+            "currency",
+            "late",
+            "more than yours",
+            "punctuality",
+            "trust"
+          ]
+        },
+        {
+          "topic": "p1-punctuality",
+          "q": "How long will you wait for a friend who is late?",
+          "ref": "Fifteen minutes, then I message — another ten, then I start the meal. Life is too short and lunch is too good. If they disappear, they disappear; friendships survive lateness, they don't survive abandonment.",
+          "keywords": [
+            "Fifteen minutes",
+            "message",
+            "start the meal",
+            "lunch",
+            "disappear"
+          ]
+        },
+        {
+          "topic": "p1-punctuality",
+          "q": "Do you arrive early for important appointments?",
+          "ref": "Yes, for anything that matters — job interviews, train departures, hospital visits — I aim to be there twenty minutes early, which converts arriving from a panic into a small, calm ritual with a tea in hand.",
+          "keywords": [
+            "twenty minutes early",
+            "job interviews",
+            "train departures",
+            "panic",
+            "calm"
+          ]
+        },
+        {
+          "topic": "p1-patience",
+          "q": "Are you a patient person?",
+          "ref": "Selectively. I have oceanic patience for teaching my nephew to ride a bike and zero for a website that takes more than three seconds to load. Patience, I suspect, is just caring applied slowly — and I care unevenly.",
+          "keywords": [
+            "Selectively",
+            "oceanic",
+            "website",
+            "caring",
+            "unevenly"
+          ]
+        },
+        {
+          "topic": "p1-patience",
+          "q": "What kind of situations make you lose your patience?",
+          "ref": "Inefficiency dressed as process: forms that duplicate forms, meetings that restate meetings, queues that split into “everyone except this line”. It's not the waiting I hate — it's watching time be wasted on purpose.",
+          "keywords": [
+            "Inefficiency",
+            "forms",
+            "meetings",
+            "queues",
+            "wasted"
+          ]
+        },
+        {
+          "topic": "p1-patience",
+          "q": "Do you think patience can be learned?",
+          "ref": "Yes, as a skill with drills — slow cooking without checking, conversation without interrupting, watching a whole film without a phone. Each rep widens the gap between impulse and action, which is precisely what patience is.",
+          "keywords": [
+            "skill",
+            "slow cooking",
+            "interrupting",
+            "phone",
+            "impulse"
+          ]
+        },
+        {
+          "topic": "p1-patience",
+          "q": "How do you help children learn patience?",
+          "ref": "With cakes and queues. We bake bread at home — waiting three hours for dough teaches waiting better than any lecture — and we make a game of supermarket lines by counting red shelves until it's our turn.",
+          "keywords": [
+            "cakes",
+            "bake bread",
+            "queues",
+            "lecture",
+            "supermarket"
+          ]
+        },
+        {
+          "topic": "p1-patience",
+          "q": "Is patience important for success?",
+          "ref": "Profoundly. Almost everything valuable — language, craft, friendship, investing — compounds quietly. The impatient harvest too early and blame the soil; the patient let one winter pass, and the next spring the garden is simply different.",
+          "keywords": [
+            "Profoundly",
+            "compounds",
+            "harvest",
+            "winter",
+            "spring"
+          ]
+        }
+      ],
+      "part2": [
+        {
+          "topic": "p2-abstract-habit",
+          "card": "Describe a habit you would like to develop.",
+          "points": [
+            "What the habit is",
+            "Why you want to develop it",
+            "How you plan to develop it",
+            "And explain what might make it difficult"
+          ],
+          "ref": "The habit I would most like to develop is writing one honest page in my journal before going to sleep. My days arrive pre-packaged as meetings and messages, and I lose track of what I actually think inside them. I want the page because it forces me to notice — what went well, what stung, what I'm avoiding. My plan is unfashionably simple: keep the journal on my pillow every morning and write before checking my phone. It will be hard at the start, because I'm ambitious about it, and ambitious people quit the small things when they feel they should be doing the big things instead. I've also told my wife — social pressure, gently applied. If I can string together ninety days, the page will stop being a task and become a home for my own head.",
+          "keywords": [
+            "journal",
+            "before going to sleep",
+            "notice",
+            "pillow",
+            "phone",
+            "ninety days"
+          ]
+        },
+        {
+          "topic": "p2-abstract-change",
+          "card": "Describe a change you would like to make in your life.",
+          "points": [
+            "What the change is",
+            "Why you want to make it",
+            "What you would do differently",
+            "And explain how it would affect your life"
+          ],
+          "ref": "The change I want to make is to stop working in the hour after my son goes to bed. Right now that's when the house goes quiet, and suddenly I'm answering emails, fixing slides, or rewriting Monday's pitch — and my wife eats alone and my son wakes up to a father who is already tired at breakfast. What I want instead is a hard rule: laptops shut by eight-thirty, tea at nine, and one hour of reading or chess or talking. The practical steps are boring — a physical docking station in the study, email notifications off after eight, and my wife holding the login. It sounds small, but it would change the emotional temperature of the whole house: more presence, less guilt, better mornings. Change, I've learned, rarely means becoming someone new; usually it means protecting the person you already know you should be.",
+          "keywords": [
+            "stop working",
+            "son",
+            "laptops",
+            "eight-thirty",
+            "emotional temperature",
+            "presence"
+          ]
+        },
+        {
+          "topic": "p2-abstract-healthy",
+          "card": "Describe a way you keep — or would like to keep — healthy.",
+          "points": [
+            "What the activity or habit is",
+            "Why you chose it",
+            "How often you do it",
+            "And explain what benefits you have experienced or expect"
+          ],
+          "ref": "The one I'm most proud of is the Sunday long-walk habit. Every Sunday morning, rain or shine, I walk for two hours with a podcast and a thermos of oolong — no phone calls, no work talk. I chose walking because it is free, forgiving on my knees, and gentle on a body that has spent a decade at a desk. Since starting last March, my lower back stopped its low-grade complaining, my sleep deepened, and — surprisingly — my best ideas for the week now arrive around kilometre four, as if the legs think before the head. It is not diet or dosage; it is simply the most reliable medicine I own, and it has a lovely side effect: the city looks different when you're moving through it at three kilometres an hour.",
+          "keywords": [
+            "Sunday",
+            "two hours",
+            "free",
+            "lower back",
+            "sleep deepened",
+            "kilometre"
+          ]
+        },
+        {
+          "topic": "p2-skill-learn",
+          "card": "Describe a skill you would like to learn.",
+          "points": [
+            "What the skill is",
+            "Why you want to learn it",
+            "How you would learn it",
+            "And explain what resources or people would help you"
+          ],
+          "ref": "The skill is cooking a proper banquet — the twelve-dish Zhejiang dinner my grandmother used to throw at Spring Festival: braised pork belly, Dongpo fish, beggar's chicken, the whole architecture. I want to learn it because that table was the gravity center of my family, and it disappears with her generation if I don't catch it now. I'd learn it hands-on, not from videos — I'd ask her to dictate while I cook, phone propped on the counter, measuring everything by eye and instinct. My father would document the recipes properly, my aunt would handle the shopping, and my mother would tell me the secret is thirty years of taste in the wrist, which cannot be written down. It is really three skills in one — cooking, listening, and remembering — and every dish I replicate is a small act of preservation.",
+          "keywords": [
+            "banquet",
+            "Spring Festival",
+            "grandmother",
+            "recipes",
+            "hands-on",
+            "listening"
+          ]
+        },
+        {
+          "topic": "p2-thing-money",
+          "card": "Describe something you are saving money for.",
+          "points": [
+            "What you are saving for",
+            "How much it costs",
+            "How long you have been saving",
+            "And explain why it matters to you"
+          ],
+          "ref": "I'm saving for a family trip to Yunnan — ten days, four cities, my parents and my son along, roughly thirty thousand yuan in total. I started the fund in January last year with a separate bank account and a standing order of two thousand yuan a month. I have never checked its balance as obsessively as I check it — watching it creep toward the goal feels better than any shopping high I've ever had. It matters because my parents sold vegetables for thirty years so I could study, and my son is now eight and already half-grown; this trip is the first proper family holiday with all of us unconditionally present. It is not really a trip — it is rent paid on memory, collected while everyone is still healthy enough to carry backpacks.",
+          "keywords": [
+            "Yunnan",
+            "thirty thousand",
+            "bank account",
+            "standing order",
+            "vegetables",
+            "backpacks"
+          ]
+        }
+      ],
+      "part3": [
+        {
+          "topic": "p3-education",
+          "q": "Should schools teach children how to set goals?",
+          "ref": "I think they already teach goal-setting badly — as a one-off September assembly with a worksheet. What children actually need is deliberate practice: choosing one boring, measurable goal each term, tracking it, and debriefing both success and failure. That is metacognition, not cheerleading, and it transfers to every subject afterwards.",
+          "keywords": [
+            "goal-setting",
+            "one-off",
+            "measurable goal",
+            "tracking",
+            "metacognition"
+          ]
+        },
+        {
+          "topic": "p3-education",
+          "q": "Is it better for children to learn habits from parents or from school?",
+          "ref": "Parents model, schools reinforce — neither works alone. A child whose home runs on screens at dinner but whose school preaches attention will simply learn that adults disagree about reality. Habits stick when home and school point at the same basic things: sleep, honesty, asking before scrolling.",
+          "keywords": [
+            "Parents model",
+            "neither works alone",
+            "disagree about reality",
+            "sleep",
+            "scrolling"
+          ]
+        },
+        {
+          "topic": "p3-education",
+          "q": "Do you think exams encourage good study habits?",
+          "ref": "Only the shallow kind — cramming, then amnesia. Exams measure performance under pressure, which teaches people to perform under pressure, not to learn. Better systems test spaced recall and long projects, which reward the slow, boring habits that actually survive contact with adult life.",
+          "keywords": [
+            "cramming",
+            "amnesia",
+            "performance under pressure",
+            "spaced recall",
+            "adult life"
+          ]
+        },
+        {
+          "topic": "p3-education",
+          "q": "Should universities have courses on time management and self-discipline?",
+          "ref": "Yes, briefly and honestly — one semester, run by people who actually practise it, not motivational speakers. Students don't need inspiration; they need a lab where they track their own procrastination for eight weeks and design counter-measures that survive February's cold and dark.",
+          "keywords": [
+            "briefly",
+            "motivational speakers",
+            "inspiration",
+            "procrastination",
+            "February"
+          ]
+        },
+        {
+          "topic": "p3-education",
+          "q": "How can teachers motivate weaker students to make a New Year plan?",
+          "ref": "By making the plan tiny and public — one paragraph, read aloud, signed by the class. Weaker students rarely lack desire; they lack a witness and a small enough first step. A public promise plus a weekly check-in beats private ambition every time I've seen it tried.",
+          "keywords": [
+            "tiny and public",
+            "weaker students",
+            "witness",
+            "public promise",
+            "weekly check-in"
+          ]
+        },
+        {
+          "topic": "p3-education",
+          "q": "What role should reading play in a New Year routine for students?",
+          "ref": "Reading is the cheapest mind-gym ever invented, and it compounds quietly. Ten pages a night sounds pathetic until you realise it's eighteen books a year. For students, reading before bed also replaces the one habit — midnight scrolling — that quietly eats both sleep and attention span.",
+          "keywords": [
+            "mind-gym",
+            "compounds",
+            "ten pages",
+            "midnight scrolling",
+            "attention span"
+          ]
+        },
+        {
+          "topic": "p3-technology",
+          "q": "Do habit-tracking apps really help people change behaviour?",
+          "ref": "They help about as much as a bathroom scale helps you lose weight — they provide feedback, not discipline. Streaks and badges work for some personalities and breed guilt or quiet abandonment in others. The app is a mirror, not a motor.",
+          "keywords": [
+            "bathroom scale",
+            "feedback",
+            "Streaks",
+            "mirror",
+            "discipline"
+          ]
+        },
+        {
+          "topic": "p3-technology",
+          "q": "Will artificial intelligence make personal coaching available to everyone?",
+          "ref": "Partly. AI can deliver the structure of coaching — weekly prompts, pattern spotting, non-judgmental nudges — at near-zero cost, which matters for people who could never afford a human coach. What it cannot replicate is human witness; people stay honest because someone they respect is watching.",
+          "keywords": [
+            "structure of coaching",
+            "pattern spotting",
+            "nudges",
+            "witness",
+            "watching"
+          ]
+        },
+        {
+          "topic": "p3-technology",
+          "q": "Do fitness trackers improve health or just add anxiety?",
+          "ref": "Both, depending on temperament. For the motivated, a ten-thousand-step count is a friendly rival; for perfectionists, one missed day becomes a moral collapse and they quietly quit the wristband. Numbers help when they inform choices, and hurt when they replace judgment.",
+          "keywords": [
+            "ten-thousand-step",
+            "perfectionists",
+            "moral collapse",
+            "inform choices",
+            "judgment"
+          ]
+        },
+        {
+          "topic": "p3-technology",
+          "q": "Is social media more helpful or harmful for people trying to improve themselves?",
+          "ref": "Mostly harmful dressed as helpful. The “day in my life” genre turns self-improvement into theatre — six a.m. grind reels and perfect Sunday meal-prep — which quietly shames ordinary people into either performing or quitting. Genuine groups exist, but they're quieter and far less addictive.",
+          "keywords": [
+            "day in my life",
+            "theatre",
+            "self-improvement",
+            "performing",
+            "groups"
+          ]
+        },
+        {
+          "topic": "p3-technology",
+          "q": "How has working from home changed people's daily routines?",
+          "ref": "It dissolved the commuter's built-in scaffolding — the walk, the train, the fixed start — and replaced it with an infinite flexible morning in which nothing quite begins. People filled the gap with sleep, delivery food and endless small tasks, and the disciplined ones invented their own commute on purpose.",
+          "keywords": [
+            "commuter",
+            "scaffolding",
+            "infinite flexible morning",
+            "sleep",
+            "invented"
+          ]
+        },
+        {
+          "topic": "p3-technology",
+          "q": "Should companies use software to monitor employee wellbeing goals?",
+          "ref": "Monitoring wellbeing casts the company as caring while actually auditing people — a paradox. If the dashboard exists mainly to reduce sick leave, trust erodes instantly. Used transparently with opt-in consent and no penalties, aggregate data can flag overwork; used secretly, it's surveillance with a yoga logo.",
+          "keywords": [
+            "wellbeing",
+            "paradox",
+            "opt-in",
+            "aggregate data",
+            "surveillance"
+          ]
+        },
+        {
+          "topic": "p3-society",
+          "q": "Why do so many people make resolutions in January and abandon them by February?",
+          "ref": "Because January is a cultural permission slip, not a personal plan. People borrow the energy of the season — the empty gyms, the self-help shelf — without building the private systems that carry them past week three. The calendar changes; the environment doesn't.",
+          "keywords": [
+            "permission slip",
+            "cultural",
+            "private systems",
+            "week three",
+            "environment"
+          ]
+        },
+        {
+          "topic": "p3-society",
+          "q": "Is self-discipline valued more in modern society than before?",
+          "ref": "Rhetorically yes, practically no. Every culture praises discipline, but ours also monetises temptation — infinite snacks, feeds and sales aimed precisely at our weakest moment. Valuing discipline while selling its destruction is the central business model of the attention economy.",
+          "keywords": [
+            "Rhetorically",
+            "temptation",
+            "attention economy",
+            "praises",
+            "weakest moment"
+          ]
+        },
+        {
+          "topic": "p3-society",
+          "q": "Do you think communities should support each other's resolutions?",
+          "ref": "Absolutely — change is far easier witnessed than endured alone. Walking groups, shared gardens, book swaps, running clubs: they all convert a lonely intention into a social identity. When the group expects you on Saturday, you go even when motivation fails, because attendance is now about belonging.",
+          "keywords": [
+            "witnessed",
+            "Walking groups",
+            "social identity",
+            "Saturday",
+            "belonging"
+          ]
+        },
+        {
+          "topic": "p3-society",
+          "q": "What makes a resolution realistic for an ordinary working person?",
+          "ref": "Small, specific and attached to an existing anchor — after breakfast, before the commute, at lunch. Big dramatic transformations fail because ordinary days are ordinary: meetings, traffic, tiredness. The realistic goal survives the worst Tuesday of the year, not just the shiny first Monday of January.",
+          "keywords": [
+            "Small",
+            "existing anchor",
+            "worst Tuesday",
+            "meetings",
+            "tiredness"
+          ]
+        },
+        {
+          "topic": "p3-society",
+          "q": "Are New Year resolutions a universal human behaviour?",
+          "ref": "The label is Western, the impulse is universal — every culture has a season of renewal: Spring Festival, Diwali, Ramadan, Nowruz. What changes is the ritual packaging, not the wish to press restart. Humans are pattern-starved animals; we need ceremonial boundaries to negotiate change.",
+          "keywords": [
+            "Spring Festival",
+            "Ramadan",
+            "ritual packaging",
+            "restart",
+            "ceremonial boundaries"
+          ]
+        },
+        {
+          "topic": "p3-society",
+          "q": "Should society judge people who never set resolutions?",
+          "ref": "No — someone with no resolutions may simply be already satisfied, or between seasons of ambition. The healthier stance is curiosity, not judgment. Resolution culture quietly shames people into chronic “not enough-ness”, and not every honest life requires an annual draft of itself.",
+          "keywords": [
+            "curiosity",
+            "judgment",
+            "chronic",
+            "not enough-ness",
+            "annual draft"
+          ]
+        },
+        {
+          "topic": "p3-work",
+          "q": "Should companies ask employees about their New Year goals?",
+          "ref": "Asked with genuine curiosity, yes — a manager who knows you want to run a marathon or go to bed earlier can plan workload accordingly. Asked as a performance trap — “state your ambition so we can weaponise it” — it becomes theatre. The difference is confidentiality and consequence.",
+          "keywords": [
+            "genuine curiosity",
+            "workload",
+            "performance trap",
+            "theatre",
+            "confidentiality"
+          ]
+        },
+        {
+          "topic": "p3-work",
+          "q": "How does the January office atmosphere differ from other months?",
+          "ref": "Noticeably brighter for two weeks — new notebooks, optimistic stand-ups, a faint smell of resolve. By mid-February the entropy returns: inboxes refill, gym bags stay home, and everyone silently agrees not to mention the abandoned meal-prep containers in the fridge.",
+          "keywords": [
+            "notebooks",
+            "stand-ups",
+            "entropy",
+            "inboxes",
+            "meal-prep"
+          ]
+        },
+        {
+          "topic": "p3-work",
+          "q": "What kind of workplace habits help people sustain change?",
+          "ref": "Visible, tiny, shared defaults — walking meetings, a fruit bowl instead of a biscuit tin, a no-message rule after nine. Change survives at work when it is baked into the environment rather than left to personal heroism at 6 p.m. on a rainy Friday.",
+          "keywords": [
+            "walking meetings",
+            "fruit bowl",
+            "no-message rule",
+            "environment",
+            "heroism"
+          ]
+        },
+        {
+          "topic": "p3-work",
+          "q": "Do you think work pressure makes resolutions harder to keep?",
+          "ref": "Enormously — pressure consumes the exact cognitive budget self-control needs. By Sunday night, after a week of decisions made for other people, willpower is overdrawn and the salad loses to the delivery app. Companies that reduce decision fatigue will find their employees' goals quieter but real.",
+          "keywords": [
+            "cognitive budget",
+            "willpower",
+            "overdrawn",
+            "decision fatigue",
+            "goals"
+          ]
+        },
+        {
+          "topic": "p3-work",
+          "q": "Should interns and young employees set professional resolutions?",
+          "ref": "Yes, but process-based, not outcome-based — “ask one question in every meeting”, not “get promoted by June”. Early-career goals fail when they target identity rather than behaviour. Promotion is an outcome you influence; asking, drafting, reviewing — those are actions you control.",
+          "keywords": [
+            "process-based",
+            "outcome-based",
+            "identity",
+            "asking",
+            "control"
+          ]
+        },
+        {
+          "topic": "p3-work",
+          "q": "Is overtime culture compatible with healthy resolutions?",
+          "ref": "Fundamentally not. An organisation that quietly rewards exhaustion will eat every private promise its employees make — sleep, family, exercise, learning. Cultures that cap hours and normalise switching off produce not just happier staff but better retention, which is the only KPI that ultimately matters.",
+          "keywords": [
+            "Fundamentally not",
+            "exhaustion",
+            "cap hours",
+            "switching off",
+            "retention"
+          ]
+        },
+        {
+          "topic": "p3-culture",
+          "q": "How is making resolutions different in Chinese and Western cultures?",
+          "ref": "Western resolutions lean individual — diet, gym, reading. Chinese New Year talk leans collective — health for parents, grades for children, peace for the family. Both are promises, but one is made in front of a mirror and the other in front of a dinner table, and each quietly shames in its own accent.",
+          "keywords": [
+            "individual",
+            "collective",
+            "mirror",
+            "dinner table",
+            "shames"
+          ]
+        },
+        {
+          "topic": "p3-culture",
+          "q": "Why do traditions like Spring Festival include reflection and renewal?",
+          "ref": "Because agrarian societies organised life around sowing and harvest, and the calendar still carries their memory. Renewal rituals — cleaning, debts settled, red packets, reunion dinners — are a psychological year-end audit that says: last year happened, and this one is unwritten.",
+          "keywords": [
+            "agrarian",
+            "sowing",
+            "red packets",
+            "year-end audit",
+            "unwritten"
+          ]
+        },
+        {
+          "topic": "p3-culture",
+          "q": "Do you think the meaning of New Year is changing for young people?",
+          "ref": "Yes — for many young Chinese, the festival is becoming travel and consumption rather than ancestor ritual or family duty. That's neither good nor bad; traditions migrate into what new generations can actually use — a day off, a reunion flight, a reason to spend time with grandparents one more day a year.",
+          "keywords": [
+            "travel and consumption",
+            "duty",
+            "migrate",
+            "day off",
+            "grandparents"
+          ]
+        },
+        {
+          "topic": "p3-culture",
+          "q": "How do food traditions relate to New Year in your culture?",
+          "ref": "Food is the archive. Dumplings shaped like silver ingots, fish left uncut for abundance, glutinous rice cake for a taller year — the menu is a wish delivered on plates. Breaking from the table to a delivery app is not just convenience; it is quietly skipping the grammar of celebration.",
+          "keywords": [
+            "Dumplings",
+            "fish left uncut",
+            "menu is a wish",
+            "delivery app",
+            "celebration"
+          ]
+        },
+        {
+          "topic": "p3-culture",
+          "q": "Should young people be taught the history behind these traditions?",
+          "ref": "Definitely — context converts obligation into choice. A child who knows why the fish stays whole will keep it whole unprompted, and will also feel free to change it knowingly. History doesn't trap us in the past; it hands us the keys to the present.",
+          "keywords": [
+            "context",
+            "obligation",
+            "knowingly",
+            "History",
+            "keys"
+          ]
+        },
+        {
+          "topic": "p3-culture",
+          "q": "Do imported customs like western New Year parties enrich or erode local culture?",
+          "ref": "Both, depending on appetite. A midnight toast enriches a double celebration; abandoning the reunion dinner for a countdown erodes something irreplaceable. Cultures survive by absorbing, not by photocopying — the firework is welcome if the dumpling survives.",
+          "keywords": [
+            "midnight toast",
+            "countdown",
+            "absorbing",
+            "firework",
+            "dumpling"
+          ]
+        },
+        {
+          "topic": "p3-environment",
+          "q": "Do you think people keep environmental New Year pledges?",
+          "ref": "Rarely past the second week — “buy less plastic” dies at the supermarket checkout like every other good intention. The pledges that survive are structural: one less car day, a fixed recycling routine, or a default plant-based Monday that the whole household simply adopts.",
+          "keywords": [
+            "plastic",
+            "checkout",
+            "car day",
+            "recycling routine",
+            "household"
+          ]
+        },
+        {
+          "topic": "p3-environment",
+          "q": "Should cities run campaigns around New Year to promote sustainable habits?",
+          "ref": "Yes — seasonal timing is psychological leverage. A January campaign rides the wave of self-renewal that individual willpower alone cannot sustain; tying recycling bins, repair markets and energy audits to the season turns private guilt into public choreography, which lasts longer.",
+          "keywords": [
+            "seasonal timing",
+            "leverage",
+            "choreography",
+            "energy audits",
+            "willpower"
+          ]
+        },
+        {
+          "topic": "p3-environment",
+          "q": "Are small individual habits meaningful against climate change?",
+          "ref": "Individually small, collectively audible. One person's meat-free Monday won't cool the planet, but habit-changing spreads through households and offices faster than legislation. Individual habits are how large numbers quietly consent to change — and change without consent is fragile.",
+          "keywords": [
+            "collectively",
+            "meat-free Monday",
+            "households",
+            "consent",
+            "fragile"
+          ]
+        },
+        {
+          "topic": "p3-environment",
+          "q": "Why do festive seasons produce so much waste?",
+          "ref": "Because celebration is coded as abundance, and abundance is coded as disposal — extra food cooked “just in case”, gifts wrapped in layers, decorations worn once. The season treats the month after January as if it won't exist, which is exactly why the bill arrives in February.",
+          "keywords": [
+            "abundance",
+            "wrapped in layers",
+            "just in case",
+            "bill arrives",
+            "decorations"
+          ]
+        },
+        {
+          "topic": "p3-environment",
+          "q": "What environmental resolution would you recommend to a family?",
+          "ref": "One switch, not ten: swap the weekly big shop for a planned list, which cuts both food waste and impulse packaging. Families fail resolutions that require daily heroism and succeed at defaults — one fridge audit per week beats noble declarations every single time.",
+          "keywords": [
+            "weekly big shop",
+            "planned list",
+            "impulse packaging",
+            "heroism",
+            "fridge audit"
+          ]
+        },
+        {
+          "topic": "p3-media",
+          "q": "Why does advertising peak around New Year with 'new you' messages?",
+          "ref": "Because January is the one month when consumers' self-image voluntarily leaves the station and goes shopping. Brands sell gym memberships, skincare, notebooks, language courses — all of them proxies for the resolution “become someone new”. It works precisely because the resolution is real; the products are just merchandise for hope.",
+          "keywords": [
+            "January",
+            "self-image",
+            "notebooks",
+            "become someone new",
+            "hope"
+          ]
+        },
+        {
+          "topic": "p3-media",
+          "q": "Do motivational influencers help or harm resolution-makers?",
+          "ref": "Mostly harm, occasionally help. The 5 a.m. cold-shower genre turns self-discipline into theatre and confuses performance with change; the rare good ones show process — the tired Mondays, the missed days — not just the transformation montage.",
+          "keywords": [
+            "5 a.m.",
+            "theatre",
+            "performance",
+            "process",
+            "missed days"
+          ]
+        },
+        {
+          "topic": "p3-media",
+          "q": "How should news media cover the psychology of resolutions?",
+          "ref": "With humility — fewer “10 tricks to transform your life” lists and more reporting on why change is hard: environment design, decision fatigue, the four-day attrition cliff. Journalism that respects difficulty creates durable change; journalism that sells miracles produces the same February crash it diagnoses.",
+          "keywords": [
+            "humility",
+            "environment design",
+            "decision fatigue",
+            "miracles",
+            "February crash"
+          ]
+        },
+        {
+          "topic": "p3-media",
+          "q": "Is the New Year gala still relevant to Chinese audiences?",
+          "ref": "For the older generation deeply — it is the shared hearth of New Year's Eve. For younger viewers it survives as memes and viral clips, enjoyed half-watching while the family eats. It has shifted from must-watch television to cultural background music, and that may be the only way a national broadcast survives fragmentation.",
+          "keywords": [
+            "shared hearth",
+            "memes",
+            "cultural background music",
+            "fragmentation",
+            "must-watch"
+          ]
+        },
+        {
+          "topic": "p3-media",
+          "q": "Do reality shows about habit change inspire real change?",
+          "ref": "Occasionally, briefly. Watching a hundred strangers transform on screen gives viewers a vicarious sense of agency, but the effect fades when the credits roll because viewers never build their own system. The honest lesson would be episode one: small, boring, supported — not dramatic, cinematic, televised.",
+          "keywords": [
+            "vicarious sense of agency",
+            "credits roll",
+            "own system",
+            "boring",
+            "televised"
+          ]
+        }
+      ]
+    }
   }
 ]

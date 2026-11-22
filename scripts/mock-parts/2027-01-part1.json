@@ -1,0 +1,522 @@
+[
+ {
+  "topic": "p1-promises",
+  "q": "Do you often make promises to other people?",
+  "ref": "Yes, fairly often, but I try to make few and keep them. To me a promise is a small contract — when I tell a friend I'll be there at eight, I'll be there at eight, or I don't say it at all.",
+  "keywords": [
+   "often",
+   "contract",
+   "there at eight",
+   "few",
+   "tell a friend"
+  ],
+  "part": "Part 1"
+ },
+ {
+  "topic": "p1-promises",
+  "q": "Do you find it easy to keep your promises?",
+  "ref": "Mostly yes, because I only promise what I know I can do. The rare failures happen when I misjudge the time a task needs, like promising a colleague a document by noon and only finishing it at two.",
+  "keywords": [
+   "Mostly yes",
+   "what I know",
+   "rare failures",
+   "misjudge",
+   "document"
+  ],
+  "part": "Part 1"
+ },
+ {
+  "topic": "p1-promises",
+  "q": "Why do people sometimes break their promises?",
+  "ref": "Usually because they over-promise in the moment — saying yes feels good, and the social cost of refusing seems high. Later, reality arrives, the thing is harder than expected, and the quiet temptation to let it slide wins.",
+  "keywords": [
+   "over-promise",
+   "saying yes",
+   "refusing",
+   "harder",
+   "slide"
+  ],
+  "part": "Part 1"
+ },
+ {
+  "topic": "p1-promises",
+  "q": "Did you make any resolutions for this New Year?",
+  "ref": "Yes — I wrote three: walk before breakfast four times a week, call my parents every Sunday, and stop ordering dinner so late. I did the same last year and kept one, so this time I've taped them next to the bathroom mirror.",
+  "keywords": [
+   "three",
+   "walk before breakfast",
+   "call my parents",
+   "tape",
+   "mirror"
+  ],
+  "part": "Part 1"
+ },
+ {
+  "topic": "p1-promises",
+  "q": "Do you prefer making promises verbally or in writing?",
+  "ref": "In writing, strangely enough. A written promise sits on the page and won't let me off the hook, while a verbal one can conveniently evaporate — 'I said I might, not that I would'. A shared note in our family chat works best.",
+  "keywords": [
+   "writing",
+   "won't let me off",
+   "evaporate",
+   "family chat",
+   "might"
+  ],
+  "part": "Part 1"
+ },
+ {
+  "topic": "p1-new-activities",
+  "q": "Have you tried any new activities recently?",
+  "ref": "Yes — in January I started swimming again after ten years away, and in October I finally signed up for a beginner's calligraphy class. Both were terrifying in week one and oddly meditative by week three.",
+  "keywords": [
+   "swimming",
+   "ten years",
+   "calligraphy",
+   "terrifying",
+   "meditative"
+  ],
+  "part": "Part 1"
+ },
+ {
+  "topic": "p1-new-activities",
+  "q": "Why do people like trying new activities?",
+  "ref": "Novelty is a kind of fuel. A new activity forces your brain to pay full attention, which is exhausting but deeply refreshing — it breaks the hypnosis of routine and reminds you that you're not entirely finished becoming a person.",
+  "keywords": [
+   "Novelty",
+   "fuel",
+   "full attention",
+   "hypnosis",
+   "becoming"
+  ],
+  "part": "Part 1"
+ },
+ {
+  "topic": "p1-new-activities",
+  "q": "Are you good at picking up new skills?",
+  "ref": "Reasonably. I'm not gifted, but I'm stubborn in a useful way — I show up, copy the basics badly for the first month, and then one day notice I've cleared an invisible plateau.",
+  "keywords": [
+   "Reasonably",
+   "stubborn",
+   "show up",
+   "copy",
+   "plateau"
+  ],
+  "part": "Part 1"
+ },
+ {
+  "topic": "p1-new-activities",
+  "q": "Do children or adults find new activities easier?",
+  "ref": "Children, without doubt. They have no internal critic to negotiate with — they just fall off the bike and get back on. Adults calculate embarrassment first, which is why most adult beginners are really asking for permission to be a beginner.",
+  "keywords": [
+   "Children",
+   "critic",
+   "fall off",
+   "embarrassment",
+   "beginner"
+  ],
+  "part": "Part 1"
+ },
+ {
+  "topic": "p1-new-activities",
+  "q": "What activity would you like to try next?",
+  "ref": "Rock climbing. I've watched friends do it for years and always admired how it makes thinking and moving the same thing. Some friends already promised to take me to an indoor wall after the New Year rush dies down.",
+  "keywords": [
+   "Rock climbing",
+   "thinking",
+   "moving",
+   "indoor wall",
+   "New Year"
+  ],
+  "part": "Part 1"
+ },
+ {
+  "topic": "p1-early-bird",
+  "q": "Are you an early bird or a night owl?",
+  "ref": "Mostly an early bird on weekdays and a night owl who survives weekends. I like being awake before the city properly starts — the streets are emptier, the air is cooler, and my own mind is strangely orderly before eight.",
+  "keywords": [
+   "early bird",
+   "night owl",
+   "before eight",
+   "emptier",
+   "orderly"
+  ],
+  "part": "Part 1"
+ },
+ {
+  "topic": "p1-early-bird",
+  "q": "What is your morning routine like?",
+  "ref": "Alarm at six fifty, one glass of water, ten minutes of stretching, then either a short walk or my English app. Coffee happens at eight-fifteen, after the walk — I learned the hard way that caffeine before movement just makes an anxious, stiff version of me.",
+  "keywords": [
+   "six fifty",
+   "water",
+   "stretching",
+   "coffee",
+   "movement"
+  ],
+  "part": "Part 1"
+ },
+ {
+  "topic": "p1-early-bird",
+  "q": "Do you get up early on weekends?",
+  "ref": "Rarely, and proudly not. Weekends are for sleeping until eight-thirty, slow breakfast, and doing the grocery run before the whole neighbourhood wakes up. My mother calls me a natural sleep-in champion — feast late, repeat.",
+  "keywords": [
+   "Rarely",
+   "eight-thirty",
+   "slow breakfast",
+   "grocery",
+   "feast"
+  ],
+  "part": "Part 1"
+ },
+ {
+  "topic": "p1-early-bird",
+  "q": "Why do you think some people naturally wake early?",
+  "ref": "Some of it is genes and some of it is training — night workers flipped years ago and never flipped back, while young parents never had a choice. Mostly I think early risers simply like owning the quiet first hour before the world starts asking things of them.",
+  "keywords": [
+   "genes",
+   "training",
+   "young parents",
+   "quiet first hour",
+   "asking"
+  ],
+  "part": "Part 1"
+ },
+ {
+  "topic": "p1-early-bird",
+  "q": "Did you wake up early when you were at school?",
+  "ref": "Yes, brutally so — the school gates opened at seven and the morning assembly was at seven thirty, so bedtime was ten sharp. I resented it then, but that schedule quietly trained the early-bird instinct I still have now.",
+  "keywords": [
+   "brutally",
+   "seven thirty",
+   "resented",
+   "trained",
+   "early-bird"
+  ],
+  "part": "Part 1"
+ },
+ {
+  "topic": "p1-sport",
+  "q": "Do you do any sport regularly?",
+  "ref": "Yes — since January I've swum twice a week and played amateur badminton every Saturday morning. My knee can't run anymore, but the pool is forgiving, and badminton keeps my reflexes honest.",
+  "keywords": [
+   "twice a week",
+   "badminton",
+   "Saturday",
+   "knee",
+   "reflexes"
+  ],
+  "part": "Part 1"
+ },
+ {
+  "topic": "p1-sport",
+  "q": "Which sport do you enjoy watching?",
+  "ref": "Basketball, mostly. I watch CBA games with my father on weekends and keep an eye on the NBA finals. There's something about a five-person team surviving one another in real time that a scripted drama cannot copy.",
+  "keywords": [
+   "Basketball",
+   "CBA",
+   "NBA finals",
+   "five-person",
+   "scripted"
+  ],
+  "part": "Part 1"
+ },
+ {
+  "topic": "p1-sport",
+  "q": "Do you prefer team sports or individual sports?",
+  "ref": "Team sports, even though I'm mediocre at them. There's a particular satisfaction in covering a teammate's gap without being asked, and in the shared grumbling after an unfair loss. Individual sports feel like an exam; team sports feel like a dinner table.",
+  "keywords": [
+   "Team sports",
+   "covering",
+   "grumbling",
+   "exam",
+   "dinner table"
+  ],
+  "part": "Part 1"
+ },
+ {
+  "topic": "p1-sport",
+  "q": "How important is sport for health in your opinion?",
+  "ref": "Essential, but not magical. Sport won't cancel a bad diet or no sleep, but it keeps the machines running — joints, heart, mood. I think of it as maintenance, the same way you service a car before it breaks rather than after.",
+  "keywords": [
+   "Essential",
+   "bad diet",
+   "joints",
+   "mood",
+   "maintenance"
+  ],
+  "part": "Part 1"
+ },
+ {
+  "topic": "p1-sport",
+  "q": "Did you play sport as a child?",
+  "ref": "Relentlessly. Football in the schoolyard, table tennis in the hallway, skipping rope until the soles of my shoes wore thin. The court orders were rough and the joy was total — nobody kept score of fun.",
+  "keywords": [
+   "Relentlessly",
+   "Football",
+   "table tennis",
+   "shoes",
+   "joy"
+  ],
+  "part": "Part 1"
+ },
+ {
+  "topic": "p1-sleeping",
+  "q": "How many hours do you usually sleep?",
+  "ref": "Around seven, ideally seven and a half. Below six-thirty I'm a diplomat who smiles and misreads everything; above eight I feel strangely guilty, as if rest itself needed justification.",
+  "keywords": [
+   "seven",
+   "six-thirty",
+   "diplomat",
+   "guilty",
+   "justification"
+  ],
+  "part": "Part 1"
+ },
+ {
+  "topic": "p1-sleeping",
+  "q": "Do you ever take naps during the day?",
+  "ref": "Almost every day at two o'clock — a twenty-minute nap on the office couch or my bed at home. My mother would call it corruption of duty; I call it a factory reset that keeps the afternoon civilised.",
+  "keywords": [
+   "twenty-minute",
+   "office couch",
+   "factory reset",
+   "afternoon",
+   "two o'clock"
+  ],
+  "part": "Part 1"
+ },
+ {
+  "topic": "p1-sleeping",
+  "q": "What helps you fall asleep quickly?",
+  "ref": "Dim light after ten, no screens in the last half hour, and a page of a physical book — nothing thrilling. If I still can't sleep, I make a decaf tea and do a breathing count of four in, six out.",
+  "keywords": [
+   "Dim light",
+   "no screens",
+   "physical book",
+   "decaf",
+   "breathing"
+  ],
+  "part": "Part 1"
+ },
+ {
+  "topic": "p1-sleeping",
+  "q": "How does sleep affect your mood and work?",
+  "ref": "Dramatically. After a short night I am slower, shorter-tempered and worse at small decisions, but oddly productive at three in the morning — my best spreadsheets were born at an hour when sensible people are asleep.",
+  "keywords": [
+   "Dramatically",
+   "slower",
+   "shorter-tempered",
+   "spreadsheets",
+   "three in the morning"
+  ],
+  "part": "Part 1"
+ },
+ {
+  "topic": "p1-sleeping",
+  "q": "Do you sleep better on weekdays or weekends?",
+  "ref": "Weekends, obviously — no commute, no alarm tyranny, and the luxury of falling back asleep after the first wake-up. The trouble is by Monday I've completely wrecked the rhythm my week so carefully built.",
+  "keywords": [
+   "Weekends",
+   "no commute",
+   "alarm tyranny",
+   "rhythm",
+   "Monday"
+  ],
+  "part": "Part 1"
+ },
+ {
+  "topic": "p1-money",
+  "q": "Do you save money regularly?",
+  "ref": "Yes — since January the bank deducts a fixed amount the day my salary lands, before I ever see it. What I never miss, I never feel; what I feel is what I can't spend without noticing the hole.",
+  "keywords": [
+   "January",
+   "salary",
+   "fixed amount",
+   "never miss",
+   "hole"
+  ],
+  "part": "Part 1"
+ },
+ {
+  "topic": "p1-money",
+  "q": "What are you saving for these days?",
+  "ref": "Mostly an apartment deposit and the odd big trip — this year, we're saving for a family trip to Yunnan in the autumn. My wife manages the travel fund; I manage the boring emergency fund.",
+  "keywords": [
+   "apartment deposit",
+   "Yunnan",
+   "autumn",
+   "travel fund",
+   "emergency fund"
+  ],
+  "part": "Part 1"
+ },
+ {
+  "topic": "p1-money",
+  "q": "Do you use any money management apps?",
+  "ref": "Yes, a simple spreadsheet first, then a budgeting app that shouts at me when takeaway spending crosses its weekly line. The shouting works — not because it's wise, but because it's mildly embarrassing.",
+  "keywords": [
+   "spreadsheet",
+   "budgeting app",
+   "takeaway",
+   "weekly line",
+   "embarrassing"
+  ],
+  "part": "Part 1"
+ },
+ {
+  "topic": "p1-money",
+  "q": "Do you think people spend too much money nowadays?",
+  "ref": "I think people spend too easily rather than too much — one-click checkout and endless streaming of 'you deserve this' blur the line between wanting and needing. Saving now requires actual resistance, like not adding to the cart.",
+  "keywords": [
+   "one-click",
+   "streaming",
+   "wanting",
+   "needing",
+   "cart"
+  ],
+  "part": "Part 1"
+ },
+ {
+  "topic": "p1-money",
+  "q": "Do you often lend money to friends?",
+  "ref": "Rarely, and only after I've silently decided it's really a gift if it doesn't come back. Money lent with reassuring smiles often returns late or never — better to be generous clearly than generous anxiously.",
+  "keywords": [
+   "Rarely",
+   "gift",
+   "reassuring smiles",
+   "generous clearly",
+   "anxiously"
+  ],
+  "part": "Part 1"
+ },
+ {
+  "topic": "p1-punctuality",
+  "q": "Are you usually on time or late?",
+  "ref": "Usually early — five to ten minutes. My father treated punctuality as a form of respect, and the habit stuck. I'd rather sip one awkward coffee in the lobby than be the reason a meeting restarts itself.",
+  "keywords": [
+   "early",
+   "five to ten minutes",
+   "respect",
+   "habit",
+   "meeting"
+  ],
+  "part": "Part 1"
+ },
+ {
+  "topic": "p1-punctuality",
+  "q": "What happens when you are late for something?",
+  "ref": "I apologise once, briefly, and immediately produce the useful fact — what I brought, what I know, what I can do now — instead of a theatrical monologue of guilt. Drama doesn't repair lost minutes; action does.",
+  "keywords": [
+   "apologise once",
+   "useful fact",
+   "theatrical",
+   "guilt",
+   "action"
+  ],
+  "part": "Part 1"
+ },
+ {
+  "topic": "p1-punctuality",
+  "q": "Why do you think punctuality is important?",
+  "ref": "Because time is the only currency everyone pays equally. Being late silently says “my time matters more than yours” — and repeated punctuality says the opposite, which is why it buys so much quiet trust in business.",
+  "keywords": [
+   "currency",
+   "late",
+   "more than yours",
+   "punctuality",
+   "trust"
+  ],
+  "part": "Part 1"
+ },
+ {
+  "topic": "p1-punctuality",
+  "q": "How long will you wait for a friend who is late?",
+  "ref": "Fifteen minutes, then I message — another ten, then I start the meal. Life is too short and lunch is too good. If they disappear, they disappear; friendships survive lateness, they don't survive abandonment.",
+  "keywords": [
+   "Fifteen minutes",
+   "message",
+   "start the meal",
+   "lunch",
+   "disappear"
+  ],
+  "part": "Part 1"
+ },
+ {
+  "topic": "p1-punctuality",
+  "q": "Do you arrive early for important appointments?",
+  "ref": "Yes, for anything that matters — job interviews, train departures, hospital visits — I aim to be there twenty minutes early, which converts arriving from a panic into a small, calm ritual with a tea in hand.",
+  "keywords": [
+   "twenty minutes early",
+   "job interviews",
+   "train departures",
+   "panic",
+   "calm"
+  ],
+  "part": "Part 1"
+ },
+ {
+  "topic": "p1-patience",
+  "q": "Are you a patient person?",
+  "ref": "Selectively. I have oceanic patience for teaching my nephew to ride a bike and zero for a website that takes more than three seconds to load. Patience, I suspect, is just caring applied slowly — and I care unevenly.",
+  "keywords": [
+   "Selectively",
+   "oceanic",
+   "website",
+   "caring",
+   "unevenly"
+  ],
+  "part": "Part 1"
+ },
+ {
+  "topic": "p1-patience",
+  "q": "What kind of situations make you lose your patience?",
+  "ref": "Inefficiency dressed as process: forms that duplicate forms, meetings that restate meetings, queues that split into “everyone except this line”. It's not the waiting I hate — it's watching time be wasted on purpose.",
+  "keywords": [
+   "Inefficiency",
+   "forms",
+   "meetings",
+   "queues",
+   "wasted"
+  ],
+  "part": "Part 1"
+ },
+ {
+  "topic": "p1-patience",
+  "q": "Do you think patience can be learned?",
+  "ref": "Yes, as a skill with drills — slow cooking without checking, conversation without interrupting, watching a whole film without a phone. Each rep widens the gap between impulse and action, which is precisely what patience is.",
+  "keywords": [
+   "skill",
+   "slow cooking",
+   "interrupting",
+   "phone",
+   "impulse"
+  ],
+  "part": "Part 1"
+ },
+ {
+  "topic": "p1-patience",
+  "q": "How do you help children learn patience?",
+  "ref": "With cakes and queues. We bake bread at home — waiting three hours for dough teaches waiting better than any lecture — and we make a game of supermarket lines by counting red shelves until it's our turn.",
+  "keywords": [
+   "cakes",
+   "bake bread",
+   "queues",
+   "lecture",
+   "supermarket"
+  ],
+  "part": "Part 1"
+ },
+ {
+  "topic": "p1-patience",
+  "q": "Is patience important for success?",
+  "ref": "Profoundly. Almost everything valuable — language, craft, friendship, investing — compounds quietly. The impatient harvest too early and blame the soil; the patient let one winter pass, and the next spring the garden is simply different.",
+  "keywords": [
+   "Profoundly",
+   "compounds",
+   "harvest",
+   "winter",
+   "spring"
+  ],
+  "part": "Part 1"
+ }
+]
