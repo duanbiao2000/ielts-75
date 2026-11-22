@@ -2,13 +2,14 @@
    策略：预缓存全部静态资源（版本化缓存名），cache-first 命中即用；
    未命中先走网络并写入缓存；完全离线时回落到 index.html 外壳。
    更新：发布新版本时 bump CACHE 版本号，activate 删除旧缓存。 */
-const CACHE = 'ielts75-v3';
+const CACHE = 'ielts75-v4';
 const PRECACHE = [
   './',
   'index.html',
   'css/style.css',
   'js/practice-full.js',
   'js/data.js',
+  'js/mock-bank.js',
   'js/training.js',
   'js/course.js',
   'js/app.js',

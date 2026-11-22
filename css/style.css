@@ -201,9 +201,9 @@
 .mock-part:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(34,211,238,.18)}
 .mock-part.ghost{background:transparent}
 .mock-progress{font-size:13px;color:var(--dim);font-weight:600}
-.mock-q{background:#f7fafd;border:1px solid #e4ecf5;border-radius:14px;padding:16px;margin-bottom:14px}
+.mock-q{background:var(--card2);border:1px solid var(--line);border-radius:14px;padding:16px;margin-bottom:14px}
 .mock-q .stem{color:var(--txt);font-size:15px;font-weight:700;line-height:1.7;margin-bottom:12px}
-.mock-ref{background:#fff;border:1px dashed #cbd5e1;border-radius:10px;padding:10px 12px;font-size:13px;color:var(--dim);margin-bottom:12px;line-height:1.6}
+.mock-ref{background:rgba(11,20,41,.35);border:1px dashed var(--line);border-radius:10px;padding:10px 12px;font-size:13px;color:var(--dim);margin-bottom:12px;line-height:1.6}
 .mock-ref b{color:var(--cyan);font-weight:700}
 
 /* ============ 批次3 · 练习反馈 ============ */
@@ -375,3 +375,25 @@ button:focus-visible,a:focus-visible,.tab:focus-visible,.card:focus-visible{outl
 .gh-link svg{width:18px;height:18px;fill:currentColor}
 .sf-note{margin-top:10px;font-size:12px;opacity:.75}
 @media (max-width:560px){.sf-note{display:none}}
+
+/* ============ Mock Bank 月刊卷架 & 听力原文（批次6 2026-11） ============ */
+.mock-shelf{display:flex;flex-direction:column;gap:12px;margin-top:6px;max-height:54vh;overflow-y:auto;padding:2px}
+.mock-set{display:flex;flex-direction:column;gap:7px;text-align:left;padding:14px 16px;border-radius:14px;border:1px solid var(--line);background:var(--card);color:var(--txt);cursor:pointer;transition:.15s;font-family:inherit}
+.mock-set:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(34,211,238,.16);border-color:rgba(34,211,238,.4)}
+.mock-set.done{border-color:rgba(52,211,153,.45)}
+.mock-set-top{display:flex;align-items:center;gap:8px}
+.mock-set-month{font-size:12px;font-weight:800;letter-spacing:.1em;color:var(--cyan)}
+.mock-new{font-style:normal;font-size:11px;font-weight:800;background:var(--cyan);color:#06222b;padding:2px 10px;border-radius:99px}
+.mock-done-badge{font-style:normal;font-size:11px;font-weight:800;background:rgba(52,211,153,.18);color:var(--green);padding:2px 10px;border-radius:99px}
+.mock-set-title{font-size:16px;font-weight:800}
+.mock-set-meta{display:flex;gap:8px}
+.mock-set-meta .tag{font-size:11px;font-weight:700;padding:2px 10px;border-radius:99px;background:rgba(34,211,238,.1);color:var(--cyan);border:1px solid rgba(34,211,238,.3)}
+.mock-set-meta .tag.theme{background:rgba(167,139,250,.12);color:#a78bfa;border-color:rgba(167,139,250,.3)}
+.mock-set-blurb{font-size:13px;color:var(--dim);line-height:1.6}
+.mock-set-best{font-size:12px;font-weight:700;color:var(--green)}
+.mock-set:not(.done) .mock-set-best{color:var(--dim)}
+.mock-passage{background:rgba(11,20,41,.35);border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin-bottom:12px}
+.mock-passage summary{cursor:pointer;font-weight:700;color:var(--cyan);font-size:13px}
+.mock-passage-body{margin-top:8px;max-height:180px;overflow-y:auto;font-size:13px;line-height:1.8;color:var(--txt)}
+.mock-points{margin:10px 0 0 18px;padding:0;font-size:13px;color:var(--dim);line-height:1.9}
+.mock-sec{font-size:12px;color:var(--dim);font-weight:800;letter-spacing:.06em}
