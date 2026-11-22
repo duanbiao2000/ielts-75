@@ -20,11 +20,19 @@
 - `path`：相对项目根的完整课程文件路径（构建期由 `scripts/gen_content_viewer.py` 同步至 `onboarding/content/<path>`，应用内阅读器以同源 iframe 内嵌；gh-pages 只部署 `onboarding/`）。
 - `points`：本课核心知识点数组。
 
-### 1.1 状态字段补充：contentRead（批次 A · 2026-11-22）
+### 1.1 状态字段补充：contentRead（批次 A · 2026-11-22；批次 B 扩展）
 
-- `done.contentRead: string[]` — 已读完的内容 id（当前为课程 id，如 `l1`）。
-- 由阅读器「完成并测验」写入；课程关卡弹窗主 CTA 据此在「📖 开始学习」与「✓ 已读 · 回顾」间切换。
+- `done.contentRead: string[]` — 已读完的内容 id。批次 B 起有两种键：
+  - 课程 id（如 `l1`）：阅读器「完成并测验」写入；关卡弹窗主 CTA 据此在「📖 开始学习」与「✓ 已读 · 回顾」间切换。
+  - 模块文档键 `<moduleId>#<docFile>`（如 `m01#README`）：模块文档阅读器滚动到底部 48px 内自动写入，或点「✓ 标记已读」写入；模块弹窗与阅读器顶栏的「已读 n/N」进度据此统计（N = 文档数，含 `00 · 模块导览`）。
 - 与 `done.lessonView`（打开即记）并存：view=看过，contentRead=读完。
+- `logLearning('content-open'|'content-read', key)`：阅读器打开/读完埋点；场景素材键为 `scen:<场景名>`、模块文档学习埋点读完键为 `module:<moduleId>`（读完标记按文档粒度另存 `<moduleId>#<docFile>`）。
+
+### 1.2 内容卷（构建期预渲染，随 onboarding 部署）
+
+- `onboarding/content/lessons/*.html`：`scripts/gen_content_viewer.py` 从根目录 `lessons/` 同步课程 HTML。
+- `onboarding/content/modules/*.js`：`scripts/gen_module_content.py` 将 `modules/*/*.md` 预渲染为 `window.MODULE_CONTENT[<moduleId>] = { docs: [{file,title,html}] }`，应用内懒加载（`loadScript`）；`README.md` 归为首篇 `00 · 模块导览`。修改 .md 后须重跑脚本。
+- 模块文档 HTML 已内联表格/删除线样式；阅读器禁止站内外跳转（链接降级为纯文本）。
 
 ## 2. 场景 SCENARIOS
 

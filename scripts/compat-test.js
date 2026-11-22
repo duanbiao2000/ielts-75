@@ -53,6 +53,37 @@ async function auditPage(name, browser, opts = {}) {
   ok('演练舱有内容', podTitle.length > 50);
   await page.keyboard.press('Escape');
 
+  // 场景素材阅读器：查看素材 → 三 Tab → TTS 按钮 → Escape 返回场景弹窗
+  await page.click('#scenGrid .card >> nth=0');
+  await page.waitForSelector('#modalBox', { state: 'visible', timeout: 5000 });
+  await page.locator('#modalBox button', { hasText: '查看素材' }).first().click();
+  await page.waitForSelector('#reader-mask.show', { timeout: 8000 });
+  ok('场景素材阅读器打开', await page.locator('#reader-mask.show').isVisible());
+  const scenTxt = await page.locator('#reader-mask').innerText();
+  ok('核心表达 Tab 渲染', scenTxt.includes('核心表达'));
+  ok('TTS 朗读按钮存在', (await page.locator('#reader-mask .tts-btn').count()) > 3);
+  await page.locator('#reader-mask .doc-chip', { hasText: '情景对话' }).first().click();
+  ok('情景对话 Tab 切换', (await page.locator('#reader-mask').innerText()).includes('对话'));
+  await page.locator('#reader-mask .doc-chip', { hasText: '角色任务' }).first().click();
+  ok('角色任务 Tab 切换', (await page.locator('#reader-mask').innerText()).includes('自检'));
+  await page.keyboard.press('Escape'); // 返回场景弹窗
+  ok('Escape 返回场景弹窗', (await page.locator('#modal-mask.show').count()) === 1);
+  await page.keyboard.press('Escape'); // 关闭场景弹窗
+
+  // 模块文档阅读器：阅读模块 → 文档懒加载 → chips → 完成并测验 → 模块单元测验
+  // 注：WebKit 下偶发 Playwright actionability 未命中 div 卡片（Chromium 正常），改用 DOM click（与课程卡同款写法）
+  await page.evaluate(() => { const c = document.querySelector('#modGrid .card'); if (c) c.click(); });
+  await page.waitForSelector('#modal-mask.show', { timeout: 5000 });
+  await page.locator('#modalBox button', { hasText: '阅读模块' }).first().click();
+  await page.waitForSelector('#reader-mask.show', { timeout: 8000 });
+  const modTxt = await page.locator('#reader-mask').innerText();
+  ok('模块阅读器打开（内容卷懒加载成功）', modTxt.length > 100);
+  ok('模块文档 chips 渲染', (await page.locator('#reader-mask .doc-chip').count()) >= 3);
+  await page.locator('#reader-mask .btn-primary-big', { hasText: '完成并测验' }).click();
+  await page.waitForTimeout(400);
+  ok('完成并测验直达模块单元测验', (await page.locator('#modalBox').innerText()).includes('单元测验'));
+  await page.keyboard.press('Escape');
+
   // 单元测验（课程 l1 已解锁，直接从模块测验入口验证弹窗）
   await page.evaluate(() => { const b = document.querySelector('#pathLessons .card button'); if (b) b.click(); });
   await page.waitForTimeout(300);

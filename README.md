@@ -81,6 +81,7 @@ onboarding/          deployable app (vanilla HTML/CSS/JS)
   js/practice-full.js  30-scenario dialogues (lazy-loaded)
   js/mock-bank.js    GENERATED — do not edit (source: scripts/mock-bank.json)
   content/lessons/   GENERATED (scripts/gen_content_viewer.py) — lessons synced for the in-app reader
+  content/modules/   GENERATED (scripts/gen_module_content.py) — module docs synced for the in-app reader
   sw.js              precached, versioned offline cache (bump CACHE per release!)
 scripts/             data generators & quality gates (see below)
   mock-parts/        per-volume raw content (listening passages, P1–P3)

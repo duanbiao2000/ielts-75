@@ -81,6 +81,7 @@ onboarding/          デプロイ用アプリ（バニラ HTML/CSS/JS）
   js/practice-full.js  30シーン分の対話コーパス（遅延読み込み）
   js/mock-bank.js    自動生成物。手編集禁止（ソースは scripts/mock-bank.json）
   content/lessons/   自動生成物（scripts/gen_content_viewer.py）—— リーダー用レッスン複製（同源 iframe）
+  content/modules/   GENERATED (scripts/gen_module_content.py) — module docs synced for the in-app reader
   sw.js              事前キャッシュ＋バージョン付きオフラインキャッシュ（リリース毎に CACHE を上げること！）
 scripts/             データ生成と品質ゲート（下記参照）
   mock-parts/        巻ごとの素材（リスニング本文、Part 1–3）
