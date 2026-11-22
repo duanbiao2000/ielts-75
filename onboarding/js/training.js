@@ -1,4 +1,5 @@
-/* 批次3 训练闭环数据（自动生成，勿手工编辑） */
+/* 批次3 训练闭环数据（自动生成，勿手工编辑）
+   月度模考题库见 js/mock-bank.js（scripts/gen_mock_bank.py 生成） */
 const DIAG_SUBJECTS = [
   {
     "id": "speaking",
@@ -403,7 +404,7 @@ const QUIZ_MODS = {
     },
     {
       "type": "fill",
-      "stem": "发音自检应回到 ___，用客观回放对照目标音，而非凭感觉。",
+      "stem": "发音自检应回到 ___，用录音回放对照目标音，而非凭感觉。",
       "answer": "录音",
       "explain": "录音回放是发音自检最可靠的方式，用客观反馈纠正主观误判。"
     }
@@ -543,7 +544,7 @@ const QUIZ_MODS = {
     },
     {
       "type": "fill",
-      "stem": "应对抽象议题，先分类，再调用对应的 ___ 句，把观点说透。",
+      "stem": "应对抽象议题，先分类，再调用对应的 ___ 句，展开论证。",
       "answer": "论证",
       "explain": "先给抽象议题分类，再调用对应论证句展开，避免临场无话可说。"
     }
@@ -627,188 +628,6 @@ const QUIZ_MODS = {
       "answer": "时间",
       "explan": "时间分配与预测是听力应试的基础，合理分配才能稳定发挥。",
       "explain": "时间分配与预测是听力应试的基础，合理分配才能稳定发挥。"
-    }
-  ]
-};
-const MOCK_EXAM = {
-  "speaking": [
-    {
-      "part": "Part 1",
-      "q": "Let's talk about your hometown. Where is it and what do you like about it?",
-      "ref": "My hometown is a coastal city in the south. I like the relaxed pace of life and the fresh seafood, plus it's convenient to get around.",
-      "keywords": [
-        "hometown",
-        "city",
-        "coastal",
-        "like",
-        "pace",
-        "seafood",
-        "convenient"
-      ]
-    },
-    {
-      "part": "Part 1",
-      "q": "Do you work or are you a student?",
-      "ref": "I'm currently working, though I was a full-time student until last summer. I work in marketing, which keeps me busy but also lets me talk to different people every day.",
-      "keywords": [
-        "work",
-        "student",
-        "marketing",
-        "busy",
-        "people"
-      ]
-    },
-    {
-      "part": "Part 1",
-      "q": "What do you do in your free time?",
-      "ref": "In my free time I like reading and going for walks. Sometimes I meet friends for a coffee or try a new recipe at home.",
-      "keywords": [
-        "free time",
-        "reading",
-        "walks",
-        "friends",
-        "recipe"
-      ]
-    },
-    {
-      "part": "Part 2",
-      "q": "Describe a memorable journey you have made. Say: where you went, who you went with, what you did, and why it was memorable.",
-      "ref": "I'd like to talk about a journey to the mountains last autumn. I went with two close friends. We hiked for two days, stayed in a small village, and watched the sunrise. It was memorable because it was a rare chance to slow down and share an experience with people I care about.",
-      "keywords": [
-        "journey",
-        "memorable",
-        "mountains",
-        "friends",
-        "hiked",
-        "sunrise",
-        "slow down",
-        "share"
-      ]
-    },
-    {
-      "part": "Part 3",
-      "q": "Do you think travel is important for young people? Why?",
-      "ref": "Yes, I think travel is very important for young people. It broadens their horizons and helps them learn to adapt to new situations and people, which builds confidence and independence.",
-      "keywords": [
-        "travel",
-        "important",
-        "young",
-        "broadens",
-        "adapt",
-        "confidence",
-        "independence"
-      ]
-    },
-    {
-      "part": "Part 3",
-      "q": "What are the advantages and disadvantages of modern travel?",
-      "ref": "A main advantage is convenience — there are many ways to travel now. A disadvantage is that popular places can get crowded, and fast travel can sometimes make the experience feel less genuine or thoughtful.",
-      "keywords": [
-        "advantage",
-        "disadvantage",
-        "convenience",
-        "crowded",
-        "travel",
-        "genuine"
-      ]
-    }
-  ],
-  "listening": [
-    {
-      "section": "Section 1",
-      "q": "The booking requires a ___ deposit to confirm the reservation.",
-      "opts": [
-        "small",
-        "large",
-        "refundable",
-        "fixed"
-      ],
-      "right": 0,
-      "explain": "录音中为 a small deposit，小定金确认预订。注意 deposit 的拼写与含义。"
-    },
-    {
-      "section": "Section 1",
-      "q": "What is the main purpose of the call?",
-      "opts": [
-        "To book a ticket",
-        "To complain about a delay",
-        "To ask for a refund",
-        "To change a name"
-      ],
-      "right": 0,
-      "explain": "对话核心是预订/订票，purpose 为 To book a ticket。"
-    },
-    {
-      "section": "Section 2",
-      "q": "The tour guide recommends visitors start at the ___.",
-      "opts": [
-        "museum",
-        "harbour",
-        "old town",
-        "lookout point"
-      ],
-      "right": 2,
-      "explain": "导游建议从老城（old town）开始游览，注意方位与顺序信息。"
-    },
-    {
-      "section": "Section 2",
-      "q": "According to the talk, the best time to visit is in ___.",
-      "opts": [
-        "spring",
-        "summer",
-        "autumn",
-        "winter"
-      ],
-      "right": 2,
-      "explain": "文中明确提到最佳时间是秋季 autumn。"
-    },
-    {
-      "section": "Section 3",
-      "q": "The students mainly discuss a project about ___.",
-      "opts": [
-        "urban transport",
-        "rural development",
-        "marine life",
-        "historical buildings"
-      ],
-      "right": 0,
-      "explain": "S3 学术讨论围绕城市交通（urban transport）项目展开。"
-    },
-    {
-      "section": "Section 3",
-      "q": "The main difficulty the students mention is ___.",
-      "opts": [
-        "data collection",
-        "time management",
-        "group agreement",
-        "language"
-      ],
-      "right": 1,
-      "explain": "主要困难是时间管理（time management），注意干扰项与转折词。"
-    },
-    {
-      "section": "Section 4",
-      "q": "The lecture focuses on how ___ influences city planning.",
-      "opts": [
-        "climate",
-        "technology",
-        "population",
-        "economy"
-      ],
-      "right": 0,
-      "explain": "S4 讲座主题是气候（climate）对城市规划的影响。"
-    },
-    {
-      "section": "Section 4",
-      "q": "A key finding is that green spaces can improve ___.",
-      "opts": [
-        "air quality",
-        "transport speed",
-        "housing prices",
-        "work output"
-      ],
-      "right": 0,
-      "explain": "绿地能改善空气质量（air quality），是讲座的关键结论之一。"
     }
   ]
 };

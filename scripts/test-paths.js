@@ -42,13 +42,14 @@ const localStorage = {
   clear: () => { Object.keys(store).forEach(k => delete store[k]); },
 };
 win.window = win; win.self = win; win.globalThis = win; win.localStorage = localStorage;
-const code = ['practice-full.js','data.js','training.js','course.js','app.js']
+const code = ['practice-full.js','data.js','mock-bank.js','training.js','course.js','app.js']
   .map(f => fs.readFileSync(path.join(dir,f),'utf8')).join('\n');
 const fn = new Function('window','self','globalThis','document','localStorage', code +
-  '\n;return { LESSONS,SCENARIOS,MODULES,BADGES,PRACTICE,DIAG_SUBJECTS,QUIZ_LESSONS,QUIZ_MODS,MOCK_EXAM,LESSON_PACKS,MODULE_PACKS, done, renderAll,\n' +
+  '\n;return { LESSONS,SCENARIOS,MODULES,BADGES,PRACTICE,DIAG_SUBJECTS,QUIZ_LESSONS,QUIZ_MODS,MOCK_BANK,LESSON_PACKS,MODULE_PACKS, done, renderAll,\n' +
   '  openLesson, openLessonPractice, lpx, lpxPick, lpxNext,\n' +
   '  openUnitQuiz, uq, uqPick, uqNext,\n' +
   '  openPractice, getPod:()=>pod, setPod:(p)=>{pod=p}, advance, goCheck, finishCheck, genFeedbackFb, fbDone, closePod,\n' +
+  '  openMockVolume, mockSpeakList, mockListenFlat,\n' +
   '  toggleModTask, checkinMod, openScen, mark, openMock, mockGo, mockScoreSpeak, mockSpeakNext, mockListenPick, mockListenNext, getMock:()=>mock, closeMock, mockMax,\n' +
   '  renderReview, setReviewTab:(t)=>{reviewTab=t}, getDueReviews, doReview,\n' +
   '  diagPick, diagNext, getDiag:()=>diag, renderDiag };');
@@ -138,21 +139,22 @@ check('l2 测验未通过', !(G.done.quizPass||[]).includes('lesson:l2'));
 check('错题已记入错题本', (G.done.errors||[]).some(e=>e.id==='lesson:l2'));
 
 console.log('【7】模考主路径（全真流程，满分评分一致）');
-G.openMock(); G.mockGo('full');
+G.openMock(); G.openMockVolume('mock-2026-11'); G.mockGo('full');
 let g2=0;
-while(G.getMock().part==='speak' && g2<20){
-  const q=G.MOCK_EXAM.speaking[G.getMock().speakIdx];
+while(G.getMock().part==='speak' && g2<100){
+  const q=G.mockSpeakList()[G.getMock().speakIdx];
   byId('mockAns').value=q.ref;
   G.mockScoreSpeak(); G.mockSpeakNext(); g2++;
 }
 let g3=0;
-while(G.getMock().part==='listen' && g3<20){
-  const q=G.MOCK_EXAM.listening[G.getMock().listenIdx];
+while(G.getMock().part==='listen' && g3<50){
+  const q=G.mockListenFlat()[G.getMock().listenIdx];
   G.mockListenPick(q.right,q); G.mockListenNext(); g3++;
 }
 check('模考进入成绩页', G.getMock().part==='done');
 check('模考完成已记录', G.done.mock===true);
-check('满分 20 已同步到 mockBest', G.done.mockBest===G.mockMax());
+check('满分 150 已同步到 mockBest', G.done.mockBest===G.mockMax());
+check('mockSets 已记录本卷最佳', !!(G.done.mockSets&&G.done.mockSets['mock-2026-11']) && G.done.mockSets['mock-2026-11'].best===150);
 G.closeMock();
 
 console.log('【8】复习系统主路径（薄弱 Tab 渲染 / 到期提醒 / 推进间隔）');

@@ -131,7 +131,7 @@ const BADGES = [
   {id:'b15', em:'✍️', name:'测验新星', cat:'测评', desc:'通过 5 次单元测验', cond:{t:'arr', f:'quizPass', min:5}},
   {id:'b16', em:'🎓', name:'全科通关', cat:'测评', desc:'通过全部 23 次单元测验', cond:{t:'arr', f:'quizPass', min:23}},
   {id:'b17', em:'⏱️', name:'模考挑战者', cat:'测评', desc:'完成一次模考', cond:{t:'mock'}},
-  {id:'b18', em:'🥇', name:'模考高分', cat:'测评', desc:'模考最佳得分 ≥ 16 / 20', cond:{t:'mockBest', min:16}},
+  {id:'b18', em:'🥇', name:'模考高分', cat:'测评', desc:'模考最佳得分 ≥ 120 / 150', cond:{t:'mockBest', min:120}},
   // 复习
   {id:'b19', em:'🔁', name:'温故知新', cat:'复习', desc:'完成 5 次间隔复习', cond:{t:'refresh', min:5}},
   // 坚持

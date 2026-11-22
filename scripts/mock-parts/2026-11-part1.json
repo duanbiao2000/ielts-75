@@ -1,0 +1,521 @@
+[
+  {
+    "topic": "p1-work-study",
+    "part": "Part 1",
+    "q": "Do you work or are you a student? Tell me about it.",
+    "ref": "I'm currently working as a junior accountant in a logistics company. It's my first full-time job after graduation, and I mainly handle invoices and monthly ledgers, which I find quite satisfying.",
+    "keywords": [
+      "work",
+      "accountant",
+      "logistics",
+      "first",
+      "graduation"
+    ]
+  },
+  {
+    "topic": "p1-work-study",
+    "part": "Part 1",
+    "q": "What do you like most about your job or studies?",
+    "ref": "What I like most is that every week teaches me something new. Dealing with real clients makes the work meaningful, and I'm improving my communication skills every day.",
+    "keywords": [
+      "like",
+      "new",
+      "clients",
+      "meaningful",
+      "communication"
+    ]
+  },
+  {
+    "topic": "p1-work-study",
+    "part": "Part 1",
+    "q": "Would you like to change your job or major in the future? Why or why not?",
+    "ref": "Not at the moment. I still have a lot to learn in this field, and changing too quickly would waste the experience I've already built up.",
+    "keywords": [
+      "changing",
+      "learn",
+      "experience",
+      "field",
+      "quickly"
+    ]
+  },
+  {
+    "topic": "p1-work-study",
+    "part": "Part 1",
+    "q": "Do you think your subject or job will be useful in the future?",
+    "ref": "Absolutely. Financial literacy matters in every industry, so even if I switch companies or countries one day, these skills will always travel with me.",
+    "keywords": [
+      "absolutely",
+      "financial",
+      "industry",
+      "switch",
+      "skills"
+    ]
+  },
+  {
+    "topic": "p1-work-study",
+    "part": "Part 1",
+    "q": "What do you usually do after work or classes?",
+    "ref": "Usually I read for half an hour and then go for a walk. It clears my mind completely, and it helps me sleep better at night.",
+    "keywords": [
+      "read",
+      "walk",
+      "clears",
+      "sleep",
+      "night"
+    ]
+  },
+  {
+    "topic": "p1-hometown",
+    "part": "Part 1",
+    "q": "Where is your hometown and what is it like?",
+    "ref": "My hometown is a mid-sized city in the Yangtze River delta. It's known for its canals, relaxed pace of life and the little snacks sold along the riverbank.",
+    "keywords": [
+      "hometown",
+      "delta",
+      "canals",
+      "pace",
+      "snacks"
+    ]
+  },
+  {
+    "topic": "p1-hometown",
+    "part": "Part 1",
+    "q": "What do you like most about your hometown?",
+    "ref": "I like the calm riverside and the neighbourhood markets in the evenings, where everyone knows each other and dinner is always fresh and cheap.",
+    "keywords": [
+      "calm",
+      "riverside",
+      "markets",
+      "evenings",
+      "fresh"
+    ]
+  },
+  {
+    "topic": "p1-hometown",
+    "part": "Part 1",
+    "q": "Is there anything you dislike about your hometown?",
+    "ref": "The traffic in summer is terrible, honestly. The roads are narrow and when the rain comes the whole city moves at a walking pace.",
+    "keywords": [
+      "traffic",
+      "terrible",
+      "narrow",
+      "rain",
+      "walking"
+    ]
+  },
+  {
+    "topic": "p1-hometown",
+    "part": "Part 1",
+    "q": "Has your hometown changed much in recent years?",
+    "ref": "Hugely. New metro lines and a riverfront park went in last year, so it's now much easier to get around and there are more weekend events.",
+    "keywords": [
+      "metro",
+      "riverfront",
+      "park",
+      "easier",
+      "events"
+    ]
+  },
+  {
+    "topic": "p1-hometown",
+    "part": "Part 1",
+    "q": "Would you like to live in your hometown in the future?",
+    "ref": "Maybe for a few years, but I'd rather see more of the world first. My hometown is comfortable, but comfort can also become a very small world.",
+    "keywords": [
+      "hometown",
+      "maybe",
+      "world",
+      "comfortable",
+      "comfort"
+    ]
+  },
+  {
+    "topic": "p1-accommodation",
+    "part": "Part 1",
+    "q": "Do you live in a house or an apartment?",
+    "ref": "I live in a two-bedroom apartment on the eighth floor, with a small balcony overlooking the neighbourhood garden. It's quiet and well connected to the bus line.",
+    "keywords": [
+      "apartment",
+      "bedroom",
+      "balcony",
+      "garden",
+      "bus"
+    ]
+  },
+  {
+    "topic": "p1-accommodation",
+    "part": "Part 1",
+    "q": "What is your favourite part of your home?",
+    "ref": "My desk by the window. The morning light hits it perfectly, and it's where I do all my reading and video calls — it's basically my private base.",
+    "keywords": [
+      "desk",
+      "window",
+      "light",
+      "reading",
+      "base"
+    ]
+  },
+  {
+    "topic": "p1-accommodation",
+    "part": "Part 1",
+    "q": "Would you like to move to a different kind of home? Why?",
+    "ref": "One day I'd love a small house with a garden. I miss having plants around me, and a garden would also give me a quiet place to run in the mornings.",
+    "keywords": [
+      "house",
+      "garden",
+      "plants",
+      "quiet",
+      "morning"
+    ]
+  },
+  {
+    "topic": "p1-accommodation",
+    "part": "Part 1",
+    "q": "How is your home different from when you were a child?",
+    "ref": "Back then we shared a tiny three-room flat with my grandparents. Now I have my own space, my own habits and a lot more quiet — and I really value that.",
+    "keywords": [
+      "shared",
+      "flat",
+      "grandparents",
+      "space",
+      "quiet"
+    ]
+  },
+  {
+    "topic": "p1-accommodation",
+    "part": "Part 1",
+    "q": "Is it better to live alone or with others, in your opinion?",
+    "ref": "Short-term I prefer living alone — it's peaceful and you learn to be disciplined. But long-term, living with someone you trust teaches you compromise and warmth.",
+    "keywords": [
+      "alone",
+      "peaceful",
+      "discipline",
+      "living",
+      "compromise"
+    ]
+  },
+  {
+    "topic": "p1-music",
+    "part": "Part 1",
+    "q": "What kind of music do you like listening to?",
+    "ref": "Mostly indie folk and some old Mandarin rock. I like music with honest lyrics — songs that feel like the writer actually lived the story.",
+    "keywords": [
+      "folk",
+      "rock",
+      "lyrics",
+      "songs",
+      "story"
+    ]
+  },
+  {
+    "topic": "p1-music",
+    "part": "Part 1",
+    "q": "Do you play any musical instruments?",
+    "ref": "Only the guitar, badly. I've been practising for two years — I can play maybe five songs slowly. Progress is slow but the habit is joyful.",
+    "keywords": [
+      "guitar",
+      "practising",
+      "years",
+      "songs",
+      "joyful"
+    ]
+  },
+  {
+    "topic": "p1-music",
+    "part": "Part 1",
+    "q": "Has your taste in music changed over time?",
+    "ref": "Definitely. In school I only listened to pop. Now I prefer quieter songs with acoustic instruments, because they let me concentrate while I work.",
+    "keywords": [
+      "pop",
+      "quieter",
+      "acoustic",
+      "concentrate",
+      "school"
+    ]
+  },
+  {
+    "topic": "p1-music",
+    "part": "Part 1",
+    "q": "Do you prefer listening to music alone or with others?",
+    "ref": "Both, honestly. Alone when I'm studying, with friends at live houses or KTV. Music is how we bond after a long week of work and deadlines.",
+    "keywords": [
+      "alone",
+      "studying",
+      "friends",
+      "bond",
+      "deadlines"
+    ]
+  },
+  {
+    "topic": "p1-music",
+    "part": "Part 1",
+    "q": "How often do you go to concerts or live shows?",
+    "ref": "Maybe two or three times a year. Tickets and the crowds are expensive in terms of energy, but a great live show can recharge me for weeks.",
+    "keywords": [
+      "tickets",
+      "crowds",
+      "live",
+      "recharge",
+      "year"
+    ]
+  },
+  {
+    "topic": "p1-books",
+    "part": "Part 1",
+    "q": "Do you like reading? What do you read?",
+    "ref": "Yes, every single night before bed — usually essays or non-fiction on psychology and business. Fiction feels like dessert, non-fiction like a conversation with the author.",
+    "keywords": [
+      "night",
+      "bed",
+      "essays",
+      "psychology",
+      "fiction"
+    ]
+  },
+  {
+    "topic": "p1-books",
+    "part": "Part 1",
+    "q": "Do you prefer paper books or e-books?",
+    "ref": "Paper for long reading sessions, e-ink reader for commuting. Paper has that lovely weight and smell; e-books win on convenience and built-in dictionary.",
+    "keywords": [
+      "paper",
+      "e-ink",
+      "commuting",
+      "weight",
+      "dictionary"
+    ]
+  },
+  {
+    "topic": "p1-books",
+    "part": "Part 1",
+    "q": "How many books did you read last year?",
+    "ref": "About a dozen — mostly under 300 pages. I keep a reading log, and the streak matters to me more than the count itself.",
+    "keywords": [
+      "dozen",
+      "pages",
+      "log",
+      "streak",
+      "reading"
+    ]
+  },
+  {
+    "topic": "p1-books",
+    "part": "Part 1",
+    "q": "What do you usually do with a book after you finish it?",
+    "ref": "I lend it to a friend with a sticky note inside — the best recommendation I ever received was via a borrowed book with handwriting in the margin.",
+    "keywords": [
+      "lend",
+      "friend",
+      "sticky",
+      "recommendation",
+      "margin"
+    ]
+  },
+  {
+    "topic": "p1-books",
+    "part": "Part 1",
+    "q": "Where do you usually read?",
+    "ref": "In a café with low music and unlimited coffee, or on the window seat on the metro. Somehow the gentle background noise makes pages turn faster.",
+    "keywords": [
+      "café",
+      "music",
+      "window",
+      "metro",
+      "noise"
+    ]
+  },
+  {
+    "topic": "p1-shopping",
+    "part": "Part 1",
+    "q": "How often do you go shopping?",
+    "ref": "Once or twice a month in person, but I browse online almost daily — mostly for skincare and books. Buying is rare; researching is a daily habit.",
+    "keywords": [
+      "month",
+      "person",
+      "online",
+      "skincare",
+      "researching"
+    ]
+  },
+  {
+    "topic": "p1-shopping",
+    "part": "Part 1",
+    "q": "Do you prefer shopping alone or with friends?",
+    "ref": "With friends for clothes — they know my colours and stop me from impulse-buying. Alone for essentials, because friends make grocery trips three times longer.",
+    "keywords": [
+      "friends",
+      "clothes",
+      "impulse",
+      "alone",
+      "grocery"
+    ]
+  },
+  {
+    "topic": "p1-shopping",
+    "part": "Part 1",
+    "q": "Have you ever bought something you later regretted?",
+    "ref": "A white linen shirt, impulsively, at midnight. It was expensive and it looked tired after one wash — a classic lazy-buy lesson I repeat every season.",
+    "keywords": [
+      "linen",
+      "impulsively",
+      "midnight",
+      "expensive",
+      "lesson"
+    ]
+  },
+  {
+    "topic": "p1-shopping",
+    "part": "Part 1",
+    "q": "What kind of shops are popular in your hometown?",
+    "ref": "Wet markets and snack streets rule. People queue at 5 pm for the red-bean buns and the dumpling shop that opens only three hours a day.",
+    "keywords": [
+      "markets",
+      "snack",
+      "queue",
+      "buns",
+      "dumpling"
+    ]
+  },
+  {
+    "topic": "p1-shopping",
+    "part": "Part 1",
+    "q": "Do you think online shopping will replace physical stores?",
+    "ref": "For staples, yes — everything arrives in hours. But stores offering experience, like bookshop cafés or demo kitchens, will survive because we shop there for feeling too.",
+    "keywords": [
+      "staples",
+      "stores",
+      "experience",
+      "bookshop",
+      "feeling"
+    ]
+  },
+  {
+    "topic": "p1-free-time",
+    "part": "Part 1",
+    "q": "What do you usually do in your free time?",
+    "ref": "I take photos of old streets around Shanghai. It costs nothing and it's become my way of seeing the city slowly, frame by frame.",
+    "keywords": [
+      "photos",
+      "streets",
+      "Shanghai",
+      "costs"
+    ]
+  },
+  {
+    "topic": "p1-free-time",
+    "part": "Part 1",
+    "q": "Do you think people nowadays have enough free time?",
+    "ref": "Not really. Evenings blur into message notifications and weekend plans fill before Friday ends. Real idleness — doing nothing on purpose — is almost a luxury.",
+    "keywords": [
+      "evenings",
+      "notifications",
+      "plans",
+      "idleness",
+      "luxury"
+    ]
+  },
+  {
+    "topic": "p1-free-time",
+    "part": "Part 1",
+    "q": "Would you like to have a hobby that needs more skill?",
+    "ref": "Yes — pottery. It involves patience, physical feel and forgiving mistakes with your hands. Every bowl teaches you to accept imperfection beautifully.",
+    "keywords": [
+      "pottery",
+      "patience",
+      "physical",
+      "mistakes",
+      "imperfection"
+    ]
+  },
+  {
+    "topic": "p1-free-time",
+    "part": "Part 1",
+    "q": "How has your free time changed compared to five years ago?",
+    "ref": "I used to chase ten hobbies; now I protect two — cooking and running — and I do them deeply. Focus beats variety once you accept you have limited evenings.",
+    "keywords": [
+      "hobbies",
+      "cooking",
+      "running",
+      "focus",
+      "variety"
+    ]
+  },
+  {
+    "topic": "p1-free-time",
+    "part": "Part 1",
+    "q": "How do you make plans for your free time?",
+    "ref": "Loosely. I keep a running list of things that sound delicious — restaurants, exhibitions, long walks — and let friends invite me to the ones we can share.",
+    "keywords": [
+      "list",
+      "restaurants",
+      "exhibitions",
+      "walks",
+      "friends"
+    ]
+  },
+  {
+    "topic": "p1-weather",
+    "part": "Part 1",
+    "q": "What is the weather usually like in your hometown?",
+    "ref": "Humid summers with plum rains, cold damp winters, and two magical weeks in October and April. Basically a climate that keeps you guessing your wardrobe daily.",
+    "keywords": [
+      "humid",
+      "plum",
+      "rains",
+      "winters",
+      "wardrobe"
+    ]
+  },
+  {
+    "topic": "p1-weather",
+    "part": "Part 1",
+    "q": "Does the weather affect your mood or plans?",
+    "ref": "Enormously. Grey rainy days make me want films and soup; clear autumn skies make me walk fifteen extra minutes just to stay outside a little longer.",
+    "keywords": [
+      "grey",
+      "soup",
+      "autumn",
+      "walk",
+      "outside"
+    ]
+  },
+  {
+    "topic": "p1-weather",
+    "part": "Part 1",
+    "q": "What kind of weather do you prefer?",
+    "ref": "Crisp sunny mornings around 20 degrees — the kind that makes you open windows before you even check your phone. Mild weather is a quiet medicine.",
+    "keywords": [
+      "crisp",
+      "sunny",
+      "windows",
+      "mild",
+      "medicine"
+    ]
+  },
+  {
+    "topic": "p1-weather",
+    "part": "Part 1",
+    "q": "Has the weather in your city changed over the years?",
+    "ref": "Yes — summers are hotter now and sudden downpours are more common. When I was small, the plum rains lasted longer, but now the rain arrives in heavier bursts with thunderstorms.",
+    "keywords": [
+      "hotter",
+      "summers",
+      "rain",
+      "downpours",
+      "thunderstorms"
+    ]
+  },
+  {
+    "topic": "p1-weather",
+    "part": "Part 1",
+    "q": "Does rainy weather stop people from going out where you live?",
+    "ref": "Not anymore. Everyone carries clear umbrellas and shops stay open; only the riverfront saxophonist disappears when the rain starts.",
+    "keywords": [
+      "umbrellas",
+      "shops",
+      "open",
+      "riverfront",
+      "rain"
+    ]
+  }
+]

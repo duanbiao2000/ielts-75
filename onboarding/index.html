@@ -129,7 +129,7 @@
   对话框宿主（三者均为「静态外壳 + JS 动态渲染内容」，初始为空）：
   #modalBox  —— 通用详情弹窗（openModal() 填充 innerHTML，课程/场景/模块/测验/剧情等共用）
   #pod        —— 演练舱（openPractice() → renderPod()，turn-based 对话/自检/反馈/录音）
-  #mock       —— 模考冲刺（openMock() → renderMock()，按 mock.part 渲染 intro/speak/listen/done 四态；口语 6 题×2 分 + 听力 8 题，满分 20）
+  #mock       —— 模考冲刺 · 月刊卷架（openMock() → 卷架；openMockVolume(setId) → 选卷；按 mock.part 渲染 shelf/intro/speak/listen/done；每卷 125 题/150 分，雅思 9 分制换算；数据见 js/mock-bank.js）
   显示/隐藏：各 mask 加/减 .show 类；Escape 也按 mock → pod → modal 的优先级分级关闭。
 -->
 <div id="modal-mask"><div class="modal" id="modalBox" role="dialog" aria-modal="true" aria-label="详情与操作"></div></div>
@@ -139,6 +139,7 @@
 <div id="toast" role="status" aria-live="polite"></div>
 
 <script src="js/data.js" defer></script>
+<script src="js/mock-bank.js" defer></script>
 <script src="js/training.js" defer></script>
 <script src="js/course.js" defer></script>
 <script src="js/app.js" defer></script>

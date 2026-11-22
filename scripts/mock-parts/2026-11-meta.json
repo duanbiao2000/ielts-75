@@ -1,0 +1,30 @@
+{
+  "id": "mock-2026-11",
+  "month": "2026-11",
+  "title": "2026年11月刊 · 全景诊断",
+  "difficulty": "基础",
+  "theme": "考试",
+  "blurb": "开卷即测：全景诊断你的雅思真实水平——听力 4 个完整场景、口语 125 题覆盖高频话题，做完直接拿到 9 分制换算。",
+  "coverage": [
+    "p1-accommodation",
+    "p1-books",
+    "p1-free-time",
+    "p1-hometown",
+    "p1-music",
+    "p1-shopping",
+    "p1-weather",
+    "p1-work-study",
+    "p2-book-exc",
+    "p2-journey-long",
+    "p2-person-admire",
+    "p2-skill-learn",
+    "p2-tech-daily",
+    "p3-culture",
+    "p3-education",
+    "p3-environment",
+    "p3-media",
+    "p3-society",
+    "p3-technology",
+    "p3-work"
+  ]
+}

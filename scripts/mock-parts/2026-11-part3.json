@@ -1,0 +1,523 @@
+[
+  {
+    "topic": "p3-education",
+    "part": "Part 3",
+    "q": "Do you think exams are the fairest way to measure students' abilities?",
+    "ref": "Exams measure how you perform under pressure on one particular day, not who you really are. They reward memorisation over real understanding. That said, written exams are cheap to run at scale and hard to fake, so some standard measurement is useful. The fairer model is a blend: a few high-stakes exams plus coursework, presentations and practical projects that sample your abilities across the term. Pure exam pressure tells you little about a student's creativity, teamwork or practical judgement.",
+    "keywords": [
+      "exams",
+      "pressure",
+      "memorisation",
+      "coursework",
+      "practical"
+    ]
+  },
+  {
+    "topic": "p3-education",
+    "part": "Part 3",
+    "q": "Should schools pay more attention to practical skills than to academic knowledge?",
+    "ref": "Both matter, but the balance is off. Schools produce exam-fit students who freeze on a form, a contract or a team conflict. Adding mandatory practical courses — financial literacy, conflict resolution, basic cooking or first aid — would change young people's lives far more than one more formula to memorise. Academic knowledge is the map; practical skill is the driving test. A map without driving practice is nearly useless in an emergency.",
+    "keywords": [
+      "balance",
+      "practical",
+      "course",
+      "literacy",
+      "map",
+      "driving"
+    ]
+  },
+  {
+    "topic": "p3-education",
+    "part": "Part 3",
+    "q": "Do you think online education will replace traditional classrooms?",
+    "ref": "For motivated adult learners, absolutely — platforms now deliver world-class lectures to a bedroom in a county town. But for most teenagers, school is also social training: discipline, friendship, teamwork and handling boredom. Online can supplement, but replacing the social layer would produce a generation of brilliant solo learners who cannot survive a meeting. Hybrid will win, not pure online.",
+    "keywords": [
+      "online",
+      "platforms",
+      "social",
+      "discipline",
+      "hybrid"
+    ]
+  },
+  {
+    "topic": "p3-education",
+    "part": "Part 3",
+    "q": "What makes a good teacher, in your view?",
+    "ref": "A good teacher changes how you think, not just what you know. They notice when you're lost before you do, ask you the question you're avoiding, and treat mistakes as information instead of shame. My best teachers shared three habits: they explained patiently, they told stories from real life, and they made you feel the answer belonged to you. Caring plus craft beats qualifications alone.",
+    "keywords": [
+      "think",
+      "lost",
+      "explained",
+      "stories",
+      "caring"
+    ]
+  },
+  {
+    "topic": "p3-education",
+    "part": "Part 3",
+    "q": "Should university education be free for everyone?",
+    "ref": "Free tuition would widen access for students from poorer families, and society recovers the investment through taxation later. But zero cost usually means rationing by exam score, which hurts creative or vocational students. A smarter model is full scholarships for the bottom third of income plus generous income-contingent loans like Australia. Education should be affordable and ambitious, not merely free and crowded.",
+    "keywords": [
+      "tuition",
+      "access",
+      "taxation",
+      "scholarships",
+      "affordable"
+    ]
+  },
+  {
+    "topic": "p3-education",
+    "part": "Part 3",
+    "q": "How important is lifelong learning in today's economy?",
+    "ref": "In a world where software rewrites jobs every five years, one degree is a snapshot, not a career plan. Lifelong learning is now the baseline licence to stay relevant — it protects older workers whose expertise expires and helps young workers avoid obsolete specialisms. The future belongs to people who stay curious in public, learning in communities, not just alone at a screen.",
+    "keywords": [
+      "lifelong",
+      "relevant",
+      "career",
+      "expertise",
+      "curious"
+    ]
+  },
+  {
+    "topic": "p3-technology",
+    "part": "Part 3",
+    "q": "Do you think technology has made people more alone or more connected?",
+    "ref": "Both directions at once. Video calls stitch distant families together nightly — my grandmother and I watch opera together across 1,000 kilometres. But feed culture replaces depth with scrolling, and many 'connected' people eat alone headphones-in. The tool doesn't decide; how you use it does. Presence in your own home matters more than presence in the cloud.",
+    "keywords": [
+      "connected",
+      "video",
+      "scrolling",
+      "depth",
+      "presence"
+    ]
+  },
+  {
+    "topic": "p3-technology",
+    "part": "Part 3",
+    "q": "Will artificial intelligence make many jobs disappear?",
+    "ref": "AI will absorb routine work fastest — data entry, basic drafting, simple translation. But jobs built on trust, taste and physical presence — carers, negotiators, great teachers — will persist. The real divide is not jobs but tasks. The people who redefine their work around judgement and care will thrive; those who only memorise will be automated out by breakfast.",
+    "keywords": [
+      "AI",
+      "routine",
+      "trust",
+      "judgement",
+      "automated"
+    ]
+  },
+  {
+    "topic": "p3-technology",
+    "part": "Part 3",
+    "q": "Do you think people spend too much time on social media?",
+    "ref": "Yes — average daily use keeps climbing past three hours, and nobody feels better after. Social media is engineered like a casino: variable rewards, infinite scroll. Used for news, network and work it's powerful; used as default anaesthetic for every boredom pang, it erodes attention span and sleep. The fix is friction — timers, grey scale, one-screen rooms — not total abstinence, which never lasts.",
+    "keywords": [
+      "hours",
+      "casino",
+      "scroll",
+      "attention",
+      "friction"
+    ]
+  },
+  {
+    "topic": "p3-technology",
+    "part": "Part 3",
+    "q": "Should there be more regulation of technology companies?",
+    "ref": "Yes, but smart regulation beats blunt bans. Require transparency for recommendation algorithms, data portability across platforms, age-appropriate design for under-16, and independent audits. Europe is experimenting with the AI Act; China requires algorithm registration. The industry's self-regulation failed publicly for fifteen years. Regulation done well raises trust; done badly, it freezes innovation — neither extreme is acceptable.",
+    "keywords": [
+      "regulation",
+      "transparency",
+      "algorithms",
+      "audits",
+      "innovation"
+    ]
+  },
+  {
+    "topic": "p3-technology",
+    "part": "Part 3",
+    "q": "How has technology changed the way people shop?",
+    "ref": "Shopping went from a Saturday errand to a background process. Now price comparison happens in seconds, authentic reviews steer choices, and delivery fits in an hour in big cities. Physical stores survive as experience centres — try, entertain, then order online. The skill shift is real: modern shoppers need scepticism for fake reviews and discipline for one-click impulses.",
+    "keywords": [
+      "comparison",
+      "reviews",
+      "delivery",
+      "experience",
+      "discipline"
+    ]
+  },
+  {
+    "topic": "p3-technology",
+    "part": "Part 3",
+    "q": "What new technology excites you most right now?",
+    "ref": "Honestly, low-cost energy storage. Battery breakthroughs stretching electric buses further each year change air quality more than any trending app does. Also long-context AI assistants that remember your projects and deadlines — genuinely transformative for real work. Space launches thrill me, but boring infrastructure miracles like quiet motors and dead-cheap storage matter to people like us every single day.",
+    "keywords": [
+      "energy",
+      "electric",
+      "battery",
+      "infrastructure",
+      "storage"
+    ]
+  },
+  {
+    "topic": "p3-society",
+    "part": "Part 3",
+    "q": "Do you think modern cities have become less friendly?",
+    "ref": "Superficially yes — everyone walks headphones-in and shares no eye contact. But look at weekend volunteer groups, community kitchens and neighbourhood rescue dogs. Friendliness in big cities moved from strangers in queues to chosen micro-communities. The friendship is there; the venue changed — from the market square to the group chat you chose on purpose.",
+    "keywords": [
+      "headphones",
+      "communities",
+      "volunteer",
+      "neighbourhood",
+      "friendship"
+    ]
+  },
+  {
+    "topic": "p3-society",
+    "part": "Part 3",
+    "q": "Do you believe celebrities have a responsibility to behave well?",
+    "ref": "Yes, simply because millions copy them. A singer who quits smoking publicly moves more behaviour than a hundred posters. But purity policing every influencer's private life is unfair and impossible. The reasonable line: public speech and profit-linked endorsements must carry honesty — no selling pills you wouldn't take, no campaigning on hollow values. Actions in public view, yes; sainthood, never.",
+    "keywords": [
+      "singer",
+      "copy",
+      "endorsements",
+      "honesty",
+      "public"
+    ]
+  },
+  {
+    "topic": "p3-society",
+    "part": "Part 3",
+    "q": "What role should grandparents play in raising children today?",
+    "ref": "Grandparents provide continuity — language, patience, unhurried meals, stories with no agenda. In many Chinese families they carry daily care while parents work long hours, which keeps costs survivable. The tension is between loving indulgence and modern discipline: grandparents soften rules at exactly the moment consistency matters most. Best: grandparents as warmth and memory, parents as boundary-setters, both at the table weekly.",
+    "keywords": [
+      "continuity",
+      "patience",
+      "chinese",
+      "warmth",
+      "parents"
+    ]
+  },
+  {
+    "topic": "p3-society",
+    "part": "Part 3",
+    "q": "Is it true that people today are lonelier than before?",
+    "ref": "Surveys say yes — and so do my own eyes. Door delivery, single households, WFH and algorithmic feeds make 'social' life individualistic. But loneliness isn't cured by more people near you; it's cured by few real ones around you. Urban loneliness is worst among the young elderly and the over-connected. Designing weekly rituals with actual neighbours beats any chat-app membership.",
+    "keywords": [
+      "surveys",
+      "households",
+      "WFH",
+      "neighbours",
+      "rituals"
+    ]
+  },
+  {
+    "topic": "p3-society",
+    "part": "Part 3",
+    "q": "Do you think tipping culture will ever work in China?",
+    "ref": "Probably not — Chinese pricing culture bundles service into the listed price, and adding post-payment sums feels awkward here. Hong Kong and tourist districts run mixed models. Where quality differentiates, tips signal excellence without being mandatory. If Chinese consumers get transparent choice plus visibly better service for extra payment, fine; forced tipping screens at cafés will correctly annoy people like everyone.",
+    "keywords": [
+      "tipping",
+      "service",
+      "price",
+      "tourist",
+      "transparent"
+    ]
+  },
+  {
+    "topic": "p3-society",
+    "part": "Part 3",
+    "q": "How important is punctuality in your society?",
+    "ref": "Extremely. In interviews, pitches and group projects, five minutes early is the baseline. But formality relaxes among friends — 8 pm dinner starts at 8:20 in many circles. The cost of lateness is trust erosion: colleagues quietly re-route around unreliable people regardless of talent. Being five minutes early solves 90 behaviour problems nobody else ever sees.",
+    "keywords": [
+      "lateness",
+      "trust",
+      "reliable",
+      "early",
+      "interviews"
+    ]
+  },
+  {
+    "topic": "p3-environment",
+    "part": "Part 3",
+    "q": "Do you recycle at home, and why or why not?",
+    "ref": "Yes, mainly kitchen waste and paper. Our district fines non-compliance and the new bins are actually labelled with pictures now, so the learning curve is real. I don't always do it perfectly — festival packaging overwhelms everyone — but the habit now feels automatic, not virtuous. China recycled about 22 percent of municipal waste last year; it should be much higher by 2030.",
+    "keywords": [
+      "recycle",
+      "kitchen",
+      "bins",
+      "habit",
+      "packaging"
+    ]
+  },
+  {
+    "topic": "p3-environment",
+    "part": "Part 3",
+    "q": "Should flights be taxed heavily to fight climate change?",
+    "ref": "A blanket flight tax punishes ordinary families, not the polluters. Smarter: frequent-flyer pricing where the first annual flights stay affordable, business class pays more, and short-haul routes under 800km face meaningful carbon levies. Also, taxing jet fuel, not tickets, targets actual emissions. Aviation decarbonisation needs money and fairness, not slogans.",
+    "keywords": [
+      "flight",
+      "frequent",
+      "business",
+      "carbon",
+      "emissions"
+    ]
+  },
+  {
+    "topic": "p3-environment",
+    "part": "Part 3",
+    "q": "Will electric cars really solve city air pollution?",
+    "ref": "They solve tailpipe pollution, yes — my street feels measurably cleaner since half the courier bikes went electric. But total emissions depend on the grid mix: coal-heavy power just moves smoke to the upwind city. Real progress combines EVs, better buses, cycling lanes and shorter delivery chains. No single technology substitutes for urban design.",
+    "keywords": [
+      "electric",
+      "tailpipe",
+      "grid",
+      "emissions",
+      "buses"
+    ]
+  },
+  {
+    "topic": "p3-environment",
+    "part": "Part 3",
+    "q": "Should companies be forced to reduce plastic packaging?",
+    "ref": "Yes, gradually and with teeth. Extended-producer-responsibility fees, banned microbeads, mandatory recycled content targets — these force redesign that one shopper's boycott never will. Companies respond fast when numbers bite. The current Chinese crackdown echoes the EU's 2021 single-use directive — same logic, good direction. Give industry five years, not ten, or we'll drown politely.",
+    "keywords": [
+      "teeth",
+      "microbeads",
+      "recycled",
+      "directive",
+      "redesign"
+    ]
+  },
+  {
+    "topic": "p3-environment",
+    "part": "Part 3",
+    "q": "What is the best way to encourage people to use public transport?",
+    "ref": "Make it faster, cheaper and kinder than the car, in that order. Dedicated bus lanes, metro expansion beyond tier-one cities, timetables that respect transfers, and stations with light, CCTV and clean toilets — these convert reluctant drivers more than posters ever will. Add congestion pricing on peak plates, and the math finally tips.",
+    "keywords": [
+      "faster",
+      "cheaper",
+      "bus",
+      "metro",
+      "congestion"
+    ]
+  },
+  {
+    "topic": "p3-media",
+    "part": "Part 3",
+    "q": "Do you think fake news is a serious problem?",
+    "ref": "Yes, devastatingly. Health scares, election stories, disaster clips travel faster than corrections ever do. The damage lasts: vaccine hesitancy, financial panic, public distrust of legitimate journalism. Democracies now fund media-literacy curricula and verification hotlines — Sweden teaches schoolkids to fact-check TikTok. Technology will never fully solve it; citizen scepticism is the firewall.",
+    "keywords": [
+      "election",
+      "corrections",
+      "scepticism",
+      "verification",
+      "hesitancy"
+    ]
+  },
+  {
+    "topic": "p3-media",
+    "part": "Part 3",
+    "q": "Should journalists have completely free speech, or limits?",
+    "ref": "Journalists deserve maximal speech protection plus maximal responsibility for accuracy. Libel law, source protection, right-to-reply — all fair. Publishing lies that endanger lives is not speech, it's sidearms. Independent press councils beat government censorship every time: they oversee conduct without owning the verdict. Free enough to challenge power, accountable enough to correct it.",
+    "keywords": [
+      "journalists",
+      "speech",
+      "libel",
+      "responsibility",
+      "censorship"
+    ]
+  },
+  {
+    "topic": "p3-media",
+    "part": "Part 3",
+    "q": "What role do influencers play in shaping public opinion?",
+    "ref": "Massive — often bigger than outlets for under-30s. A skincare influencer with 4 million followers moves product faster than any TV ad, and one malicious review can kill a brand in a day. Most influencers are educators without credentials or journalists without ethics training. Platforms should require disclosure, some literacy, and a verification track. Influence itself needs a licence plate.",
+    "keywords": [
+      "influencers",
+      "followers",
+      "disclosure",
+      "verification",
+      "influence"
+    ]
+  },
+  {
+    "topic": "p3-media",
+    "part": "Part 3",
+    "q": "Is entertainment more important than education in the media today?",
+    "ref": "Yes, decisively. Entertainment feeds autoplay loops and ad revenue; education shows up when it entertains enough — think 200-episode documentaries or meme-based science accounts. The danger isn't that entertainment exists; it always did. It's that serious topics now have to disguise themselves as fun to be heard at all. Quality hides everywhere; make the boring thrilling and it wins.",
+    "keywords": [
+      "entertainment",
+      "autoplay",
+      "revenue",
+      "documentaries",
+      "thrilling"
+    ]
+  },
+  {
+    "topic": "p3-media",
+    "part": "Part 3",
+    "q": "Should we trust what we read on social media less than traditional newspapers?",
+    "ref": "Absolutely, but with nuance. Quality newspapers maintain corrections, fact desks and named bylines — real accountability. Social media is a rumour engine unless the post is from a verified expert or primary source. The skill is triage: my rule is social media says 'what might be happening', newspaper says 'what did happen'. Treat feeds as hints, then verify with one good outlet.",
+    "keywords": [
+      "social",
+      "newspapers",
+      "corrections",
+      "verified",
+      "verify"
+    ]
+  },
+  {
+    "topic": "p3-work",
+    "part": "Part 3",
+    "q": "Do you think people today work longer hours than before?",
+    "ref": "Both true and hidden. Officially we work shorter weeks, but connectivity bleeds work into evenings — Slack pings at 10 pm, WeChat group demands on Sundays. Tech blurs every boundary until people feel always on. The rise of996 culture in China against a global push for four-day weeks tells you the fight is about attention, not just hours. True rest requires rules, not good intentions.",
+    "keywords": [
+      "hours",
+      "connectivity",
+      "evenings",
+      "attention",
+      "996"
+    ]
+  },
+  {
+    "topic": "p3-work",
+    "part": "Part 3",
+    "q": "Should everyone be forced to retire at a fixed age?",
+    "ref": "A rigid line ignores reality. Some 55-year-olds sprint while some 45-year-olds crawl; average health, role type and personal preference vary wildly. Flexible retirement with phased hours and strong pensions serves teams better. Mandatory age exits waste expertise and punish the healthy. Society needs gradual exits, not cliff edges — knowledge passed on through mentoring, not boxed away at midnight on a birthday.",
+    "keywords": [
+      "retire",
+      "flexible",
+      "pensions",
+      "mentoring",
+      "expertise"
+    ]
+  },
+  {
+    "topic": "p3-work",
+    "part": "Part 3",
+    "q": "Is working from home good for employees or employers?",
+    "ref": "Both, when designed well: employees save commutes and deep focus; employers save space and widen talent pools internationally. The weakness is weak culture — new joiners miss the corridor osmosis learning from veterans. Hybrid models now win: two anchor days together, three remote for heads-down work. Trust-based home work beats surveillance-based home work every single time.",
+    "keywords": [
+      "commutes",
+      "focus",
+      "culture",
+      "hybrid",
+      "remote"
+    ]
+  },
+  {
+    "topic": "p3-work",
+    "part": "Part 3",
+    "q": "Do you think salary or job satisfaction matters more when choosing work?",
+    "ref": "Salary buys stability; satisfaction buys years. Underpay skilled people and they leave by March; bored high earners burn out by year three. The smart default is competence plus meaning — you practise work you respect, for pay that respects you. Extremes both fail: starving for art demoralises; overpaid misery destroys health slowly. Compensation first for survival, satisfaction second for survival-of-the-soul.",
+    "keywords": [
+      "salary",
+      "satisfaction",
+      "stability",
+      "burn",
+      "meaning"
+    ]
+  },
+  {
+    "topic": "p3-work",
+    "part": "Part 3",
+    "q": "Should companies hire based on qualifications or practical experience?",
+    "ref": "Practical experience for 80 percent of roles. Degrees prove you can sit still and memorise; hands-on work proves you can ship. The exceptions are medicine and engineering, where foundations are non-negotiable. Modern hiring should weight portfolios, trials and referrals heavily — skills interviews over school prestige. Hire for evidence of behaviour, not paper promises of potential.",
+    "keywords": [
+      "degrees",
+      "experience",
+      "portfolios",
+      "evidence",
+      "behaviour"
+    ]
+  },
+  {
+    "topic": "p3-work",
+    "part": "Part 3",
+    "q": "How will offices change in the next decade?",
+    "ref": "Offices become clubs for collaboration, not warehouses for execution. Individual tasks move home permanently; the office sells whiteboards, workshops and unplanned serendipity. Floor plans shrink, booking systems rise, acoustic privacy becomes premium. The best offices will feel like creative hubs with coffee and silence zones — attendance by purpose, never by default.",
+    "keywords": [
+      "collaboration",
+      "execution",
+      "serendipity",
+      "purpose",
+      "hubs"
+    ]
+  },
+  {
+    "topic": "p3-culture",
+    "part": "Part 3",
+    "q": "Is it important for young people to learn about their own culture?",
+    "ref": "Yes — cultural literacy is identity armour. Without knowing dumpling origins, dialect expressions and folk stories, young people drift into generic global consumers. Culture tells you who you are before you decide who to be. The trick is teaching it lively, not as test material: festivals as parties, dialects as comedy, history as mystery novels. Boring culture class creates resentment; living culture creates pride.",
+    "keywords": [
+      "cultural",
+      "identity",
+      "dialect",
+      "history",
+      "festivals"
+    ]
+  },
+  {
+    "topic": "p3-culture",
+    "part": "Part 3",
+    "q": "How can governments protect traditional customs?",
+    "ref": "Fund living practice, not museums behind glass. Apprenticeships for craftspeople, festivals with real budgets, school visits with hands-on workshops, and tax relief for heritage businesses. UNESCO lists status helps visibility but money sustains survival. Protect customs by making them economically viable and emotionally fun — then young people choose them, not just preserve them out of guilt.",
+    "keywords": [
+      "customs",
+      "workshops",
+      "festivals",
+      "heritage",
+      "viable"
+    ]
+  },
+  {
+    "topic": "p3-culture",
+    "part": "Part 3",
+    "q": "Do you think modern lifestyles are destroying traditional culture?",
+    "ref": "Changing it, not destroying it. Global style dominates surfaces — coffee over tea in capsules, basketball over shuttlecock — but deep structure persists: Spring Festival travel, ancestral halls, zhong soup when sick. Cultures evolve or die; forced preservation produces theme parks. The question is not old versus new but meaningful versus disposable. Keep what teaches, adapt what feeds, drop what merely repeats.",
+    "keywords": [
+      "destroying",
+      "festival",
+      "evolve",
+      "ancestral",
+      "meaningful"
+    ]
+  },
+  {
+    "topic": "p3-culture",
+    "part": "Part 3",
+    "q": "Should museums be free to enter?",
+    "ref": "Yes, like libraries — free entry is social infrastructure. Charges filter out exactly the curious poor who need them most. Funding can come from gift shops, memberships, tourist tickets and city budgets. The British Museum and Palace Museum prove accessibility works: attendance explodes when free, trust grows, education compounds. Pay the curators; waive the entrance gate.",
+    "keywords": [
+      "museum",
+      "libraries",
+      "infrastructure",
+      "accessibility",
+      "curators"
+    ]
+  },
+  {
+    "topic": "p3-culture",
+    "part": "Part 3",
+    "q": "What is the value of art in everyday life?",
+    "ref": "Art trains the attention we waste on screens. A good poster makes you pause; a street violinist resets your commute; a subway mural teaches colour before language. Art democratises beauty — hospitals with paintings heal measurably faster. Everyone deserves culture without a ticket price. When cities invest in public art, they invest in citizens' mental health and civic pride simultaneously.",
+    "keywords": [
+      "art",
+      "attention",
+      "commute",
+      "beauty",
+      "public"
+    ]
+  },
+  {
+    "topic": "p3-culture",
+    "part": "Part 3",
+    "q": "Do you prefer spending money on experiences or possessions?",
+    "ref": "Experiences, decisively. Memories survive apartment moves and phone upgrades; objects depreciate and clutter. A weekend in Dali outlasts any jacket. That said, possessions like books, instruments and well-made tools earn their space by enabling more experiences. Spend on doing, not having — except the few things that upgrade every doing forever.",
+    "keywords": [
+      "experiences",
+      "memories",
+      "objects",
+      "possessions",
+      "books"
+    ]
+  }
+]

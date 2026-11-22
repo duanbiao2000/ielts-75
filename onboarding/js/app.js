@@ -40,6 +40,8 @@ function migrateState(s){
   if(typeof s.streak!=='number') s.streak=0;
   if(typeof s.level!=='number') s.level=1;
   if(typeof s.mockBest!=='number') s.mockBest=0;
+  if(!s.mockSets || typeof s.mockSets!=='object' || Array.isArray(s.mockSets)) s.mockSets={};
+  if(typeof s.mockBankBest!=='number') s.mockBankBest=0;
   if(!Array.isArray(s.badges)) s.badges=[];
   if(typeof s.bestStreak!=='number') s.bestStreak=0;
   if(typeof s.streakFreeze!=='number') s.streakFreeze=1; // 新人赠送 1 张断签补偿券
@@ -102,7 +104,7 @@ function exportBundle(){
       badges:(done.badges||[]).length, badgesTotal:BADGES.length,
       experience:done.experience||0, level:done.level||1,
       streak:done.streak||0, bestStreak:done.bestStreak||0, streakFreeze:done.streakFreeze||0,
-      mockBest:done.mockBest||0, journey:(done.journey||[]).length, journeyTotal:JOURNEY.length,
+      mockBest:done.mockBest||0, mockSets:done.mockSets||{}, journey:(done.journey||[]).length, journeyTotal:JOURNEY.length,
       errors:(done.errors||[]).length, reviewDue:getDueReviews().length,
     },
     state:done,
@@ -165,9 +167,9 @@ const JOURNEY = [
    story:'平时练得好，考场上崩了——这是很多人的故事。模考是唯一的解药：全真流程、关键词评分、错题归因，把不确定变成确定。',
    goal:'完成一次模考', check:()=> !!done.mock, reward:180},
   {id:'ch6', stage:'终章', score:'7.4 → 7.5', title:'七分半',
-   story:'P0/P1 模块全部攻克，模考稳定在 16/20 以上——这不是运气，是复利。当你能把每一分失误讲清楚，7.5 就不再是目标，而是水到渠成。',
-   goal:'完成全部 P0/P1 模块 且 模考最佳 ≥ 16/20', reward:300,
-   check:()=>{ const p0p1=MODULES.filter(m=>m.p!=='P2').map(m=>m.id); return p0p1.every(id=>(done.mod||[]).includes(id)) && (done.mockBest||0)>=16; }},
+   story:'P0/P1 模块全部攻克，模考稳定在 120/150 以上——这不是运气，是复利。当你能把每一分失误讲清楚，7.5 就不再是目标，而是水到渠成。',
+   goal:'完成全部 P0/P1 模块 且 模考最佳 ≥ 120/150', reward:300,
+   check:()=>{ const p0p1=MODULES.filter(m=>m.p!=='P2').map(m=>m.id); return p0p1.every(id=>(done.mod||[]).includes(id)) && (done.mockBest||0)>=120; }},
 ];
 function openJourney(){
   if(!done.journey) done.journey=[];
@@ -738,15 +740,39 @@ function renderLpxResult(list){
     </div>`;
 }
 
-/* ============ 模考冲刺（批次3 T-3.3） ============ */
-let mock={part:'intro', mode:'speak', speakIdx:0, listenIdx:0, speakScore:0, listenScore:0, speakResults:{}, listenResults:{}, recOn:false, recUrl:null};
+/* ============ 月度模考题库 · Mock Bank（150 分制 · 雅思 9 分制换算） ============ */
+let mock={setId:null, part:'shelf', mode:'speak', speakIdx:0, listenIdx:0, speakScore:0, listenScore:0, speakResults:{}, listenResults:{}, recOn:false, recUrl:null};
 let mockRecStream=null, mockRecChunks=[], mockRecSrc=null;
-function mockSpeakQ(){ return MOCK_EXAM.speaking[mock.speakIdx]; }
-function mockListenQ(){ return MOCK_EXAM.listening[mock.listenIdx]; }
-function mockMax(){ return MOCK_EXAM.speaking.length*2+MOCK_EXAM.listening.length; }
+const MOCK_BANK_LIST=()=>(typeof MOCK_BANK!=='undefined'&&Array.isArray(MOCK_BANK)? MOCK_BANK.slice().sort((a,b)=>String(a.month).localeCompare(String(b.month))) : []);
+function mockBankCur(){ const list=MOCK_BANK_LIST(); return list.find(b=>b.id===mock.setId) || list[list.length-1] || null; }
+function mockSpeakList(){
+  const b=mockBankCur(); if(!b) return [];
+  const sp=b.speaking||{}; const out=[];
+  (sp.part1||[]).forEach(q=>out.push({part:'Part 1', q:q.q, ref:q.ref, keywords:q.keywords||[], topic:q.topic, max:1}));
+  (sp.part2||[]).forEach(q=>out.push({part:'Part 2', card:q.card, points:q.points||[], ref:q.ref, keywords:q.keywords||[], topic:q.topic, max:6}));
+  (sp.part3||[]).forEach(q=>out.push({part:'Part 3', q:q.q, ref:q.ref, keywords:q.keywords||[], topic:q.topic, max:1}));
+  return out;
+}
+function mockListenFlat(){
+  const b=mockBankCur(); if(!b) return [];
+  const out=[];
+  (b.listening||[]).forEach(L=>{ (L.questions||[]).forEach((q,i)=>out.push({section:L.section, passage:L.passage, qIdx:i+1, q:q.q, opts:q.opts, right:q.right, explain:q.explain})); });
+  return out;
+}
+function mockSpeakQ(){ return mockSpeakList()[mock.speakIdx]; }
+function mockListenQ(){ return mockListenFlat()[mock.listenIdx]; }
+function mockSpeakMax(){ return mockSpeakList().reduce((sum,q)=>sum+q.max,0); }
+function mockListenMax(){ return mockListenFlat().length; }
+function mockMax(){ return mockSpeakMax()+mockListenMax(); }
+function mockBand(total){ const max=mockMax()||150; return Math.round(((total||0)/max)*9*2)/2; }
 function openMock(){
-  mock={part:'intro',mode:'speak',speakIdx:0,listenIdx:0,speakScore:0,listenScore:0,speakResults:{},listenResults:{},recOn:false,recUrl:null};
+  mock={setId:null, part:'shelf', mode:'speak', speakIdx:0, listenIdx:0, speakScore:0, listenScore:0, speakResults:{}, listenResults:{}, recOn:false, recUrl:null};
   $('#mock-mask').classList.add('show'); $('#mock').scrollTop=0; renderMock();
+}
+function openMockVolume(setId){
+  const b=MOCK_BANK_LIST().find(x=>x.id===setId); if(!b){ toast('未找到该卷'); return; }
+  mock={setId:setId, part:'intro', mode:'speak', speakIdx:0, listenIdx:0, speakScore:0, listenScore:0, speakResults:{}, listenResults:{}, recOn:false, recUrl:null};
+  $('#mock').scrollTop=0; renderMock();
 }
 function closeMock(){ if(mock.recOn) mockStopRec(); $('#mock-mask').classList.remove('show'); }
 function mockGo(mode){
@@ -758,27 +784,51 @@ function mockGo(mode){
 }
 function renderMock(){
   const el=$('#mock');
+  if(mock.part==='shelf'){ renderMockShelf(el); return; }
   if(mock.part==='intro'){
-    el.innerHTML=`<div class="pod-head"><h2>⏱️ 模考冲刺</h2><button class="btn ghost small" onclick="closeMock()">退出</button></div>
-      <div class="scene-brief"><b>模考说明：</b>完整模拟雅思口语（Part1–3）与听力（Section 1–4）。口语先录音（可回放），再输入你的回答，系统按<b>关键词/语料匹配</b>自动评分；听力选择答案即时判分。</div>
+    const b=mockBankCur();
+    el.innerHTML=`<div class="pod-head"><h2>⏱️ ${b?b.title:'模考冲刺'}</h2><div style="display:flex;gap:8px"><button class="btn ghost small" onclick="openMock()">← 卷架</button><button class="btn ghost small" onclick="closeMock()">退出</button></div></div>
+      <div class="scene-brief"><b>模考说明：</b>${b?`主题「${b.theme}」 · 难度 ${b.difficulty}。`:''}完整模拟雅思口语（Part 1–3）与听力（Section 1–4，附原文）。口语先录音（可回放），再输入你的回答，系统按<b>关键词匹配</b>自动评分；听力选择答案即时判分。<b>满分 150（雅思 9 分制换算）。</b></div>
       <div class="mock-parts">
-        <button class="mock-part" onclick="mockGo('speak')">🗣️ 口语模考（${MOCK_EXAM.speaking.length} 题）</button>
-        <button class="mock-part" onclick="mockGo('listen')">🎧 听力模考（${MOCK_EXAM.listening.length} 题）</button>
-        <button class="mock-part ghost" onclick="mockGo('full')">🧪 完整模考（口语 + 听力）</button>
+        <button class="mock-part" onclick="mockGo('speak')">🗣️ 口语模考（${mockSpeakList().length} 题 · ${mockSpeakMax()} 分）</button>
+        <button class="mock-part" onclick="mockGo('listen')">🎧 听力模考（${mockListenFlat().length} 题 · ${mockListenMax()} 分，附原文）</button>
+        <button class="mock-part ghost" onclick="mockGo('full')">🧪 完整模考（口语 + 听力 · 150 分）</button>
       </div>
-      <div class="mock-progress">口语 ${mock.speakScore}/${MOCK_EXAM.speaking.length*2} · 听力 ${mock.listenScore}/${MOCK_EXAM.listening.length}</div>`;
+      <div class="mock-progress">口语 ${mock.speakScore}/${mockSpeakMax()} · 听力 ${mock.listenScore}/${mockListenMax()}</div>`;
     return;
   }
   if(mock.part==='speak'){ renderMockSpeak(el); return; }
   if(mock.part==='listen'){ renderMockListen(el); return; }
   renderMockDone(el);
 }
+function renderMockShelf(el){
+  const list=MOCK_BANK_LIST();
+  const sets=done.mockSets||{};
+  const latest=list.length? list[list.length-1].month : '';
+  const cards=list.map(b=>{
+    const rec=sets[b.id];
+    const best=rec&&typeof rec.best==='number'? rec.best : null;
+    const isNew=b.month===latest;
+    return `<button class="mock-set ${best!==null?'done':''}" onclick="openMockVolume('${b.id}')">
+      <span class="mock-set-top"><span class="mock-set-month">${b.month}</span>${isNew?'<em class="mock-new">最新</em>':''}${best!==null?'<em class="mock-done-badge">已入册</em>':''}</span>
+      <span class="mock-set-title">${b.title}</span>
+      <span class="mock-set-meta"><i class="tag">${b.difficulty}</i><i class="tag theme">${b.theme}</i></span>
+      <span class="mock-set-blurb">${b.blurb}</span>
+      <span class="mock-set-best">${best!==null?`🏆 本卷最佳 ${best} / 150 · 雅思 ≈ ${mockBand(best).toFixed(1)}${rec&&rec.takes?` · 已考 ${rec.takes} 次`:''}`:'📖 未挑战 · 满分 150'}</span>
+    </button>`;
+  }).join('');
+  el.innerHTML=`<div class="pod-head"><h2>⏱️ 模考冲刺 · 月刊卷架</h2><button class="btn ghost small" onclick="closeMock()">退出</button></div>
+    <div class="scene-brief"><b>卷架说明：</b>每月一期全真模考（2026-11 ～ 2027-08，共 10 期）。每卷 <b>125 题 / 150 分</b>——听力 40×1 · Part 1 40×1 · Part 2 5 卡×6 · Part 3 40×1，成绩按<b>雅思 9 分制</b>换算展示。选一期开始。</div>
+    <div class="mock-shelf">${cards||'<div class="scene-brief">题库为空，请先运行 scripts/gen_mock_bank.py</div>'}</div>`;
+}
 function renderMockSpeak(el){
-  const q=mockSpeakQ();
+  const list=mockSpeakList(); const q=list[mock.speakIdx];
+  if(!q){ mock.part='done'; renderMock(); return; }
+  const stem=q.card ? `${q.card}<ul class="mock-points">${(q.points||[]).map(p=>`<li>${p}</li>`).join('')}</ul>` : q.q;
   el.innerHTML=`<div class="pod-head"><h2>🗣️ 口语模考 · ${q.part}</h2><button class="btn ghost small" onclick="closeMock()">退出</button></div>
-    <div class="mock-progress">口语 ${mock.speakIdx+1} / ${MOCK_EXAM.speaking.length} · 已得分 ${mock.speakScore}</div>
+    <div class="mock-progress">口语 ${mock.speakIdx+1} / ${list.length} · 已得分 ${mock.speakScore}/${mockSpeakMax()}</div>
     <div class="mock-q">
-      <div class="stem">${q.q}</div>
+      <div class="stem">${stem}</div>
       <div class="mock-ref"><b>参考回答：</b>${q.ref}<br><b>关键词（评分依据）：</b>${q.keywords.join('、')}</div>
       <textarea id="mockAns" class="uq-fill" rows="3" placeholder="输入你的回答，系统将按关键词匹配评分"></textarea>
       <div class="turn-bar"><button class="rec-btn" id="recBtn"><span class="dot"></span><span id="recTxt">录音</span></button>${mock.recUrl?'<audio controls style="height:32px" src="'+mock.recUrl+'"></audio>':''}</div>
@@ -788,47 +838,49 @@ function renderMockSpeak(el){
       <button class="btn ghost small" onclick="closeMock()">退出</button></div>`;
   $('#recBtn').onclick=mockToggleRec;
   $('#btnScore').onclick=mockScoreSpeak;
+  const ta=$('#mockAns');
+  if(ta){ ta.oninput=()=>{ const b=$('#btnScore'); if(b) b.disabled=!ta.value.trim(); }; if(ta.focus) ta.focus(); }
 }
 function renderMockListen(el){
-  const q=mockListenQ();
+  const list=mockListenFlat(); const q=list[mock.listenIdx];
+  if(!q){ mock.part='done'; renderMock(); return; }
   el.innerHTML=`<div class="pod-head"><h2>🎧 听力模考 · ${q.section}</h2><button class="btn ghost small" onclick="closeMock()">退出</button></div>
-    <div class="mock-progress">听力 ${mock.listenIdx+1} / ${MOCK_EXAM.listening.length} · 已得分 ${mock.listenScore}</div>
+    <div class="mock-progress">听力 ${mock.listenIdx+1} / ${list.length} · 已得分 ${mock.listenScore}/${mockListenMax()}</div>
     <div class="mock-q">
-      <div class="stem">${q.q}</div>
+      <details class="mock-passage" open><summary>📄 ${q.section} 原文（阅读后作答）</summary><div class="mock-passage-body">${q.passage}</div></details>
+      <div class="stem"><span class="mock-sec">${q.section} · 第 ${q.qIdx} 题</span><br>${q.q}</div>
       ${q.opts.map((o,i)=>`<button class="opt" data-i="${i}">${o}</button>`).join('')}
       <div class="feedback" id="fb"></div>
     </div>
-    <div class="pod-actions"><button class="btn ghost small" id="btnLNext" disabled>${mock.listenIdx<MOCK_EXAM.listening.length-1?'下一题 →':'查看成绩'}</button>
+    <div class="pod-actions"><button class="btn ghost small" id="btnLNext" disabled>${mock.listenIdx<list.length-1?'下一题 →':'查看成绩'}</button>
       <button class="btn ghost small" onclick="closeMock()">退出</button></div>`;
   el.querySelectorAll('.opt').forEach(b=>b.onclick=()=>mockListenPick(b.dataset.i,q));
   $('#btnLNext').onclick=mockListenNext;
 }
 function mockScoreSpeak(){
-  const q=mockSpeakQ();
+  const q=mockSpeakQ(); if(!q) return;
   const val=($('#mockAns').value||'').trim();
   if(!val){ toast('请先输入你的回答再评分'); return; }
-  const matched=q.keywords.filter(k=>val.toLowerCase().includes(k.toLowerCase()));
+  const matched=q.keywords.filter(k=>val.toLowerCase().includes(String(k).toLowerCase()));
   const ratio=matched.length/q.keywords.length;
-  const pts=ratio>=0.8?2:ratio>=0.5?1:0;
+  const pts = q.max===6 ? Math.round(ratio*6) : (ratio>=0.7?1:0);
   mock.speakScore+=pts;
-  mock.speakResults[mock.speakIdx]={matched,ratio,pts};
-  if(ratio<0.5){ addError({type:'mock', id:'speak:'+q.part, detail:q.q}); }
-  $('#fb').innerHTML=`🎯 关键词命中 ${matched.length}/${q.keywords.length}（${Math.round(ratio*100)}%）· 得分 ${pts}/2<br><span style="color:var(--dim)">命中：${matched.join('、')||'无'}</span>`;
+  mock.speakResults[mock.speakIdx]={matched,ratio,pts,part:q.part,max:q.max};
+  if(ratio<0.5){ addError({type:'mock', id:'mock:'+mock.setId+':speak:'+mock.speakIdx, detail:q.q||q.card}); }
+  $('#fb').innerHTML=`🎯 关键词命中 ${matched.length}/${q.keywords.length}（${Math.round(ratio*100)}%）· 得分 ${pts}/${q.max}<br><span style="color:var(--dim)">命中：${matched.join('、')||'无'}</span>`;
   $('#fb').classList.add('show');
   const btn=$('#btnScore'); btn.disabled=false; btn.textContent='下一题 →'; btn.onclick=mockSpeakNext;
 }
 function mockSpeakNext(){
   mock.speakIdx++;
-  if(mock.speakIdx>=MOCK_EXAM.speaking.length){
-    mock.part = mock.mode==='full' ? 'listen' : 'done';
-  }
+  if(mock.speakIdx>=mockSpeakList().length){ mock.part = mock.mode==='full' ? 'listen' : 'done'; }
   renderMock();
 }
 function mockListenPick(i,q){
   if(mock.listenResults[mock.listenIdx]!==undefined) return;
   mock.listenResults[mock.listenIdx]={pick:i,correct:i===q.right};
   if(i===q.right) mock.listenScore++;
-  else addError({type:'mock', id:'listen:'+q.section, detail:q.q});
+  else addError({type:'mock', id:'mock:'+mock.setId+':listen:'+q.section+':'+q.qIdx, detail:q.q});
   const all=$('#mock').querySelectorAll('.opt');
   all.forEach((o,k)=>o.classList.toggle('right',k===q.right));
   if(i!==q.right && all[i]) all[i].classList.add('wrong');
@@ -836,24 +888,40 @@ function mockListenPick(i,q){
   $('#fb').classList.add('show');
   $('#btnLNext').disabled=false;
 }
-function mockListenNext(){ mock.listenIdx++; if(mock.listenIdx>=MOCK_EXAM.listening.length) mock.part='done'; renderMock(); }
+function mockListenNext(){ mock.listenIdx++; if(mock.listenIdx>=mockListenFlat().length) mock.part='done'; renderMock(); }
 function renderMockDone(el){
+  const b=mockBankCur(); const vol=b?b.month:'';
+  const sp=(b&&b.speaking)||{};
+  const p1max=(sp.part1||[]).length, p2max=(sp.part2||[]).length*6, p3max=(sp.part3||[]).length;
+  const lmax=mockListenMax();
+  const results=Object.values(mock.speakResults||{});
+  const sumPart=(p)=>results.filter(r=>r.part===p).reduce((sum,r)=>sum+r.pts,0);
+  const p1=sumPart('Part 1'), p2=sumPart('Part 2'), p3=sumPart('Part 3');
   const total=mock.speakScore+mock.listenScore;
   const max=mockMax();
+  const band=mockBand(total);
   const pct=Math.round(total/max*100);
-  el.innerHTML=`<div class="pod-head"><h2>🏁 模考成绩</h2><button class="btn ghost small" onclick="closeMock()">退出</button></div>
-    <div class="profile-card"><h3>📊 模考完成 — 总分 ${total} / ${max}（${pct}%）</h3>
+  el.innerHTML=`<div class="pod-head"><h2>🏁 模考成绩 · ${vol}</h2><button class="btn ghost small" onclick="openMock()">← 卷架</button></div>
+    <div class="profile-card"><h3>📊 模考完成 — 总分 ${total} / ${max}（${pct}%）· 雅思 ≈ ${band.toFixed(1)}</h3>
       <div class="diag-rows">
-        <div class="diag-row"><span class="dr-ic">🗣️ 口语</span><div class="dr-bar"><i style="width:${Math.round(mock.speakScore/(MOCK_EXAM.speaking.length*2)*100)}%"></i></div><span class="dr-sc">${mock.speakScore}/${MOCK_EXAM.speaking.length*2}</span></div>
-        <div class="diag-row"><span class="dr-ic">🎧 听力</span><div class="dr-bar"><i style="width:${Math.round(mock.listenScore/MOCK_EXAM.listening.length*100)}%"></i></div><span class="dr-sc">${mock.listenScore}/${MOCK_EXAM.listening.length}</span></div>
+        <div class="diag-row"><span class="dr-ic">🎧 听力</span><div class="dr-bar"><i style="width:${lmax?Math.round(mock.listenScore/lmax*100):0}%"></i></div><span class="dr-sc">${mock.listenScore}/${lmax}</span></div>
+        <div class="diag-row"><span class="dr-ic">🗣️ Part 1</span><div class="dr-bar"><i style="width:${p1max?Math.round(p1/p1max*100):0}%"></i></div><span class="dr-sc">${p1}/${p1max}</span></div>
+        <div class="diag-row"><span class="dr-ic">🗣️ Part 2</span><div class="dr-bar"><i style="width:${p2max?Math.round(p2/p2max*100):0}%"></i></div><span class="dr-sc">${p2}/${p2max}</span></div>
+        <div class="diag-row"><span class="dr-ic">🗣️ Part 3</span><div class="dr-bar"><i style="width:${p3max?Math.round(p3/p3max*100):0}%"></i></div><span class="dr-sc">${p3}/${p3max}</span></div>
       </div>
-      <div class="result-line">口语按关键词匹配评分，听力按选项判分。薄弱项可在诊断路线中针对性回练。</div>
+      <div class="result-line">换算：raw ÷ 150 × 9（四舍五入到 0.5）—— ${total} 分 ≈ 雅思 <b>${band.toFixed(1)}</b>。薄弱项可在诊断路线中针对性回练。</div>
     </div>
-    <div class="pod-actions"><button class="btn" onclick="closeMock()">返回</button>
-      <button class="btn ghost" onclick="openMock()">再考一次 🔁</button></div>`;
-  if(!done.mock){ done.mock=true; }
-  if((done.mockBest||0) < total) done.mockBest = total;
+    <div class="pod-actions"><button class="btn" onclick="openMock()">返回卷架</button>
+      <button class="btn ghost" onclick="openMockVolume('${mock.setId}')">再考一次 🔁</button></div>`;
+  const prev=(done.mockSets&&done.mockSets[mock.setId])||{best:0,takes:0,lastAt:0};
+  const first=!prev.lastAt;
+  done.mockSets=done.mockSets||{};
+  done.mockSets[mock.setId]={best:Math.max(prev.best||0,total), takes:(prev.takes||0)+1, lastAt:Date.now()};
+  done.mockBest=Math.max(done.mockBest||0,total);
+  done.mock=true;
   save();
+  if(first && vol) toast('📮 '+vol+' 月刊入册');
+  logLearning('mock', mock.setId, total+'/'+max+'（雅思 ≈ '+band.toFixed(1)+'）');
   awardXP(80,'模考完成');
   renderAll();
 }

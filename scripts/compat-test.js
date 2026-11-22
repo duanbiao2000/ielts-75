@@ -79,6 +79,13 @@ async function auditPage(name, browser, opts = {}) {
   await page.click('#btnMock');
   await page.waitForTimeout(400);
   ok('模考覆盖层为 fixed 且已渲染内容', await page.locator('#mock').evaluate(el => getComputedStyle(el.parentElement).position === 'fixed' && el.innerHTML.length > 200));
+  ok('卷架渲染月刊卡（2026-11）', (await page.locator('#mock .mock-set').count()) >= 1);
+  await page.locator('#mock .mock-set').first().click();
+  await page.waitForTimeout(300);
+  ok('选卷后渲染模考说明（150 分制）', await page.locator('#mock').evaluate(el => el.innerHTML.includes('模考说明') && el.innerHTML.includes('150')));
+  await page.locator('#mock .mock-part').first().click();
+  await page.waitForTimeout(300);
+  ok('口语模考首题渲染', await page.locator('#mock .mock-q .stem').count() >= 1);
   await page.keyboard.press('Escape');
   ok('Escape 关闭模考覆盖层', (await page.locator('#mock-mask').evaluate(el => getComputedStyle(el).display)) === 'none');
 

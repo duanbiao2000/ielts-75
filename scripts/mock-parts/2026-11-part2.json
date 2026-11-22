@@ -1,0 +1,105 @@
+[
+  {
+    "topic": "p2-person-admire",
+    "part": "Part 2",
+    "card": "Describe a person you admire.",
+    "points": [
+      "Who this person is",
+      "How you know them",
+      "What qualities they have",
+      "And explain why you admire them"
+    ],
+    "ref": "I'd like to talk about my uncle, Li Zhi, who runs a tiny car-repair shop near our old neighbourhood. He left school at fifteen but taught himself everything by reading manuals at night. People call him when dealers give them a bad deal, because he explains every detail honestly and never invents defects. What I admire most is that he fixes what matters and charges fairly, even when struggling himself. He told me once: earn slowly, stand straight. Watching him hold that principle for twenty years shaped how I work. Admiring him isn't about money or success; it's about trust being built one honest repair at a time.",
+    "keywords": [
+      "uncle",
+      "repair",
+      "taught",
+      "honestly",
+      "trust",
+      "principle"
+    ]
+  },
+  {
+    "topic": "p2-journey-long",
+    "part": "Part 2",
+    "card": "Describe a memorable journey you have made.",
+    "points": [
+      "Where you went",
+      "Who you went with",
+      "What you did",
+      "And explain why it was memorable"
+    ],
+    "ref": "Last October I took an overnight train from Shanghai to Kunming with a friend from work — nineteen hours watching the landscape shift from river delta to misty mountains. We had no Wi-Fi, so we actually talked: about his doctorate, my job fears, the book in his bag. At dawn the train reached the high plateau and the light went golden over the farmland — completely unused to seeing. A journey this long forces you to slow down, share food, and surprisingly, see your companion as a real person for the first time.",
+    "keywords": [
+      "train",
+      "Kunming",
+      "friend",
+      "mountains",
+      "Wi-Fi",
+      "plateau",
+      "journey",
+      "talked"
+    ]
+  },
+  {
+    "topic": "p2-skill-learn",
+    "part": "Part 2",
+    "card": "Describe a skill you would like to learn.",
+    "points": [
+      "What the skill is",
+      "Why you want to learn it",
+      "How you would learn it",
+      "And explain what difference it would make"
+    ],
+    "ref": "I want to learn to cook Sichuanese dishes properly. Growing up we ordered takeaways; my mother cooked simple Cantonese food at best, so every time I eat out in Chengdu I feel culture envy. I'd start with a weekend class — twice weekly for two months — then practise on colleagues who volunteer as judges. Imagine hosting a dinner where the fish-fragrant aubergine actually tastes like the restaurant. Beyond taste, cooking teaches patience and heat control — two skills that transfer directly into my job, where details decide everything before clients ever see the result.",
+    "keywords": [
+      "cook",
+      "Sichuanese",
+      "class",
+      "weekly",
+      "patience",
+      "colleagues",
+      "practise"
+    ]
+  },
+  {
+    "topic": "p2-book-exc",
+    "part": "Part 2",
+    "card": "Describe an exciting book you have enjoyed reading.",
+    "points": [
+      "What the book is about",
+      "When and where you read it",
+      "Why it was exciting",
+      "And explain what you learned from it"
+    ],
+    "ref": "The book is 'Folding Beijing'. I read it on the metro during the February travel rush, finishing it in three compartments. It imagines a futuristic city where different social classes share the same space in repeating 24-hour shifts — the rich wake at dawn, the middle class at noon, and labourers at night. What thrilled me was the structure of the story and the politics hiding beneath it. It reframed how I see my own city's inequalities. Since reading it, I notice invisible layers everywhere — in who gets the earliest table, the better seat, the quieter carriage.",
+    "keywords": [
+      "Folding Beijing",
+      "metro",
+      "classes",
+      "shifts",
+      "thrilled",
+      "layers"
+    ]
+  },
+  {
+    "topic": "p2-tech-daily",
+    "part": "Part 2",
+    "card": "Describe a piece of technology you use every day.",
+    "points": [
+      "What it is",
+      "How often and for what you use it",
+      "Why it is important to you",
+      "And explain what you would do without it"
+    ],
+    "ref": "My phone is my entire life — navigation, WeChat groups, payment, camera, dictionary. I use it from waking to sleep, maybe six or seven hours honestly. But the feature I depend on most is the map app in real time: it rescued me in rainstorms in Chongqing, rerouted me around jams, and found me the only open noodle shop at midnight. Without it, I'd miss the bus three times a week and order food badly. Still, I set an app limit: no phone in bed after 12:30, or I lie awake doom-scrolling like everyone else.",
+    "keywords": [
+      "phone",
+      "navigation",
+      "map",
+      "hours",
+      "limit",
+      "bus"
+    ]
+  }
+]

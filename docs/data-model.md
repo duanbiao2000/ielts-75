@@ -181,7 +181,7 @@
   同日不重复计数，昨日连续则 +1；断签恰好 1 天且有补偿券 → 消耗 1 张补偿券连续保留；
   每满 7 天连续奖励 1 张补偿券；`learning-records` 记录 streak-freeze / streak-reward。
 - **旅程**（`app.js` `JOURNEY`）：6 章「从 6.0 到 7.5 的旅程」，前置章节达成后依次解锁，
-  里程碑触发剧情弹窗与 XP 奖励（ch6 终章：P0/P1 全模块完成且模考最佳 ≥16/20）。
+  里程碑触发剧情弹窗与 XP 奖励（ch6 终章：P0/P1 全模块完成且模考最佳 ≥120/150）。
 
 ## 10. 工程化功能（批次 5）
 
@@ -205,15 +205,26 @@
 ## 8. 训练闭环数据（`onboarding/js/training.js`，批次 3）
 
 由 `scripts/gen_training.py` 生成，`index.html` 加载顺序为
-`practice-full.js → data.js → training.js → app.js`。
+`practice-full.js → data.js → mock-bank.js → training.js → app.js`（月度模考题库见 §8 MOCK_BANK）。
 
 - **DIAG_SUBJECTS**（T-3.1）：四科诊断，每科 `{id,name,icon,color,questions[]}`，
   每题 `{stem,opts,right,explain}`；共 4 科 × 3 题。
 - **QUIZ_LESSONS / QUIZ_MODS**（T-3.2）：课程/模块单元测验，按课/模块 id 索引，
   每题 `{type:'choice'|'fill', stem, opts?, right?, answer?, explain}`；每单元 2 题。
-- **MOCK_EXAM**（T-3.3）：
-  - `speaking`：`{part,q,ref,keywords[]}`，`keywords` 为口语关键词匹配评分依据。
-  - `listening`：`{section,q,opts,right,explain}`，选项即时判分。
+- **MOCK_BANK**（月度模考题库，批次6）：由 `scripts/gen_mock_bank.py` 从
+  `scripts/mock-bank.json`（唯一数据源）生成 `js/mock-bank.js`，加载顺序
+  `practice-full.js → data.js → mock-bank.js → training.js → course.js → app.js`。
+  - 结构：每卷 `{id:'mock-YYYY-MM', month, title, difficulty, theme, blurb, coverage,
+    listening:[{section,passage,questions:[{q,opts,right,explain}]}],
+    speaking:{part1:[…],part2:[{topic,card,points,ref,keywords}],part3:[…]}}`。
+  - 每卷 **125 题 / 150 分**：听力 4 Section × 10 题 × 1 分；Part 1 8 话题 × 5 问 × 1 分；
+    Part 2 5 卡 × 6 分（`round(命中率×6)`）；Part 3 40 问 × 1 分（命中率 ≥ 70% 得 1 分）。
+  - 成绩按 **雅思 9 分制**换算：`band = round(raw / 150 × 9 × 2) / 2`（150→9.0、125→7.5、116→7.0）。
+  - 每卷最佳记录写入 `done.mockSets[setId] = {best, takes, lastAt}`；`done.mockBest`（0–150）
+    取历史最佳；`done.mock` 任意一卷完成置 true；`done.mockBankBest` 预留未启用。
+  - 错题本 id：`mock:<setId>:speak:<i>` / `mock:<setId>:listen:<section>:<qIdx>`。
+  - UI：模考入口为**月刊卷架**（`openMock()` 渲染卷架卡片：月份 · 标题 · 难度 · 主题 · 本卷最佳/未挑战 · 最新角标），
+    `openMockVolume(setId)` 选卷后进入口语/听力/完整三种模式，成绩页展示总分/150 + 雅思换算 + 四板块分项条。
 
 训练闭环：诊断定路线 → 单元测验 → 场景演练（含反馈）→ 模考验证 → 复习巩固。
 

@@ -14,22 +14,24 @@ const dataFile = path.join(ROOT, 'onboarding', 'js', 'data.js');
 const fullFile = path.join(ROOT, 'onboarding', 'js', 'practice-full.js');
 const trainFile = path.join(ROOT, 'onboarding', 'js', 'training.js');
 const courseFile = path.join(ROOT, 'onboarding', 'js', 'course.js');
-// 加载顺序：practice-full → data → training → course（data.js 中 PRACTICE 引用 PRACTICE_FULL）
+const bankFile = path.join(ROOT, 'onboarding', 'js', 'mock-bank.js');
+const topicMatrixFile = path.join(ROOT, 'materials', 'mock', 'topic-matrix.json');
+// 加载顺序：practice-full → data → mock-bank → training → course（data.js 中 PRACTICE 引用 PRACTICE_FULL）
 const fullSrc = fs.readFileSync(fullFile, 'utf8');
-const src = fullSrc + '\n' + fs.readFileSync(dataFile, 'utf8') + '\n' + fs.readFileSync(trainFile, 'utf8') + '\n' + fs.readFileSync(courseFile, 'utf8');
+const src = fullSrc + '\n' + fs.readFileSync(dataFile, 'utf8') + '\n' + fs.readFileSync(bankFile, 'utf8') + '\n' + fs.readFileSync(trainFile, 'utf8') + '\n' + fs.readFileSync(courseFile, 'utf8');
 
 let data;
 try {
   // 以 const 声明全局变量，用 Function 在沙箱中执行并捕获
   const sandbox = {};
-  const fn = new Function('window', 'self', 'globalThis', src + '\n;return {LESSONS,SCENARIOS,SCEN_DOMAINS,MODULES,BADGES,PRACTICE,DIAG_SUBJECTS,QUIZ_LESSONS,QUIZ_MODS,MOCK_EXAM,LESSON_PACKS,MODULE_PACKS};');
+  const fn = new Function('window', 'self', 'globalThis', src + '\n;return {LESSONS,SCENARIOS,SCEN_DOMAINS,MODULES,BADGES,PRACTICE,DIAG_SUBJECTS,QUIZ_LESSONS,QUIZ_MODS,MOCK_BANK,LESSON_PACKS,MODULE_PACKS};');
   data = fn(sandbox, sandbox, sandbox);
 } catch (e) {
   console.error('❌ 数据文件语法/解析错误：' + e.message);
   process.exit(1);
 }
 
-const { LESSONS, SCENARIOS, SCEN_DOMAINS, MODULES, BADGES, PRACTICE, DIAG_SUBJECTS, QUIZ_LESSONS, QUIZ_MODS, MOCK_EXAM, LESSON_PACKS, MODULE_PACKS } = data;
+const { LESSONS, SCENARIOS, SCEN_DOMAINS, MODULES, BADGES, PRACTICE, DIAG_SUBJECTS, QUIZ_LESSONS, QUIZ_MODS, MOCK_BANK, LESSON_PACKS, MODULE_PACKS } = data;
 const errors = [];
 const warns = [];
 
@@ -159,17 +161,75 @@ const lessonIds = (LESSONS||[]).map(l=>l.id);
 const modIds = (MODULES||[]).map(m=>m.id);
 validateQuiz(QUIZ_LESSONS, 'QUIZ_LESSONS', lessonIds);
 validateQuiz(QUIZ_MODS, 'QUIZ_MODS', modIds);
-// T-3.3 模考
-if (MOCK_EXAM) {
-  (MOCK_EXAM.speaking||[]).forEach((q,i)=>{
-    if (!q.part || !q.q || !q.ref || !Array.isArray(q.keywords) || q.keywords.length<3)
-      errors.push(`MOCK_EXAM.speaking[${i}] 需 part/q/ref/keywords(≥3)`);
+// T-3.3 月度模考题库（每卷 125 题 / 150 分）
+let topicMatrix = null;
+try { topicMatrix = JSON.parse(fs.readFileSync(topicMatrixFile, 'utf8')); }
+catch (e) { errors.push('topic-matrix.json 解析失败：' + e.message); }
+const matrixIds = topicMatrix ? new Set([...topicMatrix.p1, ...topicMatrix.p2, ...topicMatrix.p3].map(t => t.id)) : new Set();
+if (!Array.isArray(MOCK_BANK) || MOCK_BANK.length === 0) {
+  errors.push('MOCK_BANK 缺失或为空');
+} else {
+  uniq(MOCK_BANK, x => x.id, 'MOCK_BANK');
+  uniq(MOCK_BANK, x => x.month, 'MOCK_BANK');
+  MOCK_BANK.forEach((s, i) => {
+    const tag = `MOCK_BANK[${i}]（${s.id || '?'}）`;
+    if (!s.id || !/^mock-\d{4}-(0[1-9]|1[0-2])$/.test(s.id)) errors.push(`${tag} id 需为 mock-YYYY-MM`);
+    if (!s.month || !/^\d{4}-(0[1-9]|1[0-2])$/.test(s.month)) errors.push(`${tag} month 非法：${s.month}`);
+    if (s.id && s.month && s.id !== 'mock-' + s.month) errors.push(`${tag} id 与 month 不一致`);
+    if (!s.title || !s.blurb) errors.push(`${tag} 缺少 title/blurb`);
+    if (!['基础', '进阶', '冲刺'].includes(s.difficulty)) errors.push(`${tag} difficulty 非法：${s.difficulty}`);
+    if (!s.theme) errors.push(`${tag} 缺少 theme`);
+    // 听力：4 Section × 10 题 × 1 分
+    if (!Array.isArray(s.listening) || s.listening.length !== 4) {
+      errors.push(`${tag} listening 需 4 个 Section`);
+    } else {
+      s.listening.forEach((L, j) => {
+        const ltag = `${tag} listening[${j}]（${L.section || '?'}）`;
+        if (!L.section) errors.push(`${ltag} 缺少 section`);
+        const words = String(L.passage || '').trim().split(/\s+/).filter(Boolean).length;
+        if (words < 300) errors.push(`${ltag} passage 少于 300 词（${words}）`);
+        if (!Array.isArray(L.questions) || L.questions.length !== 10) {
+          errors.push(`${ltag} 需 10 题`);
+        } else {
+          L.questions.forEach((q, k) => {
+            if (!q.q) errors.push(`${ltag} q[${k}] 缺少题干`);
+            if (!Array.isArray(q.opts) || q.opts.length !== 4) errors.push(`${ltag} q[${k}] 需 4 个选项`);
+            else {
+              const norm = q.opts.map(o => String(o).trim().toLowerCase());
+              if (new Set(norm).size !== 4) errors.push(`${ltag} q[${k}] 选项重复`);
+            }
+            if (typeof q.right !== 'number' || q.right < 0 || q.right > 3) errors.push(`${ltag} q[${k}] right 越界`);
+            if (!q.explain) errors.push(`${ltag} q[${k}] 缺少 explain`);
+          });
+        }
+      });
+    }
+    // 口语：Part 1 40 问 / Part 2 5 卡 / Part 3 40 问
+    const sp = s.speaking || {};
+    const p1 = sp.part1 || [], p2 = sp.part2 || [], p3 = sp.part3 || [];
+    if (p1.length !== 40) errors.push(`${tag} Part 1 需 40 问，实际 ${p1.length}`);
+    if (p2.length !== 5) errors.push(`${tag} Part 2 需 5 卡，实际 ${p2.length}`);
+    if (p3.length !== 40) errors.push(`${tag} Part 3 需 40 问，实际 ${p3.length}`);
+    const speakCheck = (arr, label, minKw) => arr.forEach((q, k) => {
+      if (!q.q && !q.card) errors.push(`${tag} ${label}[${k}] 缺少题干/卡片`);
+      if (!q.ref) errors.push(`${tag} ${label}[${k}] 缺少 ref`);
+      if (!Array.isArray(q.keywords) || q.keywords.length < minKw) errors.push(`${tag} ${label}[${k}] keywords 少于 ${minKw} 个`);
+      if (q.topic && !matrixIds.has(q.topic)) errors.push(`${tag} ${label}[${k}] 未知话题 id：${q.topic}`);
+    });
+    speakCheck(p1, 'part1', 3);
+    speakCheck(p2, 'part2', 3);
+    speakCheck(p3, 'part3', 3);
+    p2.forEach((c, k) => {
+      if (!Array.isArray(c.points) || c.points.length < 3) errors.push(`${tag} part2[${k}] points 少于 3 条`);
+    });
+    // coverage：必须为话题矩阵内 id
+    if (!Array.isArray(s.coverage) || s.coverage.length === 0) {
+      errors.push(`${tag} coverage 缺失`);
+    } else {
+      s.coverage.forEach(id => { if (!matrixIds.has(id)) errors.push(`${tag} coverage 未知话题 id：${id}`); });
+    }
   });
-  (MOCK_EXAM.listening||[]).forEach((q,i)=>{
-    if (!q.section || !q.q || !Array.isArray(q.opts) || typeof q.right!=='number')
-      errors.push(`MOCK_EXAM.listening[${i}] 需 section/q/opts/right`);
-  });
-} else errors.push('MOCK_EXAM 缺失');
+}
 
 // ---- 课程与模块训练数据（批次2） ----
 const scenNameSet = new Set(scenNames);
@@ -230,7 +290,7 @@ console.log('数据校验：LESSONS=' + LESSONS.length + '，SCENARIOS=' + SCENA
   '，PRACTICE=' + Object.keys(PRACTICE || {}).length +
   '，DIAG=' + (DIAG_SUBJECTS||[]).length + '科' +
   '，QUIZ=' + Object.keys(QUIZ_LESSONS||{}).length + '+' + Object.keys(QUIZ_MODS||{}).length +
-  '，MOCK=口语' + (MOCK_EXAM?MOCK_EXAM.speaking.length:0) + '/听力' + (MOCK_EXAM?MOCK_EXAM.listening.length:0) +
+  '，MOCK=' + (MOCK_BANK?MOCK_BANK.length:0) + '卷×150分' +
   '，COURSE=课' + Object.keys(LESSON_PACKS||{}).length + '/模块' + Object.keys(MODULE_PACKS||{}).length);
 
 if (errors.length) {

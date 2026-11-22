@@ -9,9 +9,9 @@ const fs = require('fs');
 const path = require('path');
 const ROOT = path.resolve(__dirname, '..');
 const load = (f) => fs.readFileSync(path.join(ROOT, 'onboarding', 'js', f), 'utf8');
-const src = ['practice-full.js', 'data.js', 'training.js', 'course.js'].map(load).join('\n');
+const src = ['practice-full.js', 'data.js', 'mock-bank.js', 'training.js', 'course.js'].map(load).join('\n');
 const fn = new Function('window', 'self', 'globalThis', src +
-  '\n;return {SCENARIOS, PRACTICE, DIAG_SUBJECTS, QUIZ_LESSONS, QUIZ_MODS, MOCK_EXAM, LESSONS, MODULES, LESSON_PACKS, MODULE_PACKS};');
+  '\n;return {SCENARIOS, PRACTICE, DIAG_SUBJECTS, QUIZ_LESSONS, QUIZ_MODS, MOCK_BANK, LESSONS, MODULES, LESSON_PACKS, MODULE_PACKS};');
 const D = fn({}, {}, {});
 const errors = [];
 const warns = [];
@@ -73,11 +73,27 @@ auditQuiz(D.QUIZ_MODS, 'QUIZ_MODS');
   if (new Set(opts).size !== opts.length) errors.push(`DIAG[${s.id}].q[${i}] 选项重复`);
 }));
 
-// ---- 3. 模考：口语关键词应出现在参考答案中 ----
-(D.MOCK_EXAM.speaking || []).forEach((q, i) => {
-  const ref = String(q.ref).toLowerCase();
-  const missing = q.keywords.filter(k => !ref.includes(String(k).toLowerCase()));
-  if (missing.length) errors.push(`MOCK.speaking[${i}] keywords 未出现在参考答案：${missing.join(', ')}`);
+// ---- 3. 月度模考题库：关键词 ⊆ 参考答案 · 听力选项不重 · 参考答案长度 ----
+(D.MOCK_BANK || []).forEach(s => {
+  const tag = `MOCK(${s.id})`;
+  const speak = [];
+  ['part1', 'part3'].forEach(k => (s.speaking && s.speaking[k] || []).forEach(q => speak.push({ ...q, label: k })));
+  (s.speaking && s.speaking.part2 || []).forEach(q => speak.push({ ...q, label: 'part2' }));
+  speak.forEach((q, i) => {
+    const ref = String(q.ref).toLowerCase();
+    const missing = (q.keywords || []).filter(k => !ref.includes(String(k).toLowerCase()));
+    if (missing.length) errors.push(`${tag}.${q.label}[${i}] keywords 未出现在参考答案：${missing.join(', ')}`);
+    const refWords = String(q.ref).trim().split(/\s+/).filter(Boolean).length;
+    if (q.label !== 'part2' && refWords < 25) warns.push(`${tag}.${q.label}[${i}] 参考答案偏短（${refWords} 词）`);
+    if (/[一-鿿]/.test(q.q || q.card || '')) warns.push(`${tag}.${q.label}[${i}] 题干含中文`);
+  });
+  (s.listening || []).forEach(L => {
+    (L.questions || []).forEach((q, i) => {
+      const opts = (q.opts || []).map(o => String(o).trim().toLowerCase());
+      if (new Set(opts).size !== opts.length) errors.push(`${tag}.${L.section} q[${i}] 选项重复`);
+      if (!q.explain) errors.push(`${tag}.${L.section} q[${i}] 缺少 explain`);
+    });
+  });
 });
 
 // ---- 4. 课程/模块数据包：引用一致 ----
