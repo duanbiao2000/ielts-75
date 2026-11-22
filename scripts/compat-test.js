@@ -71,6 +71,17 @@ async function auditPage(name, browser, opts = {}) {
     await page.keyboard.press('Escape');
   }
 
+  // 模考覆盖层：初始隐藏、打开为 fixed 覆盖层、Escape 关闭
+  await page.keyboard.press('Escape'); // 关闭可能残留的导出弹窗
+  await page.waitForTimeout(150);
+  const mockBefore = await page.locator('#mock-mask').evaluate(el => getComputedStyle(el).display);
+  ok('模考覆盖层初始隐藏', mockBefore === 'none');
+  await page.click('#btnMock');
+  await page.waitForTimeout(400);
+  ok('模考覆盖层为 fixed 且已渲染内容', await page.locator('#mock').evaluate(el => getComputedStyle(el.parentElement).position === 'fixed' && el.innerHTML.length > 200));
+  await page.keyboard.press('Escape');
+  ok('Escape 关闭模考覆盖层', (await page.locator('#mock-mask').evaluate(el => getComputedStyle(el).display)) === 'none');
+
   // Service Worker（仅支持的浏览器）
   const swState = await page.evaluate(async () => {
     if (!('serviceWorker' in navigator)) return 'unsupported';
