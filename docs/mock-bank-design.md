@@ -121,3 +121,5 @@ onboarding/js/training.js     ← 删除硬编码 MOCK_EXAM → 别名 MOCK_EXAM
 
 - **批次 0**（2026-11-22，commit e1d95a6）✅ 架构 + 门禁 + 卷架 UI + mock-2026-11（全景诊断）入库。
 - **批次 1**（2026-11-22）✅ mock-2026-12《年末假期》入库：春运购票/社区灯会/节庆经济专题听力；P1 8 话题（holidays/gifts/meals/weekends/family/films/chocolate/travelling）；P2 5 卡；P3 40 问 7 类全覆盖。全库覆盖进度 P1 16/74（22%）· P2 10/60（17%）。
+
+> ⚠️ **发布纪律：每批内容入库必须 bump SW CACHE 版本号**。批次 1 入库 mock-2026-12 时未升版，已安装 v4 SW 的客户端继续 cache-first 命中 1 卷旧 mock-bank.js，卷架只显示 2026-11（磁盘/预览服务端内容其实是新的）。批次 1.1 已升 v5 修复；此后每批收尾检查 sw.js 版本。
