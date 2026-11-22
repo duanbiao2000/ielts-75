@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UX 改进方案 · 内容阅读器（课程 / 场景 / 模块 零路径体验）</title>
+<style>
+:root{
+  --bg1:#0f172a; --card:#16213a; --card2:#1c2a4a; --line:#2b3b5c;
+  --txt:#e8eefc; --dim:#93a4c9; --cyan:#22d3ee; --amber:#fbbf24;
+  --violet:#a78bfa; --green:#34d399; --rose:#fb7185; --blue:#60a5fa;
+  --r:14px;
+}
+*{box-sizing:border-box}
+body{margin:0;background:linear-gradient(160deg,#0f172a 0%,#1e1b4b 100%);color:var(--txt);
+  font-family:-apple-system,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;line-height:1.65}
+.wrap{max-width:1080px;margin:0 auto;padding:36px 22px 80px}
+.kicker{color:var(--cyan);font-size:13px;letter-spacing:.18em;text-transform:uppercase}
+h1{font-size:30px;margin:8px 0 4px;line-height:1.3}
+.sub{color:var(--dim);font-size:15px;margin-bottom:26px}
+h2{font-size:22px;margin:44px 0 6px;padding-left:12px;border-left:4px solid var(--cyan)}
+h3{font-size:16px;margin:22px 0 8px;color:var(--cyan)}
+p,li{font-size:14.5px}
+.card{background:rgba(22,33,58,.75);border:1px solid var(--line);border-radius:var(--r);padding:16px 18px;margin:12px 0}
+.grid{display:grid;gap:12px}
+.g3{grid-template-columns:repeat(3,1fr)}
+.g2{grid-template-columns:repeat(2,1fr)}
+@media(max-width:860px){.g3,.g2{grid-template-columns:1fr}}
+.tag{display:inline-block;font-size:12px;border:1px solid var(--line);border-radius:20px;padding:1px 10px;color:var(--dim);margin-right:6px}
+.tag.ok{color:#052e1f;background:var(--green);border-color:var(--green)}
+.tag.warn{color:#3a2b00;background:var(--amber);border-color:var(--amber)}
+.tag.bad{color:#3a0d0d;background:var(--rose);border-color:var(--rose)}
+.tag.info{color:#06121f;background:var(--blue);border-color:var(--blue)}
+table{width:100%;border-collapse:collapse;font-size:13.5px;margin:12px 0}
+th,td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+th{background:#1c2a4a;color:var(--cyan)}
+code{background:#0b1226;border:1px solid var(--line);border-radius:6px;padding:1px 6px;font-size:12.5px;color:#7dd3fc}
+pre{background:#0b1226;border:1px solid var(--line);border-radius:10px;padding:12px 14px;overflow:auto;font-size:12px}
+.kpi{display:flex;gap:14px;flex-wrap:wrap}
+.kpi .n{font-size:26px;font-weight:700;color:var(--cyan)}
+.kpi div{min-width:120px}
+.wire{background:#0b1226;border:1px solid var(--line);border-radius:var(--r);padding:10px;margin:10px 0}
+.wire svg{width:100%;height:auto;display:block}
+.cap{color:var(--dim);font-size:12.5px;margin-top:6px;text-align:center}
+.flow{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:10px 0;font-size:13px}
+.node{background:var(--card2);border:1px solid var(--line);border-radius:10px;padding:8px 12px;white-space:nowrap}
+.node.hl{border-color:var(--cyan);box-shadow:0 0 0 1px var(--cyan) inset}
+.arr{color:var(--dim)}
+.small{color:var(--dim);font-size:12px}
+.toc{columns:2;gap:24px;font-size:13.5px}
+.toc a{color:var(--cyan);text-decoration:none}
+.toc a:hover{text-decoration:underline}
+@media(max-width:860px){.toc{columns:1}}
+hr{border:0;border-top:1px solid var(--line);margin:36px 0}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<!-- ============ COVER ============ -->
+<div class="kicker">UX 改进方案 · 2026-11-22</div>
+<h1>课程 / 场景 / 模块<br>「死路径 → 应用内阅读器」改造</h1>
+<div class="sub">现状：三个入口都把「仓库文件路径」当成了内容本体，用户被迫离开应用、手动找文件夹，且在线上站点这些路径<b>根本不存在</b>（gh-pages 只部署 <code>onboarding/</code>）。<br>方案：一个统一的「内容阅读器」组件，零路径、一键直达、读完即进入练习/测验闭环。</div>
+
+<div class="toc card">
+  <div><a href="#s1">1. 现状诊断：三个死胡同</a></div>
+  <div><a href="#s2">2. 设计原则</a></div>
+  <div><a href="#s3">3. 目标体验：三条主线</a></div>
+  <div><a href="#s4">4. 屏幕草图（6 张）</a></div>
+  <div><a href="#s5">5. 渲染策略对比与推荐</a></div>
+  <div><a href="#s6">6. 技术实现方案</a></div>
+  <div><a href="#s7">7. 分批实施计划</a></div>
+  <div><a href="#s8">8. 风险与对策</a></div>
+  <div><a href="#s9">9. 验收指标</a></div>
+  <div><a href="#s10">10. 立即可落地的三步</a></div>
+</div>
+
+<!-- ============ S1 现状 ============ -->
+<h2 id="s1">1 · 现状诊断：三个死胡同</h2>
+
+<div class="grid g3">
+  <div class="wire">
+    <!-- Lesson modal (current) -->
+    <svg viewBox="0 0 320 240" role="img" aria-label="课程关卡弹窗现状">
+      <rect x="10" y="10" width="300" height="220" rx="14" fill="#16213a" stroke="#2b3b5c"/>
+      <text x="26" y="38" fill="#e8eefc" font-size="14" font-weight="700">🎯 01 · 诊断课</text>
+      <rect x="24" y="50" width="70" height="16" rx="8" fill="#1c2a4a"/><text x="34" y="62" fill="#93a4c9" font-size="9">✓ 知识点</text>
+      <rect x="100" y="50" width="70" height="16" rx="8" fill="#1c2a4a"/><text x="110" y="62" fill="#93a4c9" font-size="9">○ 课内练习</text>
+      <rect x="176" y="50" width="70" height="16" rx="8" fill="#1c2a4a"/><text x="186" y="62" fill="#93a4c9" font-size="9">○ 单元测验</text>
+      <text x="26" y="96" fill="#22d3ee" font-size="10">📖 完整课程内容在：</text>
+      <rect x="24" y="104" width="272" height="26" rx="6" fill="#0b1226" stroke="#2b3b5c"/>
+      <text x="32" y="121" fill="#7dd3fc" font-size="10.5" font-family="monospace">ielts-75/lessons/0001-…html</text>
+      <rect x="24" y="146" width="86" height="22" rx="11" fill="#2563eb"/><text x="44" y="161" fill="#fff" font-size="11">课内练习</text>
+      <rect x="116" y="146" width="86" height="22" rx="11" fill="#2563eb"/><text x="136" y="161" fill="#fff" font-size="11">单元测验</text>
+      <text x="26" y="206" fill="#fb7185" font-size="9.5">⚠ 路径只读不可点 · 线上站点该文件不存在</text>
+    </svg>
+    <div class="cap">A. 课程关卡：路径当成正文</div>
+  </div>
+
+  <div class="wire">
+    <!-- Scenario modal (current) -->
+    <svg viewBox="0 0 320 240" role="img" aria-label="场景弹窗现状">
+      <rect x="10" y="10" width="300" height="220" rx="14" fill="#16213a" stroke="#2b3b5c"/>
+      <text x="26" y="38" fill="#e8eefc" font-size="14" font-weight="700">🏙️ 面试与自我介绍</text>
+      <text x="26" y="60" fill="#93a4c9" font-size="10">💬 Could you repeat that, please?…</text>
+      <text x="26" y="78" fill="#e8eefc" font-size="10">练习任务：准备 2 分钟自我介绍…</text>
+      <text x="26" y="100" fill="#22d3ee" font-size="10">📂 完整素材在：</text>
+      <rect x="24" y="108" width="272" height="26" rx="6" fill="#0b1226" stroke="#2b3b5c"/>
+      <text x="30" y="122" fill="#7dd3fc" font-size="9.2" font-family="monospace">materials/scenarios/（按域找到…）</text>
+      <rect x="24" y="148" width="120" height="22" rx="11" fill="#2563eb"/><text x="36" y="163" fill="#fff" font-size="10.5">🎮 领取任务去演练</text>
+      <rect x="150" y="148" width="96" height="22" rx="11" fill="none" stroke="#2b3b5c"/><text x="162" y="163" fill="#93a4c9" font-size="10.5">查看文档路径</text>
+      <text x="26" y="206" fill="#fb7185" font-size="9.5">⚠ 路径甚至不完整（需人工找文件夹）</text>
+    </svg>
+    <div class="cap">B. 场景城：路径不完整，「查看文档路径」是空气</div>
+  </div>
+
+  <div class="wire">
+    <!-- Module modal (current) -->
+    <svg viewBox="0 0 320 240" role="img" aria-label="模块弹窗现状">
+      <rect x="10" y="10" width="300" height="220" rx="14" fill="#16213a" stroke="#2b3b5c"/>
+      <text x="26" y="38" fill="#e8eefc" font-size="14" font-weight="700">🔊 01 · 发音深度训练 <tspan fill="#fbbf24" font-size="9">P0</tspan></text>
+      <text x="26" y="60" fill="#e8eefc" font-size="10">包含文件：</text>
+      <text x="36" y="76" fill="#93a4c9" font-size="9.5">01-音标与易错音 / 02-连读弱读…</text>
+      <rect x="24" y="86" width="272" height="24" rx="6" fill="#0b1226" stroke="#2b3b5c"/>
+      <text x="32" y="102" fill="#7dd3fc" font-size="9.5" font-family="monospace">ielts-75/modules/01-发音深度训练/</text>
+      <rect x="24" y="124" width="240" height="8" rx="4" fill="#1c2a4a"/><rect x="24" y="124" width="60" height="8" rx="4" fill="#22d3ee"/>
+      <text x="26" y="150" fill="#e8eefc" font-size="10">任务清单 2/5 项完成 · 📅 打卡 6 天</text>
+      <rect x="24" y="164" width="86" height="22" rx="11" fill="#2563eb"/><text x="44" y="179" fill="#fff" font-size="11">单元测验</text>
+      <rect x="116" y="164" width="80" height="22" rx="11" fill="none" stroke="#34d399"/><text x="126" y="179" fill="#34d399" font-size="11">进入模块</text>
+      <text x="26" y="216" fill="#fb7185" font-size="9.5">⚠「进入模块」只是关弹窗，不进入任何内容</text>
+    </svg>
+    <div class="cap">C. 模块工坊：「进入模块」是伪动作</div>
+  </div>
+</div>
+
+<div class="card" style="border-left:4px solid var(--rose)">
+  <h3 style="color:var(--rose);margin-top:4px">诊断结论</h3>
+  <table>
+    <tr><th>违反的启发式</th><th>具体表现</th></tr>
+    <tr><td>可见性 / 系统状态</td><td>路径文本呈现了「去哪找」，却无法「点了就去」；用户不知这是文档还是按钮</td></tr>
+    <tr><td>识别而非回忆</td><td>用户被迫记住并重打路径，或回到仓库手翻文件夹</td></tr>
+    <tr><td>匹配真实世界</td><td>UI 暴露实现细节（相对路径），用户心智模型里不存在「文件系统」</td></tr>
+    <tr><td>错误预防 / 容错</td><td>线上站点不部署 <code>lessons/</code>、<code>modules/</code>、<code>materials/</code>，路径是<strong>必然 404 的死链</strong></td></tr>
+    <tr><td>用户控制与自由</td><td>「查看文档路径」「进入模块」看似动作、实则无功能，打断信任</td></tr>
+  </table>
+  <p class="small">根因一句话：<b>内容只存在于仓库，不在部署产物里；UI 把「文档链接」降级成了「装饰性文字」。</b></p>
+</div>
+
+<div class="kpi card">
+  <div><div class="n">3</div>死路径入口<br><span class="small">课程 / 场景 / 模块</span></div>
+  <div><div class="n">0</div>条可点击的内容链接<br><span class="small">三个弹窗内</span></div>
+  <div><div class="n">~780KB</div>可用内容被闲置<br><span class="small">lessons 125K + modules 256K + scenarios 396K</span></div>
+  <div><div class="n">100%</div>线上 404<br><span class="small">gh-pages 仅部署 onboarding/</span></div>
+</div>
+
+<!-- ============ S2 原则 ============ -->
+<h2 id="s2">2 · 设计原则</h2>
+<div class="grid g2">
+  <div class="card"><b style="color:var(--cyan)">① 零路径原则</b><br>UI 里不再出现文件路径；「读内容」是一等公民动作，一等公民外观（主按钮）。</div>
+  <div class="card"><b style="color:var(--cyan)">② 闭环原则</b><br>每屏只有一个主 CTA，且指向「下一步学习」：读 → 练 → 测 → 下一关。路径文字只出现在「关于/版权」页。</div>
+  <div class="card"><b style="color:var(--cyan)">③ 连续性原则</b><br>进入阅读器后，返回应回到唤起点（课/场景/模块）——沿用现有 <code>goPodFromLesson</code> 的上下文返回模式，不打断旅程。</div>
+  <div class="card"><b style="color:var(--cyan)">④ 离线同构原则</b><br>阅读器内容与主程序同构发布（同域、同 SW 预缓存），断网也能读完。</div>
+</div>
+
+<!-- ============ S3 目标体验 ============ -->
+<h2 id="s3">3 · 目标体验：三条主线</h2>
+
+<div class="card">
+  <h3>主线 A · 课程关卡（读完就测）</h3>
+  <div class="flow"><span class="node">关卡卡片</span><span class="arr">→</span><span class="node">关卡弹窗</span><span class="arr">→</span><span class="node hl">📖 开始学习（应用内阅读器，约 40 分钟）</span><span class="arr">→</span><span class="node">阅读器内「下一步」</span><span class="arr">→</span><span class="node">✍️ 课内练习</span><span class="arr">→</span><span class="node">📝 单元测验</span><span class="arr">→</span><span class="node">自动勾选 ✓知识点</span></div>
+  <h3>主线 B · 场景城（先看表达，再开口）</h3>
+  <div class="flow"><span class="node">场景卡片</span><span class="arr">→</span><span class="node">场景弹窗</span><span class="arr">→</span><span class="node hl">👁️ 查看素材（表达/对话/角色任务 · 内置页签）</span><span class="arr">→</span><span class="node">🎮 去演练（演练舱不变）</span><span class="arr">→</span><span class="node">打卡 + 模块任务联动</span></div>
+  <h3>主线 C · 模块工坊（读完设备忘）</h3>
+  <div class="flow"><span class="node">模块卡片</span><span class="arr">→</span><span class="node">模块弹窗</span><span class="arr">→</span><span class="node hl">📖 阅读模块（4 份文档 · 内置目录）</span><span class="arr">→</span><span class="node">✓ 自动标记已读</span><span class="arr">→</span><span class="node">勾选任务清单 / 每日打卡</span><span class="arr">→</span><span class="node">✍️ 单元测验</span></div>
+</div>
+
+<!-- ============ S4 屏幕草图 ============ -->
+<h2 id="s4">4 · 屏幕草图（6 张）</h2>
+
+<div class="grid g2">
+  <div class="wire">
+    <svg viewBox="0 0 360 250" role="img" aria-label="课程弹窗改版">
+      <rect x="8" y="8" width="344" height="234" rx="16" fill="#16213a" stroke="#22d3ee"/>
+      <text x="24" y="36" fill="#e8eefc" font-size="15" font-weight="700">🎯 01 · 诊断课</text>
+      <rect x="20" y="48" width="76" height="17" rx="8.5" fill="#1c2a4a"/><text x="30" y="60" fill="#34d399" font-size="9.5">✓ 知识点</text>
+      <rect x="102" y="48" width="76" height="17" rx="8.5" fill="#1c2a4a"/><text x="112" y="60" fill="#93a4c9" font-size="9.5">○ 课内练习</text>
+      <rect x="184" y="48" width="76" height="17" rx="8.5" fill="#1c2a4a"/><text x="194" y="60" fill="#93a4c9" font-size="9.5">○ 单元测验</text>
+      <text x="24" y="88" fill="#93a4c9" font-size="10.5">理解 7.5 评分标准，完成自我诊断……</text>
+      <rect x="20" y="100" width="320" height="46" rx="12" fill="#22d3ee"/>
+      <text x="60" y="120" fill="#06121f" font-size="15" font-weight="800">📖 开始学习</text>
+      <text x="60" y="137" fill="#06121f" font-size="10">应用内阅读 · 约 40 分钟 · 读完自动打卡</text>
+      <rect x="20" y="156" width="98" height="24" rx="12" fill="none" stroke="#2b3b5c"/><text x="34" y="172" fill="#e8eefc" font-size="10.5">▷ 课内练习</text>
+      <rect x="126" y="156" width="98" height="24" rx="12" fill="none" stroke="#2b3b5c"/><text x="140" y="172" fill="#e8eefc" font-size="10.5">📝 单元测验</text>
+      <rect x="232" y="156" width="108" height="24" rx="12" fill="none" stroke="#2b3b5c"/><text x="242" y="172" fill="#e8eefc" font-size="10.5">🎮 去演练：面试</text>
+      <text x="24" y="214" fill="#93a4c9" font-size="9">读完后「开始学习」自动变为「✓ 已读 · 回顾」</text>
+    </svg>
+    <div class="cap">① 课程关卡弹窗改版：一个主 CTA，路径消失</div>
+  </div>
+
+  <div class="wire">
+    <svg viewBox="0 0 360 250" role="img" aria-label="应用内阅读器">
+      <rect x="8" y="8" width="344" height="234" rx="16" fill="#0b1226" stroke="#2b3b5c"/>
+      <rect x="8" y="8" width="344" height="34" rx="16" fill="#16213a"/>
+      <text x="22" y="30" fill="#e8eefc" font-size="12.5" font-weight="700">← 01 · 诊断课</text>
+      <text x="264" y="30" fill="#93a4c9" font-size="10">3 / 11 讲</text>
+      <rect x="20" y="52" width="320" height="118" rx="10" fill="#f8fafc"/>
+      <text x="34" y="74" fill="#1f2937" font-size="12" font-weight="700">一、7.5 到底要求什么</text>
+      <text x="34" y="92" fill="#374151" font-size="9">官方 Band Descriptors · 口语 7.5 的关键特征…</text>
+      <rect x="34" y="102" width="290" height="10" rx="5" fill="#e5e7eb"/>
+      <rect x="34" y="118" width="240" height="10" rx="5" fill="#e5e7eb"/>
+      <rect x="34" y="134" width="268" height="10" rx="5" fill="#e5e7eb"/>
+      <rect x="20" y="182" width="320" height="10" rx="5" fill="#1c2a4a"/>
+      <rect x="20" y="182" width="110" height="10" rx="5" fill="#22d3ee"/>
+      <text x="22" y="212" fill="#22d3ee" font-size="11" font-weight="700">读完了？ →</text>
+      <rect x="230" y="202" width="110" height="26" rx="13" fill="#22d3ee"/>
+      <text x="252" y="219" fill="#06121f" font-size="11.5" font-weight="800">下一步：练习</text>
+    </svg>
+    <div class="cap">② 应用内阅读器：进度条 + 常驻「下一步」</div>
+  </div>
+
+  <div class="wire">
+    <svg viewBox="0 0 360 250" role="img" aria-label="场景弹窗改版">
+      <rect x="8" y="8" width="344" height="234" rx="16" fill="#16213a" stroke="#22d3ee"/>
+      <text x="24" y="36" fill="#e8eefc" font-size="14" font-weight="700">🏙️ 面试与自我介绍 <tspan fill="#93a4c9" font-size="9">职场</tspan></text>
+      <text x="24" y="58" fill="#93a4c9" font-size="10.5">面试全流程：自我介绍、动机、能力、提问收尾。</text>
+      <rect x="20" y="70" width="320" height="36" rx="10" fill="#1c2a4a"/>
+      <text x="30" y="86" fill="#22d3ee" font-size="9">💬 核心表达</text><text x="30" y="100" fill="#e8eefc" font-size="9.5">I've got three years of experience…</text>
+      <rect x="20" y="114" width="320" height="36" rx="10" fill="none" stroke="#2b3b5c"/>
+      <text x="30" y="130" fill="#22d3ee" font-size="9">👥 情景对话 · 2 段</text><text x="30" y="144" fill="#e8eefc" font-size="9.5">面试开场 · 收尾与提问</text>
+      <rect x="20" y="158" width="320" height="36" rx="10" fill="none" stroke="#2b3b5c"/>
+      <text x="30" y="174" fill="#22d3ee" font-size="9">🎭 角色扮演任务</text><text x="30" y="188" fill="#e8eefc" font-size="9.5">准备 2 分钟自我介绍 + 应对追问</text>
+      <rect x="20" y="202" width="150" height="26" rx="13" fill="#22d3ee"/><text x="46" y="219" fill="#06121f" font-size="11.5" font-weight="800">🎮 去演练</text>
+      <text x="186" y="219" fill="#93a4c9" font-size="10">点卡片先看内容 ▸</text>
+    </svg>
+    <div class="cap">③ 场景弹窗改版：三 Tab 素材（表达/对话/任务）前置</div>
+  </div>
+
+  <div class="wire">
+    <svg viewBox="0 0 360 250" role="img" aria-label="场景素材页签">
+      <rect x="8" y="8" width="344" height="234" rx="16" fill="#0b1226" stroke="#2b3b5c"/>
+      <rect x="8" y="8" width="344" height="34" rx="16" fill="#16213a"/>
+      <text x="22" y="30" fill="#e8eefc" font-size="12" font-weight="700">← 面试与自我介绍</text>
+      <rect x="20" y="52" width="90" height="22" rx="11" fill="#22d3ee"/><text x="36" y="67" fill="#06121f" font-size="10.5" font-weight="700">核心表达</text>
+      <rect x="116" y="52" width="90" height="22" rx="11" fill="none" stroke="#2b3b5c"/><text x="136" y="67" fill="#e8eefc" font-size="10.5">情景对话</text>
+      <rect x="212" y="52" width="90" height="22" rx="11" fill="none" stroke="#2b3b5c"/><text x="232" y="67" fill="#e8eefc" font-size="10.5">角色任务</text>
+      <text x="24" y="98" fill="#fbbf24" font-size="10" font-weight="700">一、自我介绍</text>
+      <text x="32" y="116" fill="#e8eefc" font-size="10">Good morning. My name is …</text>
+      <text x="32" y="132" fill="#e8eefc" font-size="10">I'm currently …, where I …</text>
+      <text x="32" y="148" fill="#e8eefc" font-size="10">I've got … years of experience in …</text>
+      <text x="32" y="164" fill="#e8eefc" font-size="10">My background is in …</text>
+      <text x="24" y="196" fill="#93a4c9" font-size="9">音频跟读：点词朗读 · 共 28 条</text>
+      <rect x="230" y="212" width="110" height="26" rx="13" fill="#22d3ee"/><text x="252" y="229" fill="#06121f" font-size="11.5" font-weight="800">去演练 ▸</text>
+    </svg>
+    <div class="cap">④ 素材阅读器（场景）：页签切换 + 常驻「去演练」</div>
+  </div>
+
+  <div class="wire">
+    <svg viewBox="0 0 360 250" role="img" aria-label="模块弹窗改版">
+      <rect x="8" y="8" width="344" height="234" rx="16" fill="#16213a" stroke="#22d3ee"/>
+      <text x="24" y="36" fill="#e8eefc" font-size="14" font-weight="700">🔊 01 · 发音深度训练</text>
+      <text x="24" y="56" fill="#93a4c9" font-size="10">🎯 目标：音素准确 · 重音自然 · 语调有功能</text>
+      <rect x="20" y="68" width="320" height="30" rx="8" fill="#1c2a4a"/><text x="30" y="81" fill="#e8eefc" font-size="10">📄 01-音标与易错音 <tspan fill="#34d399">✓ 已读</tspan></text><text x="30" y="93" fill="#93a4c9" font-size="8.5">约 12 分钟</text>
+      <rect x="20" y="102" width="320" height="30" rx="8" fill="none" stroke="#2b3b5c"/><text x="30" y="115" fill="#e8eefc" font-size="10">📄 02-连读弱读进阶与语调</text><text x="30" y="127" fill="#93a4c9" font-size="8.5">约 10 分钟 · 未读</text>
+      <rect x="20" y="136" width="320" height="30" rx="8" fill="none" stroke="#2b3b5c"/><text x="30" y="149" fill="#e8eefc" font-size="10">📄 03-发音自检清单</text><text x="30" y="161" fill="#93a4c9" font-size="8.5">约 8 分钟 · 未读</text>
+      <rect x="20" y="170" width="240" height="8" rx="4" fill="#1c2a4a"/><rect x="20" y="170" width="60" height="8" rx="4" fill="#22d3ee"/>
+      <text x="24" y="196" fill="#e8eefc" font-size="10">任务清单 2/5 · 📅 打卡 6 天</text>
+      <rect x="20" y="206" width="130" height="24" rx="12" fill="none" stroke="#34d399"/><text x="38" y="222" fill="#34d399" font-size="11">📅 今日打卡</text>
+      <rect x="160" y="206" width="110" height="24" rx="12" fill="#22d3ee"/><text x="182" y="222" fill="#06121f" font-size="11" font-weight="800">✍️ 单元测验</text>
+    </svg>
+    <div class="cap">⑤ 模块弹窗改版：文件=可读条目（✓已读/未读）</div>
+  </div>
+
+  <div class="wire">
+    <svg viewBox="0 0 360 250" role="img" aria-label="返回导航">
+      <rect x="8" y="8" width="344" height="234" rx="16" fill="#0b1226" stroke="#2b3b5c"/>
+      <rect x="8" y="8" width="344" height="34" rx="16" fill="#16213a"/>
+      <text x="22" y="29" fill="#e8eefc" font-size="11" font-weight="700">← 返回：02 · 流利度专项</text>
+      <text x="24" y="64" fill="#fbbf24" font-size="10" font-weight="700">01-填充词与自我纠控制</text>
+      <text x="30" y="82" fill="#e8eefc" font-size="9.5">um / you know / like 的频次…</text>
+      <text x="30" y="98" fill="#e8eefc" font-size="9.5">自我纠正的两条边界…</text>
+      <text x="30" y="114" fill="#e8eefc" font-size="9.5">录音自检 3 遍，每遍只盯一个维度…</text>
+      <rect x="20" y="136" width="150" height="24" rx="12" fill="#1c2a4a"/><text x="32" y="152" fill="#22d3ee" font-size="10.5">▷ 上一份　02-快速反应</text>
+      <rect x="182" y="136" width="158" height="24" rx="12" fill="#22d3ee"/><text x="194" y="152" fill="#06121f" font-size="10.5" font-weight="800">下一份：自检清单 →</text>
+      <text x="24" y="196" fill="#93a4c9" font-size="9.5">读完本模块后自动：标记 3/4 份已读 →</text>
+      <text x="24" y="212" fill="#93a4c9" font-size="9.5">引导「📅 今日打卡」与「✍️ 单元测验」</text>
+    </svg>
+    <div class="cap">⑥ 阅读器内的连续性：上一份/下一份 + 自动回执</div>
+  </div>
+</div>
+
+<!-- ============ S5 策略对比 ============ -->
+<h2 id="s5">5 · 渲染策略：三种方案对比</h2>
+<table>
+  <tr><th>方案</th><th>做法</th><th>优点</th><th>缺点</th><th>结论</th></tr>
+  <tr>
+    <td>A · 部署 raw 文件，弹窗里放链接<br><span class="small">lessons/ 原样发布 + <code>&lt;a target=_blank&gt;</code></span></td>
+    <td>改动最小</td>
+    <td>实现最快</td>
+    <td>中断心流；离开应用；raw 页面无进度、无返回路径、不计数；仍是「文件思维」</td>
+    <td><span class="tag bad">不推荐</span></td>
+  </tr>
+  <tr>
+    <td>B · 应用内阅读器（推荐）<br><span class="small">lessons：iframe 内嵌同源 HTML；modules/scenarios：构建期 md→html 预渲染，运行时按卷懒加载</span></td>
+    <td>零路径；进度/打卡/返回闭环；离线同构；复用现有覆盖层体系（pod-mask 同款）</td>
+    <td>需一个构建脚本 + 少量引擎；iframe 内焦点/滚动需适配</td>
+    <td><span class="tag ok">推荐</span></td>
+  </tr>
+  <tr>
+    <td>C · 全部原生重写<br><span class="small">把 11 课/12 模块/30 场景逐字重写成 app.js 渲染组件</span></td>
+    <td>完全统一体验</td>
+    <td>≈4,600 行内容手工搬运，高风险、低回报</td>
+    <td><span class="tag bad">不推荐</span></td>
+  </tr>
+</table>
+
+<!-- ============ S6 技术方案 ============ -->
+<h2 id="s6">6 · 技术实现方案（方案 B）</h2>
+<h3>6.1 目录与构建</h3>
+<pre>repo 根                     onboarding/（部署产物）
+lessons/*.html      ──┐
+modules/*/*.md        ├─→ scripts/gen_content_viewer.py ─→ onboarding/js/content/lessons/*.html（旁路拷贝）
+materials/scenarios/… ─┘                              └─→ onboarding/js/content/mod-*.js / scen-*.js（md→html，按需懒加载）
+                                                    └─→ PRECACHE 增：content/ 壳（不预缓存大卷，用到再缓存）
+</pre>
+<ul>
+  <li><b>Lessons（11 份，≈125KB）</b>：同源 iframe 内嵌（<code>sandbox="allow-scripts"</code>），原页面自带样式/小脚本，零改写；iframe 高度自适应 + 内部滚动。</li>
+  <li><b>Modules（12 份 README + 44 份 .md ≈256KB）</b>：构建期已转 html → 注入阅读器容器（消毒白名单标签）；每模块一个 JS 卷，<code>ensureModuleContent(id)</code> 懒加载。</li>
+  <li><b>Scenarios（30 组 × 3 份 ≈396KB）</b>：直接复用 <code>PRACTICE_FULL</code> 已有的 words/phrases/dialogs/tips（应用内已有全量！）；MD 原文作为「查看原文」可选项，默认不加载。Markdown 仅作 fallback。</li>
+  <li><b>统一阅读器</b> <code>#reader-mask</code>：顶栏（← 返回 · 标题 · 进度）+ 内容区 + 底栏（上一份/下一份 · 主 CTA 随场景变化为「下一步：课内练习 / 去演练 / 今日打卡」）。</li>
+</ul>
+<h3>6.2 状态与埋点（复用现有设施）</h3>
+<ul>
+  <li>阅读完成自动 <code>done.lessonView</code> / 新增 <code>done.contentRead[id]=true</code> → 驱动模块「已读✓」与课程「知识点✓」（替代仅打开即视为已查看的近似逻辑）。</li>
+  <li>埋点复用 <code>logLearning('content-read', id, pct)</code>；XP 不重复奖励。</li>
+  <li>Escape/遮罩点击/返回按钮三层关闭；<code>#reader-mask</code> 加入现有 <code>document.addEventListener('keydown')</code> 分层链。</li>
+  <li><b>SW：</b> 每批 bump <code>CACHE</code>（延续 v7 纪律）；阅读器壳进 PRECACHE，内容卷走「首访缓存」。</li>
+</ul>
+<h3>6.3 测试与门禁</h3>
+<ul>
+  <li>新增 <code>scripts/_test_reader.js</code>（gitignored）：mock iframe 加载、断言章节切换/下一步/返回导航；</li>
+  <li><code>compat-test.js</code> 追加 3 断言：阅读器可达（Chromium/WebKit/Firefox）、iframe 内容可渲染、Escape 关闭；</li>
+  <li><code>validate-data.js</code> 增校验：每个 PRACTICE_FULL 场景均有对应素材卷（防「素材缺失」回潮）。</li>
+</ul>
+
+<!-- ============ S7 分批 ============ -->
+<h2 id="s7">7 · 分批实施计划</h2>
+<table>
+  <tr><th>批次</th><th>范围</th><th>工作量</th><th>验收点</th></tr>
+  <tr><td><b>批次 A（本提案最小集）</b></td><td>建 <code>gen_content_viewer.py</code> + <code>#reader-mask</code> + Lessons 全部接入 + 课程弹窗 CTA 改版 + SW bump</td><td>≈1 个批次</td><td>11 课全部可在应用内读完并流转入练习/测验；线上零死路径</td></tr>
+  <tr><td><b>批次 B</b></td><td>场景弹窗三 Tab（复用 PRACTICE_FULL）+ 素材阅读器 + 「去演练」CTA 固化；模块 .md 预渲染 + 已读✓ + 下一份导航</td><td>≈1 个批次</td><td>30 场景、12 模块零路径；已读状态持久化</td></tr>
+  <tr><td><b>批次 C（可选增强）</b></td><td>深链接 <code>#/read/&lt;type&gt;/&lt;id&gt;</code>（浏览器后退可用）；最近阅读；阅读计时与周报；iframe 内锚点同步</td><td>≈0.5–1 个批次</td><td>分享链接直达；后退键语义正确</td></tr>
+</table>
+
+<!-- ============ S8 风险 ============ -->
+<h2 id="s8">8 · 风险与对策</h2>
+<table>
+  <tr><th>风险</th><th>对策</th></tr>
+  <tr><td>iframe 内页面样式与主应用冲突</td><td>lessons/*.html 自带 <code>&lt;style&gt;</code> 且为浅色文档风——天然隔离；统一加 <code>background:#fff</code> 容器即可。</td></tr>
+  <tr><td>SW 体积膨胀（125+256+396KB）</td><td>壳预缓存，内容卷一律「首访缓存」；lessons 打包进单卷以摊薄请求数。</td></tr>
+  <tr><td>Markdown 转换保真（表格/代码块）</td><td>构建期生成 + <code>audit-content</code> 式 diff 自检；高风险文档人工过一篇。</td></tr>
+  <tr><td>「已读」判定过于宽松</td><td>滚动到底部或停留 ≥ 30s 才算已读；配合手动「✓ 标记已读」兜底。</td></tr>
+  <tr><td>用户断网首开</td><td>未缓存卷给出友好提示「联网后自动补齐」，不弹错。</td></tr>
+</table>
+
+<!-- ============ S9 指标 ============ -->
+<h2 id="s9">9 · 验收指标</h2>
+<div class="card">
+  <div class="kpi">
+    <div><div class="n">0</div>线上死路径点击<br><span class="small">目标：归零（现状=高）</span></div>
+    <div><div class="n">≥70%</div>读→练 转化率<br><span class="small">打开课内练习/去演练的比例</span></div>
+    <div><div class="n">≥60%</div>读→测 转化率<br><span class="small">阅读后发起单元测验的比例</span></div>
+    <div><div class="n">≥80%</div>阅读完成率<br><span class="small">打开阅读器后滚到底部的比例</span></div>
+  </div>
+  <p class="small">观测方式：复用 <code>learning-records</code> 导出 JSON/CSV 人工统计；不引入第三方埋点。</p>
+</div>
+
+<!-- ============ S10 下一步 ============ -->
+<h2 id="s10">10 · 立即可落地的三步</h2>
+<ol>
+  <li><b>今天就能做的止血（10 分钟）</b>：把三处 <code>.file</code> 路径文字替换为可点的 <code>&lt;a&gt;</code>（指向 GitHub 仓库对应文件），并把「进入模块」按钮改为关闭+toast「内容已在本次更新内置」。——只用于过渡，不入库也可先本地看。</li>
+  <li><b>本批（批次 A）</b>：我按第 7 节开工：先出 <code>gen_content_viewer.py</code> + 阅读器，再逐一改三个弹窗；每步过门禁与 compat。</li>
+  <li><b>你的验收问题</b>：① 阅读器底栏主 CTA 的措辞（「下一步」 vs 「完成并测验」）你更喜欢哪个？② 场景素材是否需要「听音频跟读」？（PRACTICE_FULL 无音频，需要 TTS 可后续加）③ 批次 A/B 合并成一个大批还是分两批？</li>
+</ol>
+
+<hr>
+<p class="small">IELTS 7.5 训练基地 · UX 改进提案 · 生成于 2026-11-22 · 方案未实现，落地前以你的验收为准。<br>相关：<code>docs/mock-bank-design.md</code>（发布纪律）、<code>docs/data-model.md</code>（状态字段）。</p>
+</div>
+</body>
+</html>
