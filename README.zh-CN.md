@@ -80,6 +80,7 @@ onboarding/          可部署应用（原生 HTML/CSS/JS）
   js/course.js       课程/模块内容
   js/practice-full.js  30 场景对话语料（懒加载）
   js/mock-bank.js    生成产物，禁止手改（数据源 scripts/mock-bank.json）
+  content/lessons/   生成产物（scripts/gen_content_viewer.py）—— 课程同步副本，供应用内阅读器 iframe 内嵌
   sw.js              预缓存 + 版本化离线缓存（每次发布必须 bump CACHE！）
 scripts/             数据生成与门禁脚本（见下）
   mock-parts/        每卷原始素材（听力原文、P1–P3）

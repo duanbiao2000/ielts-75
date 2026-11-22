@@ -2,7 +2,7 @@
    策略：预缓存全部静态资源（版本化缓存名），cache-first 命中即用；
    未命中先走网络并写入缓存；完全离线时回落到 index.html 外壳。
    更新：发布新版本时 bump CACHE 版本号，activate 删除旧缓存。 */
-const CACHE = 'ielts75-v7';
+const CACHE = 'ielts75-v8';
 const PRECACHE = [
   './',
   'index.html',
@@ -13,6 +13,17 @@ const PRECACHE = [
   'js/training.js',
   'js/course.js',
   'js/app.js',
+  'content/lessons/0001-diagnostic.html',
+  'content/lessons/0002-connected-speech.html',
+  'content/lessons/0003-speaking-part1.html',
+  'content/lessons/0004-speaking-part2.html',
+  'content/lessons/0005-speaking-part3.html',
+  'content/lessons/0006-listening-section12.html',
+  'content/lessons/0007-listening-paraphrase.html',
+  'content/lessons/0008-listening-section34.html',
+  'content/lessons/0009-speaking-pronunciation.html',
+  'content/lessons/0010-speaking-part2-mastery.html',
+  'content/lessons/0011-mock-exam-sprint.html',
   'manifest.json',
   'icon.svg',
 ];

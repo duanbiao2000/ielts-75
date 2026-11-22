@@ -17,8 +17,14 @@
 ```
 
 - `id`：唯一，前缀 `l`。
-- `path`：相对项目根的完整课程文件路径。
+- `path`：相对项目根的完整课程文件路径（构建期由 `scripts/gen_content_viewer.py` 同步至 `onboarding/content/<path>`，应用内阅读器以同源 iframe 内嵌；gh-pages 只部署 `onboarding/`）。
 - `points`：本课核心知识点数组。
+
+### 1.1 状态字段补充：contentRead（批次 A · 2026-11-22）
+
+- `done.contentRead: string[]` — 已读完的内容 id（当前为课程 id，如 `l1`）。
+- 由阅读器「完成并测验」写入；课程关卡弹窗主 CTA 据此在「📖 开始学习」与「✓ 已读 · 回顾」间切换。
+- 与 `done.lessonView`（打开即记）并存：view=看过，contentRead=读完。
 
 ## 2. 场景 SCENARIOS
 

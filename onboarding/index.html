@@ -130,12 +130,15 @@
   #modalBox  —— 通用详情弹窗（openModal() 填充 innerHTML，课程/场景/模块/测验/剧情等共用）
   #pod        —— 演练舱（openPractice() → renderPod()，turn-based 对话/自检/反馈/录音）
   #mock       —— 模考冲刺 · 月刊卷架（openMock() → 卷架；openMockVolume(setId) → 选卷；按 mock.part 渲染 shelf/intro/speak/listen/done；每卷 125 题/150 分，雅思 9 分制换算；数据见 js/mock-bank.js）
+  #reader     —— 内容阅读器（openReader() → lessons 同源 iframe；顶栏返回+进度；底栏「完成并测验」；Escape 最优先关闭）
   显示/隐藏：各 mask 加/减 .show 类；Escape 也按 mock → pod → modal 的优先级分级关闭。
 -->
 <div id="modal-mask"><div class="modal" id="modalBox" role="dialog" aria-modal="true" aria-label="详情与操作"></div></div>
 <div id="pod-mask"><div class="pod" id="pod" role="dialog" aria-modal="true" aria-label="场景演练舱"></div></div>
 <!-- 模考冲刺对话框：内容由 js/app.js 的 renderMock() 动态渲染（初始为空，打开模考时才填充） -->
 <div id="mock-mask"><div class="pod mock" id="mock" role="dialog" aria-modal="true" aria-label="模考冲刺"></div></div>
+<!-- 内容阅读器对话框：内容由 js/app.js 的 openReader() 渲染（课程 iframe；顶栏返回+底栏「完成并测验」） -->
+<div id="reader-mask"><div class="reader" id="reader" role="dialog" aria-modal="true" aria-label="应用内阅读器"></div></div>
 <div id="toast" role="status" aria-live="polite"></div>
 
 <script src="js/data.js" defer></script>

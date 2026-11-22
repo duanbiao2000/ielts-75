@@ -34,7 +34,7 @@ function loadState(){
 function migrateState(s){
   s = s || {};
   // 数组字段补齐
-  ['lesson','scen','mod','practice','diag','badges','quiz','review','errors','lessonView','lessonEx','quizPass','modTasks','modCheckins'].forEach(k=>{ if(!Array.isArray(s[k])) s[k]=[]; });
+  ['lesson','scen','mod','practice','diag','badges','quiz','review','errors','lessonView','lessonEx','quizPass','modTasks','modCheckins','contentRead'].forEach(k=>{ if(!Array.isArray(s[k])) s[k]=[]; });
   // 游戏化系统预留字段（批次 4 使用）
   if(typeof s.experience!=='number') s.experience=0;
   if(typeof s.streak!=='number') s.streak=0;
@@ -429,7 +429,7 @@ function keyActivate(el, fn){
   el.onkeydown=e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); fn(); } };
 }
 $('#modal-mask').onclick=e=>{ if(e.target===$('#modal-mask')) closeModal(); };
-document.addEventListener('keydown',e=>{ if(e.key==='Escape'){ const mock=$('#mock-mask'); if(mock&&mock.classList.contains('show')){ closeMock(); return; } const pod=$('#pod-mask'); if(pod&&pod.classList.contains('show')){ closePod(); return; } closeModal(); } });
+document.addEventListener('keydown',e=>{ if(e.key==='Escape'){ const rd=$('#reader-mask'); if(rd&&rd.classList.contains('show')){ closeReader(); return; } const mock=$('#mock-mask'); if(mock&&mock.classList.contains('show')){ closeMock(); return; } const pod=$('#pod-mask'); if(pod&&pod.classList.contains('show')){ closePod(); return; } closeModal(); } });
 
 function openLesson(l){
   // 知识点：打开即视为已查看（完成条件之一）
@@ -450,15 +450,54 @@ function openLesson(l){
       <span class="ls big ${s.ex?'on':''}">${s.ex?'✓':'○'} 课内练习</span>
       <span class="ls big ${s.quiz?'on':''}">${s.quiz?'✓':'○'} 单元测验</span>
     </div>
-    <p style="color:var(--cyan)">📖 完整课程内容（含练习与作业）在：</p>
-    <div class="file">ielts-75/${l.path}</div>
-    <div style="margin-top:16px;display:flex;gap:10px;flex-wrap:wrap">
-      ${pack?`<button class="btn small" onclick="openLessonPractice('${l.id}')">✍️ 课内练习</button>`:''}
-      <button class="btn small" onclick="closeModal();openUnitQuiz('lesson','${l.id}')">📝 单元测验</button>
-      ${sceneName?`<button class="btn small" onclick="closeModal();goPodFromLesson('${l.id}','${sceneName}')">🎮 去演练：${sceneName}</button>`:''}
+    <div style="margin-top:14px">
+      <button class="btn-primary-big" style="width:100%" onclick="closeModal();openReader('${l.id}')">${isContentRead(l.id)?'✓ 已读 · 回顾':'📖 开始学习'} <span style="font-weight:600;font-size:12px;opacity:.85">约 ${(pack&&pack.est)||40} 分钟 · 应用内阅读</span></button>
+    </div>
+    <div style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap">
+      ${pack?`<button class="btn ghost small" onclick="openLessonPractice('${l.id}')">✍️ 课内练习</button>`:''}
+      <button class="btn ghost small" onclick="closeModal();openUnitQuiz('lesson','${l.id}')">📝 单元测验</button>
+      ${sceneName?`<button class="btn ghost small" onclick="closeModal();goPodFromLesson('${l.id}','${sceneName}')">🎮 去演练：${sceneName}</button>`:''}
       <button class="btn ghost small" onclick="closeModal()">知道了，继续闯关</button>
     </div>`);
   checkLessonDone(l.id);
+}
+/* ============ 内容阅读器（课程：同源 iframe 内嵌 lessons/*.html） ============ */
+function isContentRead(id){ return (done.contentRead||[]).includes(id); }
+function openReader(id){
+  const l=LESSONS.find(x=>x.id===id); if(!l) return;
+  const idx=lessonIndex(id);
+  const est=(typeof LESSON_PACKS!=='undefined'&&LESSON_PACKS[id]&&LESSON_PACKS[id].est)||40;
+  readerState={id};
+  $('#reader').innerHTML=`
+    <div class="reader-top">
+      <button class="reader-back" onclick="closeReader()" aria-label="返回课程">← 返回</button>
+      <div class="reader-title">${l.icon} ${l.title}</div>
+      <div class="reader-count">${idx+1} / ${LESSONS.length} 讲</div>
+    </div>
+    <div class="reader-frame"><iframe title="${l.title}" src="content/${l.path}" sandbox="allow-scripts"></iframe></div>
+    <div class="reader-foot">
+      <span class="reader-hint">读完即完成本讲 · 直接进入单元测验</span>
+      <button class="btn-primary-big" onclick="readerComplete()">完成并测验 →</button>
+    </div>`;
+  $('#reader-mask').classList.add('show');
+  $('#reader').scrollTop=0;
+  logLearning('content-open', id);
+}
+/* 返回：回到唤起它的课程关卡弹窗（与 goPodFromLesson 同款上下文返回） */
+function closeReader(){
+  const id=readerState&&readerState.id;
+  $('#reader-mask').classList.remove('show'); $('#reader').innerHTML=''; readerState=null;
+  if(id){ const l=LESSONS.find(x=>x.id===id); if(l) openLesson(l); }
+}
+/* 完成并测验：标记已读 → 关闭阅读器 → 直开本讲单元测验 */
+function readerComplete(){
+  const id=readerState&&readerState.id;
+  $('#reader-mask').classList.remove('show'); $('#reader').innerHTML=''; readerState=null;
+  if(!id) return;
+  if(!Array.isArray(done.contentRead)) done.contentRead=[];
+  if(!done.contentRead.includes(id)){ done.contentRead.push(id); save(); }
+  logLearning('content-read', id);
+  openUnitQuiz('lesson', id);
 }
 /* 课程内跳转演练舱：记录来源课，演练完成后返回课程并更新进度 */
 function goPodFromLesson(lid, sceneName){
@@ -743,6 +782,7 @@ function renderLpxResult(list){
 /* ============ 月度模考题库 · Mock Bank（150 分制 · 雅思 9 分制换算） ============ */
 let mock={setId:null, part:'shelf', mode:'speak', speakIdx:0, listenIdx:0, speakScore:0, listenScore:0, speakResults:{}, listenResults:{}, recOn:false, recUrl:null, ans:''};
 let mockRecStream=null, mockRecChunks=[], mockRecSrc=null;
+let readerState=null;   // 内容阅读器：{id} —— 课程内容（iframe）
 const MOCK_BANK_LIST=()=>(typeof MOCK_BANK!=='undefined'&&Array.isArray(MOCK_BANK)? MOCK_BANK.slice().sort((a,b)=>String(a.month).localeCompare(String(b.month))) : []);
 function mockBankCur(){ const list=MOCK_BANK_LIST(); return list.find(b=>b.id===mock.setId) || list[list.length-1] || null; }
 function mockSpeakList(){
