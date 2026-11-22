@@ -116,3 +116,8 @@ onboarding/js/training.js     ← 删除硬编码 MOCK_EXAM → 别名 MOCK_EXAM
 - 旧卷：改写并入 mock-2026-11。✅
 - 生成节奏：每批 1 卷，逐卷验收。✅
 - 交付：本地开发，统一推送（含 compat/compat-test 生产冒烟）。✅
+
+## 9. 批次进度记录
+
+- **批次 0**（2026-11-22，commit e1d95a6）✅ 架构 + 门禁 + 卷架 UI + mock-2026-11（全景诊断）入库。
+- **批次 1**（2026-11-22）✅ mock-2026-12《年末假期》入库：春运购票/社区灯会/节庆经济专题听力；P1 8 话题（holidays/gifts/meals/weekends/family/films/chocolate/travelling）；P2 5 卡；P3 40 问 7 类全覆盖。全库覆盖进度 P1 16/74（22%）· P2 10/60（17%）。

@@ -1,0 +1,522 @@
+[
+  {
+    "topic": "p3-education",
+    "part": "Part 3",
+    "q": "Should schools have longer holidays?",
+    "ref": "Longer holidays would give children breathing room, but the real question is what they do with the time. Unstructured weeks can widen gaps between privileged and poor students — the former travel, the latter drift. Longer holidays work best paired with structured camps, reading programmes and proper rest culture at home.",
+    "keywords": [
+      "breathing room",
+      "gaps",
+      "travel",
+      "culture",
+      "holidays"
+    ]
+  },
+  {
+    "topic": "p3-education",
+    "part": "Part 3",
+    "q": "Do you think homework should be banned during holidays?",
+    "ref": "Banned entirely is too blunt, but reduced drastically, yes. Holiday homework that replaces rest with more worksheets teaches resentment, not learning. Better: one open-ended project you choose yourself — a family interview, a photo essay, cooking one new dish — because autonomy beats obligation for retaining anything meaningful.",
+    "keywords": [
+      "banned",
+      "worksheets",
+      "project",
+      "autonomy",
+      "meaningful"
+    ]
+  },
+  {
+    "topic": "p3-education",
+    "part": "Part 3",
+    "q": "Is it important for children to learn about festivals from other cultures?",
+    "ref": "Deeply. Festivals compress a culture's values into one edible, shareable day — learning Thanksgiving, Diwali or Eid teaches food ethics, gratitude and solidarity better than any textbook. It also vaccinates against casual prejudice; knowing why someone fasts changes how you sit next to them at lunch.",
+    "keywords": [
+      "festivals",
+      "values",
+      "food",
+      "prejudice",
+      "gratitude"
+    ]
+  },
+  {
+    "topic": "p3-education",
+    "part": "Part 3",
+    "q": "Do exams really show what a student can do?",
+    "ref": "Only a slice of it. Exams are excellent at measuring preparation under pressure, but they miss collaboration, creativity, persistence and practical judgment. The fix isn't abandoning exams — it's balancing them with projects, orals and portfolios so a quiet builder doesn't lose to a loud test-taker.",
+    "keywords": [
+      "exams",
+      "pressure",
+      "collaboration",
+      "creativity",
+      "portfolios"
+    ]
+  },
+  {
+    "topic": "p3-education",
+    "part": "Part 3",
+    "q": "Should universities help students find jobs after graduation?",
+    "ref": "Yes — a degree should be a launchpad, not just a certificate. Career coaching, CV workshops, alumni networks and mock interviews convert academic knowledge into employability. When universities treat careers as someone else's job, students graduate with skills and no map. Employability support is part of the product now.",
+    "keywords": [
+      "universities",
+      "career",
+      "alumni",
+      "employability",
+      "map"
+    ]
+  },
+  {
+    "topic": "p3-education",
+    "part": "Part 3",
+    "q": "What can adults learn that children cannot?",
+    "ref": "Adults learn with context. A child memorises vocabulary; an adult connects it to a negotiation, a lease or a lover's apology — that stakes-driven learning sticks harder. Adults also tolerate ambiguity better, ask sharper questions and accept feedback without collapsing. Motivation matures along with the corpus of scars.",
+    "keywords": [
+      "adults",
+      "context",
+      "questions",
+      "feedback",
+      "motivation"
+    ]
+  },
+  {
+    "topic": "p3-technology",
+    "part": "Part 3",
+    "q": "Should there be limits on children's screen time during holidays?",
+    "ref": "Reasonable limits, not bans. Holidays are about rest, and screens genuinely rest tired brains — but three hours of short video is sedation, not rest. My household rule: mornings are physical, afternoons are free, evenings are co-screened film nights. Quality and context outrank raw timer counts.",
+    "keywords": [
+      "limits",
+      "rest",
+      "video",
+      "physical",
+      "context"
+    ]
+  },
+  {
+    "topic": "p3-technology",
+    "part": "Part 3",
+    "q": "Will delivery apps make festive cooking obsolete?",
+    "ref": "For everyday meals maybe, but festivals survive on slowness. The point of making dumplings for Spring Festival dinner is the hours together around the table — no courier can deliver that feeling. Apps will compress weekday cooking, but ritual cooking during holidays will persist precisely because it is inefficient and human.",
+    "keywords": [
+      "Apps",
+      "festivals",
+      "slowness",
+      "dumplings",
+      "human"
+    ]
+  },
+  {
+    "topic": "p3-technology",
+    "part": "Part 3",
+    "q": "Is online shopping good or bad for local businesses during holidays?",
+    "ref": "Both at once. Online shopping gives micro-vendors national reach for festive gifts, but it bulldozes the family-run shop on the corner that survives on seasonal traffic. The healthy model is omnichannel — local shops using WeChat stores and delivery, plus physical experience during festive peaks.",
+    "keywords": [
+      "online",
+      "local",
+      "festive",
+      "omnichannel",
+      "delivery"
+    ]
+  },
+  {
+    "topic": "p3-technology",
+    "part": "Part 3",
+    "q": "Do smart homes actually make life easier?",
+    "ref": "For daily chores, yes — lights, locks and robot vacuums genuinely compress effort. But every smart device is also a small subscription to someone else's server: accounts expire, apps vanish, privacy quietly evaporates. Use smart tech for chores you hate, keep manual backups for the things you love — including the kettle.",
+    "keywords": [
+      "smart",
+      "chores",
+      "privacy",
+      "manual",
+      "kettle"
+    ]
+  },
+  {
+    "topic": "p3-technology",
+    "part": "Part 3",
+    "q": "Should AI be allowed to write greeting cards and wishes?",
+    "ref": "It can draft, but humans must sign. A wish matters because someone paused to think about you — if AI writes it, the gift arrives without the sender ever having been present in the message. The lovely use of AI is brainstorming lines for the shy, not replacing the feeling itself.",
+    "keywords": [
+      "AI",
+      "wish",
+      "think",
+      "sender",
+      "feeling"
+    ]
+  },
+  {
+    "topic": "p3-technology",
+    "part": "Part 3",
+    "q": "How will robots change hospitality in the future?",
+    "ref": "Robots will absorb the repetitive backbone — towel delivery, table clearing, check-in at 3 am — and free humans for the moments that actually matter: calming a crying child, remembering a returning guest's tea. Hospitality will split into invisible automation and high-touch warmth; the middle ground will disappear entirely.",
+    "keywords": [
+      "robots",
+      "hospitality",
+      "automation",
+      "warmth",
+      "guest"
+    ]
+  },
+  {
+    "topic": "p3-society",
+    "part": "Part 3",
+    "q": "Does modern life leave enough space for family time?",
+    "ref": "Technically yes, culturally no. We have more time than our grandparents did, yet family time gets fragmented into notification slices. The bottleneck isn't hours, it's attention. Households that succeed treat dinner as a device-free zone — twenty minutes of full presence beats three distracted hours every time.",
+    "keywords": [
+      "family",
+      "notification",
+      "attention",
+      "device-free",
+      "presence"
+    ]
+  },
+  {
+    "topic": "p3-society",
+    "part": "Part 3",
+    "q": "Should governments mandate paid public holidays?",
+    "ref": "Paid holidays are already mandated almost everywhere — the question is enforcement and fairness across gig work. Delivery riders and factory shift workers often can't stop, even when the law says they can. A public holiday you cannot take is decoration, not policy. Extend coverage to contract and gig workers first.",
+    "keywords": [
+      "holidays",
+      "enforcement",
+      "gig",
+      "workers",
+      "policy"
+    ]
+  },
+  {
+    "topic": "p3-society",
+    "part": "Part 3",
+    "q": "Is traditional community spirit disappearing in big cities?",
+    "ref": "It mutated rather than vanished. The old courtyard gossip moved to WeChat groups of neighbours sharing matcha reviews and lost-cat alerts. What's missing is accidental encounter — corridor hellos, shared queues, borrowed ladders. Design must now engineer serendipity: shared tables, open kitchens, co-working lobbies, festivals in the square.",
+    "keywords": [
+      "Courtyard",
+      "WeChat",
+      "encounter",
+      "festivals",
+      "serendipity"
+    ]
+  },
+  {
+    "topic": "p3-society",
+    "part": "Part 3",
+    "q": "Do older people get the respect they deserve in China today?",
+    "ref": "Formally yes — filial duty is still preached — but structurally it's eroding. Nuclear families, migration to tier-one cities and youthful consumer culture leave many elderly invisible in daily life. Respect needs practice, not posters: shared meals, real conversations, elders teaching craft and stories, not just being 'cared for'.",
+    "keywords": [
+      "elderly",
+      "respect",
+      "migration",
+      "stories",
+      "shared"
+    ]
+  },
+  {
+    "topic": "p3-society",
+    "part": "Part 3",
+    "q": "Should festivals be public holidays for everyone or regional only?",
+    "ref": "Regional festivals are precious precisely because they're not national — dragon boat races in the south, lantern fairs in the west. Making everything a national holiday flattens local culture into a single televised script. Better: national core holidays plus regional floating rest days that let local identity breathe.",
+    "keywords": [
+      "festivals",
+      "regional",
+      "national",
+      "local",
+      "culture"
+    ]
+  },
+  {
+    "topic": "p3-society",
+    "part": "Part 3",
+    "q": "Is it true that people are more stressed during holiday seasons?",
+    "ref": "For many, yes — travel chaos, family friction, gift budgets, forced fun. Festive pressure is a documented cortisol bump. The antidote is expectation management: fewer dinners, honest conversations, pre-agreed budgets, and the radical act of doing nothing on purpose with people you like.",
+    "keywords": [
+      "travel",
+      "budgets",
+      "conversations",
+      "cortisol",
+      "pressure"
+    ]
+  },
+  {
+    "topic": "p3-environment",
+    "part": "Part 3",
+    "q": "Do festive celebrations create too much waste?",
+    "ref": "Yes, dramatically — wrapping paper, fruit baskets with non-recyclable foam, disposable tableware for reunion dinners. The fix isn't cancelling joy; it's swapping materials. Beeswax wraps, steel lanterns, reusable plates, shared platters — every festive choice can whisper 'celebrate, but gently' instead of shouting 'landfill'.",
+    "keywords": [
+      "wraps",
+      "reusable",
+      "landfill",
+      "festive",
+      "swapping"
+    ]
+  },
+  {
+    "topic": "p3-environment",
+    "part": "Part 3",
+    "q": "Should fireworks be banned completely?",
+    "ref": "Partial bans work; total bans breed black markets and resentment. The honest approach: restrict in dense cities, subsidise eco-friendly drones or light shows, and let rural towns keep tradition with moderation. Smoke over Beijing is bad air; light over a village square is culture. Regulate the dose, not the desire.",
+    "keywords": [
+      "bans",
+      "drones",
+      "tradition",
+      "regulate",
+      "markets"
+    ]
+  },
+  {
+    "topic": "p3-environment",
+    "part": "Part 3",
+    "q": "Is holiday travel compatible with carbon budgets?",
+    "ref": "Only if travel patterns shift, not disappear. One long-haul trip a year plus regional rail holidays is reasonable for most people. Flying short-haul when high-speed rail exists is hard to justify on any honest carbon ledger. Choose slower journeys — the extra six hours on a train is the price of a quieter conscience.",
+    "keywords": [
+      "carbon",
+      "rail",
+      "Flying",
+      "ledger",
+      "journeys"
+    ]
+  },
+  {
+    "topic": "p3-environment",
+    "part": "Part 3",
+    "q": "Should gift culture move toward experiences instead of objects?",
+    "ref": "Mostly yes — a museum membership or a cooking class outlives any box of trinkets, and it keeps money circulating in local culture. But objects have their place: a handmade scarf is still love in fabric form. The healthy mix is experiences first, meaningful objects second, plastic novelties never.",
+    "keywords": [
+      "experiences",
+      "objects",
+      "trinkets",
+      "handmade",
+      "plastic"
+    ]
+  },
+  {
+    "topic": "p3-environment",
+    "part": "Part 3",
+    "q": "How can cities become greener during festive seasons?",
+    "ref": "LED installations instead of incandescent bulbs, real potted trees instead of plastic forests, pedestrian-only promenades, shared e-bike fleets for the last mile. Cities already compete on their festive light shows — let the competition be about kilowatt-hours saved rather than watts dazzled.",
+    "keywords": [
+      "LED",
+      "trees",
+      "promenades",
+      "kilowatt",
+      "light"
+    ]
+  },
+  {
+    "topic": "p3-media",
+    "part": "Part 3",
+    "q": "Does festive advertising manipulate consumers unfairly?",
+    "ref": "Absolutely — it sells obligation wrapped as love. The message is always: 'you don't really care unless you buy this'. Awareness is the defence; when you see an ad and feel vague guilt, that is the emotion being engineered, not affection. Buy for people, not for ads.",
+    "keywords": [
+      "obligation",
+      "love",
+      "guilt",
+      "engineered",
+      "people"
+    ]
+  },
+  {
+    "topic": "p3-media",
+    "part": "Part 3",
+    "q": "Is the Spring Festival Gala still relevant to young people?",
+    "ref": "Partly. It's ritual background music for the reunion dinner — less watched for content, more for the shared clock. Young audiences prefer highlight clips on Douyin, yet the live viewership still spikes at midnight. Its role shifted from 'must-watch programme' to 'national gathering signal' — different, but alive.",
+    "keywords": [
+      "ritual",
+      "Douyin",
+      "viewership",
+      "midnight",
+      "background"
+    ]
+  },
+  {
+    "topic": "p3-media",
+    "part": "Part 3",
+    "q": "Should news channels avoid broadcasting during major holidays?",
+    "ref": "No — holidays are exactly when major events happen: weather crises, travel disasters, accidents. What should change is tone: fewer panels of pundits, more service journalism — road closures, weather alerts, hospital schedules. News during festivals should be a lighthouse, not a shouting match.",
+    "keywords": [
+      "news",
+      "holidays",
+      "weather",
+      "service",
+      "journalism"
+    ]
+  },
+  {
+    "topic": "p3-media",
+    "part": "Part 3",
+    "q": "Do holiday movies make us feel better?",
+    "ref": "For most people, genuinely yes. Comfort rewatching — the same Home Alone, the same sentimental reunion dramas — regulates mood the way a warm blanket does. The danger is only when comfort becomes avoidance; a film a night is self-care, five films a day is hiding from your family with a remote.",
+    "keywords": [
+      "Comfort",
+      "mood",
+      "avoidance",
+      "blanket",
+      "comfort"
+    ]
+  },
+  {
+    "topic": "p3-media",
+    "part": "Part 3",
+    "q": "How honest is influencer content about holiday lifestyle?",
+    "ref": "Mostly curated theatre. The 'perfect family reunion dinner' on Douyin is twelve takes, rented dishes and ring-light negotiation. Some influencers now do behind-the-scenes honesty about this, and those videos build real trust. Enjoy the fantasy, but calibrate expectations — your real aunt will never pose like that.",
+    "keywords": [
+      "influencer",
+      "curated",
+      "Douyin",
+      "honesty",
+      "fantasy"
+    ]
+  },
+  {
+    "topic": "p3-work",
+    "part": "Part 3",
+    "q": "Should companies be forced to give staff bonuses before Spring Festival?",
+    "ref": "Mandating bonuses would help cash-poor employees in a culture where the holiday is expensive — but one-size bonuses punish good companies and subsidise bad ones. Better: tax incentives for festive bonuses, transparency requirements, and strong enforcement of existing bonus promises in contracts.",
+    "keywords": [
+      "bonuses",
+      "enforcement",
+      "contracts",
+      "incentives",
+      "companies"
+    ]
+  },
+  {
+    "topic": "p3-work",
+    "part": "Part 3",
+    "q": "Is the nine-nine-six work culture still tolerable today?",
+    "ref": "Tolerated by many, embraced by fewer every year. 996 trades health and family for equity and speed — a bad deal for most roles outside early-stage startups. The backlash is real: regulators, courts and talent are all pushing back. Sustainable pace wins in the long run; burnout is not a moat.",
+    "keywords": [
+      "996",
+      "health",
+      "equity",
+      "burnout",
+      "pace"
+    ]
+  },
+  {
+    "topic": "p3-work",
+    "part": "Part 3",
+    "q": "Do people really rest during holidays if they work from home?",
+    "ref": "Rarely fully. Remote work means the laptop is always within reach, and 'checking in' for five minutes becomes two hours of emails. True rest needs boundaries: out-of-office replies, silenced groups, and a household agreement that holiday hours belong to the people in the room.",
+    "keywords": [
+      "remote",
+      "boundaries",
+      "emails",
+      "silenced",
+      "household"
+    ]
+  },
+  {
+    "topic": "p3-work",
+    "part": "Part 3",
+    "q": "Should interns and part-timers get paid holidays too?",
+    "ref": "Yes — proportional leave is basic fairness. If a student works three months before Spring Festival, they've earned some release time. Hospitality, retail and delivery rely on these workers exactly at the festive peak. Paying only 'full staff' treats half the workforce as disposable; proportional rights fix most of that gap.",
+    "keywords": [
+      "leave",
+      "release",
+      "workers",
+      "proportional",
+      "rights"
+    ]
+  },
+  {
+    "topic": "p3-work",
+    "part": "Part 3",
+    "q": "Will the gig economy change how holidays feel in China?",
+    "ref": "It's changing them already — riders, drivers and couriers work through every festival while office towers empty. Festive convenience is built on invisible labour. Society should either guarantee festive pay multipliers and rest for gig workers, or stop pretending holidays are restful for everyone equally.",
+    "keywords": [
+      "gig",
+      "riders",
+      "festival",
+      "labour",
+      "multipliers"
+    ]
+  },
+  {
+    "topic": "p3-work",
+    "part": "Part 3",
+    "q": "Is career success defined by money or meaning by 2026?",
+    "ref": "For young Chinese professionals the honest answer is both, in tension — money buys security, meaning buys sleep. The post-2020 generation increasingly optimises for 'enough money plus work that doesn't hollow me out'. Hustle culture lost some shine; sustainable ambition is the new status signal.",
+    "keywords": [
+      "money",
+      "meaning",
+      "security",
+      "ambition",
+      "sleep"
+    ]
+  },
+  {
+    "topic": "p3-culture",
+    "part": "Part 3",
+    "q": "Are traditional festivals becoming too commercial?",
+    "ref": "Commercialisation amplifies festivals without fully replacing them. The shopping pressure is real, yet the core rituals — ancestor visits, reunion dinners, red envelopes — persist precisely because they're emotional infrastructure, not products. The test for each festival is simple: would this still happen if nobody made money from it? Spring Festival passes.",
+    "keywords": [
+      "commercial",
+      "rituals",
+      "envelopes",
+      "emotional",
+      "infrastructure"
+    ]
+  },
+  {
+    "topic": "p3-culture",
+    "part": "Part 3",
+    "q": "Should young people learn festive rituals if they feel meaningless?",
+    "ref": "Yes — but as lived experience, not lecture. Rituals only feel hollow when learned as obligations; they bloom when children cook, paste couplets and light lamps alongside elders. Meaning is negotiated in the doing. Teach the motion and the reasons will follow.",
+    "keywords": [
+      "rituals",
+      "hollow",
+      "couplets",
+      "elders",
+      "motion"
+    ]
+  },
+  {
+    "topic": "p3-culture",
+    "part": "Part 3",
+    "q": "Is Lunar New Year more important than Christmas in China today?",
+    "ref": "Culturally yes, commercially close. Lunar New Year is the national heartbeat — family, food, homecoming — while Christmas has become a lifestyle festival of lights and shopping without religious weight. Both coexist easily: December for aesthetics and dates, February for the soul of the country.",
+    "keywords": [
+      "Lunar New Year",
+      "Christmas",
+      "homecoming",
+      "aesthetics",
+      "soul"
+    ]
+  },
+  {
+    "topic": "p3-culture",
+    "part": "Part 3",
+    "q": "How should museums make festivals relevant for schools?",
+    "ref": "By making festivals hands-on: dumpling workshops, lantern-making labs, story corners where elders speak. Museums should be loud during festival weeks, not silent — food smells, soundscapes, costume try-ons. A museum a child remembers beats a worksheet about heritage every single time.",
+    "keywords": [
+      "museums",
+      "workshops",
+      "lantern",
+      "food",
+      "heritage"
+    ]
+  },
+  {
+    "topic": "p3-culture",
+    "part": "Part 3",
+    "q": "Will global culture erase local festivals eventually?",
+    "ref": "No — local festivals are stubborn precisely because they're embodied: the foods, the firecrackers, the dialects. Globalisation adds layers, it doesn't bleach them. The real risk is insider apathy: young people who can't be bothered. Keep festivals edible, participatory and slightly chaotic, and they will outlive every trend.",
+    "keywords": [
+      "global",
+      "local",
+      "dialects",
+      "apathy",
+      "participatory"
+    ]
+  },
+  {
+    "topic": "p3-culture",
+    "part": "Part 3",
+    "q": "What do festivals teach children that schools cannot?",
+    "ref": "Festivals teach belonging. No syllabus delivers the feeling of thirty relatives arguing happily over mahjong in one room and a pot too big to lift alone. They transmit values non-verbally — generosity, endurance, patience, memory — through repetition of shared action. Schools inform; festivals initiate.",
+    "keywords": [
+      "festivals",
+      "belonging",
+      "relatives",
+      "generosity",
+      "initiate"
+    ]
+  }
+]

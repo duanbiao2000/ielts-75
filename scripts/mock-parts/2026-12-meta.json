@@ -1,0 +1,30 @@
+{
+  "id": "mock-2026-12",
+  "month": "2026-12",
+  "title": "2026年12月刊 · 年末假期",
+  "difficulty": "基础",
+  "theme": "年末假期",
+  "blurb": "双旦与春运之间：年末假期主题全真演练——春运购票、社区灯会、节庆经济专题讲座，90 分钟后你会知道自己的雅思口语和听力到底站在哪一档。",
+  "coverage": [
+    "p1-chocolate",
+    "p1-family",
+    "p1-films",
+    "p1-gifts",
+    "p1-holidays",
+    "p1-meals",
+    "p1-travelling",
+    "p1-weekends",
+    "p2-event-happy",
+    "p2-event-shop",
+    "p2-event-weekend",
+    "p2-people-family",
+    "p2-thing-gift",
+    "p3-culture",
+    "p3-education",
+    "p3-environment",
+    "p3-media",
+    "p3-society",
+    "p3-technology",
+    "p3-work"
+  ]
+}

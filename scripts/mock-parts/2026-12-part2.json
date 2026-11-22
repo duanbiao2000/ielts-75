@@ -1,0 +1,21 @@
+[
+  {"topic":"p2-thing-gift","part":"Part 2","card":"Describe a gift you gave to someone.","points":["What the gift was","Who you gave it to","When and why you gave it","And explain how they reacted"],
+   "ref":"Last New Year I gave my mother a fountain pen — actually, not just any pen, but the same model of pen my grandfather used to sign his first shop contract. She has run the family eatery for fifteen years, and every New Year she writes the year's first menu by hand in ink. When I handed it to her on Chinese New Year's Eve, she went quiet, then laughed and said 'this one actually lasts'. She still opens it only for that first menu of each year, which makes it worth every minute I spent hunting down an original.",
+   "keywords":["New Year","pen","mother","menu","New Year's Eve","laughed"]},
+
+  {"topic":"p2-people-family","part":"Part 2","card":"Describe a member of your family you get on very well with.","points":["Who this person is","What you do together","What they are like","And explain why you get on so well"],
+   "ref":"This is my grandmother, Nai, who will be eighty-two this spring. We do almost everything together — she reads the evening paper aloud, correcting her own reading; we shell peanuts while the Spring Festival gala plays; she teaches me card games from the old countryside. She is sharp, stubborn in the best way, and completely without embarrassment. We get on because she treats me as a colleague in life rather than a child to manage. I can tell her anything, and she has never once told my mother.",
+   "keywords":["grandmother","together","peanuts","games","sharp","mother"]},
+
+  {"topic":"p2-event-happy","part":"Part 2","card":"Describe a happy event you remember from your childhood.","points":["What the event was","When it happened","Who was there","And explain why it was so happy"],
+   "ref":"The happiest day of my childhood was the afternoon our family moved from a two-room walk-up into our own apartment — new keys, new elevator, and a balcony. I was nine. My father celebrated with a tray of strawberries, which were absurdly expensive that year, and we ate them sitting on the empty floor. What made it unforgettable wasn't the apartment itself; it was watching my parents exhale for the first time I had ever seen. I still remember the hum of the empty fridge and strawberry-stained hands.",
+   "keywords":["apartment","keys","strawberries","nine","exhale"]},
+
+  {"topic":"p2-event-shop","part":"Part 2","card":"Describe a memorable shopping experience you had.","points":["What you bought or shopped for","Where and when it was","Who you were with","And explain what made it memorable"],
+   "ref":"I'll never forget hunting for a Spring Festival coat with my mother at a small market in Chengdu last January. It was chaos — steam from spicy-hotpot stalls, bargaining over wool blends, a vendor playing erhu over the loudspeaker. After two hours I found a deep green wool coat, half the asking price, and the vendor finally smiled and said 'you have an eye — take it'. Wearing it home on the metro felt like I'd won a treasure rather than bought a jacket.",
+   "keywords":["coat","market","bargaining","green","won"]},
+
+  {"topic":"p2-event-weekend","part":"Part 2","card":"Describe a weekend you really enjoyed.","points":["When it was","Where you went or what you did","Who you spent it with","And explain why it was enjoyable"],
+   "ref":"This was the winter weekend in December 2023 when the whole family drove to the reservoir for a 'fake fishing' day — actually barbecuing, playing mahjong in the car, and watching black kites circling over the far shore. My aunt brought some homemade dumplings, my cousin taught my grandmother to use a tablet, and nobody looked at a work message for two entire days. It was enjoyable because it was ordinary abundance — no agenda, no itinerary, just shared morning light and too much food.",
+   "keywords":["reservoir","family","mahjong","tablet","abundance"]}
+]

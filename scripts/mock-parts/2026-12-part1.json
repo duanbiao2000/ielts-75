@@ -1,0 +1,484 @@
+[
+  {
+    "topic": "p1-holidays",
+    "part": "Part 1",
+    "q": "Do you have any special holidays coming up soon?",
+    "ref": "Yes, Spring Festival is coming up in February. My company gives us seven days off this year, so my plan is to go back to my grandparents' village for the first few days and simply rest, eat well and see relatives I haven't met since last year.",
+    "keywords": [
+      "Spring Festival",
+      "days off",
+      "village",
+      "rest",
+      "relatives"
+    ]
+  },
+  {
+    "topic": "p1-holidays",
+    "part": "Part 1",
+    "q": "How do you usually spend your holidays?",
+    "ref": "Mostly around family. We have a big dinner on New Year's Eve, sleep in until noon for a couple of days, and then take one short trip somewhere — last year we went to Hangzhou for the lantern festival by West Lake.",
+    "keywords": [
+      "family",
+      "dinner",
+      "sleep",
+      "trip",
+      "lantern"
+    ]
+  },
+  {
+    "topic": "p1-holidays",
+    "part": "Part 1",
+    "q": "Which is your favourite holiday of the year?",
+    "ref": "Without question, Spring Festival. The whole city slows down, every restaurant serves family reunion banquets, and you get this rare feeling that everyone is home at the same time — it feels like the one week when the country actually rests.",
+    "keywords": [
+      "Spring Festival",
+      "rests",
+      "reunion",
+      "city"
+    ]
+  },
+  {
+    "topic": "p1-holidays",
+    "part": "Part 1",
+    "q": "Do you prefer holidays at home or travelling?",
+    "ref": "It depends on the length. For three or four days, travelling is tempting, but Spring Festival crowds make trains exhausting, so I usually just stay home for the peak days and save travelling for the quiet weeks afterwards.",
+    "keywords": [
+      "depends",
+      "travelling",
+      "crowds",
+      "home"
+    ]
+  },
+  {
+    "topic": "p1-holidays",
+    "part": "Part 1",
+    "q": "Do you think people nowadays take enough holidays?",
+    "ref": "Legally, yes, but in practice many people don't use their full allowance. Some feel guilty taking time off, and others simply cannot escape work messages. Resting properly should be a skill we teach, not a luxury people apologise for.",
+    "keywords": [
+      "allowance",
+      "guilty",
+      "messages",
+      "luxury"
+    ]
+  },
+  {
+    "topic": "p1-gifts",
+    "part": "Part 1",
+    "q": "Do you enjoy giving gifts to your friends?",
+    "ref": "I really do. Choosing a gift forces you to pay attention — you remember what someone mentioned weeks ago. Last autumn I noticed a colleague kept admiring a certain teapot, so I found the exact one for her birthday.",
+    "keywords": [
+      "choosing",
+      "attention",
+      "colleague",
+      "birthday"
+    ]
+  },
+  {
+    "topic": "p1-gifts",
+    "part": "Part 1",
+    "q": "What is the most memorable gift you have ever received?",
+    "ref": "A fountain pen from my grandfather when I finished university. It wasn't expensive, but he'd repaired cars for forty years and this was the pen he'd used to sign every contract. It means more to me than anything money could buy.",
+    "keywords": [
+      "pen",
+      "grandfather",
+      "university",
+      "contract"
+    ]
+  },
+  {
+    "topic": "p1-gifts",
+    "part": "Part 1",
+    "q": "Do you prefer giving gifts or receiving them?",
+    "ref": "Giving, honestly. Receiving is pleasant, but the real joy is watching someone's face when they realise the gift truly shows you know them — that gap between 'they got me something' and 'they really get me' is everything.",
+    "keywords": [
+      "giving",
+      "joy",
+      "watching",
+      "know"
+    ]
+  },
+  {
+    "topic": "p1-gifts",
+    "part": "Part 1",
+    "q": "How do you usually choose a gift for someone?",
+    "ref": "I start with their habits, not their wish list. I ask myself: what do they complain about, what do they light up over, what did they almost buy? A good gift answers one of those three questions better than they could themselves.",
+    "keywords": [
+      "habits",
+      "complain",
+      "light",
+      "answers"
+    ]
+  },
+  {
+    "topic": "p1-gifts",
+    "part": "Part 1",
+    "q": "Is gift-giving important in your culture?",
+    "ref": "Extremely. During Spring Festival we exchange red envelopes, gift boxes of tea, fruit or nuts, and nobody shows up empty-handed to a relative's home. Gifts there are not really about objects — they're a way of saying 'I value this relationship enough to think about you'.",
+    "keywords": [
+      "envelopes",
+      "gift",
+      "relationship",
+      "Spring Festival"
+    ]
+  },
+  {
+    "topic": "p1-meals",
+    "part": "Part 1",
+    "q": "What do you usually eat for breakfast?",
+    "ref": "Something simple — soy milk and a couple of eggs, or congee from the breakfast shop downstairs when I'm running late. I used to skip breakfast entirely, but I get headaches by 11 am now if I do.",
+    "keywords": [
+      "soy milk",
+      "eggs",
+      "congee",
+      "headaches"
+    ]
+  },
+  {
+    "topic": "p1-meals",
+    "part": "Part 1",
+    "q": "Do you prefer eating at home or eating in restaurants?",
+    "ref": "Mostly home. Cooking for myself is cheaper and I control the salt and oil, which I care about. Restaurants are for occasions — birthdays, reunions — when the cooking itself is part of the celebration rather than just feeding people.",
+    "keywords": [
+      "home",
+      "cooking",
+      "occasions",
+      "reunions"
+    ]
+  },
+  {
+    "topic": "p1-meals",
+    "part": "Part 1",
+    "q": "What was your favourite meal when you were a child?",
+    "ref": "My mother's soup dumplings on Sunday mornings — little pork parcels you had to eat with the skin in one bite, burning your tongue every single time. I still think about that texture when food gets stressful at work.",
+    "keywords": [
+      "mother",
+      "dumplings",
+      "bite",
+      "burning"
+    ]
+  },
+  {
+    "topic": "p1-meals",
+    "part": "Part 1",
+    "q": "Do you think people eat too much fast food these days?",
+    "ref": "Absolutely, and mostly for time reasons rather than taste. When you're ordering at 9 pm after a double shift, a burger beats chopping vegetables every time. The problem is when it becomes every meal, because then sodium and fried oil compound quietly for years.",
+    "keywords": [
+      "time",
+      "ordering",
+      "sodium",
+      "compound"
+    ]
+  },
+  {
+    "topic": "p1-meals",
+    "part": "Part 1",
+    "q": "What would your ideal dinner be?",
+    "ref": "Hotpot, without question — a pot of bubbling broth in the middle, everyone reaching for a dipping bowl, arguing over which meat went in too soon. It's chaotic, loud and social, which is exactly what eating should be more often than it is.",
+    "keywords": [
+      "hotpot",
+      "broth",
+      "social",
+      "chaotic"
+    ]
+  },
+  {
+    "topic": "p1-weekends",
+    "part": "Part 1",
+    "q": "How do you usually spend your weekends?",
+    "ref": "Slow mornings for sure — I never set an alarm on Saturdays. Then gym or a long walk, one proper meal cooked at home, and either a film or meeting friends in the evening. Sundays are for laundry, tidying and preparing the week so Monday doesn't bite.",
+    "keywords": [
+      "slow",
+      "gym",
+      "cooked",
+      "Sundays"
+    ]
+  },
+  {
+    "topic": "p1-weekends",
+    "part": "Part 1",
+    "q": "Do you have the same routine every weekend?",
+    "ref": "Roughly. The skeleton stays the same — sleep in, one outing, one good meal — but the middle is flexible. Some weekends I hike with friends, others I just plant myself on the sofa with a book and call it self-care.",
+    "keywords": [
+      "skeleton",
+      "flexible",
+      "hike",
+      "self-care"
+    ]
+  },
+  {
+    "topic": "p1-weekends",
+    "part": "Part 1",
+    "q": "What did you do last weekend?",
+    "ref": "We drove to a suburban IKEA in the morning — yes, it's basically a sport at this point — then had hotpot for lunch. In the afternoon I repotted two dying houseplants and somehow resurrected one of them. Small victory.",
+    "keywords": [
+      "IKEA",
+      "hotpot",
+      "afternoon",
+      "houseplants"
+    ]
+  },
+  {
+    "topic": "p1-weekends",
+    "part": "Part 1",
+    "q": "Would you like to have more free time on weekends?",
+    "ref": "Everyone would, but I'd probably fill it badly. Two days off sounds ideal until you remember half of it evaporates into errands. Maybe I'd rather have one proper four-day break per season than endless flat weekends that blur into laundry.",
+    "keywords": [
+      "errands",
+      "four-day",
+      "weekends",
+      "laundry"
+    ]
+  },
+  {
+    "topic": "p1-weekends",
+    "part": "Part 1",
+    "q": "Do you think weekends are important?",
+    "ref": "Completely. They're where your nervous system resets. Without weekends, the week becomes one long Tuesday, and you start making strange decisions like buying espresso machines you'll never use. Rest is not the reward for work; it's the fuel for it.",
+    "keywords": [
+      "nervous",
+      "resets",
+      "reward",
+      "fuel"
+    ]
+  },
+  {
+    "topic": "p1-family",
+    "part": "Part 1",
+    "q": "Do you live with your family?",
+    "ref": "I live with my parents and my grandmother in the same apartment block — different units, which keeps everyone sane. In a way it's the classic Chinese three-generation setup, just with more delivery food and video calls than the old days.",
+    "keywords": [
+      "parents",
+      "grandmother",
+      "three-generation",
+      "apartment"
+    ]
+  },
+  {
+    "topic": "p1-family",
+    "part": "Part 1",
+    "q": "Who in your family do you spend the most time with?",
+    "ref": "My mother, overwhelmingly. She cooks when she visits, reorganises my bookshelf without asking, and somehow knows when I'm stressed before I do. She denies it is hovering; I call it loving surveillance.",
+    "keywords": [
+      "mother",
+      "cooks",
+      "bookshelf",
+      "stressed"
+    ]
+  },
+  {
+    "topic": "p1-family",
+    "part": "Part 1",
+    "q": "Did your family eat dinner together when you were young?",
+    "ref": "Almost every night. My father would wait until seven, then make us put our phones in a drawer — which felt oppressive at fourteen and feels heroic at twenty-eight. Those dinners were where I learned half of what I know about storytelling.",
+    "keywords": [
+      "dinner",
+      "father",
+      "phones",
+      "storytelling"
+    ]
+  },
+  {
+    "topic": "p1-family",
+    "part": "Part 1",
+    "q": "Are you similar to or different from the other members of your family?",
+    "ref": "I'm the quiet one — my brother talks for a living, my mother narrates everything, and my father operates in meaningful silence. I inherited the silence but not the patience for long monologues, so I usually retreat into books.",
+    "keywords": [
+      "quiet",
+      "brother",
+      "silence",
+      "books"
+    ]
+  },
+  {
+    "topic": "p1-family",
+    "part": "Part 1",
+    "q": "Have your family habits changed over the years?",
+    "ref": "Noticeably. Ten years ago we'd sit at the same table arguing about the news; now the news competes with two TikTok feeds and a WeChat sports group. We eat together, yes — but silence has a different flavour when everyone is scrolling.",
+    "keywords": [
+      "table",
+      "news",
+      "scrolling",
+      "WeChat"
+    ]
+  },
+  {
+    "topic": "p1-films",
+    "part": "Part 1",
+    "q": "Do you like watching films?",
+    "ref": "Hugely. Cinema is my monthly ritual — I don't even check the reviews anymore, I just trust the opening weekend vibe. The big-screen experience does something a laptop can never replicate for fight scenes and soundtracks.",
+    "keywords": [
+      "cinema",
+      "monthly",
+      "ritual",
+      "soundtracks"
+    ]
+  },
+  {
+    "topic": "p1-films",
+    "part": "Part 1",
+    "q": "What kinds of films do you enjoy most?",
+    "ref": "Light comedies and character-driven dramas. I tried hard-core arthouse once and lasted forty minutes before checking into a thriller I actually enjoyed. Life is already complicated enough; my popcorn budget deserves a happy ending occasionally.",
+    "keywords": [
+      "comedies",
+      "dramas",
+      "thriller",
+      "popcorn"
+    ]
+  },
+  {
+    "topic": "p1-films",
+    "part": "Part 1",
+    "q": "When was the last time you went to the cinema?",
+    "ref": "Last month — we saw a sci-fi epic that was mostly visual spectacle, which is exactly what cinema should be. Tickets plus popcorn plus parking came to over 150 yuan, and I regretted none of it.",
+    "keywords": [
+      "sci-fi",
+      "tickets",
+      "popcorn",
+      "regretted"
+    ]
+  },
+  {
+    "topic": "p1-films",
+    "part": "Part 1",
+    "q": "Do you prefer watching films at home or at the cinema?",
+    "ref": "Home wins for comfort — pause anytime, no noisy strangers, whatever snack I want — but cinema wins for spectacle. So my rule is simple: if it's a visual feast, big screen; if it's dialogue-heavy, sofa and a cup of tea.",
+    "keywords": [
+      "home",
+      "comfort",
+      "spectacle",
+      "dialogue"
+    ]
+  },
+  {
+    "topic": "p1-films",
+    "part": "Part 1",
+    "q": "Have your tastes in films changed over time?",
+    "ref": "Completely. Teenage me wanted explosions every ten minutes; adult me cries at reunion scenes in quiet family dramas and tolerates action only when the choreography is genuinely clever. Growing up apparently recalibrates your dopamine.",
+    "keywords": [
+      "explosions",
+      "reunion",
+      "dramas",
+      "recalibrates"
+    ]
+  },
+  {
+    "topic": "p1-chocolate",
+    "part": "Part 1",
+    "q": "Do you like chocolate?",
+    "ref": "Very much, but I've graduated from milk chocolate to dark chocolate over the years. Now I treat chocolate like coffee — a small square after dinner, not a bar in front of the TV at midnight.",
+    "keywords": [
+      "dark",
+      "square",
+      "dinner",
+      "midnight"
+    ]
+  },
+  {
+    "topic": "p1-chocolate",
+    "part": "Part 1",
+    "q": "How often do you eat chocolate?",
+    "ref": "Realistically two or three times a week. Weekends are the danger zone — a film night with a proper bar is my one indulgence. Weekdays I'm better behaved, mostly due to the 70-percent rule I pretend to follow.",
+    "keywords": [
+      "weekends",
+      "indulgence",
+      "weekdays",
+      "70-percent"
+    ]
+  },
+  {
+    "topic": "p1-chocolate",
+    "part": "Part 1",
+    "q": "What kind of chocolate do you prefer?",
+    "ref": "Dark, 70 percent or above, preferably with sea salt or orange peel. Milk chocolate tastes like dessert; dark chocolate tastes like an opinion. Nuts are acceptable; nougat and caramel are traps I walk into knowingly.",
+    "keywords": [
+      "dark",
+      "70 percent",
+      "salt",
+      "caramel"
+    ]
+  },
+  {
+    "topic": "p1-chocolate",
+    "part": "Part 1",
+    "q": "Was chocolate popular when you were a child?",
+    "ref": "Enormously — it was the currency of good behaviour. Every Spring Festival, the table would fill up with boxes of chocolates and fruit, and we kids treated the chocolate box as a competitive sport. Now those gift boxes are pricier than ever.",
+    "keywords": [
+      "Spring Festival",
+      "boxes",
+      "competitive",
+      "gift"
+    ]
+  },
+  {
+    "topic": "p1-chocolate",
+    "part": "Part 1",
+    "q": "Do you think chocolate is healthy?",
+    "ref": "Dark chocolate in small amounts, honestly, yes — the flavanol headlines are partly true. But the moment it becomes three bars a week it's dessert with a marketing department. Everything about food is dose and context, as my nutritionist keeps reminding me.",
+    "keywords": [
+      "dark",
+      "flavanol",
+      "dessert",
+      "marketing"
+    ]
+  },
+  {
+    "topic": "p1-travelling",
+    "part": "Part 1",
+    "q": "Do you like travelling?",
+    "ref": "Very much. Technically, two weeks of holidays a year is all I get, so I've learned to do intense short trips — three days somewhere with one good meal, one good walk and one strange museum beats a two-week blur every time.",
+    "keywords": [
+      "holidays",
+      "trips",
+      "museum",
+      "walk"
+    ]
+  },
+  {
+    "topic": "p1-travelling",
+    "part": "Part 1",
+    "q": "Where did you travel most recently?",
+    "ref": "Xitang, the water town near Shanghai, this autumn. We rented a little guesthouse by the canal, ate zongzi for breakfast, took the boat ride at dusk, and got caught in sudden rain — which honestly made it better.",
+    "keywords": [
+      "Xitang",
+      "canal",
+      "dusk",
+      "rain"
+    ]
+  },
+  {
+    "topic": "p1-travelling",
+    "part": "Part 1",
+    "q": "Do you prefer travelling alone or with other people?",
+    "ref": "With others, because shared anticipation is half the fun — splitting the map, arguing about dinner, sending each other photos. Alone travelling sounds romantic until you're eating noodles by yourself and checking the same fork menu for the tenth time.",
+    "keywords": [
+      "others",
+      "shared",
+      "arguing",
+      "alone"
+    ]
+  },
+  {
+    "topic": "p1-travelling",
+    "part": "Part 1",
+    "q": "What kind of places do you most enjoy visiting?",
+    "ref": "Old towns and mountains. Old towns give me layered history frozen into streets — a bit of Ming architecture, a bit of Qing signage — and mountains give me silence and altitude, which is the closest my city life ever gets to meditation.",
+    "keywords": [
+      "Old towns",
+      "mountains",
+      "history",
+      "silence"
+    ]
+  },
+  {
+    "topic": "p1-travelling",
+    "part": "Part 1",
+    "q": "Would you like to travel abroad in the future?",
+    "ref": "Yes, very much — Japan first, then maybe Italy for the architecture and the food. I've been saving points and pretending it's 'for emergencies' while quietly researching ryokans instead. Next year, realistically, if the budget cooperates.",
+    "keywords": [
+      "Japan",
+      "Italy",
+      "points",
+      "budget"
+    ]
+  }
+]

@@ -1560,5 +1560,1523 @@
         }
       ]
     }
+  },
+  {
+    "id": "mock-2026-12",
+    "month": "2026-12",
+    "title": "2026年12月刊 · 年末假期",
+    "difficulty": "基础",
+    "theme": "年末假期",
+    "blurb": "双旦与春运之间：年末假期主题全真演练——春运购票、社区灯会、节庆经济专题讲座，90 分钟后你会知道自己的雅思口语和听力到底站在哪一档。",
+    "coverage": [
+      "p1-chocolate",
+      "p1-family",
+      "p1-films",
+      "p1-gifts",
+      "p1-holidays",
+      "p1-meals",
+      "p1-travelling",
+      "p1-weekends",
+      "p2-event-happy",
+      "p2-event-shop",
+      "p2-event-weekend",
+      "p2-people-family",
+      "p2-thing-gift",
+      "p3-culture",
+      "p3-education",
+      "p3-environment",
+      "p3-media",
+      "p3-society",
+      "p3-technology",
+      "p3-work"
+    ],
+    "listening": [
+      {
+        "section": "Section 1",
+        "passage": "Woman: Good morning, Spring Air official ticket office, how can I help you?\nMan: Hello, I'd like to book two tickets for the high-speed train from Shanghai to Guangzhou on the 31st of this month.\nWoman: Of course. Which class would you like — first class or second class?\nMan: Second class, please. And we'd prefer the earliest morning departure if possible.\nWoman: Let me check. On the 31st there's a departure at 7:10 and another at 8:45. The 7:10 has only three seats left together; the 8:45 has plenty of availability.\nMan: We'll take the 7:10 then. How long does the journey take?\nWoman: About six hours and twenty minutes, with a quiet carriage and power sockets at every seat. Snacks are included, and if you download our app, you can also order hot meals delivered to your seat during the journey.\nMan: That's convenient. How much is it for two?\nWoman: Second class is 862 yuan per person, so that's 1,724 yuan total. If you take the 8:45 instead, there's a holiday promotion — 10 percent off bookings of two or more tickets.\nMan: Hmm. 1,552 yuan for two on the 8:45 sounds tempting, but honestly, catching the 7:10 matters more — we need to prepare the New Year dinner before the evening rush.\nWoman: No problem. Can I have the names as on your ID cards?\nMan: Sure — Chen Wei and Chen Xiaoyu.\nWoman: And a phone number for the booking?\nMan: 138-2654-9012.\nWoman: Right. Payment can be made now by card, or within 30 minutes via our app. I'm holding the seats for 15 minutes while you decide.\nMan: Let's pay now. By the way — what about festive overcrowding at the station? I've heard it's chaos before the holiday.\nWoman: It's busy, yes. We suggest arriving at least 40 minutes early. Security checks are strict, and the gates close five minutes before departure.\nMan: Noted. One more thing — can we change to a different train later if plans change?\nWoman: Yes, free of charge up to 15 days before departure; after that, a fee of 20 percent applies within 48 hours of departure.\nMan: Understood. Please go ahead and charge my card.\nWoman: All done. Your booking reference is SF-2031874. Have a safe trip, and happy New Year in advance!\nMan: Thank you very much. Goodbye!",
+        "questions": [
+          {
+            "q": "When does the man want to travel?",
+            "opts": [
+              "On the 1st of next month",
+              "On the 31st of this month",
+              "For the whole New Year week",
+              "Next Friday afternoon"
+            ],
+            "right": 1,
+            "explain": "男士说：on the 31st of this month。"
+          },
+          {
+            "q": "Why does the man prefer the 7:10 train?",
+            "opts": [
+              "It is cheaper",
+              "It has power sockets",
+              "He needs to prepare the New Year dinner",
+              "The 8:45 is full"
+            ],
+            "right": 2,
+            "explain": "原文：catching the 7:10 matters more — we need to prepare the New Year dinner。"
+          },
+          {
+            "q": "How many seats are left together on the 7:10?",
+            "opts": [
+              "One",
+              "Two",
+              "Three",
+              "Plenty"
+            ],
+            "right": 2,
+            "explain": "原文：The 7:10 has only three seats left together。"
+          },
+          {
+            "q": "How long is the journey?",
+            "opts": [
+              "About six hours and twenty minutes",
+              "Four hours",
+              "Eight hours",
+              "Seven hours and ten minutes"
+            ],
+            "right": 0,
+            "explain": "原文：About six hours and twenty minutes。"
+          },
+          {
+            "q": "What is included in second class?",
+            "opts": [
+              "Hot meals by default",
+              "Snacks",
+              "A window seat guarantee",
+              "Free Wi-Fi only"
+            ],
+            "right": 1,
+            "explain": "原文：Snacks are included。"
+          },
+          {
+            "q": "How can passengers order hot meals on board?",
+            "opts": [
+              "By asking the conductor directly",
+              "By phone to the restaurant car",
+              "By downloading the app",
+              "By pre-paying at the station"
+            ],
+            "right": 2,
+            "explain": "原文：if you download our app, you can also order hot meals delivered to your seat。"
+          },
+          {
+            "q": "How much does the man pay in total?",
+            "opts": [
+              "862 yuan",
+              "1,552 yuan",
+              "1,724 yuan",
+              "2,000 yuan"
+            ],
+            "right": 2,
+            "explain": "862 × 2 = 1,724 元；促销价 1,552 仅适用于 8:45 车次。"
+          },
+          {
+            "q": "How early is it suggested to arrive at the station?",
+            "opts": [
+              "10 minutes before departure",
+              "20 minutes before departure",
+              "At least 40 minutes before departure",
+              "2 hours before departure"
+            ],
+            "right": 2,
+            "explain": "原文：arriving at least 40 minutes early。"
+          },
+          {
+            "q": "Until when can the man change trains for free?",
+            "opts": [
+              "Up to 48 hours before departure",
+              "Up to 15 days before departure",
+              "Any time, always free",
+              "Only on the day of travel"
+            ],
+            "right": 1,
+            "explain": "原文：free of charge up to 15 days before departure。"
+          },
+          {
+            "q": "What is the booking reference for the man's tickets?",
+            "opts": [
+              "SF-2031874",
+              "NY-1182737",
+              "TR-9981205",
+              "SF-6023187"
+            ],
+            "right": 0,
+            "explain": "原文：Your booking reference is SF-2031874。"
+          }
+        ]
+      },
+      {
+        "section": "Section 2",
+        "passage": "Good evening everyone, and welcome to Community Radio, broadcasting from the Jing'an district community centre. Today we have a very special announcement about this year's Winter Light Festival, happening on Saturday the 26th of December from 6 pm until 10 pm in People's Park, right here in Jing'an.\nFirst, a word about how to get there. If you're taking the metro, please exit at Gate 3 of People's Square station and follow the blue lantern signs. For those driving, parking around the park will be extremely limited on the night, and the northern car park will close at 4 pm for event setup, so public transport is strongly recommended. There will also be extra bus runs: the 42 and the 109 will run every 8 minutes between 6 and 10:30 pm.\nNow the programme highlights. At 6:30, the official opening ceremony will feature the district choir and the lighting of the main Christmas tree, which stands 18 metres tall this year. At 7:30, the drone light show begins — weather permitting — forming the characters for 'New Year's greetings' above the lake. At 8:30, the community seniors will perform a traditional lion dance near the main stage. And from 9 to 10 pm, there's a fireworks finale on the hour.\nFood and drink: fourteen stalls will line the south promenade, offering roast chestnuts, hot wonton soup, baked sweet potatoes, mulled cider and festive pastries. All stalls are cashless this year — they accept mobile payment only — so please bring your phone or a payment card.\nFor families, the children's craft tent stays open until 9:30 pm, with free make-your-own lantern workshops. The library tent collects donated storybooks for the winter book donation drive — last year we gathered over 3,000 books for rural primary schools, and this year the organiser hopes to beat that number.\nA few important notices. Entry is free, but the number of visitors is capped at around 8,000 for safety. Arrive before 7 pm for comfortable viewing. The lion-dance area will be cordoned off for 15 minutes after each performance. And please remember: do not touch or climb any light installations — they are works by local artists and quite fragile.\nIf you have any questions, call the community centre hotline on 12345-678 or check our official WeChat account, jing'ancommunity. The festival is organised by the district cultural bureau together with twelve local universities and more than forty volunteers. See you there, and happy holidays!",
+        "questions": [
+          {
+            "q": "When and where is the Winter Light Festival?",
+            "opts": [
+              "Sunday 25th at Fuxing Park",
+              "Saturday 26th of December at People's Park",
+              "Friday 25th at People's Square",
+              "Thursday 24th at People's Park"
+            ],
+            "right": 1,
+            "explain": "原文：on Saturday the 26th of December ... in People's Park。"
+          },
+          {
+            "q": "What will close early for event setup?",
+            "opts": [
+              "The metro station",
+              "The northern car park",
+              "Gate 3",
+              "The south promenade"
+            ],
+            "right": 1,
+            "explain": "原文：the northern car park will close at 4 pm for event setup。"
+          },
+          {
+            "q": "How often will bus 42 and bus 109 run during the event?",
+            "opts": [
+              "Every 5 minutes",
+              "Every 10 minutes",
+              "Every 8 minutes",
+              "Every 15 minutes"
+            ],
+            "right": 2,
+            "explain": "原文：the 42 and the 109 will run every 8 minutes。"
+          },
+          {
+            "q": "What happens at 7:30?",
+            "opts": [
+              "The opening ceremony",
+              "The lion dance",
+              "The fireworks finale",
+              "The drone light show"
+            ],
+            "right": 3,
+            "explain": "原文：At 7:30, the drone light show begins。"
+          },
+          {
+            "q": "How tall is the Christmas tree this year?",
+            "opts": [
+              "12 metres",
+              "15 metres",
+              "18 metres",
+              "20 metres"
+            ],
+            "right": 2,
+            "explain": "原文：which stands 18 metres tall this year。"
+          },
+          {
+            "q": "How will payment work at the food stalls?",
+            "opts": [
+              "Cash only",
+              "Cashless, mobile payment and cards",
+              "Tokens bought at the gate",
+              "Free for all visitors"
+            ],
+            "right": 1,
+            "explain": "原文：All stalls are cashless this year — they accept mobile payment only。结合 brings phone or payment card。"
+          },
+          {
+            "q": "Until what time does the children's craft tent stay open?",
+            "opts": [
+              "8:30 pm",
+              "9 pm",
+              "9:30 pm",
+              "10 pm"
+            ],
+            "right": 2,
+            "explain": "原文：the children's craft tent stays open until 9:30 pm。"
+          },
+          {
+            "q": "What is the library tent collecting?",
+            "opts": [
+              "Food donations",
+              "Winter clothes",
+              "Storybooks for rural schools",
+              "Toys for orphanages"
+            ],
+            "right": 2,
+            "explain": "原文：collects donated storybooks for the winter book donation drive。"
+          },
+          {
+            "q": "What is the attendance cap for the festival?",
+            "opts": [
+              "5,000 visitors",
+              "8,000 visitors",
+              "10,000 visitors",
+              "No limit"
+            ],
+            "right": 1,
+            "explain": "原文：the number of visitors is capped at around 8,000。"
+          },
+          {
+            "q": "What are parents asked NOT to do?",
+            "opts": [
+              "Bring food into the park",
+              "Climb or touch light installations",
+              "Arrive after 9 pm",
+              "Use the craft tent"
+            ],
+            "right": 1,
+            "explain": "原文：do not touch or climb any light installations。"
+          }
+        ]
+      },
+      {
+        "section": "Section 3",
+        "passage": "Sarah: So for our project on the economics of festivals, do we still agree on comparing the Spring Festival travel rush with Western Christmas markets?\nTom: Yes, but we need to narrow it down. Comparing everything will be vague. Let's focus on one thing: holiday consumer behaviour — what people buy, why, and what that does to local economies.\nSarah: Agreed. My grandmother's town in Fujian comes alive every Lunar New Year — the temple fair, the sugar-painting stalls, the paper-burning rituals. Meanwhile last year in Basel, I saw Christmas market stalls selling gingerbread to tourists at triple the price locals would pay. Same festival logic, different mechanism.\nTom: I like that pairing — temple fairs versus Christmas markets. It shows both the cultural pull and the commercial layer on top.\nSarah: Shall we do interviews?\nTom: We have a sample problem. We only have time for about fifteen interviews. Fieldwork there is expensive — I'd need at least three days travelling.\nSarah: Alternatively, we collect secondary data — the National Bureau of Statistics publishes festive retail sales every year, and the EU does the same for December trade. Then interviews are only illustrative, not our evidence base.\nTom: That's more realistic. Two days of data cleaning versus a week of fieldwork — and the numbers will be stronger anyway.\nSarah: For the presentation, we need a structure. I'll do the introduction and the Chinese data section, you handle the European data and the comparative analysis, then we both discuss what each model gets right.\nTom: And our discussion chapter needs a critical angle — festive consumption isn't just tradition; it's engineered urgency. Marketing manufactures 'must-buy' lists for gifts, feasts and travel. Without them, what would we even celebrate?\nSarah: Careful — that sounds a bit cynical for academic writing.\nTom: But it's true and it's interesting. We can phrase it properly: 'commercialisation amplifies festive behaviour without replacing its cultural core' — that's an arguable thesis, not a rant.\nSarah: I like it. Now practicalities: our tutor said the report is due the 15th of January, four weeks before the symposium on the 12th of February.\nTom: Presentation first, then the written version?\nSarah: No — tutor said report first on the 15th, symposium in February. And we present slides, not a paper, at the symposium.\nTom: Right. And please, nobody start the data section with the 2019 baseline — use 2020 onward, that's the pre- and post-pandemic shift everyone cares about.\nSarah: Action items: I'll request the NBS data tomorrow, you grab the Eurostat reports by Friday, and we meet again on Wednesday to agree the interview questions.\nTom: Deal. One last thing — the bibliography. I hate doing bibliographies.\nSarah: Fine, I'll draft it early so we don't suffer later.",
+        "questions": [
+          {
+            "q": "What topic have the students agreed to narrow their project down to?",
+            "opts": [
+              "Festivals worldwide",
+              "Holiday consumer behaviour",
+              "Travel marketing",
+              "Winter sports tourism"
+            ],
+            "right": 1,
+            "explain": "Tom：focus on one thing: holiday consumer behaviour。"
+          },
+          {
+            "q": "Which comparison does Sarah suggest?",
+            "opts": [
+              "Temple fairs in Fujian vs Christmas markets in Basel",
+              "Chinese New Year trains vs Western airports",
+              "Christmas trees vs Lunar lanterns",
+              "Street food vs supermarket deals"
+            ],
+            "right": 0,
+            "explain": "原文：temple fairs versus Christmas markets。"
+          },
+          {
+            "q": "Why did Tom reject doing fieldwork?",
+            "opts": [
+              "It is academically weak",
+              "He dislikes interviewing",
+              "It is expensive and time-consuming",
+              "His tutor forbade it"
+            ],
+            "right": 2,
+            "explain": "Tom：Fieldwork there is expensive — I'd need at least three days travelling。"
+          },
+          {
+            "q": "Where will their main evidence come from?",
+            "opts": [
+              "Interviews with tourists",
+              "Online questionnaires",
+              "Secondary statistics from official sources",
+              "Newspaper articles"
+            ],
+            "right": 2,
+            "explain": "Sarah：we collect secondary data — the National Bureau of Statistics ... and the EU does the same。"
+          },
+          {
+            "q": "How many interviews are they able to do?",
+            "opts": [
+              "About five",
+              "About fifteen",
+              "About fifty",
+              "None"
+            ],
+            "right": 1,
+            "explain": "原文：We only have time for about fifteen interviews。"
+          },
+          {
+            "q": "Who will present the comparative analysis section?",
+            "opts": [
+              "Sarah alone",
+              "Tom",
+              "Both together",
+              "Their tutor"
+            ],
+            "right": 1,
+            "explain": "Sarah：you handle the European data and the comparative analysis。"
+          },
+          {
+            "q": "What critical angle does Tom want in the discussion?",
+            "opts": [
+              "Festivals are disappearing",
+              "Celebration is manufactured urgency by marketing",
+              "Tourists ruin everything",
+              "Statistics are unreliable"
+            ],
+            "right": 1,
+            "explain": "Tom：marketing manufactures 'must-buy' lists ... engineered urgency。"
+          },
+          {
+            "q": "When is the written report due?",
+            "opts": [
+              "The 15th of January",
+              "The 12th of February",
+              "The 1st of January",
+              "The 26th of December"
+            ],
+            "right": 0,
+            "explain": "原文：the report is due the 15th of January。"
+          },
+          {
+            "q": "How will they present at the symposium?",
+            "opts": [
+              "With the full written paper",
+              "With posters",
+              "With slides only",
+              "With a video"
+            ],
+            "right": 2,
+            "explain": "原文：we present slides, not a paper, at the symposium。"
+          },
+          {
+            "q": "From which year does Tom want the data analysis to start?",
+            "opts": [
+              "2015",
+              "2018",
+              "2019",
+              "2020"
+            ],
+            "right": 3,
+            "explain": "Tom：use 2020 onward, that's the pre- and post-pandemic shift。"
+          }
+        ]
+      },
+      {
+        "section": "Section 4",
+        "passage": "Today's lecture continues our series on consumer psychology, and the topic is festive consumption — what exactly happens to buying behaviour during December and the Lunar New Year season. Let me paint the overall picture first. Retail trade in December alone accounts for roughly 18 to 25 percent of annual turnover for many gift-and-food retailers, yet December is only about 8 percent of the calendar. Why is the gap so enormous?\nThe first mechanism is social signalling. Gifts are never just objects; they carry messages about relationship status, gratitude, and belonging. A 300-yuan gift to a colleague says 'we work well together'; an empty-handed visit to relatives implies indifference. Anthropologists call this the 'obligation to reciprocate' — once you receive, you must return something of comparable value, and the cycle compounds across the season.\nThe second mechanism is manufactured urgency. Shops run countdowns, limited editions and 'festival exclusives'. Neurologically, scarcity triggers loss aversion: the fear of missing out on something 'limited' peaks when time pressure is explicit — 48-hour offers, daily deal counts, stock counters. People buy not because they need the item, but because missing it feels like a loss.\nThird: memory and identity. Festive consumption is ritual glue. The same sweets every year, the same empty candy tray refilled before guests arrive, the same box of longans from the same brand — these repetitions stabilise identity across generations. Children who watch their parents buy the same pineapple cake every New Year inherit not just a snack preference but a ritual map of 'what our family does'.\nNow the numbers, briefly. In 2025, Chinese New Year spending during the golden week reached an estimated 1.2 trillion yuan, led by food, travel and digital red packets. Cross-border e-commerce saw a 30 percent spike in 'gift boxes' shipments. Research across cultures finds the same curve: festive peaks cluster around three categories — food and dinner parties, gifting, and experience purchases like cinema, travel and dining out.\nSo what are the practical consequences? For households: budget creep — people typically overspend by 15 to 30 percent during festive seasons versus ordinary months; set a written list before entering any supermarket. For young workers: financial stress peaks in January, so employers offering festive bonuses reduce anxiety more than equivalent salary in June. For retailers: the real competition starts in November, because habits are set early — early-bird buyers define the season's narrative.\nFinally, a reflective note. Not all of this is pathology. Festive spending supports millions of livelihoods — artisans, shopkeepers, delivery drivers, caterers. The healthy stance is conscious participation: celebrate, but with a deliberate list, a real budget, and one moment of asking 'is this gift for them, or for how I want to look?' That single question cuts unnecessary spending by roughly a fifth in our survey data. Next lecture: the psychology of hospitality — why 'the more you host, the more you show'.",
+        "questions": [
+          {
+            "q": "What percentage of annual turnover do many gift-and-food retailers make in December?",
+            "opts": [
+              "About 8 percent",
+              "About 18 to 25 percent",
+              "About 50 percent",
+              "About 30 percent"
+            ],
+            "right": 1,
+            "explain": "原文：Retail trade in December alone accounts for roughly 18 to 25 percent of annual turnover。"
+          },
+          {
+            "q": "What does the lecturer mean by 'obligation to reciprocate'?",
+            "opts": [
+              "Shops must refund unwanted gifts",
+              "Once you receive a gift you must return something of comparable value",
+              "Everyone should spend the same amount",
+              "Gifts should only flow one way"
+            ],
+            "right": 1,
+            "explain": "原文：once you receive, you must return something of comparable value。"
+          },
+          {
+            "q": "What psychological effect does scarcity trigger?",
+            "opts": [
+              "Loss aversion",
+              "Confirmation bias",
+              "Survivorship bias",
+              "Anchoring on price"
+            ],
+            "right": 0,
+            "explain": "原文：scarcity triggers loss aversion。"
+          },
+          {
+            "q": "Why do festive rituals repeat the same items every year?",
+            "opts": [
+              "They are cheapest that way",
+              "They stabilise identity across generations",
+              "Shops force it by law",
+              "Nothing else tastes as good"
+            ],
+            "right": 1,
+            "explain": "原文：these repetitions stabilise identity across generations。"
+          },
+          {
+            "q": "According to the lecturer, festive peaks cluster around which three categories?",
+            "opts": [
+              "Clothes, phones and cars",
+              "Food and dinner parties, gifting, experience purchases",
+              "Beauty, electronics and travel",
+              "Games, books and films"
+            ],
+            "right": 1,
+            "explain": "原文：festive peaks cluster around three categories — food and dinner parties, gifting, and experience purchases。"
+          },
+          {
+            "q": "How much did Chinese New Year golden week spending reach in 2025?",
+            "opts": [
+              "Around 500 billion yuan",
+              "Around 800 billion yuan",
+              "Around 1.2 trillion yuan",
+              "Around 2 trillion yuan"
+            ],
+            "right": 2,
+            "explain": "原文：reached an estimated 1.2 trillion yuan。"
+          },
+          {
+            "q": "By how much do households typically overspend during festive seasons?",
+            "opts": [
+              "5 to 10 percent",
+              "15 to 30 percent",
+              "40 percent",
+              "They do not overspend"
+            ],
+            "right": 1,
+            "explain": "原文：people typically overspend by 15 to 30 percent。"
+          },
+          {
+            "q": "When does the lecturer say employers can most reduce employee anxiety with bonuses?",
+            "opts": [
+              "June",
+              "November",
+              "January",
+              "August"
+            ],
+            "right": 2,
+            "explain": "原文：financial stress peaks in January, so employers offering festive bonuses reduce anxiety more than equivalent salary in June。"
+          },
+          {
+            "q": "When does 'the real competition' for retailers begin?",
+            "opts": [
+              "December",
+              "February",
+              "October",
+              "November"
+            ],
+            "right": 3,
+            "explain": "原文：the real competition starts in November, because habits are set early。"
+          },
+          {
+            "q": "What single question cuts unnecessary festive spending by about a fifth?",
+            "opts": [
+              "Is this the cheapest option?",
+              "Is this gift for the recipient, or for how I want to look?",
+              "Will this still be useful in June?",
+              "Can I return it later?"
+            ],
+            "right": 1,
+            "explain": "原文：'is this gift for them, or for how I want to look?' ... cuts unnecessary spending by roughly a fifth。"
+          }
+        ]
+      }
+    ],
+    "speaking": {
+      "part1": [
+        {
+          "topic": "p1-holidays",
+          "q": "Do you have any special holidays coming up soon?",
+          "ref": "Yes, Spring Festival is coming up in February. My company gives us seven days off this year, so my plan is to go back to my grandparents' village for the first few days and simply rest, eat well and see relatives I haven't met since last year.",
+          "keywords": [
+            "Spring Festival",
+            "days off",
+            "village",
+            "rest",
+            "relatives"
+          ]
+        },
+        {
+          "topic": "p1-holidays",
+          "q": "How do you usually spend your holidays?",
+          "ref": "Mostly around family. We have a big dinner on New Year's Eve, sleep in until noon for a couple of days, and then take one short trip somewhere — last year we went to Hangzhou for the lantern festival by West Lake.",
+          "keywords": [
+            "family",
+            "dinner",
+            "sleep",
+            "trip",
+            "lantern"
+          ]
+        },
+        {
+          "topic": "p1-holidays",
+          "q": "Which is your favourite holiday of the year?",
+          "ref": "Without question, Spring Festival. The whole city slows down, every restaurant serves family reunion banquets, and you get this rare feeling that everyone is home at the same time — it feels like the one week when the country actually rests.",
+          "keywords": [
+            "Spring Festival",
+            "rests",
+            "reunion",
+            "city"
+          ]
+        },
+        {
+          "topic": "p1-holidays",
+          "q": "Do you prefer holidays at home or travelling?",
+          "ref": "It depends on the length. For three or four days, travelling is tempting, but Spring Festival crowds make trains exhausting, so I usually just stay home for the peak days and save travelling for the quiet weeks afterwards.",
+          "keywords": [
+            "depends",
+            "travelling",
+            "crowds",
+            "home"
+          ]
+        },
+        {
+          "topic": "p1-holidays",
+          "q": "Do you think people nowadays take enough holidays?",
+          "ref": "Legally, yes, but in practice many people don't use their full allowance. Some feel guilty taking time off, and others simply cannot escape work messages. Resting properly should be a skill we teach, not a luxury people apologise for.",
+          "keywords": [
+            "allowance",
+            "guilty",
+            "messages",
+            "luxury"
+          ]
+        },
+        {
+          "topic": "p1-gifts",
+          "q": "Do you enjoy giving gifts to your friends?",
+          "ref": "I really do. Choosing a gift forces you to pay attention — you remember what someone mentioned weeks ago. Last autumn I noticed a colleague kept admiring a certain teapot, so I found the exact one for her birthday.",
+          "keywords": [
+            "choosing",
+            "attention",
+            "colleague",
+            "birthday"
+          ]
+        },
+        {
+          "topic": "p1-gifts",
+          "q": "What is the most memorable gift you have ever received?",
+          "ref": "A fountain pen from my grandfather when I finished university. It wasn't expensive, but he'd repaired cars for forty years and this was the pen he'd used to sign every contract. It means more to me than anything money could buy.",
+          "keywords": [
+            "pen",
+            "grandfather",
+            "university",
+            "contract"
+          ]
+        },
+        {
+          "topic": "p1-gifts",
+          "q": "Do you prefer giving gifts or receiving them?",
+          "ref": "Giving, honestly. Receiving is pleasant, but the real joy is watching someone's face when they realise the gift truly shows you know them — that gap between 'they got me something' and 'they really get me' is everything.",
+          "keywords": [
+            "giving",
+            "joy",
+            "watching",
+            "know"
+          ]
+        },
+        {
+          "topic": "p1-gifts",
+          "q": "How do you usually choose a gift for someone?",
+          "ref": "I start with their habits, not their wish list. I ask myself: what do they complain about, what do they light up over, what did they almost buy? A good gift answers one of those three questions better than they could themselves.",
+          "keywords": [
+            "habits",
+            "complain",
+            "light",
+            "answers"
+          ]
+        },
+        {
+          "topic": "p1-gifts",
+          "q": "Is gift-giving important in your culture?",
+          "ref": "Extremely. During Spring Festival we exchange red envelopes, gift boxes of tea, fruit or nuts, and nobody shows up empty-handed to a relative's home. Gifts there are not really about objects — they're a way of saying 'I value this relationship enough to think about you'.",
+          "keywords": [
+            "envelopes",
+            "gift",
+            "relationship",
+            "Spring Festival"
+          ]
+        },
+        {
+          "topic": "p1-meals",
+          "q": "What do you usually eat for breakfast?",
+          "ref": "Something simple — soy milk and a couple of eggs, or congee from the breakfast shop downstairs when I'm running late. I used to skip breakfast entirely, but I get headaches by 11 am now if I do.",
+          "keywords": [
+            "soy milk",
+            "eggs",
+            "congee",
+            "headaches"
+          ]
+        },
+        {
+          "topic": "p1-meals",
+          "q": "Do you prefer eating at home or eating in restaurants?",
+          "ref": "Mostly home. Cooking for myself is cheaper and I control the salt and oil, which I care about. Restaurants are for occasions — birthdays, reunions — when the cooking itself is part of the celebration rather than just feeding people.",
+          "keywords": [
+            "home",
+            "cooking",
+            "occasions",
+            "reunions"
+          ]
+        },
+        {
+          "topic": "p1-meals",
+          "q": "What was your favourite meal when you were a child?",
+          "ref": "My mother's soup dumplings on Sunday mornings — little pork parcels you had to eat with the skin in one bite, burning your tongue every single time. I still think about that texture when food gets stressful at work.",
+          "keywords": [
+            "mother",
+            "dumplings",
+            "bite",
+            "burning"
+          ]
+        },
+        {
+          "topic": "p1-meals",
+          "q": "Do you think people eat too much fast food these days?",
+          "ref": "Absolutely, and mostly for time reasons rather than taste. When you're ordering at 9 pm after a double shift, a burger beats chopping vegetables every time. The problem is when it becomes every meal, because then sodium and fried oil compound quietly for years.",
+          "keywords": [
+            "time",
+            "ordering",
+            "sodium",
+            "compound"
+          ]
+        },
+        {
+          "topic": "p1-meals",
+          "q": "What would your ideal dinner be?",
+          "ref": "Hotpot, without question — a pot of bubbling broth in the middle, everyone reaching for a dipping bowl, arguing over which meat went in too soon. It's chaotic, loud and social, which is exactly what eating should be more often than it is.",
+          "keywords": [
+            "hotpot",
+            "broth",
+            "social",
+            "chaotic"
+          ]
+        },
+        {
+          "topic": "p1-weekends",
+          "q": "How do you usually spend your weekends?",
+          "ref": "Slow mornings for sure — I never set an alarm on Saturdays. Then gym or a long walk, one proper meal cooked at home, and either a film or meeting friends in the evening. Sundays are for laundry, tidying and preparing the week so Monday doesn't bite.",
+          "keywords": [
+            "slow",
+            "gym",
+            "cooked",
+            "Sundays"
+          ]
+        },
+        {
+          "topic": "p1-weekends",
+          "q": "Do you have the same routine every weekend?",
+          "ref": "Roughly. The skeleton stays the same — sleep in, one outing, one good meal — but the middle is flexible. Some weekends I hike with friends, others I just plant myself on the sofa with a book and call it self-care.",
+          "keywords": [
+            "skeleton",
+            "flexible",
+            "hike",
+            "self-care"
+          ]
+        },
+        {
+          "topic": "p1-weekends",
+          "q": "What did you do last weekend?",
+          "ref": "We drove to a suburban IKEA in the morning — yes, it's basically a sport at this point — then had hotpot for lunch. In the afternoon I repotted two dying houseplants and somehow resurrected one of them. Small victory.",
+          "keywords": [
+            "IKEA",
+            "hotpot",
+            "afternoon",
+            "houseplants"
+          ]
+        },
+        {
+          "topic": "p1-weekends",
+          "q": "Would you like to have more free time on weekends?",
+          "ref": "Everyone would, but I'd probably fill it badly. Two days off sounds ideal until you remember half of it evaporates into errands. Maybe I'd rather have one proper four-day break per season than endless flat weekends that blur into laundry.",
+          "keywords": [
+            "errands",
+            "four-day",
+            "weekends",
+            "laundry"
+          ]
+        },
+        {
+          "topic": "p1-weekends",
+          "q": "Do you think weekends are important?",
+          "ref": "Completely. They're where your nervous system resets. Without weekends, the week becomes one long Tuesday, and you start making strange decisions like buying espresso machines you'll never use. Rest is not the reward for work; it's the fuel for it.",
+          "keywords": [
+            "nervous",
+            "resets",
+            "reward",
+            "fuel"
+          ]
+        },
+        {
+          "topic": "p1-family",
+          "q": "Do you live with your family?",
+          "ref": "I live with my parents and my grandmother in the same apartment block — different units, which keeps everyone sane. In a way it's the classic Chinese three-generation setup, just with more delivery food and video calls than the old days.",
+          "keywords": [
+            "parents",
+            "grandmother",
+            "three-generation",
+            "apartment"
+          ]
+        },
+        {
+          "topic": "p1-family",
+          "q": "Who in your family do you spend the most time with?",
+          "ref": "My mother, overwhelmingly. She cooks when she visits, reorganises my bookshelf without asking, and somehow knows when I'm stressed before I do. She denies it is hovering; I call it loving surveillance.",
+          "keywords": [
+            "mother",
+            "cooks",
+            "bookshelf",
+            "stressed"
+          ]
+        },
+        {
+          "topic": "p1-family",
+          "q": "Did your family eat dinner together when you were young?",
+          "ref": "Almost every night. My father would wait until seven, then make us put our phones in a drawer — which felt oppressive at fourteen and feels heroic at twenty-eight. Those dinners were where I learned half of what I know about storytelling.",
+          "keywords": [
+            "dinner",
+            "father",
+            "phones",
+            "storytelling"
+          ]
+        },
+        {
+          "topic": "p1-family",
+          "q": "Are you similar to or different from the other members of your family?",
+          "ref": "I'm the quiet one — my brother talks for a living, my mother narrates everything, and my father operates in meaningful silence. I inherited the silence but not the patience for long monologues, so I usually retreat into books.",
+          "keywords": [
+            "quiet",
+            "brother",
+            "silence",
+            "books"
+          ]
+        },
+        {
+          "topic": "p1-family",
+          "q": "Have your family habits changed over the years?",
+          "ref": "Noticeably. Ten years ago we'd sit at the same table arguing about the news; now the news competes with two TikTok feeds and a WeChat sports group. We eat together, yes — but silence has a different flavour when everyone is scrolling.",
+          "keywords": [
+            "table",
+            "news",
+            "scrolling",
+            "WeChat"
+          ]
+        },
+        {
+          "topic": "p1-films",
+          "q": "Do you like watching films?",
+          "ref": "Hugely. Cinema is my monthly ritual — I don't even check the reviews anymore, I just trust the opening weekend vibe. The big-screen experience does something a laptop can never replicate for fight scenes and soundtracks.",
+          "keywords": [
+            "cinema",
+            "monthly",
+            "ritual",
+            "soundtracks"
+          ]
+        },
+        {
+          "topic": "p1-films",
+          "q": "What kinds of films do you enjoy most?",
+          "ref": "Light comedies and character-driven dramas. I tried hard-core arthouse once and lasted forty minutes before checking into a thriller I actually enjoyed. Life is already complicated enough; my popcorn budget deserves a happy ending occasionally.",
+          "keywords": [
+            "comedies",
+            "dramas",
+            "thriller",
+            "popcorn"
+          ]
+        },
+        {
+          "topic": "p1-films",
+          "q": "When was the last time you went to the cinema?",
+          "ref": "Last month — we saw a sci-fi epic that was mostly visual spectacle, which is exactly what cinema should be. Tickets plus popcorn plus parking came to over 150 yuan, and I regretted none of it.",
+          "keywords": [
+            "sci-fi",
+            "tickets",
+            "popcorn",
+            "regretted"
+          ]
+        },
+        {
+          "topic": "p1-films",
+          "q": "Do you prefer watching films at home or at the cinema?",
+          "ref": "Home wins for comfort — pause anytime, no noisy strangers, whatever snack I want — but cinema wins for spectacle. So my rule is simple: if it's a visual feast, big screen; if it's dialogue-heavy, sofa and a cup of tea.",
+          "keywords": [
+            "home",
+            "comfort",
+            "spectacle",
+            "dialogue"
+          ]
+        },
+        {
+          "topic": "p1-films",
+          "q": "Have your tastes in films changed over time?",
+          "ref": "Completely. Teenage me wanted explosions every ten minutes; adult me cries at reunion scenes in quiet family dramas and tolerates action only when the choreography is genuinely clever. Growing up apparently recalibrates your dopamine.",
+          "keywords": [
+            "explosions",
+            "reunion",
+            "dramas",
+            "recalibrates"
+          ]
+        },
+        {
+          "topic": "p1-chocolate",
+          "q": "Do you like chocolate?",
+          "ref": "Very much, but I've graduated from milk chocolate to dark chocolate over the years. Now I treat chocolate like coffee — a small square after dinner, not a bar in front of the TV at midnight.",
+          "keywords": [
+            "dark",
+            "square",
+            "dinner",
+            "midnight"
+          ]
+        },
+        {
+          "topic": "p1-chocolate",
+          "q": "How often do you eat chocolate?",
+          "ref": "Realistically two or three times a week. Weekends are the danger zone — a film night with a proper bar is my one indulgence. Weekdays I'm better behaved, mostly due to the 70-percent rule I pretend to follow.",
+          "keywords": [
+            "weekends",
+            "indulgence",
+            "weekdays",
+            "70-percent"
+          ]
+        },
+        {
+          "topic": "p1-chocolate",
+          "q": "What kind of chocolate do you prefer?",
+          "ref": "Dark, 70 percent or above, preferably with sea salt or orange peel. Milk chocolate tastes like dessert; dark chocolate tastes like an opinion. Nuts are acceptable; nougat and caramel are traps I walk into knowingly.",
+          "keywords": [
+            "dark",
+            "70 percent",
+            "salt",
+            "caramel"
+          ]
+        },
+        {
+          "topic": "p1-chocolate",
+          "q": "Was chocolate popular when you were a child?",
+          "ref": "Enormously — it was the currency of good behaviour. Every Spring Festival, the table would fill up with boxes of chocolates and fruit, and we kids treated the chocolate box as a competitive sport. Now those gift boxes are pricier than ever.",
+          "keywords": [
+            "Spring Festival",
+            "boxes",
+            "competitive",
+            "gift"
+          ]
+        },
+        {
+          "topic": "p1-chocolate",
+          "q": "Do you think chocolate is healthy?",
+          "ref": "Dark chocolate in small amounts, honestly, yes — the flavanol headlines are partly true. But the moment it becomes three bars a week it's dessert with a marketing department. Everything about food is dose and context, as my nutritionist keeps reminding me.",
+          "keywords": [
+            "dark",
+            "flavanol",
+            "dessert",
+            "marketing"
+          ]
+        },
+        {
+          "topic": "p1-travelling",
+          "q": "Do you like travelling?",
+          "ref": "Very much. Technically, two weeks of holidays a year is all I get, so I've learned to do intense short trips — three days somewhere with one good meal, one good walk and one strange museum beats a two-week blur every time.",
+          "keywords": [
+            "holidays",
+            "trips",
+            "museum",
+            "walk"
+          ]
+        },
+        {
+          "topic": "p1-travelling",
+          "q": "Where did you travel most recently?",
+          "ref": "Xitang, the water town near Shanghai, this autumn. We rented a little guesthouse by the canal, ate zongzi for breakfast, took the boat ride at dusk, and got caught in sudden rain — which honestly made it better.",
+          "keywords": [
+            "Xitang",
+            "canal",
+            "dusk",
+            "rain"
+          ]
+        },
+        {
+          "topic": "p1-travelling",
+          "q": "Do you prefer travelling alone or with other people?",
+          "ref": "With others, because shared anticipation is half the fun — splitting the map, arguing about dinner, sending each other photos. Alone travelling sounds romantic until you're eating noodles by yourself and checking the same fork menu for the tenth time.",
+          "keywords": [
+            "others",
+            "shared",
+            "arguing",
+            "alone"
+          ]
+        },
+        {
+          "topic": "p1-travelling",
+          "q": "What kind of places do you most enjoy visiting?",
+          "ref": "Old towns and mountains. Old towns give me layered history frozen into streets — a bit of Ming architecture, a bit of Qing signage — and mountains give me silence and altitude, which is the closest my city life ever gets to meditation.",
+          "keywords": [
+            "Old towns",
+            "mountains",
+            "history",
+            "silence"
+          ]
+        },
+        {
+          "topic": "p1-travelling",
+          "q": "Would you like to travel abroad in the future?",
+          "ref": "Yes, very much — Japan first, then maybe Italy for the architecture and the food. I've been saving points and pretending it's 'for emergencies' while quietly researching ryokans instead. Next year, realistically, if the budget cooperates.",
+          "keywords": [
+            "Japan",
+            "Italy",
+            "points",
+            "budget"
+          ]
+        }
+      ],
+      "part2": [
+        {
+          "topic": "p2-thing-gift",
+          "card": "Describe a gift you gave to someone.",
+          "points": [
+            "What the gift was",
+            "Who you gave it to",
+            "When and why you gave it",
+            "And explain how they reacted"
+          ],
+          "ref": "Last New Year I gave my mother a fountain pen — actually, not just any pen, but the same model of pen my grandfather used to sign his first shop contract. She has run the family eatery for fifteen years, and every New Year she writes the year's first menu by hand in ink. When I handed it to her on Chinese New Year's Eve, she went quiet, then laughed and said 'this one actually lasts'. She still opens it only for that first menu of each year, which makes it worth every minute I spent hunting down an original.",
+          "keywords": [
+            "New Year",
+            "pen",
+            "mother",
+            "menu",
+            "New Year's Eve",
+            "laughed"
+          ]
+        },
+        {
+          "topic": "p2-people-family",
+          "card": "Describe a member of your family you get on very well with.",
+          "points": [
+            "Who this person is",
+            "What you do together",
+            "What they are like",
+            "And explain why you get on so well"
+          ],
+          "ref": "This is my grandmother, Nai, who will be eighty-two this spring. We do almost everything together — she reads the evening paper aloud, correcting her own reading; we shell peanuts while the Spring Festival gala plays; she teaches me card games from the old countryside. She is sharp, stubborn in the best way, and completely without embarrassment. We get on because she treats me as a colleague in life rather than a child to manage. I can tell her anything, and she has never once told my mother.",
+          "keywords": [
+            "grandmother",
+            "together",
+            "peanuts",
+            "games",
+            "sharp",
+            "mother"
+          ]
+        },
+        {
+          "topic": "p2-event-happy",
+          "card": "Describe a happy event you remember from your childhood.",
+          "points": [
+            "What the event was",
+            "When it happened",
+            "Who was there",
+            "And explain why it was so happy"
+          ],
+          "ref": "The happiest day of my childhood was the afternoon our family moved from a two-room walk-up into our own apartment — new keys, new elevator, and a balcony. I was nine. My father celebrated with a tray of strawberries, which were absurdly expensive that year, and we ate them sitting on the empty floor. What made it unforgettable wasn't the apartment itself; it was watching my parents exhale for the first time I had ever seen. I still remember the hum of the empty fridge and strawberry-stained hands.",
+          "keywords": [
+            "apartment",
+            "keys",
+            "strawberries",
+            "nine",
+            "exhale"
+          ]
+        },
+        {
+          "topic": "p2-event-shop",
+          "card": "Describe a memorable shopping experience you had.",
+          "points": [
+            "What you bought or shopped for",
+            "Where and when it was",
+            "Who you were with",
+            "And explain what made it memorable"
+          ],
+          "ref": "I'll never forget hunting for a Spring Festival coat with my mother at a small market in Chengdu last January. It was chaos — steam from spicy-hotpot stalls, bargaining over wool blends, a vendor playing erhu over the loudspeaker. After two hours I found a deep green wool coat, half the asking price, and the vendor finally smiled and said 'you have an eye — take it'. Wearing it home on the metro felt like I'd won a treasure rather than bought a jacket.",
+          "keywords": [
+            "coat",
+            "market",
+            "bargaining",
+            "green",
+            "won"
+          ]
+        },
+        {
+          "topic": "p2-event-weekend",
+          "card": "Describe a weekend you really enjoyed.",
+          "points": [
+            "When it was",
+            "Where you went or what you did",
+            "Who you spent it with",
+            "And explain why it was enjoyable"
+          ],
+          "ref": "This was the winter weekend in December 2023 when the whole family drove to the reservoir for a 'fake fishing' day — actually barbecuing, playing mahjong in the car, and watching black kites circling over the far shore. My aunt brought some homemade dumplings, my cousin taught my grandmother to use a tablet, and nobody looked at a work message for two entire days. It was enjoyable because it was ordinary abundance — no agenda, no itinerary, just shared morning light and too much food.",
+          "keywords": [
+            "reservoir",
+            "family",
+            "mahjong",
+            "tablet",
+            "abundance"
+          ]
+        }
+      ],
+      "part3": [
+        {
+          "topic": "p3-education",
+          "q": "Should schools have longer holidays?",
+          "ref": "Longer holidays would give children breathing room, but the real question is what they do with the time. Unstructured weeks can widen gaps between privileged and poor students — the former travel, the latter drift. Longer holidays work best paired with structured camps, reading programmes and proper rest culture at home.",
+          "keywords": [
+            "breathing room",
+            "gaps",
+            "travel",
+            "culture",
+            "holidays"
+          ]
+        },
+        {
+          "topic": "p3-education",
+          "q": "Do you think homework should be banned during holidays?",
+          "ref": "Banned entirely is too blunt, but reduced drastically, yes. Holiday homework that replaces rest with more worksheets teaches resentment, not learning. Better: one open-ended project you choose yourself — a family interview, a photo essay, cooking one new dish — because autonomy beats obligation for retaining anything meaningful.",
+          "keywords": [
+            "banned",
+            "worksheets",
+            "project",
+            "autonomy",
+            "meaningful"
+          ]
+        },
+        {
+          "topic": "p3-education",
+          "q": "Is it important for children to learn about festivals from other cultures?",
+          "ref": "Deeply. Festivals compress a culture's values into one edible, shareable day — learning Thanksgiving, Diwali or Eid teaches food ethics, gratitude and solidarity better than any textbook. It also vaccinates against casual prejudice; knowing why someone fasts changes how you sit next to them at lunch.",
+          "keywords": [
+            "festivals",
+            "values",
+            "food",
+            "prejudice",
+            "gratitude"
+          ]
+        },
+        {
+          "topic": "p3-education",
+          "q": "Do exams really show what a student can do?",
+          "ref": "Only a slice of it. Exams are excellent at measuring preparation under pressure, but they miss collaboration, creativity, persistence and practical judgment. The fix isn't abandoning exams — it's balancing them with projects, orals and portfolios so a quiet builder doesn't lose to a loud test-taker.",
+          "keywords": [
+            "exams",
+            "pressure",
+            "collaboration",
+            "creativity",
+            "portfolios"
+          ]
+        },
+        {
+          "topic": "p3-education",
+          "q": "Should universities help students find jobs after graduation?",
+          "ref": "Yes — a degree should be a launchpad, not just a certificate. Career coaching, CV workshops, alumni networks and mock interviews convert academic knowledge into employability. When universities treat careers as someone else's job, students graduate with skills and no map. Employability support is part of the product now.",
+          "keywords": [
+            "universities",
+            "career",
+            "alumni",
+            "employability",
+            "map"
+          ]
+        },
+        {
+          "topic": "p3-education",
+          "q": "What can adults learn that children cannot?",
+          "ref": "Adults learn with context. A child memorises vocabulary; an adult connects it to a negotiation, a lease or a lover's apology — that stakes-driven learning sticks harder. Adults also tolerate ambiguity better, ask sharper questions and accept feedback without collapsing. Motivation matures along with the corpus of scars.",
+          "keywords": [
+            "adults",
+            "context",
+            "questions",
+            "feedback",
+            "motivation"
+          ]
+        },
+        {
+          "topic": "p3-technology",
+          "q": "Should there be limits on children's screen time during holidays?",
+          "ref": "Reasonable limits, not bans. Holidays are about rest, and screens genuinely rest tired brains — but three hours of short video is sedation, not rest. My household rule: mornings are physical, afternoons are free, evenings are co-screened film nights. Quality and context outrank raw timer counts.",
+          "keywords": [
+            "limits",
+            "rest",
+            "video",
+            "physical",
+            "context"
+          ]
+        },
+        {
+          "topic": "p3-technology",
+          "q": "Will delivery apps make festive cooking obsolete?",
+          "ref": "For everyday meals maybe, but festivals survive on slowness. The point of making dumplings for Spring Festival dinner is the hours together around the table — no courier can deliver that feeling. Apps will compress weekday cooking, but ritual cooking during holidays will persist precisely because it is inefficient and human.",
+          "keywords": [
+            "Apps",
+            "festivals",
+            "slowness",
+            "dumplings",
+            "human"
+          ]
+        },
+        {
+          "topic": "p3-technology",
+          "q": "Is online shopping good or bad for local businesses during holidays?",
+          "ref": "Both at once. Online shopping gives micro-vendors national reach for festive gifts, but it bulldozes the family-run shop on the corner that survives on seasonal traffic. The healthy model is omnichannel — local shops using WeChat stores and delivery, plus physical experience during festive peaks.",
+          "keywords": [
+            "online",
+            "local",
+            "festive",
+            "omnichannel",
+            "delivery"
+          ]
+        },
+        {
+          "topic": "p3-technology",
+          "q": "Do smart homes actually make life easier?",
+          "ref": "For daily chores, yes — lights, locks and robot vacuums genuinely compress effort. But every smart device is also a small subscription to someone else's server: accounts expire, apps vanish, privacy quietly evaporates. Use smart tech for chores you hate, keep manual backups for the things you love — including the kettle.",
+          "keywords": [
+            "smart",
+            "chores",
+            "privacy",
+            "manual",
+            "kettle"
+          ]
+        },
+        {
+          "topic": "p3-technology",
+          "q": "Should AI be allowed to write greeting cards and wishes?",
+          "ref": "It can draft, but humans must sign. A wish matters because someone paused to think about you — if AI writes it, the gift arrives without the sender ever having been present in the message. The lovely use of AI is brainstorming lines for the shy, not replacing the feeling itself.",
+          "keywords": [
+            "AI",
+            "wish",
+            "think",
+            "sender",
+            "feeling"
+          ]
+        },
+        {
+          "topic": "p3-technology",
+          "q": "How will robots change hospitality in the future?",
+          "ref": "Robots will absorb the repetitive backbone — towel delivery, table clearing, check-in at 3 am — and free humans for the moments that actually matter: calming a crying child, remembering a returning guest's tea. Hospitality will split into invisible automation and high-touch warmth; the middle ground will disappear entirely.",
+          "keywords": [
+            "robots",
+            "hospitality",
+            "automation",
+            "warmth",
+            "guest"
+          ]
+        },
+        {
+          "topic": "p3-society",
+          "q": "Does modern life leave enough space for family time?",
+          "ref": "Technically yes, culturally no. We have more time than our grandparents did, yet family time gets fragmented into notification slices. The bottleneck isn't hours, it's attention. Households that succeed treat dinner as a device-free zone — twenty minutes of full presence beats three distracted hours every time.",
+          "keywords": [
+            "family",
+            "notification",
+            "attention",
+            "device-free",
+            "presence"
+          ]
+        },
+        {
+          "topic": "p3-society",
+          "q": "Should governments mandate paid public holidays?",
+          "ref": "Paid holidays are already mandated almost everywhere — the question is enforcement and fairness across gig work. Delivery riders and factory shift workers often can't stop, even when the law says they can. A public holiday you cannot take is decoration, not policy. Extend coverage to contract and gig workers first.",
+          "keywords": [
+            "holidays",
+            "enforcement",
+            "gig",
+            "workers",
+            "policy"
+          ]
+        },
+        {
+          "topic": "p3-society",
+          "q": "Is traditional community spirit disappearing in big cities?",
+          "ref": "It mutated rather than vanished. The old courtyard gossip moved to WeChat groups of neighbours sharing matcha reviews and lost-cat alerts. What's missing is accidental encounter — corridor hellos, shared queues, borrowed ladders. Design must now engineer serendipity: shared tables, open kitchens, co-working lobbies, festivals in the square.",
+          "keywords": [
+            "Courtyard",
+            "WeChat",
+            "encounter",
+            "festivals",
+            "serendipity"
+          ]
+        },
+        {
+          "topic": "p3-society",
+          "q": "Do older people get the respect they deserve in China today?",
+          "ref": "Formally yes — filial duty is still preached — but structurally it's eroding. Nuclear families, migration to tier-one cities and youthful consumer culture leave many elderly invisible in daily life. Respect needs practice, not posters: shared meals, real conversations, elders teaching craft and stories, not just being 'cared for'.",
+          "keywords": [
+            "elderly",
+            "respect",
+            "migration",
+            "stories",
+            "shared"
+          ]
+        },
+        {
+          "topic": "p3-society",
+          "q": "Should festivals be public holidays for everyone or regional only?",
+          "ref": "Regional festivals are precious precisely because they're not national — dragon boat races in the south, lantern fairs in the west. Making everything a national holiday flattens local culture into a single televised script. Better: national core holidays plus regional floating rest days that let local identity breathe.",
+          "keywords": [
+            "festivals",
+            "regional",
+            "national",
+            "local",
+            "culture"
+          ]
+        },
+        {
+          "topic": "p3-society",
+          "q": "Is it true that people are more stressed during holiday seasons?",
+          "ref": "For many, yes — travel chaos, family friction, gift budgets, forced fun. Festive pressure is a documented cortisol bump. The antidote is expectation management: fewer dinners, honest conversations, pre-agreed budgets, and the radical act of doing nothing on purpose with people you like.",
+          "keywords": [
+            "travel",
+            "budgets",
+            "conversations",
+            "cortisol",
+            "pressure"
+          ]
+        },
+        {
+          "topic": "p3-environment",
+          "q": "Do festive celebrations create too much waste?",
+          "ref": "Yes, dramatically — wrapping paper, fruit baskets with non-recyclable foam, disposable tableware for reunion dinners. The fix isn't cancelling joy; it's swapping materials. Beeswax wraps, steel lanterns, reusable plates, shared platters — every festive choice can whisper 'celebrate, but gently' instead of shouting 'landfill'.",
+          "keywords": [
+            "wraps",
+            "reusable",
+            "landfill",
+            "festive",
+            "swapping"
+          ]
+        },
+        {
+          "topic": "p3-environment",
+          "q": "Should fireworks be banned completely?",
+          "ref": "Partial bans work; total bans breed black markets and resentment. The honest approach: restrict in dense cities, subsidise eco-friendly drones or light shows, and let rural towns keep tradition with moderation. Smoke over Beijing is bad air; light over a village square is culture. Regulate the dose, not the desire.",
+          "keywords": [
+            "bans",
+            "drones",
+            "tradition",
+            "regulate",
+            "markets"
+          ]
+        },
+        {
+          "topic": "p3-environment",
+          "q": "Is holiday travel compatible with carbon budgets?",
+          "ref": "Only if travel patterns shift, not disappear. One long-haul trip a year plus regional rail holidays is reasonable for most people. Flying short-haul when high-speed rail exists is hard to justify on any honest carbon ledger. Choose slower journeys — the extra six hours on a train is the price of a quieter conscience.",
+          "keywords": [
+            "carbon",
+            "rail",
+            "Flying",
+            "ledger",
+            "journeys"
+          ]
+        },
+        {
+          "topic": "p3-environment",
+          "q": "Should gift culture move toward experiences instead of objects?",
+          "ref": "Mostly yes — a museum membership or a cooking class outlives any box of trinkets, and it keeps money circulating in local culture. But objects have their place: a handmade scarf is still love in fabric form. The healthy mix is experiences first, meaningful objects second, plastic novelties never.",
+          "keywords": [
+            "experiences",
+            "objects",
+            "trinkets",
+            "handmade",
+            "plastic"
+          ]
+        },
+        {
+          "topic": "p3-environment",
+          "q": "How can cities become greener during festive seasons?",
+          "ref": "LED installations instead of incandescent bulbs, real potted trees instead of plastic forests, pedestrian-only promenades, shared e-bike fleets for the last mile. Cities already compete on their festive light shows — let the competition be about kilowatt-hours saved rather than watts dazzled.",
+          "keywords": [
+            "LED",
+            "trees",
+            "promenades",
+            "kilowatt",
+            "light"
+          ]
+        },
+        {
+          "topic": "p3-media",
+          "q": "Does festive advertising manipulate consumers unfairly?",
+          "ref": "Absolutely — it sells obligation wrapped as love. The message is always: 'you don't really care unless you buy this'. Awareness is the defence; when you see an ad and feel vague guilt, that is the emotion being engineered, not affection. Buy for people, not for ads.",
+          "keywords": [
+            "obligation",
+            "love",
+            "guilt",
+            "engineered",
+            "people"
+          ]
+        },
+        {
+          "topic": "p3-media",
+          "q": "Is the Spring Festival Gala still relevant to young people?",
+          "ref": "Partly. It's ritual background music for the reunion dinner — less watched for content, more for the shared clock. Young audiences prefer highlight clips on Douyin, yet the live viewership still spikes at midnight. Its role shifted from 'must-watch programme' to 'national gathering signal' — different, but alive.",
+          "keywords": [
+            "ritual",
+            "Douyin",
+            "viewership",
+            "midnight",
+            "background"
+          ]
+        },
+        {
+          "topic": "p3-media",
+          "q": "Should news channels avoid broadcasting during major holidays?",
+          "ref": "No — holidays are exactly when major events happen: weather crises, travel disasters, accidents. What should change is tone: fewer panels of pundits, more service journalism — road closures, weather alerts, hospital schedules. News during festivals should be a lighthouse, not a shouting match.",
+          "keywords": [
+            "news",
+            "holidays",
+            "weather",
+            "service",
+            "journalism"
+          ]
+        },
+        {
+          "topic": "p3-media",
+          "q": "Do holiday movies make us feel better?",
+          "ref": "For most people, genuinely yes. Comfort rewatching — the same Home Alone, the same sentimental reunion dramas — regulates mood the way a warm blanket does. The danger is only when comfort becomes avoidance; a film a night is self-care, five films a day is hiding from your family with a remote.",
+          "keywords": [
+            "Comfort",
+            "mood",
+            "avoidance",
+            "blanket",
+            "comfort"
+          ]
+        },
+        {
+          "topic": "p3-media",
+          "q": "How honest is influencer content about holiday lifestyle?",
+          "ref": "Mostly curated theatre. The 'perfect family reunion dinner' on Douyin is twelve takes, rented dishes and ring-light negotiation. Some influencers now do behind-the-scenes honesty about this, and those videos build real trust. Enjoy the fantasy, but calibrate expectations — your real aunt will never pose like that.",
+          "keywords": [
+            "influencer",
+            "curated",
+            "Douyin",
+            "honesty",
+            "fantasy"
+          ]
+        },
+        {
+          "topic": "p3-work",
+          "q": "Should companies be forced to give staff bonuses before Spring Festival?",
+          "ref": "Mandating bonuses would help cash-poor employees in a culture where the holiday is expensive — but one-size bonuses punish good companies and subsidise bad ones. Better: tax incentives for festive bonuses, transparency requirements, and strong enforcement of existing bonus promises in contracts.",
+          "keywords": [
+            "bonuses",
+            "enforcement",
+            "contracts",
+            "incentives",
+            "companies"
+          ]
+        },
+        {
+          "topic": "p3-work",
+          "q": "Is the nine-nine-six work culture still tolerable today?",
+          "ref": "Tolerated by many, embraced by fewer every year. 996 trades health and family for equity and speed — a bad deal for most roles outside early-stage startups. The backlash is real: regulators, courts and talent are all pushing back. Sustainable pace wins in the long run; burnout is not a moat.",
+          "keywords": [
+            "996",
+            "health",
+            "equity",
+            "burnout",
+            "pace"
+          ]
+        },
+        {
+          "topic": "p3-work",
+          "q": "Do people really rest during holidays if they work from home?",
+          "ref": "Rarely fully. Remote work means the laptop is always within reach, and 'checking in' for five minutes becomes two hours of emails. True rest needs boundaries: out-of-office replies, silenced groups, and a household agreement that holiday hours belong to the people in the room.",
+          "keywords": [
+            "remote",
+            "boundaries",
+            "emails",
+            "silenced",
+            "household"
+          ]
+        },
+        {
+          "topic": "p3-work",
+          "q": "Should interns and part-timers get paid holidays too?",
+          "ref": "Yes — proportional leave is basic fairness. If a student works three months before Spring Festival, they've earned some release time. Hospitality, retail and delivery rely on these workers exactly at the festive peak. Paying only 'full staff' treats half the workforce as disposable; proportional rights fix most of that gap.",
+          "keywords": [
+            "leave",
+            "release",
+            "workers",
+            "proportional",
+            "rights"
+          ]
+        },
+        {
+          "topic": "p3-work",
+          "q": "Will the gig economy change how holidays feel in China?",
+          "ref": "It's changing them already — riders, drivers and couriers work through every festival while office towers empty. Festive convenience is built on invisible labour. Society should either guarantee festive pay multipliers and rest for gig workers, or stop pretending holidays are restful for everyone equally.",
+          "keywords": [
+            "gig",
+            "riders",
+            "festival",
+            "labour",
+            "multipliers"
+          ]
+        },
+        {
+          "topic": "p3-work",
+          "q": "Is career success defined by money or meaning by 2026?",
+          "ref": "For young Chinese professionals the honest answer is both, in tension — money buys security, meaning buys sleep. The post-2020 generation increasingly optimises for 'enough money plus work that doesn't hollow me out'. Hustle culture lost some shine; sustainable ambition is the new status signal.",
+          "keywords": [
+            "money",
+            "meaning",
+            "security",
+            "ambition",
+            "sleep"
+          ]
+        },
+        {
+          "topic": "p3-culture",
+          "q": "Are traditional festivals becoming too commercial?",
+          "ref": "Commercialisation amplifies festivals without fully replacing them. The shopping pressure is real, yet the core rituals — ancestor visits, reunion dinners, red envelopes — persist precisely because they're emotional infrastructure, not products. The test for each festival is simple: would this still happen if nobody made money from it? Spring Festival passes.",
+          "keywords": [
+            "commercial",
+            "rituals",
+            "envelopes",
+            "emotional",
+            "infrastructure"
+          ]
+        },
+        {
+          "topic": "p3-culture",
+          "q": "Should young people learn festive rituals if they feel meaningless?",
+          "ref": "Yes — but as lived experience, not lecture. Rituals only feel hollow when learned as obligations; they bloom when children cook, paste couplets and light lamps alongside elders. Meaning is negotiated in the doing. Teach the motion and the reasons will follow.",
+          "keywords": [
+            "rituals",
+            "hollow",
+            "couplets",
+            "elders",
+            "motion"
+          ]
+        },
+        {
+          "topic": "p3-culture",
+          "q": "Is Lunar New Year more important than Christmas in China today?",
+          "ref": "Culturally yes, commercially close. Lunar New Year is the national heartbeat — family, food, homecoming — while Christmas has become a lifestyle festival of lights and shopping without religious weight. Both coexist easily: December for aesthetics and dates, February for the soul of the country.",
+          "keywords": [
+            "Lunar New Year",
+            "Christmas",
+            "homecoming",
+            "aesthetics",
+            "soul"
+          ]
+        },
+        {
+          "topic": "p3-culture",
+          "q": "How should museums make festivals relevant for schools?",
+          "ref": "By making festivals hands-on: dumpling workshops, lantern-making labs, story corners where elders speak. Museums should be loud during festival weeks, not silent — food smells, soundscapes, costume try-ons. A museum a child remembers beats a worksheet about heritage every single time.",
+          "keywords": [
+            "museums",
+            "workshops",
+            "lantern",
+            "food",
+            "heritage"
+          ]
+        },
+        {
+          "topic": "p3-culture",
+          "q": "Will global culture erase local festivals eventually?",
+          "ref": "No — local festivals are stubborn precisely because they're embodied: the foods, the firecrackers, the dialects. Globalisation adds layers, it doesn't bleach them. The real risk is insider apathy: young people who can't be bothered. Keep festivals edible, participatory and slightly chaotic, and they will outlive every trend.",
+          "keywords": [
+            "global",
+            "local",
+            "dialects",
+            "apathy",
+            "participatory"
+          ]
+        },
+        {
+          "topic": "p3-culture",
+          "q": "What do festivals teach children that schools cannot?",
+          "ref": "Festivals teach belonging. No syllabus delivers the feeling of thirty relatives arguing happily over mahjong in one room and a pot too big to lift alone. They transmit values non-verbally — generosity, endurance, patience, memory — through repetition of shared action. Schools inform; festivals initiate.",
+          "keywords": [
+            "festivals",
+            "belonging",
+            "relatives",
+            "generosity",
+            "initiate"
+          ]
+        }
+      ]
+    }
   }
 ]
